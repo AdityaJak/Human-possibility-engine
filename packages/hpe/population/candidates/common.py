@@ -34,11 +34,20 @@ def trainer_kwargs(cfg: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def twin_config(cfg: dict[str, Any]) -> dict[str, Any]:
+    """``pop_gru`` config of the no-adaptation twin: same hidden size, dropout and trainer settings."""
+    return {
+        "hidden": int(cfg.get("hidden", 32)),
+        "dropout": float(cfg.get("dropout", 0.0)),
+        **trainer_kwargs(cfg),
+    }
+
+
 def seq_digest(seqs: Sequence[EncodedSeq]) -> str:
-    """Content hash of a training set (keys, inputs, actions, masks)."""
+    """Content hash of a training set (inputs, actions, masks, order). Keys are ignored (opaque re-keys)."""
     h = hashlib.sha256()
     for s in seqs:
-        h.update(s.key.encode())
+        h.update(str(s.x.shape).encode())
         h.update(s.x.tobytes())
         h.update(s.actions.tobytes())
         h.update(s.scored.tobytes())

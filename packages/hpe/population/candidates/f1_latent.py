@@ -7,31 +7,31 @@ without rewriting the recurrent history.
 
     h_t = GRU([x_t, z_trait], h_{t-1});   logits_t = W [h_t, z] + b + Σ_j z_j V_j h_t
 
-Online inference (causal): z is re-inferred every ``m`` trials, at cuts c = 0, m, 2m, … from the person's
-own free choices s < c, starting from the prior mean z = 0 and taking ``k_inner`` block Gauss–Newton
-(Fisher-scoring, i.e. Laplace-mode) steps on the negative log-posteriors
+Person-level state (harness-owned schedule, ``core.adaptation``): the state is z. ``update_state`` is
+called every ``m`` trials with the person's first t trials and re-infers z from the prior mean z = 0 by
+``k_inner`` block Gauss–Newton (Fisher-scoring, i.e. Laplace-mode) steps on the negative log-posteriors
 
-    J_trait(z) = Σ_{s<c} ℓ_s(z) + |z_trait|² / (2 σ_trait²)                         (all past trials)
-    J_ctx(z)   = γ_c Σ_{s<c} ρ^{c-1-s} ℓ_s(z) + |z_ctx|² / (2 σ_ctx²)               (recency-weighted)
+    J_trait(z) = Σ_{s<t} ℓ_s(z) + |z_trait|² / (2 σ_trait²)                         (all past trials)
+    J_ctx(z)   = γ_t Σ_{s<t} ρ^{t-1-s} ℓ_s(z) + |z_ctx|² / (2 σ_ctx²)               (recency-weighted)
     z_b ← z_b − (Σ_s w_s J_sᵀ(diag p_s − p_s p_sᵀ) J_s + σ_b⁻² I)⁻¹ (Σ_s w_s J_sᵀ(p_s − y_s) + σ_b⁻² z_b)
 
-with J_s = ∂logits_s/∂z_b (forward differences), and γ_c = clip(exp(β S_c), 1/4, 4) scaling the context
-block's evidence relative to its prior, i.e. its effective step size (γ → 0: stay at the prior; γ large:
-move towards the recent-data maximum-likelihood latent).
+with J_s = ∂logits_s/∂z_b (forward differences, no backward pass) and γ_t = clip(exp(β S_t), 1/4, 4)
+scaling the context block's evidence relative to its prior, i.e. its effective step size (γ → 0: stay at
+the prior; γ large: move towards the recent-data maximum-likelihood latent). S_t (surprise) is the
+person's mean excess NLL over the last ``window`` trials under the population prediction (z = 0):
+ℓ_s(0) − H[p_s(0)], i.e. how much more surprising the person is than the population model expects.
 
-S_c (surprise) is the person's mean excess NLL over the last ``window`` trials before c under the
-population prediction (z = 0): ℓ_s(0) − H[p_s(0)], i.e. how much more surprising the person is than the
-population model expects. Trials in [c, c+m) are predicted by re-running the GRU from the start with the
-z inferred at c. ``mode="frozen"`` uses z = 0 throughout; ``donor`` infers z from the donor's whole
-sequence and holds it fixed.
+``predict_with_states`` re-runs the GRU from the first trial with each segment's z and reads out the
+segment's rows (row t uses x[:t+1] only). ``inference="gd"`` (ablation ``f1_cavia``): one latent through
+recurrence and read-out, ``k_inner`` plain gradient steps with a fixed inner learning rate on the mean
+past NLL (no prior, no recency, no surprise) — the standard CAVIA context adapter.
 
 Training: stage 1 is the shared population backbone (``common.train_backbone``, trained exactly like
 ``pop_gru``; z = 0); stage 2 (``meta=True``) is CAVIA-style meta-training of the latent pathway only (the
-z columns of the GRU input and read-out and the bilinear modulation; the backbone weights are frozen
-unless ``meta_train_backbone``), so the z = 0 network *is* the population backbone: sample cuts per person,
-infer z on the prefix (inner loop; z' is treated as a constant, i.e. a
-first-order meta-gradient), outer loss on the next ``m`` trials, plus
-``pop_weight`` × the z = 0 population loss so the frozen model stays a population model.
+z columns of the GRU input and read-out and the bilinear modulation; the backbone weights stay frozen
+unless ``meta_train_backbone``), so the z = 0 network *is* the population backbone. For each person in a
+batch, ``train_cuts`` cut points c are sampled; z is inferred on the prefix [0, c) and the outer loss is
+the NLL of trials [c, c+m). The meta-gradient is first-order (z is a constant for θ in the outer loss).
 """
 
 from __future__ import annotations
@@ -48,6 +48,7 @@ from torch import nn
 from hpe.core.rng import stream
 from hpe.population.candidates import common
 from hpe.population.core import nets
+from hpe.population.core.adaptation import AdaptiveBase
 from hpe.population.core.encoding import EncodedSeq
 
 FD_STEP = 0.05
@@ -83,8 +84,8 @@ class LatentGRU(nn.Module):
     def freeze_backbone_part(self) -> list[Any]:
         """Zero the gradients of every z-independent weight (meta-train only the latent pathway).
 
-        With these hooks the z = 0 network is exactly the loaded backbone, so ``mode="frozen"`` is the
-        population model itself. Adam leaves a parameter with identically zero gradients unchanged.
+        With these hooks the z = 0 network is exactly the loaded backbone. Adam leaves a parameter with
+        identically zero gradients (and zero moments) unchanged.
         """
         d = self.rnn.weight_ih_l0.shape[1] - self.d_tr
         hsz = self.head.weight.shape[1] - self.d_tr - self.d_ctx
@@ -120,12 +121,13 @@ class F1Hyper:
     d_ctx: int = 2
     sigma_tr: float = 0.5
     sigma_ctx: float = 1.0
-    alpha: float = 1.0
     k_inner: int = 2
     m: int = 10
     halflife: float = 20.0
     beta: float = 2.0
     window: int = 20
+    inference: str = "gn"  # "gn" (Gauss–Newton with prior) | "gd" (fixed-step CAVIA gradient descent)
+    inner_lr: float = 1.0
 
     @property
     def rho(self) -> float:
@@ -154,26 +156,8 @@ def _newton(z: torch.Tensor, g: torch.Tensor, fis: torch.Tensor, prec: float) ->
     return (z.double() - step).to(z.dtype)
 
 
-def infer_latent(
-    net: LatentGRU,
-    hp: F1Hyper,
-    x: torch.Tensor,
-    a: torch.Tensor,
-    avail: torch.Tensor,
-    scored: torch.Tensor,
-    cut: torch.Tensor,
-    *,
-    differentiable: bool = False,
-) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    """See ``_infer``; without ``differentiable`` no graph is built (first-order: z is a constant for θ)."""
-    if differentiable:
-        with torch.enable_grad():
-            return _infer(net, hp, x, a, avail, scored, cut)
-    with torch.no_grad():
-        return _infer(net, hp, x, a, avail, scored, cut)
-
-
-def _infer(
+@torch.no_grad()
+def _infer_gn(
     net: LatentGRU,
     hp: F1Hyper,
     x: torch.Tensor,
@@ -182,12 +166,6 @@ def _infer(
     scored: torch.Tensor,
     cut: torch.Tensor,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    """Infer (z_trait, z_ctx) per row from that row's free choices s < cut[row]. Returns (z_tr, z_ctx, γ).
-
-    ``k_inner`` block Gauss–Newton (Fisher-scoring) steps from the prior mean; the Jacobian of the logits
-    with respect to z is taken by forward differences (step ``FD_STEP``), so no backward pass is needed.
-    The context block's evidence (recency weights) is multiplied by the surprise factor γ.
-    """
     R, T = a.shape
     t_idx = torch.arange(T)
     past_b = scored & (t_idx[None, :] < cut[:, None])
@@ -197,7 +175,7 @@ def _infer(
     z_tr = torch.zeros(R, hp.d_tr)
     z_c = torch.zeros(R, hp.d_ctx)
     gamma = torch.ones(R, 1, dtype=torch.float64)
-    if hp.k_inner <= 0 or not bool((cut > 0).any()):
+    if hp.k_inner <= 0 or not bool(past_b.any()):
         return z_tr, z_c, gamma
     y = torch.nn.functional.one_hot(a, avail.shape[-1]).double()
     for step in range(hp.k_inner):
@@ -236,6 +214,47 @@ def _infer(
     return z_tr, z_c, gamma
 
 
+def _infer_gd(
+    net: LatentGRU,
+    hp: F1Hyper,
+    x: torch.Tensor,
+    a: torch.Tensor,
+    avail: torch.Tensor,
+    scored: torch.Tensor,
+    cut: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """CAVIA inner loop: ``k_inner`` fixed-step gradient steps on the mean past NLL from z = 0."""
+    R, T = a.shape
+    past_b = scored & (torch.arange(T)[None, :] < cut[:, None])
+    n = past_b.sum(1).clamp(min=1).to(x.dtype)
+    dz = hp.d_tr + hp.d_ctx
+    z = torch.zeros(R, dz)
+    if hp.k_inner > 0 and bool(past_b.any()):
+        with torch.enable_grad():
+            for _ in range(hp.k_inner):
+                zz = z.detach().requires_grad_(True)
+                lp = net.readout(net.encode(x, zz[:, : hp.d_tr]), zz, avail)
+                loss = -(_chosen(lp, a, past_b).sum(1) / n).sum()
+                (g,) = torch.autograd.grad(loss, zz)
+                z = (zz - hp.inner_lr * g).detach()
+    return z[:, : hp.d_tr], z[:, hp.d_tr :], torch.ones(R, 1, dtype=torch.float64)
+
+
+def infer_latent(
+    net: LatentGRU,
+    hp: F1Hyper,
+    x: torch.Tensor,
+    a: torch.Tensor,
+    avail: torch.Tensor,
+    scored: torch.Tensor,
+    cut: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Infer (z_trait, z_ctx) per row from that row's free choices s < cut[row]. Returns (z_tr, z_ctx, γ)."""
+    fn = _infer_gd if hp.inference == "gd" else _infer_gn
+    z_tr, z_c, g = fn(net, hp, x, a, avail, scored, cut)
+    return z_tr.detach(), z_c.detach(), g.detach()
+
+
 def rows_logp(
     net: LatentGRU,
     hp: F1Hyper,
@@ -244,11 +263,9 @@ def rows_logp(
     avail: torch.Tensor,
     scored: torch.Tensor,
     cut: torch.Tensor,
-    *,
-    differentiable: bool = False,
 ) -> torch.Tensor:
-    """Log-probabilities per row with the latent inferred at that row's cut."""
-    z_tr, z_c, _ = infer_latent(net, hp, x, a, avail, scored, cut, differentiable=differentiable)
+    """Log-probabilities per row with the latent inferred at that row's cut (z is a constant for θ)."""
+    z_tr, z_c, _ = infer_latent(net, hp, x, a, avail, scored, cut)
     h = net.encode(x, z_tr)
     return net.readout(h, torch.cat([z_tr, z_c], dim=1), avail)
 
@@ -259,7 +276,7 @@ def _last_scored(b: nets.Batch) -> list[int]:
 
 
 def adapt_nll(net: LatentGRU, hp: F1Hyper, b: nets.Batch, max_rows: int = 96) -> tuple[torch.Tensor, int]:
-    """Prediction-mode (all cuts) NLL sum and count for a batch; used for validation."""
+    """Adapt-mode NLL sum and count for a batch (same schedule as the harness: cuts 0, m, 2m, …)."""
     lengths = _last_scored(b)
     rows = [(i, c) for i, n in enumerate(lengths) for c in range(0, n, hp.m)]
     tot = torch.zeros(())
@@ -274,12 +291,12 @@ def adapt_nll(net: LatentGRU, hp: F1Hyper, b: nets.Batch, max_rows: int = 96) ->
             lp = rows_logp(net, hp, x, a, av, sc, cut)
             t_idx = torch.arange(tc)
             outer = sc & (t_idx[None, :] >= cut[:, None]) & (t_idx[None, :] < cut[:, None] + hp.m)
-            tot = tot - _chosen(lp, a, outer).sum().detach()
+            tot = tot - _chosen(lp, a, outer).sum()
             cnt += int(outer.sum())
     return tot, cnt
 
 
-class F1Latent:
+class F1Latent(AdaptiveBase):
     adaptive = True
 
     def __init__(self, config: dict[str, Any], k_max: int, d_in: int, *, name: str = "f1_latent") -> None:
@@ -292,13 +309,15 @@ class F1Latent:
             d_ctx=int(c.get("d_ctx", 2)),
             sigma_tr=float(c.get("sigma_trait", 0.5)),
             sigma_ctx=float(c.get("sigma_ctx", 1.0)),
-            alpha=float(c.get("alpha", 1.0)),
             k_inner=int(c.get("k_inner", 2)),
             m=int(c.get("m", 10)),
             halflife=float(c.get("ctx_halflife", 20.0)),
             beta=float(c.get("beta", 2.0)),
             window=int(c.get("surprise_window", 20)),
+            inference=str(c.get("inference", "gn")),
+            inner_lr=float(c.get("inner_lr", 1.0)),
         )
+        self.update_every = self.hp.m
         self.meta = bool(c.get("meta", True))
         self.net = LatentGRU(
             d_in, int(c.get("hidden", 32)), k_max, self.hp.d_tr, self.hp.d_ctx, float(c.get("dropout", 0.0))
@@ -316,7 +335,7 @@ class F1Latent:
             self.d_in, int(c.get("hidden", 32)), self.k_max, hp.d_tr, hp.d_ctx, float(c.get("dropout", 0.0))
         )
         self.net.load_backbone(pop)
-        log: dict[str, Any] = {"backbone": blog, "meta": self.meta, "inner_loop": "gauss-newton"}
+        log: dict[str, Any] = {"backbone": blog, "meta": self.meta, "inner_loop": hp.inference}
         if not self.meta:
             self.net.eval()
             log["cpu_s_incl_backbone"] = round(
@@ -329,10 +348,7 @@ class F1Latent:
         w_pop = float(c.get("pop_weight", 0.5)) if train_backbone else 0.0
         hooks = [] if train_backbone else self.net.freeze_backbone_part()
         log["meta_train_backbone"] = train_backbone
-        second_order = bool(c.get("second_order", True))
-        log["meta_gradient"] = (
-            "second-order (through the Gauss-Newton steps)" if second_order else "first-order"
-        )
+        log["meta_gradient"] = "first-order"
 
         def meta_loss(net: nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
             assert isinstance(net, LatentGRU)
@@ -346,12 +362,11 @@ class F1Latent:
             cut = torch.tensor([cc for _, cc in rows])
             tc = min(b.T, int(cut.max()) + hp.m)
             x, a, av, sc = b.x[idx, :tc], b.a[idx, :tc], b.avail[idx, :tc], b.mask[idx, :tc]
-            lp = rows_logp(net, hp, x, a, av, sc, cut, differentiable=second_order)
+            lp = rows_logp(net, hp, x, a, av, sc, cut)
             t_idx = torch.arange(tc)
             outer = sc & (t_idx[None, :] >= cut[:, None]) & (t_idx[None, :] < cut[:, None] + hp.m)
             k_out = int(outer.sum())
-            s_out = -_chosen(lp, a, outer).sum()
-            loss = s_out / max(k_out, 1)
+            loss = -_chosen(lp, a, outer).sum() / max(k_out, 1)
             if w_pop > 0:
                 zt = torch.zeros(b.B, hp.d_tr)
                 z = torch.zeros(b.B, hp.d_tr + hp.d_ctx)
@@ -385,53 +400,59 @@ class F1Latent:
         )
         for hk in hooks:
             hk.remove()
+        self.net.eval()
         log["meta_train"] = mlog
         own = time.process_time() - t0
         log["cpu_s_incl_backbone"] = round(own + (blog["backbone_cpu_s"] if blog["cached"] else 0.0), 2)
         return log
 
-    # ------------------------------------------------------------------ prediction
-    def _forward_fixed(self, seq: EncodedSeq, z_tr: torch.Tensor, z_c: torch.Tensor) -> np.ndarray:
-        b = nets.Batch([seq])
-        with torch.no_grad():
-            lp = self.net.readout(self.net.encode(b.x, z_tr), torch.cat([z_tr, z_c], dim=1), b.avail)
-        return nets.logp_numpy(lp[0], seq)
+    # ------------------------------------------------------------------ person-level state
+    def init_state(self) -> dict[str, Any]:
+        return {
+            "z_trait": np.zeros(self.hp.d_tr, dtype=np.float32),
+            "z_ctx": np.zeros(self.hp.d_ctx, dtype=np.float32),
+            "gamma": 1.0,
+            "n": 0,
+        }
 
-    def latent_from(self, seq: EncodedSeq) -> tuple[torch.Tensor, torch.Tensor, float]:
-        """z inferred from the whole sequence (used for the donor control and for inspection)."""
-        b = nets.Batch([seq])
-        cut = torch.tensor([seq.T])
-        z_tr, z_c, g = infer_latent(self.net, self.hp, b.x, b.a, b.avail, b.mask, cut)
-        return z_tr, z_c, float(g[0, 0])
+    def update_state(self, state: Any, history: EncodedSeq) -> dict[str, Any]:
+        if history.T == 0 or not history.scored.any():
+            return self.init_state()
+        b = nets.Batch([history])
+        z_tr, z_c, g = infer_latent(self.net, self.hp, b.x, b.a, b.avail, b.mask, torch.tensor([history.T]))
+        return {
+            "z_trait": z_tr[0].numpy().copy(),
+            "z_ctx": z_c[0].numpy().copy(),
+            "gamma": float(g[0, 0]),
+            "n": int(history.n_scored),
+        }
 
-    def predict_logprobs(
-        self, seq: EncodedSeq, *, mode: str = "adapt", donor: EncodedSeq | None = None
-    ) -> np.ndarray:
-        hp = self.hp
-        self.net.eval()
-        zeros_tr, zeros_c = torch.zeros(1, hp.d_tr), torch.zeros(1, hp.d_ctx)
-        if mode == "frozen":
-            return self._forward_fixed(seq, zeros_tr, zeros_c)
-        if donor is not None:
-            z_tr, z_c, _ = self.latent_from(donor)
-            return self._forward_fixed(seq, z_tr, z_c)
-        b = nets.Batch([seq])
+    def predict_with_states(self, seq: EncodedSeq, states: list[tuple[int, Any]]) -> np.ndarray:
+        bounds = [s for s, _ in states] + [seq.T]
+        segs = [(s, e, st) for (s, st), e in zip(states, bounds[1:], strict=True) if e > s]
         out = np.full((seq.T, seq.k_max), -np.inf)
-        cuts = list(range(0, seq.T, hp.m))
+        b = nets.Batch([seq])
         with torch.no_grad():
-            for r0 in range(0, len(cuts), 32):
-                chunk = cuts[r0 : r0 + 32]
-                cut = torch.tensor(chunk)
-                tc = min(seq.T, int(cut.max()) + hp.m)
+            for r0 in range(0, len(segs), 32):
+                chunk = segs[r0 : r0 + 32]
                 n = len(chunk)
+                tc = max(e for _, e, _ in chunk)
+                z_tr = torch.from_numpy(
+                    np.stack([np.asarray(st["z_trait"], dtype=np.float32) for _, _, st in chunk])
+                )
+                z_c = torch.from_numpy(
+                    np.stack([np.asarray(st["z_ctx"], dtype=np.float32) for _, _, st in chunk])
+                )
                 x = b.x[:, :tc].expand(n, -1, -1)
-                a = b.a[:, :tc].expand(n, -1)
                 av = b.avail[:, :tc].expand(n, -1, -1)
-                sc = b.mask[:, :tc].expand(n, -1)
-                lp = rows_logp(self.net, hp, x, a, av, sc, cut).detach().double().numpy()
-                for r, cc in enumerate(chunk):
-                    out[cc : min(cc + hp.m, seq.T)] = lp[r, cc : min(cc + hp.m, seq.T)]
+                lp = self.net.readout(self.net.encode(x, z_tr), torch.cat([z_tr, z_c], dim=1), av)
+                lpn = lp.double().numpy()
+                for r, (s, e, _) in enumerate(chunk):
+                    out[s:e] = lpn[r, s:e]
         return np.where(seq.avail, out, -np.inf)
+
+    def twin_config(self) -> dict[str, Any]:
+        return common.twin_config(self.config)
 
     def param_count(self) -> int:
         return nets.n_params(self.net)
@@ -441,8 +462,13 @@ class F1Latent:
             "population_params": self.param_count(),
             "per_person_params": self.hp.d_tr + self.hp.d_ctx,
             "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
-            "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
-            "meta_gradient": "second-order" if bool(self.config.get("second_order", True)) else "first-order",
+            "inner_loop": (
+                "k_inner fixed-step gradient steps (CAVIA)"
+                if self.hp.inference == "gd"
+                else "k_inner Gauss-Newton steps (forward-difference Jacobian)"
+            ),
+            "meta_gradient": "first-order",
             "meta_trained": self.meta,
+            "update_every": self.update_every,
             "config": self.config,
         }

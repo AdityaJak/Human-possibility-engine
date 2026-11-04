@@ -11,6 +11,7 @@ torch = pytest.importorskip("torch")
 from hpe.population.candidates import common  # noqa: E402
 from hpe.population.candidates.toy import make_population  # noqa: E402
 from hpe.population.core import evaluate  # noqa: E402
+from hpe.population.core.adaptation import AdaptiveBase, overrides_harness  # noqa: E402
 from hpe.population.core.conformance import check_causal  # noqa: E402
 from hpe.population.core.encoding import input_dim  # noqa: E402
 from hpe.population.core.interface import MODELS, get_model  # noqa: E402
@@ -20,6 +21,7 @@ CANDIDATES = [
     "f1_trait",
     "f1_context",
     "f1_fixedstep",
+    "f1_cavia",
     "f1_bolt",
     "f3_arbiter",
     "f3_fixedmix",
@@ -59,6 +61,16 @@ def test_candidate_is_causal_deterministic_and_normalised(name):
         assert np.allclose(np.exp(a[:, :2]).sum(axis=1), 1.0, atol=1e-5)
     assert check_causal(m1, s) == []
     assert m1.param_count() > 0 and "per_person_params" in m1.describe()
+    assert isinstance(m1, AdaptiveBase) and not overrides_harness(m1)
+    assert m1.twin_config()["hidden"] == SMALL["hidden"]
+    # predicting must not mutate the fitted model: a second prediction after another person is identical
+    before = m1.predict_logprobs(s)
+    m1.predict_logprobs(probe[1])
+    assert np.array_equal(before, m1.predict_logprobs(s))
+    # the frozen variant is the prior state throughout; the adapt schedule starts from the same prior
+    st0 = m1.init_state()
+    fz = m1.predict_with_states(s, [(0, st0)])
+    assert np.array_equal(fz, m1.predict_logprobs(s, mode="frozen"))
 
 
 def _gain(name: str, kind: str, hetero: bool, cfg: dict, n_train: int, T: int) -> tuple[float, float]:

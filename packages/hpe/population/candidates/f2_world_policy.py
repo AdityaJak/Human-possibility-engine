@@ -31,6 +31,7 @@ from torch import nn
 from hpe.core.rng import derive_seed
 from hpe.population.candidates import common
 from hpe.population.core import nets
+from hpe.population.core.adaptation import AdaptiveBase
 from hpe.population.core.encoding import EncodedSeq, Layout
 
 TRACE_DECAY = 0.7
@@ -51,9 +52,15 @@ class WorldGRU(nn.Module):
         self.head = nn.Linear(hidden, 2 * k)
 
     def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-        h, _ = self.rnn(self.drop(x * self.keep))
+        mu, logvar, _ = self.run(x, None)
+        return mu, logvar
+
+    def run(
+        self, x: torch.Tensor, h0: torch.Tensor | None
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        h, h_n = self.rnn(self.drop(x * self.keep), h0)
         out = self.head(h)
-        return torch.sigmoid(out[..., : self.k]), out[..., self.k :].clamp(-9.0, 2.0)
+        return torch.sigmoid(out[..., : self.k]), out[..., self.k :].clamp(-9.0, 2.0), h_n
 
 
 def world_loss(m: nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
@@ -67,41 +74,46 @@ def world_loss(m: nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
     return torch.where(obs, nll, torch.zeros_like(nll)).sum(), max(int(obs.sum()), 1)
 
 
-def delta_world(seq: EncodedSeq, alpha: float) -> tuple[np.ndarray, np.ndarray]:
-    L = Layout(seq.k_max)
-    K = seq.k_max
-    mu, sd = np.zeros((seq.T, K)), np.zeros((seq.T, K))
-    q, n = np.full(K, 0.5), np.zeros(K)
-    for t in range(seq.T):
-        if seq.x[t, L.block_start] > 0.5:
-            q, n = np.full(K, 0.5), np.zeros(K)
-        obs = seq.x[t, L.prev_observed] > 0.5
-        out = seq.x[t, L.prev_outcomes].astype(np.float64)
+def delta_rows(
+    x: np.ndarray, k: int, alpha: float, q: np.ndarray, n: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Delta-rule outcome means and a count-based uncertainty for rows ``x`` (continuing from q, n)."""
+    L = Layout(k)
+    mu, sd = np.zeros((x.shape[0], k)), np.zeros((x.shape[0], k))
+    for t in range(x.shape[0]):
+        if x[t, L.block_start] > 0.5:
+            q, n = np.full(k, 0.5), np.zeros(k)
+        obs = x[t, L.prev_observed] > 0.5
+        out = x[t, L.prev_outcomes].astype(np.float64)
         q = np.where(obs, q + alpha * (out - q), q)
         n = 0.9 * n + obs
         mu[t], sd[t] = q, 1.0 / np.sqrt(1.0 + n)
-    return mu, sd
+    return mu, sd, q, n
 
 
-def policy_features(seq: EncodedSeq, mu: np.ndarray, sd: np.ndarray, k_eff: int) -> np.ndarray:
-    """F [T, K, d] with d = 4 + (k_eff − 1)."""
-    L = Layout(seq.k_max)
-    av = seq.avail.astype(np.float64)
+def policy_rows(
+    x: np.ndarray, avail: np.ndarray, mu: np.ndarray, sd: np.ndarray, k_eff: int, trace0: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
+    """F [n, K, d] with d = 4 + (k_eff − 1) for rows ``x``; the choice trace continues from ``trace0``."""
+    k = avail.shape[1]
+    L = Layout(k)
+    av = avail.astype(np.float64)
     kt = av.sum(1, keepdims=True)
     mu_c = (mu - (mu * av).sum(1, keepdims=True) / kt) * av
     sd_c = (sd - (sd * av).sum(1, keepdims=True) / kt) * av
-    prev = seq.x[:, L.prev_action].astype(np.float64)
+    prev = x[:, L.prev_action].astype(np.float64)
     trace = np.zeros_like(prev)
-    tr = np.zeros(seq.k_max)
-    for t in range(seq.T):
-        if seq.x[t, L.block_start] > 0.5:
-            tr = np.zeros(seq.k_max)
+    tr = trace0.copy()
+    for t in range(x.shape[0]):
+        if x[t, L.block_start] > 0.5:
+            tr = np.zeros(k)
         tr = TRACE_DECAY * tr + (1 - TRACE_DECAY) * prev[t]
         trace[t] = tr
-    bias = np.zeros((seq.T, seq.k_max, max(k_eff - 1, 0)))
+    bias = np.zeros((x.shape[0], k, max(k_eff - 1, 0)))
     for j in range(1, k_eff):
         bias[:, j, j - 1] = 1.0
-    return np.concatenate([mu_c[..., None], sd_c[..., None], prev[..., None], trace[..., None], bias], axis=2)
+    F = np.concatenate([mu_c[..., None], sd_c[..., None], prev[..., None], trace[..., None], bias], axis=2)
+    return F, tr
 
 
 def _probs(F: np.ndarray, theta: np.ndarray, avail: np.ndarray) -> np.ndarray:
@@ -152,28 +164,20 @@ def pooled_fit(
     return theta, H
 
 
-def online_laplace(
-    F: np.ndarray, a: np.ndarray, scored: np.ndarray, avail: np.ndarray, m0: np.ndarray, P0: np.ndarray
+def laplace_step(
+    F: np.ndarray, a: int, avail: np.ndarray, theta: np.ndarray, P: np.ndarray
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Predictive probabilities [T, K] before each trial and the final posterior mean."""
-    T, K, _ = F.shape
-    theta, P = m0.copy(), P0.copy()
-    out = np.zeros((T, K))
-    for t in range(T):
-        p = _probs(F[t], theta, avail[t])
-        out[t] = p
-        if scored[t]:
-            y = np.zeros(K)
-            y[a[t]] = 1.0
-            g = F[t].T @ (p - y)
-            ef = F[t].T @ p
-            Hs = (F[t].T * p) @ F[t] - np.outer(ef, ef)
-            P = P + Hs
-            theta = theta - np.linalg.solve(P, g)
-    return out, theta
+    """One online Laplace / extended-Kalman update of a multinomial-logit posterior N(θ, P⁻¹)."""
+    p = _probs(F, theta, avail)
+    y = np.zeros(F.shape[0])
+    y[a] = 1.0
+    g = F.T @ (p - y)
+    ef = F.T @ p
+    P = P + (F.T * p) @ F - np.outer(ef, ef)
+    return theta - np.linalg.solve(P, g), P
 
 
-class F2WorldPolicy:
+class F2WorldPolicy(AdaptiveBase):
     adaptive = True
 
     def __init__(
@@ -190,22 +194,69 @@ class F2WorldPolicy:
         self.k_max, self.d_in = k_max, d_in
         self.hidden = int(self.config.get("hidden", 32))
         self.wm = WorldGRU(d_in, self.hidden, k_max, float(self.config.get("dropout", 0.0)))
+        self.update_every = int(self.config.get("update_every", 1))
         self.k_eff = k_max
         d = 4 + k_max - 1
         self.m0 = np.zeros(d)
         self.P0 = np.eye(d)
 
-    def _world(self, seq: EncodedSeq) -> tuple[np.ndarray, np.ndarray]:
+    def _carry0(self) -> dict[str, np.ndarray]:
+        k = self.k_max
+        return {
+            "h": np.zeros(self.hidden, dtype=np.float32),
+            "q": np.full(k, 0.5),
+            "n": np.zeros(k),
+            "trace": np.zeros(k),
+        }
+
+    def _feature_rows(
+        self, x: np.ndarray, avail: np.ndarray, carry: dict[str, np.ndarray]
+    ) -> tuple[np.ndarray, dict[str, np.ndarray]]:
+        """Policy features for consecutive rows, continuing the world model and trace from ``carry``."""
+        new = dict(carry)
         if self.world == "delta":
-            return delta_world(seq, float(self.config.get("delta_alpha", 0.3)))
-        b = nets.Batch([seq])
-        with torch.no_grad():
-            mu, logvar = self.wm(b.x)
-        return mu[0].double().numpy()[: seq.T], np.exp(0.5 * logvar[0].double().numpy()[: seq.T])
+            mu, sd, new["q"], new["n"] = delta_rows(
+                x, self.k_max, float(self.config.get("delta_alpha", 0.3)), carry["q"], carry["n"]
+            )
+        else:
+            with torch.no_grad():
+                m, lv, h_n = self.wm.run(torch.from_numpy(x)[None], torch.from_numpy(carry["h"])[None, None])
+            mu, sd = m[0].double().numpy(), np.exp(0.5 * lv[0].double().numpy())
+            new["h"] = h_n[0, 0].numpy().copy()
+        F, new["trace"] = policy_rows(x, avail, mu, sd, self.k_eff, carry["trace"])
+        return F, new
 
     def _features(self, seq: EncodedSeq) -> np.ndarray:
-        mu, sd = self._world(seq)
-        return policy_features(seq, mu, sd, self.k_eff)
+        return self._feature_rows(seq.x, seq.avail, self._carry0())[0]
+
+    # ------------------------------------------------------------------ person-level state
+    def init_state(self) -> dict[str, Any]:
+        return {"n_proc": 0, "carry": self._carry0(), "theta": self.m0.copy(), "P": self.P0.copy()}
+
+    def update_state(self, state: Any, history: EncodedSeq) -> dict[str, Any]:
+        st = state if int(state["n_proc"]) <= history.T else self.init_state()
+        n0 = int(st["n_proc"])
+        if history.T == n0:
+            return st
+        F, carry = self._feature_rows(history.x[n0:], history.avail[n0:], st["carry"])
+        theta, P = st["theta"].copy(), st["P"].copy()
+        for j in range(history.T - n0):
+            s = n0 + j
+            if history.scored[s]:
+                theta, P = laplace_step(F[j], int(history.actions[s]), history.avail[s], theta, P)
+        return {"n_proc": history.T, "carry": carry, "theta": theta, "P": P}
+
+    def predict_with_states(self, seq: EncodedSeq, states: list[tuple[int, Any]]) -> np.ndarray:
+        F = self._features(seq)
+        p = np.zeros((seq.T, seq.k_max))
+        bounds = [s for s, _ in states] + [seq.T]
+        for (s, st), e in zip(states, bounds[1:], strict=True):
+            for t in range(s, e):
+                p[t] = _probs(F[t], st["theta"], seq.avail[t])
+        return common.finalize_logp(p, seq.avail)
+
+    def twin_config(self) -> dict[str, Any]:
+        return common.twin_config(self.config)
 
     def fit(self, train: list[EncodedSeq], *, seed: int, threads: int, budget_s: float) -> dict[str, Any]:
         t0 = time.process_time()
@@ -272,21 +323,6 @@ class F2WorldPolicy:
         )
         return log
 
-    def predict_logprobs(
-        self, seq: EncodedSeq, *, mode: str = "adapt", donor: EncodedSeq | None = None
-    ) -> np.ndarray:
-        self.wm.eval()
-        F = self._features(seq)
-        if mode == "frozen":
-            p = np.stack([_probs(F[t], self.m0, seq.avail[t]) for t in range(seq.T)])
-        elif donor is not None:
-            Fd = self._features(donor)
-            _, th = online_laplace(Fd, donor.actions, donor.scored, donor.avail, self.m0, self.P0)
-            p = np.stack([_probs(F[t], th, seq.avail[t]) for t in range(seq.T)])
-        else:
-            p, _ = online_laplace(F, seq.actions, seq.scored, seq.avail, self.m0, self.P0)
-        return common.finalize_logp(p, seq.avail)
-
     def param_count(self) -> int:
         d = self.m0.shape[0]
         wm = nets.n_params(self.wm) if self.world == "gru" else 1
@@ -298,6 +334,7 @@ class F2WorldPolicy:
             "per_person_params": int(self.m0.shape[0]),
             "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
             "world": self.world,
+            "update_every": self.update_every,
             "prior_mean": self.m0.tolist(),
             "prior_sd": np.sqrt(np.diag(np.linalg.inv(self.P0))).tolist(),
             "config": self.config,

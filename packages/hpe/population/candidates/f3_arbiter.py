@@ -1,27 +1,27 @@
 """F3 ``f3_arbiter`` — hierarchical episodic–parametric model with learned arbitration.
 
 Definition (docs/phase3/POPULATION_ADAPTATION_ARCHITECTURES.md §F3). A population GRU (the shared
-backbone, trained exactly like ``pop_gru``) gives p_pop(·|x_≤t) and a hidden state h_t. The person's
-episodic memory holds (h_s, a_s) for their own past *free* choices s < t. Kernel retrieval
+backbone, trained exactly like ``pop_gru``) gives p_pop(·|x_≤t) and a hidden state h_t. The person-level
+state (harness-owned schedule, ``core.adaptation``; updated every ``update_every`` trials, default 1) is an
+episodic memory of (h_s, a_s) for the person's own past *free* choices plus reliability statistics.
+Kernel retrieval for row t from memory M:
 
-    w_ts = exp(−|h_t − h_s|² / (2 H b²)) · ρ^{t−1−s}
-    p_epi(a) = (Σ_s w_ts 1[a_s = a] + ε/K_t) / (Σ_s w_ts 1[a_s avail] + ε)            (available a)
+    w_s = exp(−|h_t − h_s|² / (2 H b²)) · ρ^{t−1−pos_s}
+    p_epi(a) = (Σ_s w_s 1[a_s = a] + ε/K_t) / (Σ_s w_s 1[a_s avail] + ε)            (available a)
 
-A gate g_t = σ(wᵀ r̃_t + w_0) arbitrates in probability space, p = g p_epi + (1 − g) p_pop, where r_t are
-reliability features computed causally for this person: exponentially weighted running mean log-score
-of p_pop and of p_epi on the person's past free choices (decay λ), log(1 + retrieval mass Σ_s w_ts),
-normalised population entropy, and log(1 + number of past free choices); r̃ is r standardised with
-statistics of the gate-fitting data. The gate (6 weights) is fitted by maximum likelihood on the
-backbone's held-out early-stopping participants (dev only), so p_pop is not evaluated on the people it
-was fitted to.
+A gate g_t = σ(wᵀ r̃_t + w_0) arbitrates in probability space, p = g p_epi + (1 − g) p_pop. Reliability
+features r_t: exponentially weighted (decay λ) mean log-score of p_pop and of p_epi on the person's past
+free choices (each scored with the memory it had *before* that choice), log(1 + retrieval mass),
+normalised population entropy at t, log(1 + memory size); r̃ is r standardised with the gate-fitting
+data. With an empty memory there is no episodic expert and p = p_pop (so ``frozen`` = the backbone).
+The gate (6 weights) is fitted by maximum likelihood on the backbone's held-out early-stopping
+participants (dev only), so p_pop is not evaluated on the people it was fitted to.
 
-Arbiters (registered as separate models so ablations are paired on the same cached backbone):
+Arbiters (registered as separate models; ablations are paired on the same cached backbone):
 ``gate`` (F3), ``fixed`` (constant g: a number, or ``"learn"`` = fitted on the same split),
-``fixedshare`` (Herbster & Warmuth 1998 fixed-share Bayesian mixture of the two experts, share α),
-``gru`` (a second GRU initialised from the backbone that receives [p_epi, log(1+mass)] as extra input
-and is trained on dev — learned arbitration by recurrence, matched information).
-``mode="frozen"``: no episodic memory (p = p_pop; for ``gru``: memory empty). ``donor``: the memory and
-the reliability state come from the donor's whole sequence and are held fixed.
+``fixedshare`` (Herbster & Warmuth 1998 fixed-share Bayesian mixture of the two experts, share α; the
+weights are part of the person state), ``gru`` (a second GRU initialised from the backbone that receives
+[p_epi, log(1+mass)] as extra input and is trained on dev — learned arbitration by recurrence).
 """
 
 from __future__ import annotations
@@ -35,6 +35,7 @@ import torch
 
 from hpe.population.candidates import common
 from hpe.population.core import nets
+from hpe.population.core.adaptation import AdaptiveBase
 from hpe.population.core.encoding import EncodedSeq
 
 ARBITERS = ("gate", "fixed", "fixedshare", "gru")
@@ -42,90 +43,32 @@ N_REL = 5
 LOGP_FLOOR = -10.0
 
 
-def episodic(
-    h: np.ndarray,
-    a: np.ndarray,
-    scored: np.ndarray,
-    avail: np.ndarray,
-    *,
-    bw: float,
-    rho: float,
-    eps: float,
-    mem_h: np.ndarray | None = None,
-    mem_a: np.ndarray | None = None,
+def _kernel_probs(
+    q: np.ndarray, t: np.ndarray, st: dict[str, Any], avail: np.ndarray, *, bw: float, rho: float, eps: float
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Episodic prediction p_epi [T, K] and retrieval mass [T].
-
-    Without ``mem_h`` the memory is the person's own free choices s < t (causal). With ``mem_h``/``mem_a``
-    (donor control) every row retrieves from that fixed memory.
-    """
-    T, K = avail.shape
-    H = h.shape[1]
-    if mem_h is None:
-        keys, vals = h, a
-        S = T
-        causal = np.tril(np.ones((T, S)), k=-1) * scored[None, :].astype(np.float64)
-        age = np.arange(T)[:, None] - 1 - np.arange(S)[None, :]
-    else:
-        assert mem_a is not None
-        keys, vals = mem_h, mem_a
-        S = keys.shape[0]
-        causal = np.ones((T, S))
-        age = np.broadcast_to((S - 1 - np.arange(S))[None, :], (T, S))
-    if S == 0:
-        mass = np.zeros(T)
-        p = avail / avail.sum(axis=1, keepdims=True)
-        return p, mass
-    d2 = (h**2).sum(1)[:, None] + (keys**2).sum(1)[None, :] - 2.0 * h @ keys.T
+    """p_epi [R, K] and retrieval mass [R] for query hidden states q [R, H] at rows t [R]."""
+    keys, acts, pos = st["keys"], st["acts"], st["pos"]
+    K = avail.shape[1]
+    H = q.shape[1]
+    d2 = (q**2).sum(1)[:, None] + (keys**2).sum(1)[None, :] - 2.0 * q @ keys.T
     d2 = np.maximum(d2, 0.0) / H
-    rec = rho ** np.clip(age, 0, None).astype(np.float64)
-    w = np.exp(-d2 / (2.0 * bw**2)) * rec * causal
-    onehot = np.zeros((S, K))
-    onehot[np.arange(S), vals] = 1.0
+    age = np.clip(t[:, None] - 1 - pos[None, :], 0, None).astype(np.float64)
+    w = np.exp(-d2 / (2.0 * bw**2)) * rho**age
+    onehot = np.zeros((acts.shape[0], K))
+    onehot[np.arange(acts.shape[0]), acts] = 1.0
     counts = (w @ onehot) * avail
-    mass = counts.sum(axis=1)
-    k_t = avail.sum(axis=1)
-    p = (counts + eps * avail / k_t[:, None]) / (mass + eps)[:, None]
-    return p, mass
-
-
-def reliability(
-    lp_pop_a: np.ndarray, lp_epi_a: np.ndarray, scored: np.ndarray, lam: float
-) -> tuple[np.ndarray, np.ndarray, np.ndarray, float, float, int]:
-    """Causal EW mean log-scores before each trial; also the end state (for the donor control)."""
-    T = lp_pop_a.shape[0]
-    ls_pop, ls_epi, n_past = np.zeros(T), np.zeros(T), np.zeros(T)
-    num_p = num_e = den = 0.0
-    n = 0
-    for t in range(T):
-        if den > 0:
-            ls_pop[t], ls_epi[t] = num_p / den, num_e / den
-        n_past[t] = n
-        if scored[t]:
-            num_p = lam * num_p + max(LOGP_FLOOR, float(lp_pop_a[t]))
-            num_e = lam * num_e + max(LOGP_FLOOR, float(lp_epi_a[t]))
-            den = lam * den + 1.0
-            n += 1
-    end_p, end_e = (num_p / den, num_e / den) if den > 0 else (0.0, 0.0)
-    return ls_pop, ls_epi, n_past, end_p, end_e, n
-
-
-def rel_features(
-    ls_pop: np.ndarray,
-    ls_epi: np.ndarray,
-    mass: np.ndarray,
-    p_pop: np.ndarray,
-    avail: np.ndarray,
-    n_past: np.ndarray,
-) -> np.ndarray:
-    with np.errstate(divide="ignore", invalid="ignore"):
-        ent = -np.where(avail, p_pop * np.log(np.maximum(p_pop, 1e-300)), 0.0).sum(1)
+    mass = counts.sum(1)
     k_t = avail.sum(1)
-    ent_n = np.where(k_t > 1, ent / np.log(np.maximum(k_t, 2)), 0.0)
-    return np.stack([ls_pop, ls_epi, np.log1p(mass), ent_n, np.log1p(n_past)], axis=1)
+    return (counts + eps * avail / k_t[:, None]) / (mass + eps)[:, None], mass
 
 
-class F3Arbiter:
+def _entropy_norm(p: np.ndarray, avail: np.ndarray) -> np.ndarray:
+    ent = -np.where(avail, p * np.log(np.maximum(p, 1e-300)), 0.0).sum(1)
+    k_t = avail.sum(1)
+    return np.where(k_t > 1, ent / np.log(np.maximum(k_t, 2)), 0.0)
+
+
+class F3Arbiter(AdaptiveBase):
     adaptive = True
 
     def __init__(
@@ -143,6 +86,7 @@ class F3Arbiter:
         self.config = dict(config)
         self.k_max, self.d_in = k_max, d_in
         c = self.config
+        self.update_every = int(c.get("update_every", 1))
         self.hidden = int(c.get("hidden", 32))
         self.bw = float(c.get("bandwidth", 0.5))
         self.rho = float(0.5 ** (1.0 / float(c.get("epi_halflife", 1e9))))
@@ -158,56 +102,109 @@ class F3Arbiter:
         self.fs_init = float(c.get("share_init", 0.5))
         self.gru: nets.PopRNN | None = None
 
-    # ------------------------------------------------------------------ per-sequence quantities
-    def _pop(self, seq: EncodedSeq) -> tuple[np.ndarray, np.ndarray]:
+    # ------------------------------------------------------------------ person-level state
+    def init_state(self) -> dict[str, Any]:
+        return {
+            "n_proc": 0,
+            "h": np.zeros(self.hidden, dtype=np.float32),
+            "keys": np.zeros((0, self.hidden)),
+            "acts": np.zeros(0, dtype=np.int64),
+            "pos": np.zeros(0, dtype=np.int64),
+            "num_p": 0.0,
+            "num_e": 0.0,
+            "den": 0.0,
+            "fs": np.array([1.0 - self.fs_init, self.fs_init]),
+        }
+
+    def update_state(self, state: Any, history: EncodedSeq) -> dict[str, Any]:
+        st = state if int(state["n_proc"]) <= history.T else self.init_state()
+        n0 = int(st["n_proc"])
+        if history.T == n0:
+            return st
+        x = torch.from_numpy(history.x[n0:])[None]
+        av = torch.from_numpy(history.avail[n0:])[None]
+        with torch.no_grad():
+            out, h_n = self.backbone.rnn(x, torch.from_numpy(st["h"])[None, None])
+            lp = nets.masked_log_softmax(self.backbone.head(out), av)
+        hs = out[0].double().numpy()
+        p_pop = np.exp(lp[0].double().numpy())
+        keys, acts, pos = [st["keys"]], [st["acts"]], [st["pos"]]
+        cur = dict(st)
+        num_p, num_e, den, fs = float(st["num_p"]), float(st["num_e"]), float(st["den"]), st["fs"].copy()
+        for j in range(history.T - n0):
+            s = n0 + j
+            if not history.scored[s]:
+                continue
+            a = int(history.actions[s])
+            if cur["acts"].shape[0] > 0:
+                pe, _ = _kernel_probs(
+                    hs[j : j + 1],
+                    np.array([s]),
+                    cur,
+                    history.avail[s : s + 1],
+                    bw=self.bw,
+                    rho=self.rho,
+                    eps=self.eps,
+                )
+                lp_p = max(LOGP_FLOOR, math.log(max(p_pop[j, a], 1e-300)))
+                lp_e = max(LOGP_FLOOR, math.log(max(pe[0, a], 1e-300)))
+                num_p, num_e, den = self.lam * num_p + lp_p, self.lam * num_e + lp_e, self.lam * den + 1.0
+                fs = fs * np.array([max(p_pop[j, a], 1e-300), max(pe[0, a], 1e-300)])
+                fs = (1.0 - self.fs_alpha) * fs / fs.sum() + self.fs_alpha / 2.0
+            keys.append(hs[j : j + 1])
+            acts.append(np.array([a], dtype=np.int64))
+            pos.append(np.array([s], dtype=np.int64))
+            cur = {"keys": np.concatenate(keys), "acts": np.concatenate(acts), "pos": np.concatenate(pos)}
+            keys, acts, pos = [cur["keys"]], [cur["acts"]], [cur["pos"]]
+        return {
+            "n_proc": history.T,
+            "h": h_n[0, 0].numpy().copy(),
+            "keys": cur["keys"],
+            "acts": cur["acts"],
+            "pos": cur["pos"],
+            "num_p": num_p,
+            "num_e": num_e,
+            "den": den,
+            "fs": fs,
+        }
+
+    def _rows(self, seq: EncodedSeq, states: list[tuple[int, Any]]) -> dict[str, np.ndarray]:
+        """Per-row p_pop, p_epi, mass, reliability features and fixed-share weights under the schedule."""
         b = nets.Batch([seq])
         with torch.no_grad():
             lp, h = self.backbone(b.x, b.avail)
-        p = np.exp(nets.logp_numpy(lp[0], seq))
-        return p, h[0].double().numpy()[: seq.T]
+        p_pop = np.exp(nets.logp_numpy(lp[0], seq))
+        hs = h[0].double().numpy()[: seq.T]
+        T = seq.T
+        p_epi = (seq.avail / seq.avail.sum(1, keepdims=True)).astype(np.float64)
+        mass, has = np.zeros(T), np.zeros(T, dtype=bool)
+        feats, fsw = np.zeros((T, N_REL)), np.zeros((T, 2))
+        ent = _entropy_norm(p_pop, seq.avail)
+        bounds = [s for s, _ in states] + [T]
+        for (s, st), e in zip(states, bounds[1:], strict=True):
+            if e <= s:
+                continue
+            rows = np.arange(s, e)
+            n_mem = int(st["acts"].shape[0])
+            fsw[s:e] = st["fs"]
+            if n_mem == 0:
+                continue
+            pe, ms = _kernel_probs(hs[s:e], rows, st, seq.avail[s:e], bw=self.bw, rho=self.rho, eps=self.eps)
+            p_epi[s:e], mass[s:e], has[s:e] = pe, ms, True
+            den = float(st["den"])
+            ls_p = float(st["num_p"]) / den if den > 0 else 0.0
+            ls_e = float(st["num_e"]) / den if den > 0 else 0.0
+            feats[s:e, 0], feats[s:e, 1] = ls_p, ls_e
+            feats[s:e, 2] = np.log1p(ms)
+            feats[s:e, 4] = math.log1p(n_mem)
+        feats[:, 3] = ent
+        return {"p_pop": p_pop, "p_epi": p_epi, "mass": mass, "has": has, "feats": feats, "fs": fsw}
 
-    def _state(self, seq: EncodedSeq, donor: EncodedSeq | None = None) -> dict[str, np.ndarray]:
-        """p_pop, p_epi, mass and reliability features (causal; or from a fixed donor memory)."""
-        p_pop, h = self._pop(seq)
-        if donor is None:
-            p_epi, mass = episodic(
-                h, seq.actions, seq.scored, seq.avail, bw=self.bw, rho=self.rho, eps=self.eps
-            )
-            ar = np.arange(seq.T)
-            ls_pop, ls_epi, n_past, *_ = reliability(
-                np.log(np.maximum(p_pop[ar, seq.actions], 1e-300)),
-                np.log(np.maximum(p_epi[ar, seq.actions], 1e-300)),
-                seq.scored,
-                self.lam,
-            )
-        else:
-            dp, dh = self._pop(donor)
-            dpe, _ = episodic(
-                dh, donor.actions, donor.scored, donor.avail, bw=self.bw, rho=self.rho, eps=self.eps
-            )
-            ad = np.arange(donor.T)
-            _, _, _, end_p, end_e, n_d = reliability(
-                np.log(np.maximum(dp[ad, donor.actions], 1e-300)),
-                np.log(np.maximum(dpe[ad, donor.actions], 1e-300)),
-                donor.scored,
-                self.lam,
-            )
-            keep = donor.scored
-            p_epi, mass = episodic(
-                h,
-                seq.actions,
-                seq.scored,
-                seq.avail,
-                bw=self.bw,
-                rho=self.rho,
-                eps=self.eps,
-                mem_h=dh[keep],
-                mem_a=donor.actions[keep],
-            )
-            ls_pop, ls_epi = np.full(seq.T, end_p), np.full(seq.T, end_e)
-            n_past = np.full(seq.T, float(n_d))
-        feats = rel_features(ls_pop, ls_epi, mass, p_pop, seq.avail, n_past)
-        return {"p_pop": p_pop, "p_epi": p_epi, "mass": mass, "feats": feats}
+    def _own_states(self, seq: EncodedSeq) -> list[tuple[int, Any]]:
+        """The adapt-mode schedule on the person's own prefixes (used when fitting on dev)."""
+        from hpe.population.core.adaptation import schedule
+
+        return schedule(self, seq, mode="adapt", donor=None)
 
     # ------------------------------------------------------------------ fitting
     def fit(self, train: list[EncodedSeq], *, seed: int, threads: int, budget_s: float) -> dict[str, Any]:
@@ -219,13 +216,13 @@ class F3Arbiter:
         _, val = common.backbone_val_split(train, self.config)
         log: dict[str, Any] = {"backbone": blog, "arbiter": self.arbiter, "n_gate_fit": len(val)}
         if self.arbiter in ("gate", "fixed"):
-            states = [self._state(s) for s in val]
             pe, pp, ft = [], [], []
-            for s, st in zip(val, states, strict=True):
-                idx = np.flatnonzero(s.scored)
-                pe.append(st["p_epi"][idx, s.actions[idx]])
-                pp.append(st["p_pop"][idx, s.actions[idx]])
-                ft.append(st["feats"][idx])
+            for s in val:
+                r = self._rows(s, self._own_states(s))
+                idx = np.flatnonzero(s.scored & r["has"])
+                pe.append(r["p_epi"][idx, s.actions[idx]])
+                pp.append(r["p_pop"][idx, s.actions[idx]])
+                ft.append(r["feats"][idx])
             p_e, p_p, f = np.concatenate(pe), np.concatenate(pp), np.concatenate(ft)
             if self.arbiter == "gate":
                 self.feat_mu = f.mean(0)
@@ -247,19 +244,17 @@ class F3Arbiter:
                     self.fixed_g = float(mix)
                 log["fixed_g"] = round(self.fixed_g, 4)
         elif self.arbiter == "gru":
-            log["gru"] = self._fit_gru(train, seed, threads, max(30.0, budget_s - (time.process_time() - t0)))
+            log["gru"] = self._fit_gru(train, seed, max(30.0, budget_s - (time.process_time() - t0)))
         own = time.process_time() - t0
         log["cpu_s_incl_backbone"] = round(own + (blog["backbone_cpu_s"] if blog["cached"] else 0.0), 2)
         return log
 
-    def _extra(self, seq: EncodedSeq, st: dict[str, np.ndarray] | None) -> np.ndarray:
-        if st is None:  # empty memory
-            p = seq.avail / seq.avail.sum(1, keepdims=True)
-            return np.concatenate([p, np.zeros((seq.T, 1))], axis=1).astype(np.float32)
-        return np.concatenate([st["p_epi"], np.log1p(st["mass"])[:, None]], axis=1).astype(np.float32)
+    def _extra(self, r: dict[str, np.ndarray]) -> np.ndarray:
+        return np.concatenate([r["p_epi"], np.log1p(r["mass"])[:, None]], axis=1).astype(np.float32)
 
-    def _fit_gru(self, train: list[EncodedSeq], seed: int, threads: int, budget_s: float) -> dict[str, Any]:
-        extras = {s.key: self._extra(s, self._state(s)) for s in train}
+    def _fit_gru(self, train: list[EncodedSeq], seed: int, budget_s: float) -> dict[str, Any]:
+        extras = [self._extra(self._rows(s, self._own_states(s))) for s in train]
+        by_id = {id(s): e for s, e in zip(train, extras, strict=True)}
         k = self.k_max
         gru = nets.PopRNN(
             self.d_in, self.hidden, k, extra_in=k + 1, dropout=float(self.config.get("dropout", 0.0))
@@ -272,11 +267,15 @@ class F3Arbiter:
             gru.rnn.bias_ih_l0.copy_(src.bias_ih_l0)
             gru.rnn.bias_hh_l0.copy_(src.bias_hh_l0)
             gru.head.load_state_dict(self.backbone.head.state_dict())
+        # nets.Batch keeps only keys; map batches back to their sequences by key within this fit only
+        key_to_extra: dict[str, np.ndarray] = {}
+        for s in train:
+            key_to_extra.setdefault(s.key, by_id[id(s)])
 
         def loss(m: torch.nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
             ex = np.zeros((b.B, b.T, k + 1), dtype=np.float32)
             for i, key in enumerate(b.keys):
-                e = extras[key]
+                e = key_to_extra[key]
                 ex[i, : e.shape[0]] = e
             logp, _ = m(b.x, b.avail, torch.from_numpy(ex))
             return nets.nll_sum(logp, b)
@@ -294,45 +293,29 @@ class F3Arbiter:
         return out
 
     # ------------------------------------------------------------------ prediction
-    def predict_logprobs(
-        self, seq: EncodedSeq, *, mode: str = "adapt", donor: EncodedSeq | None = None
-    ) -> np.ndarray:
-        self.backbone.eval()
+    def predict_with_states(self, seq: EncodedSeq, states: list[tuple[int, Any]]) -> np.ndarray:
+        r = self._rows(seq, states)
+        p_pop, p_epi, has = r["p_pop"], r["p_epi"], r["has"]
         if self.arbiter == "gru":
             assert self.gru is not None
-            st = None if mode == "frozen" else self._state(seq, donor)
             b = nets.Batch([seq])
             with torch.no_grad():
-                lp, _ = self.gru(b.x, b.avail, torch.from_numpy(self._extra(seq, st))[None])
+                lp, _ = self.gru(b.x, b.avail, torch.from_numpy(self._extra(r))[None])
             return nets.logp_numpy(lp[0], seq)
-        if mode == "frozen":
-            p_pop, _ = self._pop(seq)
-            return common.finalize_logp(p_pop, seq.avail)
-        st = self._state(seq, donor)
-        p_pop, p_epi = st["p_pop"], st["p_epi"]
         if self.arbiter == "gate":
-            z = ((st["feats"] - self.feat_mu) / self.feat_sd) @ self.gate_w + self.gate_b
-            g = 1.0 / (1.0 + np.exp(-z))
+            z = ((r["feats"] - self.feat_mu) / self.feat_sd) @ self.gate_w + self.gate_b
+            g = np.where(has, 1.0 / (1.0 + np.exp(-z)), 0.0)
             p = g[:, None] * p_epi + (1.0 - g[:, None]) * p_pop
         elif self.arbiter == "fixed":
-            p = self.fixed_g * p_epi + (1.0 - self.fixed_g) * p_pop
+            g = np.where(has, self.fixed_g, 0.0)
+            p = g[:, None] * p_epi + (1.0 - g[:, None]) * p_pop
         else:
-            p = self._fixed_share(seq, p_pop, p_epi, donor)
+            w = np.where(has[:, None], r["fs"], np.array([1.0, 0.0]))
+            p = w[:, :1] * p_pop + w[:, 1:] * p_epi
         return common.finalize_logp(p, seq.avail)
 
-    def _fixed_share(
-        self, seq: EncodedSeq, p_pop: np.ndarray, p_epi: np.ndarray, donor: EncodedSeq | None
-    ) -> np.ndarray:
-        a = self.fs_alpha
-        if donor is not None:  # weights after the donor's whole sequence, held fixed
-            dp, dh = self._pop(donor)
-            dpe, _ = episodic(
-                dh, donor.actions, donor.scored, donor.avail, bw=self.bw, rho=self.rho, eps=self.eps
-            )
-            v = _share_run(dp, dpe, donor.actions, donor.scored, a, self.fs_init)[1]
-            return float(v[0]) * p_pop + float(v[1]) * p_epi
-        wts, _ = _share_run(p_pop, p_epi, seq.actions, seq.scored, a, self.fs_init)
-        return wts[:, :1] * p_pop + wts[:, 1:] * p_epi
+    def twin_config(self) -> dict[str, Any]:
+        return common.twin_config(self.config)
 
     def param_count(self) -> int:
         n = nets.n_params(self.backbone)
@@ -350,27 +333,12 @@ class F3Arbiter:
             "per_person_params": 0,
             "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
             "arbiter": self.arbiter,
+            "update_every": self.update_every,
             "gate_w": self.gate_w.tolist() if self.arbiter == "gate" else None,
             "gate_b": self.gate_b if self.arbiter == "gate" else None,
             "fixed_g": self.fixed_g if self.arbiter == "fixed" else None,
             "config": self.config,
         }
-
-
-def _share_run(
-    p_pop: np.ndarray, p_epi: np.ndarray, a: np.ndarray, scored: np.ndarray, alpha: float, init: float
-) -> tuple[np.ndarray, np.ndarray]:
-    """Fixed-share weights before each trial [T, 2] (pop, epi) and the final weights."""
-    T = p_pop.shape[0]
-    v = np.array([1.0 - init, init])
-    out = np.zeros((T, 2))
-    for t in range(T):
-        out[t] = v
-        if scored[t]:
-            v = v * np.array([max(p_pop[t, a[t]], 1e-300), max(p_epi[t, a[t]], 1e-300)])
-            v = v / v.sum()
-            v = (1.0 - alpha) * v + alpha / 2.0
-    return out, v
 
 
 def _fit_gate(
