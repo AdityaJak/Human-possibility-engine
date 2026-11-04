@@ -142,18 +142,40 @@ channel in this world at the current practice volume.
 4. **The learning-progress signal** raises socialising time but not skill. It is the right kind of signal
    (it values socialising only when demonstrations measurably taught something) and it is harmless, but at
    this practice volume there is nothing extra to gain from socialising more.
-5. **Nothing here supports H3 as stated.** Connected societies do not out-learn isolated ones on dev seeds
-   with either mechanism, for either learner (§5a).
+5. **Nothing here supports H3 as stated.** Connected societies do not out-learn isolated ones on
+   population accuracy on dev seeds with either mechanism, for either learner. The one positive signal is
+   youth-only and hybrid-only (§5a).
 
 ### 5a. Hybrid exemplar learner (Candidate A) under the same arms
 
-See `reports/phase2/social/dev_hybrid/report.md` (4 arms × 5 seeds; `--policy hybrid_exemplar`; the
-`PolicyClass` enum has no hybrid member so the config label falls back to `developmental` while the agents'
-policy descriptor reports the real class). Results are appended in §5b once the run completes.
+`reports/phase2/social/dev_hybrid/` (4 arms × 5 seeds, 100 agents × 15 years, `--policy hybrid_exemplar`,
+CPU 0.45 h; the `PolicyClass` enum has no hybrid member, so the config label falls back to `developmental`
+while each agent's policy descriptor reports the real class).
 
-### 5b. Hybrid results
+| arm | accuracy 10–60 | youth 10–20 | mean friends | socialise share | demos / agent-yr | info gain (nats) | trust honest |
+|---|---|---|---|---|---|---|---|
+| v1_connected | 0.801 | 0.810 | 0.077 | 0.190 | — | — | — |
+| v2_connected | 0.806 | 0.819 | **1.681** | 0.192 | 10.15 | 0.057 | 0.63 |
+| v2_isolated | 0.806 | 0.807 | 0.000 | 0.234 | 16.87 | 0.056 | — |
+| v2_reward_only | 0.788 | 0.808 | 0.076 | 0.222 | 0.00 | — | 0.39 |
 
-_(pending at the time of writing; filled in by the same commit series)_
+| contrast (treatment − control) | metric | estimate | 95% CI |
+|---|---|---|---|
+| v2_connected − v2_isolated | accuracy 10–60 | +0.0000 | [−0.0061, +0.0054] |
+| v2_connected − v2_isolated | youth 10–20 | **+0.0117** | [+0.0056, +0.0174] |
+| v2_connected − v2_reward_only | accuracy 10–60 | +0.0188 | [+0.0145, +0.0249] |
+| v2_connected − v2_reward_only | youth 10–20 | +0.0108 | [+0.0075, +0.0139] |
+| v2_connected − v1_connected | accuracy 10–60 | +0.0054 | [−0.0027, +0.0113] |
+| v2_connected − v1_connected | mean friends | +1.60 | [+1.48, +1.73] |
+
+Same picture as the developmental learner on the whole population (no connected-vs-isolated effect; a
+two-point information effect; friendships repaired), with one difference: for the hybrid learner the
+**youth cohort (ages 10–20) does learn more when connected**, +0.012 [+0.006, +0.017]. This is one
+secondary metric among a dozen contrasts on five dev seeds, with no matching effect for the developmental
+learner (−0.004 [−0.011, +0.002]); it is a candidate for a pre-registered confirmatory contrast, not a
+finding. A plausible mechanism, untested: the hybrid learner moves less per demonstration (0.057 nats vs
+0.15), so it benefits from the *repeated* teaching that persistent ties provide, and adolescents are the
+cohort whose plaza contact is not substituted by family teaching.
 
 ## 6. Bit-identity with the flag off
 
@@ -167,7 +189,9 @@ Supported by the dev evidence, and testable on the frozen seeds 500–509 if the
 (i) social mechanism v2 yields ≥ 1 friend per agent where Phase I yields ≈ 0; (ii) demonstration
 information raises held-out accuracy versus the social-reward-only control; (iii) misinformation that costs
 accuracy under Phase I costs none under v2. Not supported, and not worth a confirmatory run in this world:
-connected > isolated on accuracy.
+connected > isolated on population accuracy (ages 10–60), for either learner. Worth one pre-registered
+secondary contrast at most: connected > isolated on youth accuracy (ages 10–20) for the hybrid learner
+(§5a), with the explicit expectation that a dev-seed effect of +0.012 may not replicate.
 
 To make the H3 contrast meaningful, the next exploratory step would be an isolation variant that also removes
 family teaching (a flag-guarded `social_v2` option, not a contract change), or a task regime where practice
@@ -180,8 +204,9 @@ is capacity-limited so social input is not redundant; both are world-lane decisi
 | dev grid, 8 arms × 5 seeds | 0.30 |
 | misinformation recovery, 3 arms × 5 seeds | 0.13 |
 | transfer audit, 2 arms × 3 seeds | 0.05 |
-| hybrid grid, 4 arms × 5 seeds | see `reports/phase2/social/dev_hybrid/summary.json` |
+| hybrid grid, 4 arms × 5 seeds | 0.45 |
 | tests, smoke runs, diagnosis | ≈ 0.10 |
+| **total** | **≈ 1.03** |
 
 Budget was 4 CPU-h.
 
