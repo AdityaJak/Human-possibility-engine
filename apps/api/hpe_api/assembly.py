@@ -68,7 +68,7 @@ def _age_at(tick: int, state: AgentState, dt_days: int) -> float:
 
 def _assessment_items(payload: dict[str, Any]) -> list[dict[str, Any]]:
     """Accept the shapes a world may emit: one result, a list of results, or {family: result}."""
-    for key in ("results", "assessments"):
+    for key in ("results", "assessments", "families"):
         val = payload.get(key)
         if isinstance(val, list):
             return [v for v in val if isinstance(v, dict)]
@@ -86,7 +86,7 @@ def skill_points(events: list[ExperienceEvent], state: AgentState, dt_days: int)
             if not fam or item.get("accuracy") is None:
                 continue
             acc = float(item["accuracy"])
-            age = item.get("age_years", payload.get("age_years"))
+            age = item.get("age_years", payload.get("age_years", payload.get("age")))
             split = "transfer" if (fam in TRANSFER_FAMILIES or item.get("split") == "transfer") else "holdout"
             ll = item.get("log_loss")
             out.append(
