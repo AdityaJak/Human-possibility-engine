@@ -1,0 +1,53 @@
+update 1000: mean return (last 1000) 6.078 (43s)
+update 2000: mean return (last 1000) 12.383 (87s)
+update 3000: mean return (last 1000) 14.378 (131s)
+update 4000: mean return (last 1000) 14.882 (174s)
+update 5000: mean return (last 1000) 15.186 (219s)
+update 6000: mean return (last 1000) 15.386 (262s)
+update 7000: mean return (last 1000) 15.557 (305s)
+update 8000: mean return (last 1000) 15.651 (348s)
+update 9000: mean return (last 1000) 15.758 (393s)
+update 10000: mean return (last 1000) 15.820 (437s)
+update 11000: mean return (last 1000) 15.897 (481s)
+update 12000: mean return (last 1000) 15.938 (527s)
+update 13000: mean return (last 1000) 15.986 (579s)
+update 14000: mean return (last 1000) 16.112 (624s)
+update 15000: mean return (last 1000) 16.254 (685s)
+update 16000: mean return (last 1000) 16.335 (744s)
+update 17000: mean return (last 1000) 16.383 (790s)
+update 18000: mean return (last 1000) 16.405 (839s)
+update 19000: mean return (last 1000) 16.461 (886s)
+update 20000: mean return (last 1000) 16.427 (934s)
+{"config": {"hidden": 128, "lr": 0.001, "batch": 128, "updates": 20000, "ent_start": 0.05, "ent_end": 0.003, "gamma": 1.0, "lam": 0.95, "value_coef": 0.5, "clip": 1.0, "seed": 0}, "train_return_last1000": 16.4265234375, "seconds": 933.9259054660797, "parameters": 106640, "cpu_s": 894.116993849}
+train 50: mean norm (last 50) 0.752; K=5 sizes=[58, 56, 45, 39, 11]
+train 100: mean norm (last 50) 0.851; K=6 sizes=[95, 94, 72, 66, 57, 6]
+train 150: mean norm (last 50) 0.924; K=7 sizes=[130, 123, 115, 74, 44, 41, 27]
+train 200: mean norm (last 50) 0.891; K=6 sizes=[166, 146, 135, 126, 116, 40]
+train 250: mean norm (last 50) 0.855; K=6 sizes=[240, 176, 157, 139, 119, 102]
+train 300: mean norm (last 50) 0.848; K=8 sizes=[289, 228, 207, 122, 117, 98, 47, 19]
+{"beta": 1.0, "train_norm_mean": 0.8532962962962963, "cpu_s": 91.150482841, "K": 8}
+u2 confirm ira             iid           norm 0.860 (97s)
+u2 confirm ira             cue_reversed  norm 0.834 (125s)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 309, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 299, in main
+    {
+    ~
+    ...<4 lines>...
+        "freeze": cmd_freeze,
+        ~~~~~~~~~~~~~~~~~~~~~
+    }[a.cmd](a)
+    ~~~~~~~~^^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 199, in cmd_eval
+    m = play(ag, u, c, s)
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/play.py", line 19, in play
+    world = make_world(u, condition, seed)
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/env.py", line 149, in make_world
+    roles = _sample_roles(rng, u, (4, 5))
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/env.py", line 114, in _sample_roles
+    raise RuntimeError("could not sample a world")
+RuntimeError: could not sample a world

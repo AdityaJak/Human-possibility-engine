@@ -1,0 +1,104 @@
+update 1000: mean return (last 1000) 8.761 (43s)
+update 2000: mean return (last 1000) 14.911 (87s)
+update 3000: mean return (last 1000) 16.018 (130s)
+update 4000: mean return (last 1000) 16.356 (174s)
+update 5000: mean return (last 1000) 16.527 (218s)
+update 6000: mean return (last 1000) 16.634 (261s)
+update 7000: mean return (last 1000) 16.716 (305s)
+update 8000: mean return (last 1000) 16.775 (349s)
+update 9000: mean return (last 1000) 16.821 (394s)
+update 10000: mean return (last 1000) 16.847 (438s)
+update 11000: mean return (last 1000) 16.879 (482s)
+update 12000: mean return (last 1000) 16.931 (528s)
+update 13000: mean return (last 1000) 16.949 (581s)
+update 14000: mean return (last 1000) 16.956 (627s)
+update 15000: mean return (last 1000) 16.979 (690s)
+update 16000: mean return (last 1000) 17.007 (749s)
+update 17000: mean return (last 1000) 17.031 (795s)
+update 18000: mean return (last 1000) 17.051 (843s)
+update 19000: mean return (last 1000) 17.052 (890s)
+update 20000: mean return (last 1000) 17.042 (938s)
+{"config": {"hidden": 128, "lr": 0.001, "batch": 128, "updates": 20000, "ent_start": 0.05, "ent_end": 0.003, "gamma": 1.0, "lam": 0.95, "value_coef": 0.5, "clip": 1.0, "seed": 1}, "train_return_last1000": 17.041921875, "seconds": 937.6091301441193, "parameters": 106640, "cpu_s": 902.51789075}
+update 1000: mean return (last 1000) 5.962 (49s)
+update 2000: mean return (last 1000) 12.362 (96s)
+update 3000: mean return (last 1000) 14.702 (144s)
+update 4000: mean return (last 1000) 15.344 (192s)
+update 5000: mean return (last 1000) 15.684 (239s)
+update 6000: mean return (last 1000) 15.858 (287s)
+update 7000: mean return (last 1000) 16.021 (334s)
+update 8000: mean return (last 1000) 16.112 (380s)
+update 9000: mean return (last 1000) 16.198 (425s)
+update 10000: mean return (last 1000) 16.296 (471s)
+update 11000: mean return (last 1000) 16.326 (517s)
+update 12000: mean return (last 1000) 16.391 (560s)
+update 13000: mean return (last 1000) 16.448 (604s)
+update 14000: mean return (last 1000) 16.471 (649s)
+update 15000: mean return (last 1000) 16.522 (693s)
+update 16000: mean return (last 1000) 16.517 (742s)
+update 17000: mean return (last 1000) 16.566 (787s)
+update 18000: mean return (last 1000) 16.540 (831s)
+update 19000: mean return (last 1000) 16.589 (873s)
+update 20000: mean return (last 1000) 16.613 (915s)
+{"config": {"hidden": 128, "lr": 0.001, "batch": 128, "updates": 20000, "ent_start": 0.05, "ent_end": 0.003, "gamma": 1.0, "lam": 0.95, "value_coef": 0.5, "clip": 1.0, "seed": 1}, "train_return_last1000": 16.61278125, "seconds": 915.0834016799927, "parameters": 106640, "cpu_s": 911.906730969}
+update 1000: mean return (last 1000) 5.721 (44s)
+update 2000: mean return (last 1000) 11.680 (88s)
+update 3000: mean return (last 1000) 14.241 (133s)
+update 4000: mean return (last 1000) 15.316 (179s)
+update 5000: mean return (last 1000) 15.855 (224s)
+update 6000: mean return (last 1000) 16.235 (268s)
+update 7000: mean return (last 1000) 16.371 (312s)
+update 8000: mean return (last 1000) 16.527 (355s)
+update 9000: mean return (last 1000) 16.585 (398s)
+update 10000: mean return (last 1000) 16.635 (443s)
+update 11000: mean return (last 1000) 16.706 (488s)
+update 12000: mean return (last 1000) 16.717 (533s)
+update 13000: mean return (last 1000) 16.760 (577s)
+update 14000: mean return (last 1000) 16.767 (620s)
+update 15000: mean return (last 1000) 16.717 (662s)
+update 16000: mean return (last 1000) 16.812 (705s)
+update 17000: mean return (last 1000) 16.813 (749s)
+update 18000: mean return (last 1000) 16.835 (793s)
+update 19000: mean return (last 1000) 16.848 (835s)
+update 20000: mean return (last 1000) 16.870 (877s)
+{"config": {"hidden": 128, "lr": 0.001, "batch": 128, "updates": 20000, "ent_start": 0.05, "ent_end": 0.003, "gamma": 1.0, "lam": 0.95, "value_coef": 0.5, "clip": 1.0, "seed": 1}, "train_return_last1000": 16.87025, "seconds": 877.0565757751465, "parameters": 106640, "cpu_s": 873.908727982}
+/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py:118: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  net.load_state_dict(torch.load(d / f"metarl_{tag}.pt"))
+/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py:118: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  net.load_state_dict(torch.load(d / f"metarl_{tag}.pt"))
+u1 confirm metarl_s1       iid           norm 0.937 (2s)
+/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py:118: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  net.load_state_dict(torch.load(d / f"metarl_{tag}.pt"))
+u3 confirm metarl_s1       iid           norm 0.949 (2s)
+u1 confirm metarl_s1       cue_reversed  norm 0.811 (1s)
+u2 confirm metarl_s1       iid           norm 0.936 (2s)
+u3 confirm metarl_s1       cue_reversed  norm 0.922 (1s)
+u1 confirm metarl_s1       recombined    norm 0.941 (1s)
+u2 confirm metarl_s1       cue_reversed  norm 0.890 (1s)
+u3 confirm metarl_s1       recombined    norm 0.937 (1s)
+u1 confirm metarl_s1       novel_role    norm 0.915 (1s)
+u3 confirm metarl_s1       novel_role    norm 0.818 (1s)
+u3 confirm metarl_s1       role_switch   norm 0.514 (1s)
+u1 confirm metarl_s1       role_switch   norm 0.496 (1s)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 309, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 299, in main
+    {
+    ~
+    ...<4 lines>...
+        "freeze": cmd_freeze,
+        ~~~~~~~~~~~~~~~~~~~~~
+    }[a.cmd](a)
+    ~~~~~~~~^^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 199, in cmd_eval
+    m = play(ag, u, c, s)
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/play.py", line 19, in play
+    world = make_world(u, condition, seed)
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/env.py", line 149, in make_world
+    roles = _sample_roles(rng, u, (4, 5))
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/env.py", line 114, in _sample_roles
+    raise RuntimeError("could not sample a world")
+RuntimeError: could not sample a world
