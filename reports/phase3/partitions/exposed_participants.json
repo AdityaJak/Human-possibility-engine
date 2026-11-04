@@ -1,0 +1,95 @@
+{
+ "note": "participants whose transcript openings were printed for format inspection on 2026-11-04 before the Phase III partitions were frozen; excluded from every Phase III confirmatory scoring",
+ "exposed": [
+  {
+   "experiment": "bahrami2020four/exp.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "feng2021dynamics/exp1.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "frey2017risk/exp1.csv",
+   "participant": "0",
+   "partition": "not partitioned (study unused)"
+  },
+  {
+   "experiment": "kool2016when/exp1.csv",
+   "participant": "0",
+   "partition": "tune"
+  },
+  {
+   "experiment": "kool2016when/exp2.csv",
+   "participant": "0",
+   "partition": "test"
+  },
+  {
+   "experiment": "kool2017cost/exp1.csv",
+   "participant": "0",
+   "partition": "test"
+  },
+  {
+   "experiment": "kool2017cost/exp2.csv",
+   "participant": "0",
+   "partition": "tune"
+  },
+  {
+   "experiment": "sadeghiyeh2020temporal/exp1.csv",
+   "participant": "0",
+   "partition": "test"
+  },
+  {
+   "experiment": "schulz2020finding/exp1.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "schulz2020finding/exp2.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "schulz2020finding/exp3.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "schulz2020finding/exp4.csv",
+   "participant": "0",
+   "partition": "test"
+  },
+  {
+   "experiment": "schulz2020finding/exp5.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "somerville2017charting/exp1.csv",
+   "participant": "0",
+   "partition": "dev"
+  },
+  {
+   "experiment": "tomov2021multitask/exp1.csv",
+   "participant": "0",
+   "partition": "not partitioned (study unused)"
+  },
+  {
+   "experiment": "wise2019acomputational/exp1.csv",
+   "participant": "0",
+   "partition": "not partitioned (study unused)"
+  },
+  {
+   "experiment": "wu2023chunking/exp1.csv",
+   "participant": "0",
+   "partition": "not partitioned (study unused)"
+  },
+  {
+   "experiment": "zorowitz2023data/exp1.csv",
+   "participant": "0",
+   "partition": "test"
+  }
+ ]
+}
