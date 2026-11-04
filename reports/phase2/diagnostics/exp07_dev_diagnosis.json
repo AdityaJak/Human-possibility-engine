@@ -1,0 +1,76 @@
+{
+ "note": "Exploratory diagnosis on Phase II dev+tune participants only (test participants excluded); per-participant metrics from the committed Phase I exp07 outcomes (3 splits).",
+ "families": {
+  "mcpl": {
+   "n_participant_split_rows": 125,
+   "mean_gap_dev_minus_ref": 0.23670283333458816,
+   "sd_gap": 0.2617773349025513,
+   "share_dev_better": 0.16,
+   "corr_gap_vs_ref_top1": 0.7748085975758683,
+   "buckets_by_ref_top1": {
+    "least_predictable": {
+     "n": 43,
+     "mean_gap_dev_minus_ref": 0.03136545943296012,
+     "share_dev_better": 0.3488372093023256
+    },
+    "middle": {
+     "n": 40,
+     "mean_gap_dev_minus_ref": 0.19341144345059624,
+     "share_dev_better": 0.1
+    },
+    "most_predictable": {
+     "n": 42,
+     "mean_gap_dev_minus_ref": 0.4881590874567236,
+     "share_dev_better": 0.023809523809523808
+    }
+   },
+   "mean_nll_by_model": {
+    "developmental": 1.7261103760098833,
+    "memory_only": 1.5063360201746019,
+    "plain_rl": 1.7673067417445587,
+    "random": 2.1972245773362187,
+    "ref_bias": 1.9470934866790262,
+    "ref_delta_rule": 1.8027277046079122,
+    "ref_instance_based": 1.4894075426752953,
+    "ref_population_static": 1.5915287911468072,
+    "static_persona": 2.8364732124303615
+   },
+   "mean_n_choices": 228.88
+  },
+  "igt": {
+   "n_participant_split_rows": 274,
+   "mean_gap_dev_minus_ref": -0.12283282177492919,
+   "sd_gap": 0.22025084533270078,
+   "share_dev_better": 0.6423357664233577,
+   "corr_gap_vs_ref_top1": -0.11159033159272702,
+   "buckets_by_ref_top1": {
+    "least_predictable": {
+     "n": 92,
+     "mean_gap_dev_minus_ref": -0.16577083350417232,
+     "share_dev_better": 0.7282608695652174
+    },
+    "middle": {
+     "n": 91,
+     "mean_gap_dev_minus_ref": -0.06572153117081479,
+     "share_dev_better": 0.5384615384615384
+    },
+    "most_predictable": {
+     "n": 91,
+     "mean_gap_dev_minus_ref": -0.13653425436706149,
+     "share_dev_better": 0.6593406593406593
+    }
+   },
+   "mean_nll_by_model": {
+    "developmental": 1.1468400943885904,
+    "memory_only": 1.2617363751819328,
+    "plain_rl": 1.3291791769295198,
+    "random": 1.3862943611198906,
+    "ref_bias": 1.3521320319348797,
+    "ref_delta_rule": 1.2992273332142945,
+    "ref_instance_based": 1.2696729161635194,
+    "static_persona": 1.8466037291655557
+   },
+   "mean_n_choices": 108.43065693430657
+  }
+ }
+}

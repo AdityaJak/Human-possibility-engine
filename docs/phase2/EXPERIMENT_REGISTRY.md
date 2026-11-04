@@ -63,6 +63,7 @@ Budgets are updated by each lane in its handoff from measured wall/CPU time.
 | id | date | lane | question | partition | result (one line) | artifact |
 |---|---|---|---|---|---|---|
 | X-001 | 2026-11-04 | director | Stage 1 reproduction of all Phase I results | committed artifacts | every `result.json` byte-identical on re-analysis | `reports/phase2/stage1_reproduction.json` |
+| X-002 | 2026-11-04 | director | Where does the Phase I learner lose/gain likelihood vs the instance-based model? | Phase I exp07 per-participant metrics, **dev+tune participants only** (125 MCPL, 274 IGT participant×split rows) | MCPL gap +0.237 (sd 0.262), developmental better for 16%; gap grows with participant predictability (r = +0.77; top tercile +0.488, bottom +0.031). IGT gap −0.123, developmental better for 64%, all terciles, largest for least predictable (−0.166) | `reports/phase2/diagnostics/exp07_dev_diagnosis.json` |
 
 ## 4. Confirmatory ledger
 

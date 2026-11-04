@@ -50,10 +50,17 @@ best fix available.
 **Interpretation.** MCPL is a 25-configuration → 9-level mapping with probabilistic feedback that
 stops partway; humans behave as if retrieving similar past cases. Our learner's replay memory is used
 only for consolidation, never for prediction, so it cannot express exemplar-like generalisation.
-**Phase II response (Candidate A).** Hybrid parametric + exemplar prediction with a learned,
-uncertainty-driven arbitration; compared against the instance-based model, memory-only, plain RL and
-a GRU sequence model under **equal tuning budgets** (Phase I gave registry classes only lapse fitting —
-a protocol unfairness that Phase II removes).
+**Diagnosis on dev/tune participants (X-002).** The loss is concentrated in the *most predictable*
+participants: top tercile by reference-model accuracy, gap +0.488 nats; bottom tercile +0.031;
+r = +0.77 between the gap and predictability. Where humans apply a consistent, similarity-graded
+cue→criterion mapping, the learner's 9-way categorical head cannot express the ordinal, graded
+structure of the response scale, while exemplar retrieval does. The fault is structural, not a
+tuning matter.
+**Phase II response (Candidate A).** Hybrid parametric + exemplar prediction with (i) an ordinal /
+metric output structure (graded similarity between neighbouring criterion levels), (ii) exemplar
+retrieval by learned similarity, (iii) learned, uncertainty-driven arbitration; compared against the
+instance-based model, memory-only, plain RL and a GRU sequence model under **equal tuning budgets**
+(Phase I gave registry classes only lapse fitting — a protocol unfairness that Phase II removes).
 
 ## Gap 5 — The IGT advantage is unexplained (Exp 7 secondary passed)
 
@@ -61,6 +68,9 @@ a protocol unfairness that Phase II removes).
 delta rule 1.304, plain RL 1.332; stable across three splits.
 **Interpretation (hypothesis).** The learner's uncertainty-driven exploration and mastery estimates
 produce exploration patterns closer to human deck sampling than a softmax delta rule. Unverified.
+**Diagnosis (X-002).** The advantage is broad — 64% of dev/tune participants, every predictability
+tercile, largest for the least predictable (−0.166) — consistent with better modelling of noisy,
+exploratory deck sampling rather than of a few highly regular participants.
 **Phase II response.** Ablate exploration/mastery components on the IGT **dev** partition; compare to a
 PVL-Delta reference model; keep IGT as an anchor family and add a second bandit family (Psych-101
 two-armed bandits, horizon task) to test whether the advantage generalises (Gate D/F).
