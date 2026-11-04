@@ -3,3 +3,9 @@
 [restless4] ref_gru_p2: 4 config(s), 348 dev participants
 [restless4] ref_gru_p2: select NLL 0.7751 config {'max_epochs': 15, 'patience': 4, 'window': 64, 'max_steps_per_epoch': 60000, 'hidden': 12, 'lr': 0.01} lapse 0.01 causal=ok
 [restless4] pop_gru_ens: 8 config(s), 348 dev participants
+[restless4] pop_gru_ens: select NLL 0.7102 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.0, 'hidden': 32, 'lr': 0.01, 'members': 5} lapse 0.0 causal=ok
+[restless4] pop_tf: 8 config(s), 348 dev participants
+[restless4] pop_tf: select NLL 0.7263 config {'d_model': 32, 'layers': 2, 'heads': 4, 'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.1, 'lr': 0.003, 'window': 32} lapse 0.02 causal=ok
+[restless4] pop_lstm: 24 config(s), 348 dev participants
+[restless4] pop_lstm: select NLL 0.7268 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.0, 'hidden': 16, 'lr': 0.01} lapse 0.01 causal=ok
+wrote reports/phase3/baselines/x3_b03_pop_restless4

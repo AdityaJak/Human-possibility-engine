@@ -1,0 +1,22 @@
+{
+ "invocations": [
+  {
+   "code_version": "e6efc3980ebb6c88186972a9e80f77f640c099ad+dirty",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 2,
+   "families": [
+    "restless4"
+   ],
+   "wall_s": 4979.8,
+   "cpu_s": 7072.8,
+   "llm_calls": 0,
+   "exclusions": {
+    "restless4": {
+     "dev": [],
+     "tune": [],
+     "encoding_leak_check": []
+    }
+   }
+  }
+ ]
+}
