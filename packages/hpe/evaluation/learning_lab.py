@@ -25,7 +25,7 @@ Outputs are ``OutcomeObservation`` records (written to raw logs by the runner):
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
@@ -60,6 +60,17 @@ DEFAULT_PARAMS: dict[str, Any] = {
     "task_config": {},
     "skip_transfer": False,
     "skip_retention": False,
+    # Phase II additions (candidate-free lane science/evaluation-v2):
+    # task_world: "v1" (SymbolWorld: sort/compare/signal + barter transfer) or "composition"
+    # (hpe.tasks.v2.composition: primitive_a/primitive_b/composition/composition_pair; no barter,
+    # no v1 transfer probe; task_config -> CompositionConfig).
+    "task_world": "v1",
+    # Gate A control: when True, the outcome information of every practice episode (reward or
+    # correct action) is taken from an independently sampled train item instead of the item the
+    # agent observed — a seeded permutation of feedback across the stream with the same marginal
+    # distribution, identical architecture and update calls. A learner whose held-out gain survives
+    # this is not learning from outcomes.
+    "feedback_permutation": False,
 }
 
 
@@ -146,6 +157,7 @@ def _episode(
     fbr: np.random.Generator,
     explore: np.random.Generator,
     sched: np.random.Generator,
+    perm: np.random.Generator | None = None,
 ) -> None:
     item = world.sample_item(family, items, split="train")
     obs = world.observe(item, agent_id, tick, age, p["enable_gate"])
@@ -153,7 +165,12 @@ def _episode(
     if sched.random() < p["full_feedback_fraction"]:
         mode = "full"
     dec = policy.decide(obs, explore, explore=True)
-    fb = world.feedback(item, dec.action, mode, fbr, noise=p["label_noise"], source="school")
+    fb_item = item
+    if p["feedback_permutation"] and perm is not None:
+        # Outcome information comes from a different, independently sampled train item: same label
+        # marginal, no relation to the observed context (Gate A permuted-feedback control).
+        fb_item = world.sample_item(family, perm, split="train")
+    fb = world.feedback(fb_item, dec.action, mode, fbr, noise=p["label_noise"], source="school")
     policy.learn(obs, dec.action, fb)
 
 
@@ -200,9 +217,11 @@ def run_agent(
             "sched": stream(seed, "lab", "schedule", index, f),
             "demo": stream(seed, "lab", "demo", index, f),
             "explore": stream(seed, "lab", "explore", index, f, policy.policy_class),
+            "perm": stream(seed, "lab", "feedback_permutation", index, f),
         }
         for f in fams
     }
+    v1_world = p["task_world"] == "v1"
 
     age = float(p["age_start"])
     for f in fams:
@@ -220,7 +239,20 @@ def run_agent(
         for f in fams:
             s = streams[f]
             for _ in range(p["block"]):
-                _episode(policy, world, f, aid, tick, age, p, s["items"], s["fb"], s["explore"], s["sched"])
+                _episode(
+                    policy,
+                    world,
+                    f,
+                    aid,
+                    tick,
+                    age,
+                    p,
+                    s["items"],
+                    s["fb"],
+                    s["explore"],
+                    s["sched"],
+                    s["perm"],
+                )
                 tick += 1
             for _ in range(p["demonstrations_per_block"]):
                 _demonstration(policy, world, f, aid, tick, age, p, s["demo"])
@@ -291,8 +323,9 @@ def run_agent(
     out.append(_obs(ctx, "heldout_ece", float(np.nanmean(eces)), agent_id=aid, age=age, split="holdout"))
     if gaps:
         out.append(_obs(ctx, "self_estimate_gap", float(np.mean(gaps)), agent_id=aid, age=age))
-    zs = assess(policy, world, "barter", age, enable_gate=p["enable_gate"])
-    out.append(_obs(ctx, "zero_shot/barter", zs.accuracy, agent_id=aid, age=age, split="transfer"))
+    if v1_world:
+        zs = assess(policy, world, "barter", age, enable_gate=p["enable_gate"])
+        out.append(_obs(ctx, "zero_shot/barter", zs.accuracy, agent_id=aid, age=age, split="transfer"))
     out.append(
         _obs(
             ctx,
@@ -302,8 +335,8 @@ def run_agent(
         )
     )
 
-    # ---- transfer to the never-practised family (on clones) ------------------------------------
-    if not p["skip_transfer"]:
+    # ---- transfer to the never-practised family (on clones; v1 task world only) ------------------
+    if not p["skip_transfer"] and v1_world:
         shots = tuple(int(s) for s in p["transfer_shots"])
         for mode in p["transfer_modes"]:
             tw = SymbolWorld(
@@ -380,9 +413,22 @@ def run_agent(
     return out
 
 
+def make_world(seed: int, p: dict[str, Any]) -> InstrumentedSymbolWorld:
+    """Task world for the lab. ``composition`` worlds are duck-typed to SymbolWorld (same methods,
+    including ``leakage_counts``); the return annotation keeps the rest of the lab's typing."""
+    kind = p["task_world"]
+    if kind == "v1":
+        return InstrumentedSymbolWorld(seed, TaskWorldConfig(**p["task_config"]))
+    if kind == "composition":
+        from hpe.tasks.v2.composition import CompositionConfig, CompositionWorld
+
+        return cast(InstrumentedSymbolWorld, CompositionWorld(seed, CompositionConfig(**p["task_config"])))
+    raise ValueError(f"unknown task_world {kind!r} (expected 'v1' or 'composition')")
+
+
 def run_learning_lab(factory: PolicyFactory, ctx: LabContext) -> list[OutcomeObservation]:
     p = ctx.params
-    world = InstrumentedSymbolWorld(ctx.seed, TaskWorldConfig(**p["task_config"]))
+    world = make_world(ctx.seed, p)
     out: list[OutcomeObservation] = []
     for i in range(int(p["n_agents"])):
         out.extend(run_agent(factory, world, i, ctx))

@@ -27,6 +27,7 @@ _PROVIDERS: dict[str, str] = {
     "static_persona": "hpe.evaluation.baselines",
     "memory_only": "hpe.evaluation.baselines",
     "plain_rl": "hpe.evaluation.baselines",
+    "age_script_only": "hpe.evaluation.baselines",
 }
 
 
