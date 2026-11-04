@@ -72,3 +72,33 @@ uv venv .venv && uv pip install --python .venv/bin/python -e ".[dev,parquet]"   
 
 `pytest` adds `packages/` and `apps/api/` to `sys.path` (see `pyproject.toml`), so each git worktree
 tests its own code even without reinstalling.
+
+## 5. Phase III addendum (2026-11-04) — population models and individual adaptation
+
+Charter: `docs/phase3/PHASE3_RESEARCH_THESIS.md` (gates fixed before fitting). Registry:
+`docs/phase3/EXPERIMENT_REGISTRY_V3.md` (the director writes rows; lanes propose them in handoffs).
+
+| Lane / branch | Owns (write access) | Must not |
+|---|---|---|
+| director (this branch) | `packages/hpe/population/core/`, `packages/hpe/population/__init__.py`, `__main__.py`, `docs/phase3/` (except lane reports below), `experiments/phase3/*.yaml` at top level, `reports/phase3/{partitions,freeze,confirmatory,director}/`, `scripts/phase3_*.py`, `tests/population/test_core.py`, `tests/population/test_reference_torch.py` | write candidate code |
+| `science/validation-v3` (evaluation team) | `packages/hpe/population/baselines/`, `packages/hpe/population/families/`, `tests/population/baselines/`, `tests/population/families/`, `experiments/phase3/baselines/`, `reports/phase3/baselines/`, `docs/phase3/ADAPTATION_BENCHMARKS.md`, `docs/phase3/HUMAN_DATA_VALIDATION.md` | edit candidates or core |
+| `research/adaptation` (design team) | `packages/hpe/population/candidates/`, `tests/population/candidates/`, `experiments/phase3/candidates/`, `reports/phase3/candidates/`, `docs/phase3/POPULATION_ADAPTATION_ARCHITECTURES.md` | edit baselines, families or core; read test |
+| `research/continual-transfer` | `packages/hpe/population/continual/`, `tests/population/continual/`, `experiments/phase3/continual/`, `reports/phase3/continual/`, `docs/phase3/TRANSFER_LEARNING_RESULTS.md` | edit core |
+| `research/affective-social` | `packages/hpe/population/affect/`, `tests/population/affect/`, `reports/phase3/affect/`, `docs/phase3/AFFECTIVE_SOCIAL_VALIDATION.md` | edit core |
+| `audit/critic-v3` | `reports/phase3/critic/`, `docs/phase3/INDEPENDENT_SCIENTIFIC_AUDIT.md` | production code; certifying its own fixes |
+
+Rules specific to Phase III:
+
+1. Human data only through `hpe.population.core.data.load_family` (partition lock applied before parsing).
+   Never iterate raw Psych-101 records yourself. Never request the `test` partition; only the director
+   runs a frozen confirmatory evaluation.
+2. Every model implements `hpe.population.core.interface.SequencePredictor`, registers with
+   `register_model`, and must pass `core.conformance.check_causal` (the runner records violations; a
+   model with a violation is excluded).
+3. Equal caps for candidates and comparators: ≤ 24 configurations, ≤ 45 CPU-minutes per model per family,
+   lapse grid and partitions from the runner. Report parameters and CPU time.
+4. Torch jobs: `threads ≤ 2` per process, one experiment process per lane at a time (4 cores shared).
+   Use `--resume`; commit result directories as they complete.
+5. Environment: reuse the main venv (`/home/user/Human-possibility-engine/.venv/bin/python`) with
+   `PYTHONPATH=packages`; data path in `HPE_PSYCH101_P3` (never committed).
+6. Gate checks before handoff: `ruff check . && ruff format --check . && mypy && pytest -q tests/population`.
