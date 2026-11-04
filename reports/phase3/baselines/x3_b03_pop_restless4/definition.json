@@ -1,0 +1,164 @@
+{
+ "experiment_id": "x3_b03_pop_restless4",
+ "title": "Population-only comparators (pop_gru, pop_lstm 24 configs; pop_gru_ens; pop_tf; ref_gru_p2) on restless4, tune partition",
+ "lane": "science/validation-v3",
+ "hypothesis": "(Exploratory.) Tune NLL of the population-only pool members under equal caps on restless4.",
+ "families": [
+  "restless4"
+ ],
+ "fit_partition": "dev",
+ "select_partition": "tune",
+ "report_partition": "tune",
+ "seed": 20261108,
+ "threads": 2,
+ "k_max": 4,
+ "lapse_grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.3
+ ],
+ "max_configs": 24,
+ "budget_s_per_model_family": 2700.0,
+ "models": {
+  "pop_gru": {
+   "grid": {
+    "hidden": [
+     16,
+     32,
+     64,
+     128
+    ],
+    "lr": [
+     0.003,
+     0.01
+    ],
+    "dropout": [
+     0.0,
+     0.2,
+     0.4
+    ]
+   },
+   "fixed": {
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "ref_gru_p2": {
+   "grid": {
+    "hidden": [
+     8,
+     12
+    ],
+    "lr": [
+     0.003,
+     0.01
+    ]
+   },
+   "fixed": {
+    "max_epochs": 15,
+    "patience": 4,
+    "window": 64,
+    "max_steps_per_epoch": 60000
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "pop_gru_ens": {
+   "grid": {
+    "hidden": [
+     32,
+     64
+    ],
+    "lr": [
+     0.003,
+     0.01
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ],
+    "members": [
+     5
+    ]
+   },
+   "fixed": {
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "pop_tf": {
+   "grid": {
+    "window": [
+     32,
+     128
+    ],
+    "lr": [
+     0.001,
+     0.003
+    ],
+    "dropout": [
+     0.0,
+     0.1
+    ]
+   },
+   "fixed": {
+    "d_model": 32,
+    "layers": 2,
+    "heads": 4,
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "pop_lstm": {
+   "grid": {
+    "hidden": [
+     16,
+     32,
+     64,
+     128
+    ],
+    "lr": [
+     0.003,
+     0.01
+    ],
+    "dropout": [
+     0.0,
+     0.2,
+     0.4
+    ]
+   },
+   "fixed": {
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  }
+ },
+ "notes": [
+  "pop_gru_ens (core, 5-seed probability average; each member gets budget/5) added at the director's request; grid is dropout-major, so a budget stop skips the dropout-0.2 corner.",
+  "Run with the core runner of fa215c7 (isolated per-participant prediction, strict causality check, encoding-leak check).",
+  "ref_gru_p2: the Phase II numpy GRU refitted on Phase III dev with its Phase II grid; max_steps_per_epoch 60000 (Phase II used it for described/horizon) bounds its numpy training cost and does not bind on restless4 (~41k steps per epoch).",
+  "numpy BLAS threads pinned to 1 (OPENBLAS_NUM_THREADS=1): multi-threaded BLAS on small matrices was ~600x slower on the shared 4-core machine."
+ ],
+ "preregistration_hash": "a2413b681c1a0b16"
+}
