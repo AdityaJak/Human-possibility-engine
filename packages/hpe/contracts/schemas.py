@@ -566,16 +566,18 @@ class EvidenceRecord(_Model):
 
 class ValueWeight(_Model):
     key: str = Field(
-        ..., description="e.g. autonomy, income, relationships, stability, learning, health, time"
+        ...,
+        max_length=64,
+        description="e.g. autonomy, income, relationships, stability, learning, health, time",
     )
-    label: str
+    label: str = Field(..., max_length=200)
     weight: float = Field(..., ge=0.0, le=1.0)
 
 
 class DecisionOption(_Model):
-    option_id: str
-    label: str
-    description: str = ""
+    option_id: str = Field(..., max_length=64)
+    label: str = Field(..., max_length=200)
+    description: str = Field("", max_length=2000)
     kind: Literal["current_path", "new_job", "learn_skill", "start_project", "education", "other"] = "other"
     inputs: dict[str, float] = Field(
         default_factory=dict, description="optional user-provided numbers, e.g. monthly_income, savings"
@@ -584,11 +586,11 @@ class DecisionOption(_Model):
 
 class DecisionRequest(_Model):
     schema_version: str = SCHEMA_VERSION
-    user_id: str = Field(..., description="pseudonymous demo user id")
+    user_id: str = Field(..., max_length=128, description="pseudonymous demo user id")
     consent_given: bool
-    question: str
+    question: str = Field(..., max_length=4000)
     options: list[DecisionOption] = Field(..., min_length=2, max_length=4)
-    values: list[ValueWeight]
+    values: list[ValueWeight] = Field(..., max_length=16)
     constraints: dict[str, float | str] = Field(default_factory=dict)
     horizon_years: float = Field(3.0, gt=0, le=10)
 
@@ -660,10 +662,10 @@ class ScenarioResponse(_Model):
 
 
 class Reflection(_Model):
-    user_id: str
-    decision_id: str
-    chosen_option_id: str | None = None
-    what_happened: str = ""
+    user_id: str = Field(..., max_length=128)
+    decision_id: str = Field(..., max_length=128)
+    chosen_option_id: str | None = Field(None, max_length=64)
+    what_happened: str = Field("", max_length=4000)
     values_changed: list[ValueWeight] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=utcnow)
 

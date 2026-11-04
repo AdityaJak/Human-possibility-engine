@@ -1090,6 +1090,7 @@
         "properties": {
           "description": {
             "default": "",
+            "maxLength": 2000,
             "title": "Description",
             "type": "string"
           },
@@ -1115,10 +1116,12 @@
             "type": "string"
           },
           "label": {
+            "maxLength": 200,
             "title": "Label",
             "type": "string"
           },
           "option_id": {
+            "maxLength": 64,
             "title": "Option Id",
             "type": "string"
           }
@@ -1168,6 +1171,7 @@
             "type": "array"
           },
           "question": {
+            "maxLength": 4000,
             "title": "Question",
             "type": "string"
           },
@@ -1178,6 +1182,7 @@
           },
           "user_id": {
             "description": "pseudonymous demo user id",
+            "maxLength": 128,
             "title": "User Id",
             "type": "string"
           },
@@ -1185,6 +1190,7 @@
             "items": {
               "$ref": "#/components/schemas/ValueWeight"
             },
+            "maxItems": 16,
             "title": "Values",
             "type": "array"
           }
@@ -2414,6 +2420,7 @@
           "chosen_option_id": {
             "anyOf": [
               {
+                "maxLength": 64,
                 "type": "string"
               },
               {
@@ -2428,10 +2435,12 @@
             "type": "string"
           },
           "decision_id": {
+            "maxLength": 128,
             "title": "Decision Id",
             "type": "string"
           },
           "user_id": {
+            "maxLength": 128,
             "title": "User Id",
             "type": "string"
           },
@@ -2444,6 +2453,7 @@
           },
           "what_happened": {
             "default": "",
+            "maxLength": 4000,
             "title": "What Happened",
             "type": "string"
           }
@@ -3366,10 +3376,12 @@
         "properties": {
           "key": {
             "description": "e.g. autonomy, income, relationships, stability, learning, health, time",
+            "maxLength": 64,
             "title": "Key",
             "type": "string"
           },
           "label": {
+            "maxLength": 200,
             "title": "Label",
             "type": "string"
           },
