@@ -1,0 +1,160 @@
+{
+ "experiment_id": "x3_gate_e_dev",
+ "title": "Gate E synthetic switching suite \u2014 F4 (meta-learned GRU, frozen at test) vs online fine-tuning, EWC and replay",
+ "lane": "research/continual-transfer",
+ "hypothesis": "(Exploratory.) A recurrent learner meta-trained on development switching sequences shows larger savings on return to a previously seen context than online fine-tuning, EWC and experience replay of a small value network, without adapting more than 10 % slower after a switch.",
+ "seed": 20261108,
+ "meta_train_seeds": [
+  0,
+  120
+ ],
+ "selection_seeds": [
+  120,
+  160
+ ],
+ "report_seeds": [
+  160,
+  200
+ ],
+ "repeats_select": 2,
+ "repeats_report": 5,
+ "threads": 1,
+ "max_configs": 24,
+ "budget_s_per_model": 2700.0,
+ "n_boot": 2000,
+ "pretrain": {
+  "window": 10,
+  "hidden": 32,
+  "epochs": 20,
+  "lr": 0.05
+ },
+ "learners": {
+  "ft": {
+   "grid": {
+    "lr": [
+     0.03,
+     0.1,
+     0.3
+    ],
+    "beta": [
+     5.0,
+     10.0,
+     20.0
+    ],
+    "init": [
+     "scratch",
+     "pretrained"
+    ]
+   },
+   "fixed": {}
+  },
+  "ewc": {
+   "grid": {
+    "lr": [
+     0.1,
+     0.3
+    ],
+    "lam": [
+     10.0,
+     100.0,
+     1000.0
+    ],
+    "period": [
+     10,
+     30
+    ],
+    "init": [
+     "scratch",
+     "pretrained"
+    ]
+   },
+   "fixed": {
+    "beta": 10.0,
+    "gamma": 1.0
+   }
+  },
+  "replay": {
+   "grid": {
+    "lr": [
+     0.03,
+     0.1,
+     0.3
+    ],
+    "buffer": [
+     50,
+     300
+    ],
+    "replay_batch": [
+     4,
+     16
+    ],
+    "init": [
+     "scratch",
+     "pretrained"
+    ]
+   },
+   "fixed": {
+    "beta": 10.0
+   }
+  },
+  "f4": {
+   "grid": {
+    "hidden": [
+     48,
+     96
+    ],
+    "gamma": [
+     0.9
+    ],
+    "gae_lambda": [
+     0.5
+    ]
+   },
+   "fixed": {
+    "lr": 0.003,
+    "batch": 32,
+    "updates": 3000,
+    "ent_start": 0.02,
+    "ent_end": 0.002,
+    "eval_every": 150,
+    "budget_s": 1000
+   }
+  }
+ },
+ "references": {
+  "bayes_filter": {
+   "grid": {
+    "policy": [
+     "greedy",
+     "thompson"
+    ],
+    "n_particles": [
+     256,
+     1024
+    ]
+   },
+   "fixed": {}
+  },
+  "delta_rule": {
+   "grid": {
+    "alpha": [
+     0.2,
+     0.3,
+     0.5,
+     0.8
+    ],
+    "beta": [
+     5.0,
+     10.0,
+     20.0
+    ]
+   },
+   "fixed": {}
+  }
+ },
+ "notes": [
+  "beta for ewc and replay is fixed at 10 before any run (ft searches it).",
+  "ewc_oracle_boundaries (privileged diagnostic): the selected ewc configuration consolidating at the true switch points."
+ ],
+ "preregistration_hash": "aab8dc4c9e89799a"
+}

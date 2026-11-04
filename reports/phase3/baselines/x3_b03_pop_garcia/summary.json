@@ -1,0 +1,269 @@
+{
+ "experiment_id": "x3_b03_pop_garcia",
+ "report_partition": "tune",
+ "families": {
+  "garcia": {
+   "role": "counted",
+   "models": {
+    "pop_gru": {
+     "report_nll": 0.4508947471208444,
+     "ci": [
+      0.41542185124505643,
+      0.4864562905044869
+     ],
+     "n": 68,
+     "top1": 0.7715035592098003,
+     "ece": 0.06564388854033605,
+     "quarters": [
+      0.5414881379070843,
+      0.5014888279577194,
+      0.4095221450966515,
+      0.35107987752192243
+     ],
+     "select_nll": 0.4508947471208444,
+     "lapse0_nll": 0.45170020368408575,
+     "params": 3236,
+     "role": "comparator",
+     "config": {
+      "max_epochs": 150,
+      "patience": 10,
+      "batch_size": 8,
+      "dropout": 0.2,
+      "hidden": 16,
+      "lr": 0.01
+     },
+     "lapse": 0.02,
+     "grid_edges": [
+      "hidden",
+      "lr"
+     ],
+     "fit_cpu_s": 912.6,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.0445,
+     "describe": {
+      "population_params": 3236,
+      "per_person_params": 0,
+      "config": {
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8,
+       "dropout": 0.2,
+       "hidden": 16,
+       "lr": 0.01
+      }
+     }
+    },
+    "pop_gru_ens": {
+     "report_nll": 0.4403337225451172,
+     "ci": [
+      0.40429690545968344,
+      0.47505497955425496
+     ],
+     "n": 68,
+     "top1": 0.7763388422911379,
+     "ece": 0.06120007558286163,
+     "quarters": [
+      0.5370116133798302,
+      0.4983632773259604,
+      0.39394467612668194,
+      0.3320153233479962
+     ],
+     "select_nll": 0.4403337225451172,
+     "lapse0_nll": 0.4403337225451172,
+     "params": 40020,
+     "role": "comparator",
+     "config": {
+      "max_epochs": 150,
+      "patience": 10,
+      "batch_size": 8,
+      "dropout": 0.2,
+      "hidden": 32,
+      "lr": 0.01,
+      "members": 5
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "lr",
+      "dropout"
+     ],
+     "fit_cpu_s": 1145.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.2337,
+     "describe": {
+      "population_params": 40020,
+      "per_person_params": 0,
+      "config": {
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8,
+       "dropout": 0.2,
+       "hidden": 32,
+       "lr": 0.01,
+       "members": 5
+      }
+     }
+    },
+    "pop_lstm": {
+     "report_nll": 0.4596045923177301,
+     "ci": [
+      0.4236303724506182,
+      0.4961413954971998
+     ],
+     "n": 68,
+     "top1": 0.7679202074826178,
+     "ece": 0.06596596532548415,
+     "quarters": [
+      0.5556684038186092,
+      0.5200785874097467,
+      0.41140799171335235,
+      0.3512633863292121
+     ],
+     "select_nll": 0.4596045923177301,
+     "lapse0_nll": 0.4606008692397787,
+     "params": 91652,
+     "role": "comparator",
+     "config": {
+      "max_epochs": 150,
+      "patience": 10,
+      "batch_size": 8,
+      "dropout": 0.2,
+      "hidden": 128,
+      "lr": 0.01
+     },
+     "lapse": 0.02,
+     "grid_edges": [
+      "hidden",
+      "lr"
+     ],
+     "fit_cpu_s": 151.6,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.0298,
+     "describe": {
+      "population_params": 91652,
+      "per_person_params": 0,
+      "config": {
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8,
+       "dropout": 0.2,
+       "hidden": 128,
+       "lr": 0.01
+      }
+     }
+    },
+    "pop_tf": {
+     "report_nll": 0.4339289331935388,
+     "ci": [
+      0.40048779861312817,
+      0.4684827629265349
+     ],
+     "n": 68,
+     "top1": 0.7762888340139057,
+     "ece": 0.0606154077377939,
+     "quarters": [
+      0.5267155385475192,
+      0.5007888689112322,
+      0.3942544069775806,
+      0.31395691833782335
+     ],
+     "select_nll": 0.4339289331935388,
+     "lapse0_nll": 0.4355132914135936,
+     "params": 19108,
+     "role": "comparator",
+     "config": {
+      "d_model": 32,
+      "layers": 2,
+      "heads": 4,
+      "max_epochs": 150,
+      "patience": 10,
+      "batch_size": 8,
+      "dropout": 0.1,
+      "lr": 0.003,
+      "window": 32
+     },
+     "lapse": 0.02,
+     "grid_edges": [
+      "window",
+      "lr",
+      "dropout"
+     ],
+     "fit_cpu_s": 293.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.0569,
+     "describe": {
+      "population_params": 19108,
+      "per_person_params": 0,
+      "config": {
+       "d_model": 32,
+       "layers": 2,
+       "heads": 4,
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8,
+       "dropout": 0.1,
+       "lr": 0.003,
+       "window": 32
+      }
+     }
+    },
+    "ref_gru_p2": {
+     "report_nll": 0.4403299992838236,
+     "ci": [
+      0.4070649027816409,
+      0.4730137459758878
+     ],
+     "n": 68,
+     "top1": 0.7713707786116323,
+     "ece": 0.06368959260066066,
+     "quarters": [
+      0.5457333256681975,
+      0.504602478808173,
+      0.39475722794744333,
+      0.31622696471148065
+     ],
+     "select_nll": 0.4403299992838236,
+     "lapse0_nll": 0.4403299992838236,
+     "params": 666,
+     "role": "comparator",
+     "config": {
+      "max_epochs": 15,
+      "patience": 4,
+      "window": 64,
+      "max_steps_per_epoch": 60000,
+      "hidden": 8,
+      "lr": 0.003
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "lr"
+     ],
+     "fit_cpu_s": 83.8,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.0355,
+     "describe": {
+      "population_params": 666,
+      "per_person_params": 0,
+      "config": {
+       "max_epochs": 15,
+       "patience": 4,
+       "window": 64,
+       "max_steps_per_epoch": 60000,
+       "hidden": 8,
+       "lr": 0.003
+      }
+     }
+    }
+   },
+   "contrasts": [],
+   "excluded_models": [],
+   "best_comparator": "pop_tf"
+  }
+ }
+}

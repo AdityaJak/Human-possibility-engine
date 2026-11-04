@@ -121,6 +121,13 @@ def load_participants(
 def load_family(
     family: str, partition: str, *, experiment_id: str, k_max: int = 4, definition_hash: str | None = None
 ) -> tuple[list[EncodedSeq], list[str]]:
+    spec = get_family(family)
+    if spec.loader is not None:  # non-Psych-101 dataset with its own locked loader
+        if partition == "test":
+            validate_freeze(experiment_id, definition_hash=definition_hash)
+        check_partition_access(partition, experiment_id, P3_FREEZE_DIR)
+        seqs, notes = spec.loader(partition, experiment_id, k_max)
+        return list(seqs), notes
     parts, excluded = load_participants(
         family, partition, experiment_id=experiment_id, definition_hash=definition_hash
     )

@@ -1,0 +1,1406 @@
+{
+ "experiment_id": "x3_c05_described",
+ "report_partition": "tune",
+ "families": {
+  "described": {
+   "role": "counted",
+   "models": {
+    "f1_bolt": {
+     "report_nll": 0.357546619985847,
+     "ci": [
+      0.31651310682657974,
+      0.3993431838675157
+     ],
+     "n": 41,
+     "top1": 0.8369105691056911,
+     "ece": 0.027618922978622854,
+     "quarters": [
+      0.39013972221503973,
+      0.36471921922583433,
+      0.3557402469915692,
+      0.3193746407009491
+     ],
+     "select_nll": 0.357546619985847,
+     "lapse0_nll": 0.357546619985847,
+     "params": 8724,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "m": 50,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 0.1,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.4163,
+     "describe": {
+      "population_params": 8724,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": false,
+      "update_every": 50,
+      "config": {
+       "lr": 0.01,
+       "m": 50,
+       "dropout": 0.2,
+       "hidden": 32,
+       "meta": false
+      }
+     }
+    },
+    "f1_bolt[frozen]": {
+     "report_nll": 0.35708298358041035,
+     "ci": [
+      0.31561459919320284,
+      0.39751647688786024
+     ],
+     "n": 41,
+     "top1": 0.8364227642276422,
+     "ece": 0.028859388965474422,
+     "quarters": [
+      0.38903770640177204,
+      0.3644025681590845,
+      0.356549851804831,
+      0.31813178492172905
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.35708298358041035,
+     "params": 8724,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "m": 50,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 0.1,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.4163,
+     "describe": {
+      "population_params": 8724,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": false,
+      "update_every": 50,
+      "config": {
+       "lr": 0.01,
+       "m": 50,
+       "dropout": 0.2,
+       "hidden": 32,
+       "meta": false
+      }
+     }
+    },
+    "f1_latent": {
+     "report_nll": 0.3568000172142969,
+     "ci": [
+      0.3147019149020757,
+      0.39664664172089537
+     ],
+     "n": 41,
+     "top1": 0.8362276422764228,
+     "ece": 0.02751467177329332,
+     "quarters": [
+      0.3892100511724135,
+      0.3633766931197387,
+      0.3556781417934952,
+      0.3187266976920559
+     ],
+     "select_nll": 0.3568000172142969,
+     "lapse0_nll": 0.3568000172142969,
+     "params": 8724,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "m": 50,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 137.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.5192,
+     "describe": {
+      "population_params": 8724,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": true,
+      "update_every": 50,
+      "config": {
+       "lr": 0.01,
+       "m": 50,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f1_latent[frozen]": {
+     "report_nll": 0.35708298358041035,
+     "ci": [
+      0.317164844109921,
+      0.40049991747725977
+     ],
+     "n": 41,
+     "top1": 0.8364227642276422,
+     "ece": 0.028859388965474422,
+     "quarters": [
+      0.38903770640177204,
+      0.3644025681590845,
+      0.356549851804831,
+      0.31813178492172905
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.35708298358041035,
+     "params": 8724,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "m": 50,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 137.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.5192,
+     "describe": {
+      "population_params": 8724,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": true,
+      "update_every": 50,
+      "config": {
+       "lr": 0.01,
+       "m": 50,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f1_latent[mismatched]": {
+     "report_nll": 0.35796632793855027,
+     "ci": [
+      0.31671163649635353,
+      0.40051191343103326
+     ],
+     "n": 41,
+     "top1": 0.8360325203252034,
+     "ece": 0.029769909531433034,
+     "quarters": [
+      0.38881086768061945,
+      0.36623774165682776,
+      0.3585212042089704,
+      0.3180863219860705
+     ],
+     "select_nll": null,
+     "lapse0_nll": null,
+     "params": 8724,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "m": 50,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 137.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.5192,
+     "describe": {
+      "population_params": 8724,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": true,
+      "update_every": 50,
+      "config": {
+       "lr": 0.01,
+       "m": 50,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f1_latent[twin]": {
+     "report_nll": 0.36024863398248497,
+     "ci": [
+      0.31761036492667566,
+      0.39940544755370977
+     ],
+     "n": 41,
+     "top1": 0.8362926829268293,
+     "ece": 0.03174543002157495,
+     "quarters": [
+      0.39288645968931957,
+      0.36799967196521355,
+      0.3608397947139897,
+      0.3190526263331306
+     ],
+     "select_nll": 0.36024863398248497,
+     "lapse0_nll": 0.36024863398248497,
+     "params": 8004,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "m": 50,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 137.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.5192,
+     "describe": {
+      "population_params": 8724,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": true,
+      "update_every": 50,
+      "config": {
+       "lr": 0.01,
+       "m": 50,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f2_delta": {
+     "report_nll": 0.3806146502259724,
+     "ci": [
+      0.3381218347429809,
+      0.42301646944821414
+     ],
+     "n": 41,
+     "top1": 0.8295609756097561,
+     "ece": 0.030417393357348593,
+     "quarters": [
+      0.41081952404740435,
+      0.3884181544794673,
+      0.3782270123686981,
+      0.34479065664963027
+     ],
+     "select_nll": 0.3806146502259724,
+     "lapse0_nll": 0.3806146502259724,
+     "params": 21,
+     "role": "reference",
+     "config": {
+      "prior_scale": 1.0,
+      "delta_alpha": 0.6
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "delta_alpha"
+     ],
+     "fit_cpu_s": 4.0,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.12,
+     "describe": {
+      "population_params": 21,
+      "per_person_params": 5,
+      "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
+      "world": "delta",
+      "update_every": 1,
+      "prior_mean": [
+       0.31536119733773554,
+       0.0,
+       0.17949603364247146,
+       2.343853254628273,
+       -0.08687401565998111
+      ],
+      "prior_sd": [
+       2.962260493238466,
+       0.01,
+       0.5699505366314721,
+       0.6599019608869445,
+       0.029200390828855314
+      ],
+      "config": {
+       "prior_scale": 1.0,
+       "delta_alpha": 0.6
+      }
+     }
+    },
+    "f2_delta[frozen]": {
+     "report_nll": 0.3964884298719031,
+     "ci": [
+      0.356292011437489,
+      0.4371751554706122
+     ],
+     "n": 41,
+     "top1": 0.8245203252032521,
+     "ece": 0.05878983940792945,
+     "quarters": [
+      0.421557121951484,
+      0.40464497250184916,
+      0.3987915937888941,
+      0.3607823561934626
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.3964884298719031,
+     "params": 21,
+     "role": "reference",
+     "config": {
+      "prior_scale": 1.0,
+      "delta_alpha": 0.6
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "delta_alpha"
+     ],
+     "fit_cpu_s": 4.0,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.12,
+     "describe": {
+      "population_params": 21,
+      "per_person_params": 5,
+      "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
+      "world": "delta",
+      "update_every": 1,
+      "prior_mean": [
+       0.31536119733773554,
+       0.0,
+       0.17949603364247146,
+       2.343853254628273,
+       -0.08687401565998111
+      ],
+      "prior_sd": [
+       2.962260493238466,
+       0.01,
+       0.5699505366314721,
+       0.6599019608869445,
+       0.029200390828855314
+      ],
+      "config": {
+       "prior_scale": 1.0,
+       "delta_alpha": 0.6
+      }
+     }
+    },
+    "f2_world_policy": {
+     "report_nll": 0.3810923953786625,
+     "ci": [
+      0.33895786815791645,
+      0.42392827926806687
+     ],
+     "n": 41,
+     "top1": 0.8286178861788619,
+     "ece": 0.03059326679698333,
+     "quarters": [
+      0.41160711984263804,
+      0.3866620625821118,
+      0.38021704879319473,
+      0.34569038563538235
+     ],
+     "select_nll": 0.3810923953786625,
+     "lapse0_nll": 0.3810923953786625,
+     "params": 8156,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "dropout": 0.0,
+      "hidden": 32,
+      "prior_scale": 1.0
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "prior_scale"
+     ],
+     "fit_cpu_s": 1187.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4253,
+     "describe": {
+      "population_params": 8156,
+      "per_person_params": 5,
+      "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
+      "world": "gru",
+      "update_every": 1,
+      "prior_mean": [
+       7.8849633989856605,
+       -0.16208172407818522,
+       0.17982824512303008,
+       2.3099915227077097,
+       -0.06467716448352462
+      ],
+      "prior_sd": [
+       0.025034288864688097,
+       0.1551311689881556,
+       0.5692493791774288,
+       0.6883069009032861,
+       0.05041166323979039
+      ],
+      "config": {
+       "lr": 0.01,
+       "dropout": 0.0,
+       "hidden": 32,
+       "prior_scale": 1.0
+      }
+     }
+    },
+    "f2_world_policy[frozen]": {
+     "report_nll": 0.39525268848805584,
+     "ci": [
+      0.35583396838428416,
+      0.4362701837839506
+     ],
+     "n": 41,
+     "top1": 0.8242601626016262,
+     "ece": 0.055334846649626526,
+     "quarters": [
+      0.42074430044536865,
+      0.4030463848791789,
+      0.39740935637907854,
+      0.3596327159472687
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.39525268848805584,
+     "params": 8156,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "dropout": 0.0,
+      "hidden": 32,
+      "prior_scale": 1.0
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "prior_scale"
+     ],
+     "fit_cpu_s": 1187.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4253,
+     "describe": {
+      "population_params": 8156,
+      "per_person_params": 5,
+      "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
+      "world": "gru",
+      "update_every": 1,
+      "prior_mean": [
+       7.8849633989856605,
+       -0.16208172407818522,
+       0.17982824512303008,
+       2.3099915227077097,
+       -0.06467716448352462
+      ],
+      "prior_sd": [
+       0.025034288864688097,
+       0.1551311689881556,
+       0.5692493791774288,
+       0.6883069009032861,
+       0.05041166323979039
+      ],
+      "config": {
+       "lr": 0.01,
+       "dropout": 0.0,
+       "hidden": 32,
+       "prior_scale": 1.0
+      }
+     }
+    },
+    "f2_world_policy[mismatched]": {
+     "report_nll": 0.4153630619426104,
+     "ci": [
+      0.37236377055812253,
+      0.457854935772338
+     ],
+     "n": 41,
+     "top1": 0.821560975609756,
+     "ece": 0.07148890473789922,
+     "quarters": [
+      0.4348083449637788,
+      0.42563319964749,
+      0.42120980226370025,
+      0.3796419949022852
+     ],
+     "select_nll": null,
+     "lapse0_nll": null,
+     "params": 8156,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "dropout": 0.0,
+      "hidden": 32,
+      "prior_scale": 1.0
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "prior_scale"
+     ],
+     "fit_cpu_s": 1187.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4253,
+     "describe": {
+      "population_params": 8156,
+      "per_person_params": 5,
+      "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
+      "world": "gru",
+      "update_every": 1,
+      "prior_mean": [
+       7.8849633989856605,
+       -0.16208172407818522,
+       0.17982824512303008,
+       2.3099915227077097,
+       -0.06467716448352462
+      ],
+      "prior_sd": [
+       0.025034288864688097,
+       0.1551311689881556,
+       0.5692493791774288,
+       0.6883069009032861,
+       0.05041166323979039
+      ],
+      "config": {
+       "lr": 0.01,
+       "dropout": 0.0,
+       "hidden": 32,
+       "prior_scale": 1.0
+      }
+     }
+    },
+    "f2_world_policy[twin]": {
+     "report_nll": 0.3563070985365326,
+     "ci": [
+      0.31005929648755637,
+      0.3992305911138133
+     ],
+     "n": 41,
+     "top1": 0.8386991869918698,
+     "ece": 0.029362774873325642,
+     "quarters": [
+      0.38973155773606705,
+      0.36135331214559857,
+      0.35791097509999237,
+      0.3160268236414317
+     ],
+     "select_nll": 0.3563070985365326,
+     "lapse0_nll": 0.3563070985365326,
+     "params": 8004,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "dropout": 0.0,
+      "hidden": 32,
+      "prior_scale": 1.0
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "prior_scale"
+     ],
+     "fit_cpu_s": 1187.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4253,
+     "describe": {
+      "population_params": 8156,
+      "per_person_params": 5,
+      "per_person_state": "Gaussian posterior over policy weights (online Laplace)",
+      "world": "gru",
+      "update_every": 1,
+      "prior_mean": [
+       7.8849633989856605,
+       -0.16208172407818522,
+       0.17982824512303008,
+       2.3099915227077097,
+       -0.06467716448352462
+      ],
+      "prior_sd": [
+       0.025034288864688097,
+       0.1551311689881556,
+       0.5692493791774288,
+       0.6883069009032861,
+       0.05041166323979039
+      ],
+      "config": {
+       "lr": 0.01,
+       "dropout": 0.0,
+       "hidden": 32,
+       "prior_scale": 1.0
+      }
+     }
+    },
+    "f3_arbiter": {
+     "report_nll": 0.3571380771463336,
+     "ci": [
+      0.3138823600111815,
+      0.39735786807890017
+     ],
+     "n": 41,
+     "top1": 0.8364227642276424,
+     "ece": 0.029289398272548655,
+     "quarters": [
+      0.38909805186669577,
+      0.3644822197467034,
+      0.356583830138123,
+      0.31817802438824677
+     ],
+     "select_nll": 0.3571380771463336,
+     "lapse0_nll": 0.3571380771463336,
+     "params": 8010,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.3,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "bandwidth"
+     ],
+     "fit_cpu_s": 418.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5312,
+     "describe": {
+      "population_params": 8010,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.005401311827442536,
+       0.005916960184795039,
+       -0.022794832403459777,
+       0.00479340386002911,
+       -0.035062810054399624
+      ],
+      "gate_b": -5.4496353792336665,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.3,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_arbiter[frozen]": {
+     "report_nll": 0.3570829828248554,
+     "ci": [
+      0.3133449307513128,
+      0.3990897322107672
+     ],
+     "n": 41,
+     "top1": 0.8364227642276422,
+     "ece": 0.02885938894079017,
+     "quarters": [
+      0.3890377056388885,
+      0.3644025680630477,
+      0.35654985090840324,
+      0.31813178365136957
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.3570829828248554,
+     "params": 8010,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.3,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "bandwidth"
+     ],
+     "fit_cpu_s": 418.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5312,
+     "describe": {
+      "population_params": 8010,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.005401311827442536,
+       0.005916960184795039,
+       -0.022794832403459777,
+       0.00479340386002911,
+       -0.035062810054399624
+      ],
+      "gate_b": -5.4496353792336665,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.3,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_arbiter[mismatched]": {
+     "report_nll": 0.35720443380118216,
+     "ci": [
+      0.31377303492232894,
+      0.3992933747406118
+     ],
+     "n": 41,
+     "top1": 0.8364227642276422,
+     "ece": 0.029238074926933054,
+     "quarters": [
+      0.38915450178194266,
+      0.3646100014518412,
+      0.35663237667870107,
+      0.3182103973476908
+     ],
+     "select_nll": null,
+     "lapse0_nll": null,
+     "params": 8010,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.3,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "bandwidth"
+     ],
+     "fit_cpu_s": 418.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5312,
+     "describe": {
+      "population_params": 8010,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.005401311827442536,
+       0.005916960184795039,
+       -0.022794832403459777,
+       0.00479340386002911,
+       -0.035062810054399624
+      ],
+      "gate_b": -5.4496353792336665,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.3,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_arbiter[twin]": {
+     "report_nll": 0.35988796650585,
+     "ci": [
+      0.3161996515546474,
+      0.40189061619324956
+     ],
+     "n": 41,
+     "top1": 0.8368130081300812,
+     "ece": 0.0294400628816651,
+     "quarters": [
+      0.3942009944540145,
+      0.36605201163447587,
+      0.3610755717690676,
+      0.31800683322960244
+     ],
+     "select_nll": 0.35988796650585,
+     "lapse0_nll": 0.35988796650585,
+     "params": 8004,
+     "role": "candidate",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.3,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout",
+      "bandwidth"
+     ],
+     "fit_cpu_s": 418.4,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5312,
+     "describe": {
+      "population_params": 8010,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.005401311827442536,
+       0.005916960184795039,
+       -0.022794832403459777,
+       0.00479340386002911,
+       -0.035062810054399624
+      ],
+      "gate_b": -5.4496353792336665,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.3,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_fixedmix": {
+     "report_nll": 0.35720669586962633,
+     "ci": [
+      0.3148179151698639,
+      0.39878356064743786
+     ],
+     "n": 41,
+     "top1": 0.8363577235772358,
+     "ece": 0.029243796290020045,
+     "quarters": [
+      0.3891524579452047,
+      0.364567945366275,
+      0.35665789411432436,
+      0.318238288129855
+     ],
+     "select_nll": 0.35720669586962633,
+     "lapse0_nll": 0.35720669586962633,
+     "params": 8005,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.5,
+      "mix": "learn",
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 27.2,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5202,
+     "describe": {
+      "population_params": 8005,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "fixed",
+      "update_every": 1,
+      "gate_w": null,
+      "gate_b": null,
+      "fixed_g": 0.0033890694112283675,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.5,
+       "mix": "learn",
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_fixedmix[frozen]": {
+     "report_nll": 0.3570829828248554,
+     "ci": [
+      0.3148217470406894,
+      0.3991021127964916
+     ],
+     "n": 41,
+     "top1": 0.8364227642276422,
+     "ece": 0.02885938894079017,
+     "quarters": [
+      0.3890377056388885,
+      0.3644025680630477,
+      0.35654985090840324,
+      0.31813178365136957
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.3570829828248554,
+     "params": 8005,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.5,
+      "mix": "learn",
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 27.2,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5202,
+     "describe": {
+      "population_params": 8005,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "fixed",
+      "update_every": 1,
+      "gate_w": null,
+      "gate_b": null,
+      "fixed_g": 0.0033890694112283675,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.5,
+       "mix": "learn",
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_fixedshare": {
+     "report_nll": 0.36743804264702346,
+     "ci": [
+      0.3242501024488453,
+      0.408479664298281
+     ],
+     "n": 41,
+     "top1": 0.8355772357723577,
+     "ece": 0.04121894287566864,
+     "quarters": [
+      0.3967313113648643,
+      0.37261525836397763,
+      0.3707011932336256,
+      0.32952007348426376
+     ],
+     "select_nll": 0.36743804264702346,
+     "lapse0_nll": 0.36743804264702346,
+     "params": 8004,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.5,
+      "share": 0.05,
+      "dropout": 0.0,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 0.1,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5374,
+     "describe": {
+      "population_params": 8004,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "fixedshare",
+      "update_every": 1,
+      "gate_w": null,
+      "gate_b": null,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.5,
+       "share": 0.05,
+       "dropout": 0.0,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_fixedshare[frozen]": {
+     "report_nll": 0.35864350487727137,
+     "ci": [
+      0.31634561802351824,
+      0.40130587993088845
+     ],
+     "n": 41,
+     "top1": 0.8380813008130081,
+     "ece": 0.029554629032668138,
+     "quarters": [
+      0.39011734058521375,
+      0.36316169721277614,
+      0.3636558122396312,
+      0.31744669873326414
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.35864350487727137,
+     "params": 8004,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.5,
+      "share": 0.05,
+      "dropout": 0.0,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 0.1,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.5374,
+     "describe": {
+      "population_params": 8004,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "fixedshare",
+      "update_every": 1,
+      "gate_w": null,
+      "gate_b": null,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.5,
+       "share": 0.05,
+       "dropout": 0.0,
+       "hidden": 32
+      }
+     }
+    },
+    "f3_gruepi": {
+     "report_nll": 0.35708298358041035,
+     "ci": [
+      0.3143761692616131,
+      0.3992671739628681
+     ],
+     "n": 41,
+     "top1": 0.8364227642276422,
+     "ece": 0.028859388965474422,
+     "quarters": [
+      0.38903770640177204,
+      0.3644025681590845,
+      0.356549851804831,
+      0.31813178492172905
+     ],
+     "select_nll": 0.35708298358041035,
+     "lapse0_nll": 0.35708298358041035,
+     "params": 16488,
+     "role": "reference",
+     "config": {
+      "lr": 0.01,
+      "bandwidth": 0.5,
+      "dropout": 0.2,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 187.1,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4949,
+     "describe": {
+      "population_params": 16488,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gru",
+      "update_every": 1,
+      "gate_w": null,
+      "gate_b": null,
+      "fixed_g": null,
+      "config": {
+       "lr": 0.01,
+       "bandwidth": 0.5,
+       "dropout": 0.2,
+       "hidden": 32
+      }
+     }
+    },
+    "pop_gru": {
+     "report_nll": 0.3549525176643099,
+     "ci": [
+      0.31393272561540897,
+      0.3990325707338832
+     ],
+     "n": 41,
+     "top1": 0.8397723577235773,
+     "ece": 0.02825524182473071,
+     "quarters": [
+      0.3880497807125977,
+      0.3610069490631776,
+      0.3555634489160249,
+      0.3149805246154545
+     ],
+     "select_nll": 0.3549525176643099,
+     "lapse0_nll": 0.3549525176643099,
+     "params": 8004,
+     "role": "comparator",
+     "config": {
+      "lr": 0.01,
+      "dropout": 0.0,
+      "hidden": 32
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "dropout"
+     ],
+     "fit_cpu_s": 460.9,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.0261,
+     "describe": {
+      "population_params": 8004,
+      "per_person_params": 0,
+      "config": {
+       "lr": 0.01,
+       "dropout": 0.0,
+       "hidden": 32
+      }
+     }
+    }
+   },
+   "contrasts": [
+    {
+     "first": "f1_latent",
+     "second": "pop_gru",
+     "kind": "vs_best_comparator",
+     "estimate": 0.0018474995499870549,
+     "ci_low": -0.0008180997568410627,
+     "ci_high": 0.004222234690352726,
+     "p_one_sided": 0.9245,
+     "sd": 0.008244976195543341,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_latent",
+     "second": "f1_latent[twin]",
+     "kind": "vs_twin",
+     "estimate": -0.0034486167681880495,
+     "ci_low": -0.005465198358415621,
+     "ci_high": -0.001600239807939658,
+     "p_one_sided": 0.0005,
+     "sd": 0.006533740804368169,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_latent",
+     "second": "f1_latent[frozen]",
+     "kind": "vs_frozen",
+     "estimate": -0.0002829663661134458,
+     "ci_low": -0.0008397059587917946,
+     "ci_high": 0.0002327525202432842,
+     "p_one_sided": 0.1645,
+     "sd": 0.001825094367553838,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_latent",
+     "second": "f1_latent[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -0.0011663107242533667,
+     "ci_low": -0.0021242856310741977,
+     "ci_high": -0.00031854139210361253,
+     "p_one_sided": 0.0015,
+     "sd": 0.002993377858133272,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f2_world_policy",
+     "second": "pop_gru",
+     "kind": "vs_best_comparator",
+     "estimate": 0.026139877714352628,
+     "ci_low": 0.02182424625062897,
+     "ci_high": 0.030356590056407513,
+     "p_one_sided": 1.0,
+     "sd": 0.014422069206519866,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f2_world_policy",
+     "second": "f2_world_policy[twin]",
+     "kind": "vs_twin",
+     "estimate": 0.0247852968421299,
+     "ci_low": 0.02048262148395366,
+     "ci_high": 0.029414191164561895,
+     "p_one_sided": 1.0,
+     "sd": 0.014587298508392401,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f2_world_policy",
+     "second": "f2_world_policy[frozen]",
+     "kind": "vs_frozen",
+     "estimate": -0.01416029310939332,
+     "ci_low": -0.01912374722365494,
+     "ci_high": -0.009492231117247875,
+     "p_one_sided": 0.0005,
+     "sd": 0.015950644878190055,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f2_world_policy",
+     "second": "f2_world_policy[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -0.03427066656394791,
+     "ci_low": -0.045850869720772916,
+     "ci_high": -0.02341567090932522,
+     "p_one_sided": 0.0005,
+     "sd": 0.03770677103927706,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "pop_gru",
+     "kind": "vs_best_comparator",
+     "estimate": 0.0021855594820237483,
+     "ci_low": -0.000528555096121368,
+     "ci_high": 0.004730000157667956,
+     "p_one_sided": 0.9425,
+     "sd": 0.008643936342120179,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "f3_arbiter[twin]",
+     "kind": "vs_twin",
+     "estimate": -0.0027498893595163778,
+     "ci_low": -0.004601260870250824,
+     "ci_high": -0.0008422934625042043,
+     "p_one_sided": 0.001,
+     "sd": 0.0060179814937283615,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "f3_arbiter[frozen]",
+     "kind": "vs_frozen",
+     "estimate": 5.509432147821509e-05,
+     "ci_low": 1.1922779170001242e-05,
+     "ci_high": 9.50495038024347e-05,
+     "p_one_sided": 0.9935,
+     "sd": 0.00014017646260235849,
+     "n": 41,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "f3_arbiter[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -6.635665484855255e-05,
+     "ci_low": -0.0001322906547127187,
+     "ci_high": -7.273956286375244e-06,
+     "p_one_sided": 0.0105,
+     "sd": 0.00020827798223539102,
+     "n": 41,
+     "n_unpaired": 0
+    }
+   ],
+   "excluded_models": [],
+   "best_comparator": "pop_gru"
+  }
+ },
+ "candidate_vs_best_comparator": {
+  "f1_latent": {
+   "described": {
+    "estimate": 0.0018474995499870549,
+    "ci_low": -0.0008180997568410627,
+    "ci_high": 0.004222234690352726,
+    "p_one_sided": 0.9245,
+    "sd": 0.008244976195543341,
+    "n": 41,
+    "n_unpaired": 0,
+    "p_holm": 0.9245,
+    "meets_0.02": false
+   }
+  },
+  "f2_world_policy": {
+   "described": {
+    "estimate": 0.026139877714352628,
+    "ci_low": 0.02182424625062897,
+    "ci_high": 0.030356590056407513,
+    "p_one_sided": 1.0,
+    "sd": 0.014422069206519866,
+    "n": 41,
+    "n_unpaired": 0,
+    "p_holm": 1.0,
+    "meets_0.02": false
+   }
+  },
+  "f3_arbiter": {
+   "described": {
+    "estimate": 0.0021855594820237483,
+    "ci_low": -0.000528555096121368,
+    "ci_high": 0.004730000157667956,
+    "p_one_sided": 0.9425,
+    "sd": 0.008643936342120179,
+    "n": 41,
+    "n_unpaired": 0,
+    "p_holm": 0.9425,
+    "meets_0.02": false
+   }
+  }
+ }
+}

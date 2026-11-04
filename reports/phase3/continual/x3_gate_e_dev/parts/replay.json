@@ -1,0 +1,528 @@
+{
+ "learner": "replay",
+ "selected": {
+  "config": {
+   "beta": 10.0,
+   "buffer": 300,
+   "init": "pretrained",
+   "lr": 0.03,
+   "replay_batch": 16
+  },
+  "config_index": 19,
+  "select_reward_fraction": 0.7072337738200105,
+  "grid_edges": [
+   "lr",
+   "buffer",
+   "replay_batch",
+   "init"
+  ]
+ },
+ "n_configs_evaluated": 24,
+ "fits": [
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "scratch",
+    "lr": 0.03,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.54975,
+    "adaptation_realised": 0.55277,
+    "forgetting": -0.02785,
+    "forgetting_realised": -0.03003,
+    "reward": 0.46425,
+    "reward_fraction": 0.58031,
+    "reward_realised": 0.46471,
+    "savings": 0.03892,
+    "savings_realised": 0.05625
+   },
+   "cpu_s": 3.97
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "scratch",
+    "lr": 0.03,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.54749,
+    "adaptation_realised": 0.55199,
+    "forgetting": 0.00039,
+    "forgetting_realised": -0.00324,
+    "reward": 0.45094,
+    "reward_fraction": 0.56368,
+    "reward_realised": 0.44933,
+    "savings": 0.04747,
+    "savings_realised": 0.0415
+   },
+   "cpu_s": 6.19
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "scratch",
+    "lr": 0.1,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.5569,
+    "adaptation_realised": 0.56406,
+    "forgetting": -0.05575,
+    "forgetting_realised": -0.04875,
+    "reward": 0.49263,
+    "reward_fraction": 0.61579,
+    "reward_realised": 0.49171,
+    "savings": 0.03351,
+    "savings_realised": 0.0447
+   },
+   "cpu_s": 3.78
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "scratch",
+    "lr": 0.1,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.55027,
+    "adaptation_realised": 0.54552,
+    "forgetting": -0.03588,
+    "forgetting_realised": -0.04392,
+    "reward": 0.47262,
+    "reward_fraction": 0.59078,
+    "reward_realised": 0.46821,
+    "savings": 0.02859,
+    "savings_realised": 0.01055
+   },
+   "cpu_s": 6.18
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "scratch",
+    "lr": 0.3,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.56887,
+    "adaptation_realised": 0.584,
+    "forgetting": -0.05893,
+    "forgetting_realised": -0.04218,
+    "reward": 0.50353,
+    "reward_fraction": 0.62941,
+    "reward_realised": 0.50242,
+    "savings": 0.0274,
+    "savings_realised": 0.04064
+   },
+   "cpu_s": 3.88
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "scratch",
+    "lr": 0.3,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.54347,
+    "adaptation_realised": 0.54811,
+    "forgetting": -0.04161,
+    "forgetting_realised": -0.04171,
+    "reward": 0.47311,
+    "reward_fraction": 0.59139,
+    "reward_realised": 0.47313,
+    "savings": 0.02547,
+    "savings_realised": 0.01568
+   },
+   "cpu_s": 5.93
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "pretrained",
+    "lr": 0.03,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.60323,
+    "adaptation_realised": 0.60414,
+    "forgetting": -0.11263,
+    "forgetting_realised": -0.11058,
+    "reward": 0.5615,
+    "reward_fraction": 0.70187,
+    "reward_realised": 0.55838,
+    "savings": 0.03319,
+    "savings_realised": 0.03067
+   },
+   "cpu_s": 3.75
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "pretrained",
+    "lr": 0.03,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.59837,
+    "adaptation_realised": 0.59749,
+    "forgetting": -0.10015,
+    "forgetting_realised": -0.09819,
+    "reward": 0.54974,
+    "reward_fraction": 0.68718,
+    "reward_realised": 0.54812,
+    "savings": 0.01921,
+    "savings_realised": 0.0232
+   },
+   "cpu_s": 6.32
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "pretrained",
+    "lr": 0.1,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.60224,
+    "adaptation_realised": 0.60698,
+    "forgetting": -0.09492,
+    "forgetting_realised": -0.08719,
+    "reward": 0.55048,
+    "reward_fraction": 0.6881,
+    "reward_realised": 0.54892,
+    "savings": 0.01455,
+    "savings_realised": 0.01969
+   },
+   "cpu_s": 3.81
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "pretrained",
+    "lr": 0.1,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.57984,
+    "adaptation_realised": 0.57813,
+    "forgetting": -0.10373,
+    "forgetting_realised": -0.10997,
+    "reward": 0.53645,
+    "reward_fraction": 0.67057,
+    "reward_realised": 0.53258,
+    "savings": 0.01118,
+    "savings_realised": -0.00999
+   },
+   "cpu_s": 6.48
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "pretrained",
+    "lr": 0.3,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.59636,
+    "adaptation_realised": 0.60286,
+    "forgetting": -0.09963,
+    "forgetting_realised": -0.09219,
+    "reward": 0.53812,
+    "reward_fraction": 0.67265,
+    "reward_realised": 0.53696,
+    "savings": 0.01813,
+    "savings_realised": 0.01065
+   },
+   "cpu_s": 3.72
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 50,
+    "init": "pretrained",
+    "lr": 0.3,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.5666,
+    "adaptation_realised": 0.56935,
+    "forgetting": -0.09669,
+    "forgetting_realised": -0.10103,
+    "reward": 0.5208,
+    "reward_fraction": 0.65101,
+    "reward_realised": 0.51887,
+    "savings": -0.00123,
+    "savings_realised": -0.01279
+   },
+   "cpu_s": 5.46
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "scratch",
+    "lr": 0.03,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.55415,
+    "adaptation_realised": 0.55276,
+    "forgetting": -0.02856,
+    "forgetting_realised": -0.03743,
+    "reward": 0.46938,
+    "reward_fraction": 0.58672,
+    "reward_realised": 0.46888,
+    "savings": 0.05202,
+    "savings_realised": 0.03414
+   },
+   "cpu_s": 3.88
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "scratch",
+    "lr": 0.03,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.55073,
+    "adaptation_realised": 0.55453,
+    "forgetting": -0.00048,
+    "forgetting_realised": -0.00615,
+    "reward": 0.45227,
+    "reward_fraction": 0.56534,
+    "reward_realised": 0.45275,
+    "savings": 0.04643,
+    "savings_realised": 0.04258
+   },
+   "cpu_s": 5.83
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "scratch",
+    "lr": 0.1,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.56479,
+    "adaptation_realised": 0.56677,
+    "forgetting": -0.04772,
+    "forgetting_realised": -0.04913,
+    "reward": 0.4948,
+    "reward_fraction": 0.6185,
+    "reward_realised": 0.49642,
+    "savings": 0.05132,
+    "savings_realised": 0.05965
+   },
+   "cpu_s": 3.95
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "scratch",
+    "lr": 0.1,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.54319,
+    "adaptation_realised": 0.54838,
+    "forgetting": -0.03063,
+    "forgetting_realised": -0.02537,
+    "reward": 0.47004,
+    "reward_fraction": 0.58755,
+    "reward_realised": 0.46971,
+    "savings": 0.03768,
+    "savings_realised": 0.044
+   },
+   "cpu_s": 6.45
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "scratch",
+    "lr": 0.3,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.57511,
+    "adaptation_realised": 0.57779,
+    "forgetting": -0.04522,
+    "forgetting_realised": -0.04756,
+    "reward": 0.504,
+    "reward_fraction": 0.63,
+    "reward_realised": 0.50492,
+    "savings": 0.04203,
+    "savings_realised": 0.05124
+   },
+   "cpu_s": 3.89
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "scratch",
+    "lr": 0.3,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.55466,
+    "adaptation_realised": 0.56557,
+    "forgetting": -0.04264,
+    "forgetting_realised": -0.05133,
+    "reward": 0.4859,
+    "reward_fraction": 0.60737,
+    "reward_realised": 0.48779,
+    "savings": 0.02368,
+    "savings_realised": 0.02675
+   },
+   "cpu_s": 6.25
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "pretrained",
+    "lr": 0.03,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.60347,
+    "adaptation_realised": 0.60538,
+    "forgetting": -0.11528,
+    "forgetting_realised": -0.11745,
+    "reward": 0.56527,
+    "reward_fraction": 0.70659,
+    "reward_realised": 0.56188,
+    "savings": 0.02114,
+    "savings_realised": 0.01484
+   },
+   "cpu_s": 3.85
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "pretrained",
+    "lr": 0.03,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.60401,
+    "adaptation_realised": 0.60569,
+    "forgetting": -0.11553,
+    "forgetting_realised": -0.11371,
+    "reward": 0.56579,
+    "reward_fraction": 0.70723,
+    "reward_realised": 0.56108,
+    "savings": 0.03096,
+    "savings_realised": 0.03316
+   },
+   "cpu_s": 6.01
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "pretrained",
+    "lr": 0.1,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.59945,
+    "adaptation_realised": 0.59559,
+    "forgetting": -0.11172,
+    "forgetting_realised": -0.10653,
+    "reward": 0.55924,
+    "reward_fraction": 0.69905,
+    "reward_realised": 0.55308,
+    "savings": -0.00053,
+    "savings_realised": -0.00367
+   },
+   "cpu_s": 4.0
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "pretrained",
+    "lr": 0.1,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.58509,
+    "adaptation_realised": 0.5885,
+    "forgetting": -0.09693,
+    "forgetting_realised": -0.10091,
+    "reward": 0.54285,
+    "reward_fraction": 0.67856,
+    "reward_realised": 0.54229,
+    "savings": 0.01776,
+    "savings_realised": 0.00175
+   },
+   "cpu_s": 5.69
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "pretrained",
+    "lr": 0.3,
+    "replay_batch": 4
+   },
+   "select": {
+    "adaptation": 0.59752,
+    "adaptation_realised": 0.59736,
+    "forgetting": -0.09046,
+    "forgetting_realised": -0.08869,
+    "reward": 0.54177,
+    "reward_fraction": 0.67722,
+    "reward_realised": 0.54108,
+    "savings": 0.00551,
+    "savings_realised": 0.00189
+   },
+   "cpu_s": 3.83
+  },
+  {
+   "config": {
+    "beta": 10.0,
+    "buffer": 300,
+    "init": "pretrained",
+    "lr": 0.3,
+    "replay_batch": 16
+   },
+   "select": {
+    "adaptation": 0.58383,
+    "adaptation_realised": 0.58964,
+    "forgetting": -0.08499,
+    "forgetting_realised": -0.07966,
+    "reward": 0.53203,
+    "reward_fraction": 0.66504,
+    "reward_realised": 0.53192,
+    "savings": 0.01332,
+    "savings_realised": 0.01668
+   },
+   "cpu_s": 6.13
+  }
+ ],
+ "select_cpu_s": 119.3
+}

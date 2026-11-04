@@ -1,0 +1,40 @@
+{
+ "invocations": [
+  {
+   "code_version": "274b9af2c2430da6983e2250a51a33e99ad4d3ff",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 1,
+   "families": [
+    "restless4"
+   ],
+   "wall_s": 637.0,
+   "cpu_s": 629.8,
+   "llm_calls": 0,
+   "exclusions": {
+    "restless4": {
+     "dev": [],
+     "tune": [],
+     "encoding_leak_check": []
+    }
+   }
+  },
+  {
+   "code_version": "67accc7cb9977b57f6157147f8ac8ee5d45422e5",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 1,
+   "families": [
+    "restless4"
+   ],
+   "wall_s": 408.5,
+   "cpu_s": 402.8,
+   "llm_calls": 0,
+   "exclusions": {
+    "restless4": {
+     "dev": [],
+     "tune": [],
+     "encoding_leak_check": []
+    }
+   }
+  }
+ ]
+}

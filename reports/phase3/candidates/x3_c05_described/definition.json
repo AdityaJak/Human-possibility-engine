@@ -1,0 +1,233 @@
+{
+ "experiment_id": "x3_c05_described",
+ "title": "Design-team candidates (F3 episodic arbiter, F2 world model + policy, F1 individual latent) vs same-size pop_gru, described",
+ "lane": "research/adaptation",
+ "hypothesis": "(Exploratory.) Explicit individual adaptation (F3 episodic memory + learned gate, F2 individual policy posterior, F1 online latent) improves tune NLL over a same-size pop_gru twin and over the same population network with its recurrent state running.",
+ "families": [
+  "described"
+ ],
+ "fit_partition": "dev",
+ "select_partition": "tune",
+ "report_partition": "tune",
+ "seed": 20261108,
+ "threads": 2,
+ "k_max": 4,
+ "lapse_grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.3
+ ],
+ "max_configs": 24,
+ "budget_s_per_model_family": 2700.0,
+ "models": {
+  "pop_gru": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "lr": 0.01
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "f3_arbiter": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ],
+    "bandwidth": [
+     0.3,
+     1.0
+    ]
+   },
+   "fixed": {
+    "lr": 0.01
+   },
+   "role": "candidate",
+   "variants": [
+    "twin",
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "f3_fixedmix": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "lr": 0.01,
+    "bandwidth": 0.5,
+    "mix": "learn"
+   },
+   "role": "reference",
+   "variants": [
+    "frozen"
+   ],
+   "families": null
+  },
+  "f3_fixedshare": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "lr": 0.01,
+    "bandwidth": 0.5,
+    "share": 0.05
+   },
+   "role": "reference",
+   "variants": [
+    "frozen"
+   ],
+   "families": null
+  },
+  "f3_gruepi": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "lr": 0.01,
+    "bandwidth": 0.5
+   },
+   "role": "reference",
+   "variants": [],
+   "families": null
+  },
+  "f2_world_policy": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ],
+    "prior_scale": [
+     0.5,
+     1.0
+    ]
+   },
+   "fixed": {
+    "lr": 0.01
+   },
+   "role": "candidate",
+   "variants": [
+    "twin",
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "f2_delta": {
+   "model": null,
+   "grid": {
+    "delta_alpha": [
+     0.1,
+     0.3,
+     0.6
+    ]
+   },
+   "fixed": {
+    "prior_scale": 1.0
+   },
+   "role": "reference",
+   "variants": [
+    "frozen"
+   ],
+   "families": null
+  },
+  "f1_latent": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "lr": 0.01,
+    "m": 50
+   },
+   "role": "candidate",
+   "variants": [
+    "twin",
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "f1_bolt": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     12,
+     32
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "lr": 0.01,
+    "m": 50
+   },
+   "role": "reference",
+   "variants": [
+    "frozen"
+   ],
+   "families": null
+  }
+ },
+ "notes": [],
+ "preregistration_hash": "27889afd834b0d32"
+}

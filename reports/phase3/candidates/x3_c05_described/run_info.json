@@ -1,0 +1,27 @@
+{
+ "invocations": [
+  {
+   "code_version": "67accc7cb9977b57f6157147f8ac8ee5d45422e5+dirty",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 2,
+   "families": [
+    "described"
+   ],
+   "wall_s": 4074.7,
+   "cpu_s": 5030.8,
+   "llm_calls": 0,
+   "exclusions": {
+    "described": {
+     "dev": [
+      "plonsky2018when/exp1.csv#94: no scorable trials"
+     ],
+     "tune": [
+      "plonsky2018when/exp1.csv#86: no scorable trials",
+      "plonsky2018when/exp1.csv#89: no scorable trials"
+     ],
+     "encoding_leak_check": []
+    }
+   }
+  }
+ ]
+}

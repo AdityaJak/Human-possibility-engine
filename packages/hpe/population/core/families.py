@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from hpe.evaluation.human import psych101_v2
 from hpe.evaluation.human.psych101 import Participant
@@ -31,6 +32,9 @@ class FamilySpec:
     parser: Parser
     role: str
     note: str = ""
+    # Non-Psych-101 datasets supply their own locked loader: (partition, experiment_id, k_max) -> (seqs, notes).
+    # It must apply the same Phase III test lock (check_partition_access with the Phase III freeze dir).
+    loader: Callable[[str, str, int], tuple[list[Any], list[str]]] | None = None
 
     def __post_init__(self) -> None:
         if self.role not in ROLES:

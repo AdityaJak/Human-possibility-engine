@@ -1,0 +1,34 @@
+# X3-007 (exploratory, director): does explicit individual adaptation beat population models on a truly external
+# dataset (not Psych-101) where individuals have stable, strong preferences? Great Brain Experiment risky choice
+# (CC0; 47,067 people), first 4 plays (<= 120 choices) per person, affect columns stripped, seeded subsamples of
+# 2,000 dev / 1,000 tune participants (families/gbe_risk.py). Same-size models; F3 = best Phase III candidate.
+experiment_id: x3_007_gbe_personalization
+title: External dataset (Great Brain Experiment risky choice) — population GRU, seed ensemble, F3, F1 bolt-on latent, Bayesian head
+lane: director
+hypothesis: (Exploratory.) With stable individual risk preferences and repeated plays, explicit individual adaptation adds more over the population GRU than on the Psych-101 learning tasks (where it added 0.004-0.009 nats/choice).
+families: [gbe_risk]
+report_partition: tune
+seed: 20261110
+threads: 2
+k_max: 2
+models:
+  pop_gru:
+    role: comparator
+    grid: {hidden: [16, 32]}
+    fixed: {lr: 0.01, dropout: 0.0}
+  pop_gru_ens:
+    role: comparator
+    fixed: {hidden: 32, lr: 0.01, dropout: 0.0, members: 5}
+  bayes_head:
+    role: comparator
+    fixed: {backbone: {hidden: 32, lr: 0.01, dropout: 0.0, max_epochs: 150, patience: 10, batch_size: 8}, backbone_seed: 1, m: 10, predictive: laplace, prior_var: eb}
+    variants: [frozen, mismatched]
+  f3_arbiter:
+    role: candidate
+    grid: {bandwidth: [0.3, 1.0]}
+    fixed: {hidden: 32, lr: 0.01, dropout: 0.0}
+    variants: [twin, frozen, mismatched]
+  f1_bolt:
+    role: candidate
+    fixed: {hidden: 32, lr: 0.01, dropout: 0.0, m: 10}
+    variants: [frozen, mismatched]

@@ -1,0 +1,5 @@
+=== Wed Nov  4 17:11:24 UTC 2026 start x3_e01
+[restless4] f3_ens: 1 config(s), 348 dev participants
+[restless4] f3_ens: select NLL 0.7113 config {'base': 'f3_arbiter', 'members': 5, 'base_config': {'lr': 0.01, 'bandwidth': 0.3, 'dropout': 0.0, 'hidden': 32, 'backbone_seed': 1}} lapse 0.0 causal=ok
+wrote reports/phase3/director/x3_e01_ensemble_restless4
+=== Wed Nov  4 17:18:14 UTC 2026 end x3_e01 exit 0

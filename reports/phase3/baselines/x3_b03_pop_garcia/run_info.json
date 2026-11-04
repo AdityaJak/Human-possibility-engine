@@ -1,0 +1,22 @@
+{
+ "invocations": [
+  {
+   "code_version": "67accc7cb9977b57f6157147f8ac8ee5d45422e5",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 2,
+   "families": [
+    "garcia"
+   ],
+   "wall_s": 1834.3,
+   "cpu_s": 2699.3,
+   "llm_calls": 0,
+   "exclusions": {
+    "garcia": {
+     "dev": [],
+     "tune": [],
+     "encoding_leak_check": []
+    }
+   }
+  }
+ ]
+}

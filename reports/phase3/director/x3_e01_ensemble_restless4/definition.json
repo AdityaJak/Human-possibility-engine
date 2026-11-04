@@ -1,0 +1,94 @@
+{
+ "experiment_id": "x3_e01_ensemble_restless4",
+ "title": "Matched-ensemble control \u2014 5-member ensembles of pop_gru, the F3 arbiter and the Bayesian-head adapter, restless4 tune",
+ "lane": "director",
+ "hypothesis": "(Exploratory.) If individual adaptation adds value beyond variance reduction, the F3 and bayes_head ensembles beat pop_gru_ens by about the single-model gain (0.004\u20130.009 nats/choice).",
+ "families": [
+  "restless4"
+ ],
+ "fit_partition": "dev",
+ "select_partition": "tune",
+ "report_partition": "tune",
+ "seed": 20261109,
+ "threads": 1,
+ "k_max": 4,
+ "lapse_grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.3
+ ],
+ "max_configs": 24,
+ "budget_s_per_model_family": 2700.0,
+ "models": {
+  "pop_gru_ens": {
+   "model": null,
+   "grid": {},
+   "fixed": {
+    "hidden": 32,
+    "lr": 0.01,
+    "dropout": 0.0,
+    "members": 5,
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "f3_ens": {
+   "model": "adaptive_ens",
+   "grid": {},
+   "fixed": {
+    "base": "f3_arbiter",
+    "members": 5,
+    "base_config": {
+     "lr": 0.01,
+     "bandwidth": 0.3,
+     "dropout": 0.0,
+     "hidden": 32,
+     "backbone_seed": 1
+    }
+   },
+   "role": "candidate",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "bayes_head_ens": {
+   "model": "adaptive_ens",
+   "grid": {},
+   "fixed": {
+    "base": "bayes_head",
+    "members": 5,
+    "base_config": {
+     "backbone": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "max_epochs": 150,
+      "patience": 10,
+      "batch_size": 8
+     },
+     "backbone_seed": 273911918,
+     "m": 10,
+     "predictive": "laplace",
+     "prior_var": "eb"
+    }
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen"
+   ],
+   "families": null
+  }
+ },
+ "notes": [],
+ "preregistration_hash": "b47f8d7f50a4207f"
+}

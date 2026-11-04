@@ -1,0 +1,232 @@
+{
+ "learner": "delta_rule",
+ "selected": {
+  "config": {
+   "alpha": 0.5,
+   "beta": 10.0
+  },
+  "config_index": 7,
+  "select_reward_fraction": 0.7581011855132601,
+  "grid_edges": []
+ },
+ "n_configs_evaluated": 12,
+ "fits": [
+  {
+   "config": {
+    "alpha": 0.2,
+    "beta": 5.0
+   },
+   "select": {
+    "adaptation": 0.53132,
+    "adaptation_realised": 0.53499,
+    "forgetting": -0.17185,
+    "forgetting_realised": -0.17332,
+    "reward": 0.52913,
+    "reward_fraction": 0.66141,
+    "reward_realised": 0.53029,
+    "savings": -0.01634,
+    "savings_realised": -0.02054
+   },
+   "cpu_s": 0.35
+  },
+  {
+   "config": {
+    "alpha": 0.2,
+    "beta": 10.0
+   },
+   "select": {
+    "adaptation": 0.52167,
+    "adaptation_realised": 0.5232,
+    "forgetting": -0.26639,
+    "forgetting_realised": -0.26478,
+    "reward": 0.57005,
+    "reward_fraction": 0.71256,
+    "reward_realised": 0.56942,
+    "savings": -0.03484,
+    "savings_realised": -0.03541
+   },
+   "cpu_s": 0.38
+  },
+  {
+   "config": {
+    "alpha": 0.2,
+    "beta": 20.0
+   },
+   "select": {
+    "adaptation": 0.50268,
+    "adaptation_realised": 0.51187,
+    "forgetting": -0.28207,
+    "forgetting_realised": -0.28151,
+    "reward": 0.56471,
+    "reward_fraction": 0.70589,
+    "reward_realised": 0.56288,
+    "savings": -0.09696,
+    "savings_realised": -0.10736
+   },
+   "cpu_s": 0.36
+  },
+  {
+   "config": {
+    "alpha": 0.3,
+    "beta": 5.0
+   },
+   "select": {
+    "adaptation": 0.55547,
+    "adaptation_realised": 0.55954,
+    "forgetting": -0.18235,
+    "forgetting_realised": -0.17994,
+    "reward": 0.55858,
+    "reward_fraction": 0.69823,
+    "reward_realised": 0.55783,
+    "savings": -0.0209,
+    "savings_realised": -0.00437
+   },
+   "cpu_s": 0.43
+  },
+  {
+   "config": {
+    "alpha": 0.3,
+    "beta": 10.0
+   },
+   "select": {
+    "adaptation": 0.54689,
+    "adaptation_realised": 0.5548,
+    "forgetting": -0.2495,
+    "forgetting_realised": -0.25342,
+    "reward": 0.5838,
+    "reward_fraction": 0.72975,
+    "reward_realised": 0.58354,
+    "savings": -0.05672,
+    "savings_realised": -0.05936
+   },
+   "cpu_s": 0.44
+  },
+  {
+   "config": {
+    "alpha": 0.3,
+    "beta": 20.0
+   },
+   "select": {
+    "adaptation": 0.53432,
+    "adaptation_realised": 0.5385,
+    "forgetting": -0.258,
+    "forgetting_realised": -0.25826,
+    "reward": 0.57997,
+    "reward_fraction": 0.72496,
+    "reward_realised": 0.57875,
+    "savings": -0.0716,
+    "savings_realised": -0.06018
+   },
+   "cpu_s": 0.45
+  },
+  {
+   "config": {
+    "alpha": 0.5,
+    "beta": 5.0
+   },
+   "select": {
+    "adaptation": 0.59375,
+    "adaptation_realised": 0.59933,
+    "forgetting": -0.16781,
+    "forgetting_realised": -0.17103,
+    "reward": 0.57557,
+    "reward_fraction": 0.71947,
+    "reward_realised": 0.57571,
+    "savings": -0.01351,
+    "savings_realised": -0.01499
+   },
+   "cpu_s": 0.36
+  },
+  {
+   "config": {
+    "alpha": 0.5,
+    "beta": 10.0
+   },
+   "select": {
+    "adaptation": 0.58323,
+    "adaptation_realised": 0.58297,
+    "forgetting": -0.23243,
+    "forgetting_realised": -0.23631,
+    "reward": 0.60648,
+    "reward_fraction": 0.7581,
+    "reward_realised": 0.60225,
+    "savings": -0.0575,
+    "savings_realised": -0.06457
+   },
+   "cpu_s": 0.35
+  },
+  {
+   "config": {
+    "alpha": 0.5,
+    "beta": 20.0
+   },
+   "select": {
+    "adaptation": 0.56321,
+    "adaptation_realised": 0.56818,
+    "forgetting": -0.25117,
+    "forgetting_realised": -0.24402,
+    "reward": 0.59359,
+    "reward_fraction": 0.74198,
+    "reward_realised": 0.58983,
+    "savings": -0.08441,
+    "savings_realised": -0.07637
+   },
+   "cpu_s": 0.35
+  },
+  {
+   "config": {
+    "alpha": 0.8,
+    "beta": 5.0
+   },
+   "select": {
+    "adaptation": 0.61199,
+    "adaptation_realised": 0.61401,
+    "forgetting": -0.12628,
+    "forgetting_realised": -0.123,
+    "reward": 0.56473,
+    "reward_fraction": 0.70592,
+    "reward_realised": 0.56288,
+    "savings": -0.01326,
+    "savings_realised": -0.00657
+   },
+   "cpu_s": 0.35
+  },
+  {
+   "config": {
+    "alpha": 0.8,
+    "beta": 10.0
+   },
+   "select": {
+    "adaptation": 0.61582,
+    "adaptation_realised": 0.61599,
+    "forgetting": -0.15594,
+    "forgetting_realised": -0.14893,
+    "reward": 0.58578,
+    "reward_fraction": 0.73222,
+    "reward_realised": 0.58225,
+    "savings": -0.03518,
+    "savings_realised": -0.02771
+   },
+   "cpu_s": 0.35
+  },
+  {
+   "config": {
+    "alpha": 0.8,
+    "beta": 20.0
+   },
+   "select": {
+    "adaptation": 0.59773,
+    "adaptation_realised": 0.60168,
+    "forgetting": -0.19886,
+    "forgetting_realised": -0.1935,
+    "reward": 0.59974,
+    "reward_fraction": 0.74967,
+    "reward_realised": 0.59829,
+    "savings": -0.0289,
+    "savings_realised": -0.04088
+   },
+   "cpu_s": 0.36
+  }
+ ],
+ "select_cpu_s": 4.5
+}

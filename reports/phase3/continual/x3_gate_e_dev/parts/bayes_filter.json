@@ -1,0 +1,91 @@
+{
+ "learner": "bayes_filter",
+ "selected": {
+  "config": {
+   "n_particles": 1024,
+   "policy": "greedy"
+  },
+  "config_index": 2,
+  "select_reward_fraction": 0.8176248064760374,
+  "grid_edges": [
+   "policy",
+   "n_particles"
+  ]
+ },
+ "n_configs_evaluated": 4,
+ "fits": [
+  {
+   "config": {
+    "n_particles": 256,
+    "policy": "greedy"
+   },
+   "select": {
+    "adaptation": 0.65729,
+    "adaptation_realised": 0.66209,
+    "forgetting": -0.17298,
+    "forgetting_realised": -0.16748,
+    "reward": 0.65296,
+    "reward_fraction": 0.81619,
+    "reward_realised": 0.65021,
+    "savings": 0.05538,
+    "savings_realised": 0.04633
+   },
+   "cpu_s": 4.87
+  },
+  {
+   "config": {
+    "n_particles": 256,
+    "policy": "thompson"
+   },
+   "select": {
+    "adaptation": 0.62362,
+    "adaptation_realised": 0.627,
+    "forgetting": -0.08799,
+    "forgetting_realised": -0.08551,
+    "reward": 0.57905,
+    "reward_fraction": 0.72381,
+    "reward_realised": 0.57733,
+    "savings": 0.0635,
+    "savings_realised": 0.06804
+   },
+   "cpu_s": 5.69
+  },
+  {
+   "config": {
+    "n_particles": 1024,
+    "policy": "greedy"
+   },
+   "select": {
+    "adaptation": 0.65602,
+    "adaptation_realised": 0.66208,
+    "forgetting": -0.17843,
+    "forgetting_realised": -0.17049,
+    "reward": 0.6541,
+    "reward_fraction": 0.81762,
+    "reward_realised": 0.65217,
+    "savings": 0.01531,
+    "savings_realised": 0.02738
+   },
+   "cpu_s": 10.05
+  },
+  {
+   "config": {
+    "n_particles": 1024,
+    "policy": "thompson"
+   },
+   "select": {
+    "adaptation": 0.62135,
+    "adaptation_realised": 0.62321,
+    "forgetting": -0.11174,
+    "forgetting_realised": -0.11066,
+    "reward": 0.59218,
+    "reward_fraction": 0.74022,
+    "reward_realised": 0.58971,
+    "savings": 0.04277,
+    "savings_realised": 0.05179
+   },
+   "cpu_s": 10.06
+  }
+ ],
+ "select_cpu_s": 30.7
+}

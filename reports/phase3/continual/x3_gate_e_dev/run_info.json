@@ -1,0 +1,27 @@
+{
+ "invocations": [
+  {
+   "code_version": "67accc7cb9977b57f6157147f8ac8ee5d45422e5+dirty",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 1,
+   "wall_s": 1611.4,
+   "cpu_s": 1594.9,
+   "llm_calls": 0,
+   "seed_ranges": {
+    "meta_train": [
+     0,
+     120
+    ],
+    "selection": [
+     120,
+     160
+    ],
+    "report": [
+     160,
+     200
+    ]
+   },
+   "confirmatory_seeds_generated": 0
+  }
+ ]
+}
