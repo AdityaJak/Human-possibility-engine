@@ -1,0 +1,784 @@
+# Phase II dev pilot B (exploratory): Candidate A on the pristine Gate-D families, equal-size grid of its own
+# knobs (16 configs), committed BEFORE the run. report_partition: tune; the test partition is never touched.
+kind: human_v2
+experiment_id: p2_human_dev_pilot_hybrid
+title: Phase II dev pilot B — Candidate A (hybrid_exemplar) vs strongest references on the three pristine families (exploratory;
+  fit dev / select tune / report tune)
+hypothesis: (Exploratory, dev/tune only.) Does Candidate A approach or beat the population-fitted GRU and the per-participant
+  references on the pristine families named as Gate D primary/secondary? Informs the freeze decision; proves nothing.
+falsification_criterion: Not applicable to a dev pilot. The confirmatory preregistration (Gate D) will require the candidate
+  to beat the best reference by >= 0.02 nats/choice (paired 95% CI excluding 0) on the frozen test partition in >= 2 of 3
+  preregistered families and not be worse by > 0.02 in any.
+dataset: psych101_learning_subset
+partitions_file: reports/phase2/partitions/psych101.json
+fit_partition: dev
+select_partition: tune
+report_partition: tune
+paradigms:
+- paradigm: bandit2
+  role: exploratory
+  experiments:
+  - gershman2018deconstructing/exp1.csv
+  - gershman2018deconstructing/exp2.csv
+- paradigm: garcia
+  role: exploratory
+  experiments:
+  - garcia2023experiential/exp1.csv
+  - garcia2023experiential/exp2.csv
+  - garcia2023experiential/exp3.csv
+  - garcia2023experiential/exp4.csv
+- paradigm: described
+  role: exploratory
+  experiments:
+  - plonsky2018when/exp1.csv
+models:
+- developmental
+- hybrid_exemplar
+- plain_rl
+- memory_only
+reference_models:
+- ref_bias
+- ref_gru
+- ref_pvl_delta
+- ref_exemplar
+- ref_bayes_rule
+max_grid_configurations: 24
+lapse_grid:
+- 0.0
+- 0.01
+- 0.02
+- 0.05
+- 0.1
+- 0.2
+- 0.3
+igt_reward_scale_grid:
+- 250.0
+- 500.0
+seed: 20261105
+grids:
+  developmental:
+    mcpl:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    igt:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    bandit2:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    srl3:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    horizon:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    casino:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    wpt:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    garcia:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+    described:
+      lr_head:
+      - 0.1
+      - 0.35
+      - 1.0
+      lr_encoder:
+      - 0.0
+      - 0.06
+      exploration_base:
+      - 0.1
+      - 0.3
+  hybrid_exemplar:
+    garcia:
+      gate_lr: &id001
+      - 0.05
+      - 0.2
+      exemplar_beta: &id002
+      - 1.0
+      - 3.0
+      recency_decay: &id003
+      - 0.9
+      - 0.99
+      kernel_width: &id004
+      - 0.5
+      - 1.0
+    bandit2:
+      gate_lr: *id001
+      exemplar_beta: *id002
+      recency_decay: *id003
+      kernel_width: *id004
+    described:
+      gate_lr: *id001
+      exemplar_beta: *id002
+      recency_decay: *id003
+      kernel_width: *id004
+  memory_only:
+    mcpl:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    igt:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    bandit2:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    srl3:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    horizon:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    casino:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    wpt:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    garcia:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+    described:
+      memory_capacity:
+      - 64
+      - 256
+      - 1024
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+  plain_rl:
+    mcpl:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    igt:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    bandit2:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    srl3:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    horizon:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    casino:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    wpt:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    garcia:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+    described:
+      lr:
+      - 0.01
+      - 0.05
+      - 0.2
+      - 0.5
+  ref_bias:
+    mcpl:
+      smoothing:
+      - 1.0
+  ref_population_static:
+    mcpl:
+      smoothing:
+      - 0.5
+      - 1.0
+      - 2.0
+  ref_delta_rule:
+    mcpl:
+      alpha:
+      - 0.01
+      - 0.03
+      - 0.1
+      - 0.3
+      sigma:
+      - 0.75
+      - 1.0
+      - 1.5
+      - 2.0
+      - 3.0
+    igt:
+      alpha:
+      - 0.05
+      - 0.1
+      - 0.4
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+      - 12.0
+  ref_instance_based:
+    mcpl:
+      h:
+      - 0.5
+      - 1.0
+      - 2.0
+      s:
+      - 0.5
+      - 1.0
+      - 1.5
+      kappa:
+      - 0.05
+    igt:
+      decay:
+      - 0.5
+      - 0.8
+      - 0.95
+      beta:
+      - 1.0
+      - 3.0
+      - 6.0
+      - 12.0
+  ref_exemplar:
+    mcpl:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.98
+      - 1.0
+      lr_att:
+      - 0.0
+      - 0.05
+    igt:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.9
+      - 0.98
+      lr_att:
+      - 0.0
+    bandit2:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.9
+      - 0.98
+      lr_att:
+      - 0.0
+    srl3:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.9
+      - 0.98
+      lr_att:
+      - 0.0
+    horizon:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.9
+      - 0.98
+      lr_att:
+      - 0.0
+    casino:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.9
+      - 0.98
+      lr_att:
+      - 0.0
+    wpt:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.98
+      - 1.0
+      lr_att:
+      - 0.0
+      - 0.05
+    garcia:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.98
+      - 1.0
+      lr_att:
+      - 0.0
+      - 0.05
+    described:
+      c:
+      - 0.5
+      - 2.0
+      beta:
+      - 2.0
+      - 6.0
+      decay:
+      - 0.98
+      - 1.0
+      lr_att:
+      - 0.0
+      - 0.05
+  ref_pvl_delta:
+    igt:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 2.0
+    bandit2:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    srl3:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    horizon:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    casino:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    garcia:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    described:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    mcpl:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+    wpt:
+      alpha:
+      - 0.5
+      - 0.9
+      lam:
+      - 1.0
+      - 2.5
+      A:
+      - 0.1
+      - 0.4
+      c:
+      - 1.0
+      - 3.0
+  ref_bayes_rule:
+    mcpl:
+      tau2:
+      - 0.3
+      - 1.0
+      - 3.0
+      sigma:
+      - 0.5
+      - 1.0
+      - 2.0
+    wpt:
+      tau2:
+      - 0.3
+      - 1.0
+      - 3.0
+      sigma:
+      - 0.5
+      - 1.0
+      - 2.0
+    garcia:
+      tau2:
+      - 0.3
+      - 1.0
+      - 3.0
+      sigma:
+      - 0.5
+      - 1.0
+      - 2.0
+    described:
+      tau2:
+      - 0.3
+      - 1.0
+      - 3.0
+      sigma:
+      - 0.5
+      - 1.0
+      - 2.0
+  ref_gru:
+    mcpl:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    igt:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    bandit2:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    srl3:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    horizon:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 8
+      patience:
+      - 3
+      window:
+      - 64
+      max_steps_per_epoch:
+      - 60000
+    casino:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    wpt:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    garcia:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 15
+      patience:
+      - 4
+      window:
+      - 64
+    described:
+      hidden:
+      - 8
+      - 12
+      lr:
+      - 0.003
+      - 0.01
+      max_epochs:
+      - 10
+      patience:
+      - 3
+      window:
+      - 64
+      max_steps_per_epoch:
+      - 60000
+analysis:
+  primary_metric: report_nll_per_choice
+  primary_metric_definition: Mean over report-partition participants of each participant's mean negative log-likelihood (nats)
+    of their actual free choices under teacher forcing, after lapse mixing. Instructed trials are learned from but not scored.
+    Lower is better.
+  n_bootstrap: 2000
+  alpha: 0.05
+  minimum_effect_of_interest: 0.02
+  contrasts:
+  - developmental - best reference (chosen on the report partition; exploratory)
+  - developmental - best non-developmental model
+  - best reference - ref_bias
+  status_rule: exploratory — no verdict is issued from a dev pilot
+validity_notes:
+- Report partition = tune, on which hyper-parameters were also selected; numbers are selection-optimistic and exploratory.
+- Every Psych-101 MCPL/IGT participant was fitted on or scored in Phase I; the other seven families are pristine.
+- Registry policy classes and reference models get grids of equal size caps (<= 24) and the same lapse grid; fits at grid
+  edges are flagged.
+- Encodings (12 context features, reward normalisation to [0, 1]) are modelling choices shared by all models; block resets
+  are visible only via obs.meta, which registry classes do not read.
+- Teacher-forced one-step-ahead likelihood measures predictive fit to choice sequences, not generative realism.

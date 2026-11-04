@@ -77,6 +77,18 @@ of gate.
 
 **Gate A amendment (X-007).** The age-script-only null is judged on held-out log-loss as well as
 accuracy, because a scripted temperature schedule cannot change a non-learning readout's argmax.
+
+**Gate D decision after the nine-family dev pilot (X-009, director, 2026-11-04).** A population-fitted
+GRU (≤ 2k parameters, fitted on other participants) is the strongest reference in 8 of 9 families and
+beats every per-participant learner we have, by +0.07 to +0.45 nats; the Phase I IGT advantage does
+not survive it. The comparator set is **not** weakened: Gate D stays as written (population-level
+standard, sequence models included) and is now labelled **D-pop**. A clearly secondary question,
+**D-ind**, is added — *per-participant online adaptation without population fitting*, compared only
+against per-participant models (classical cognitive models, exemplar, plain RL) — because that is
+the scientific target of a developmental learner and it is where our architectures are competitive.
+D-ind can never be reported as Gate D. The architectural implication is recorded as the next
+candidate (Candidate F, not built): a developmental prior learned across people, initialising each
+agent's representation and gate from dev participants, evaluated under D-pop.
 | E — causal decision improvement | prospective study | out of scope for this phase (needs participants and ethics review); never inferred from D | — |
 | F — cross-domain generalisation | representation trained on family set A evaluated few-shot on domain B (synthetic→human bandits, bandits→cue learning) | ≥ 0.02 nats/choice better than training from scratch, CI excl. 0 | frozen human test partitions |
 
