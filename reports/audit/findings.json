@@ -1,0 +1,140 @@
+{
+  "audited_commit": "3485924",
+  "audit_date": "2026-11-04",
+  "auditor": "audit/review lane (independent; did not author the models reviewed)",
+  "out_of_scope": [
+    "Society experiments exp02-exp05 (still running in the main checkout; not present in the audited commit)",
+    "exp07 rerun with all policy classes (running in the main checkout; the committed exp07 result is the reference-model-only run)",
+    "Docker images (no daemon in this container)"
+  ],
+  "findings": [
+    {
+      "id": "H-1",
+      "severity": "high",
+      "area": "Future Self safety",
+      "title": "Crisis routing misses indirect suicidal ideation",
+      "evidence": "POST /scenarios with question 'I don't see the point of going on anymore. Job or startup?' returned 200 with 3 normal scenarios and safety=null (reports/audit/adversarial_api_raised_limits.json: crisis_oblique). Crisis lexicon: packages/hpe/futures/safety.py:15-28 has no pattern for 'point of going on', 'can't go on', 'no reason to live', 'better off dead', 'give up on life'.",
+      "recommendation": "Expand the crisis lexicon (hopelessness phrasings), add regression tests for indirect phrasings, and prefer over-triggering: show crisis resources whenever hopelessness markers appear. Re-run reports/audit/scripts/adversarial_api.py."
+    },
+    {
+      "id": "M-1",
+      "severity": "medium",
+      "area": "Future Self safety",
+      "title": "Health and legal high-stakes questions not routed",
+      "evidence": "'My doctor says I have a heart condition...' -> safety=null; 'I'm being sued by my employer...' -> safety=null (adversarial_api_raised_limits.json: medical, legal). packages/hpe/futures/safety.py:29-58: '\\bsue\\b' does not match 'sued'; no 'doctor', 'physician', 'heart', 'hospital', 'condition' patterns.",
+      "recommendation": "Use stems (su(e|ed|ing)), add common medical/legal terms, add tests per category."
+    },
+    {
+      "id": "M-2",
+      "severity": "medium",
+      "area": "Security / privacy",
+      "title": "No input-size limits on Future Self requests",
+      "evidence": "With the rate limiter relaxed, a 200,000-character question and a 10,000-character user_id were accepted (HTTP 200) and persisted (adversarial_api_raised_limits.json: huge_question_200k, huge_user_id_10k). DecisionRequest.question / user_id / option labels have no max_length (packages/hpe/contracts/schemas.py, DecisionRequest).",
+      "recommendation": "Add max_length constraints (e.g. question 2,000, user_id 128, labels 200, description 1,000) via a contract minor bump, plus a request-body size limit in the API."
+    },
+    {
+      "id": "M-3",
+      "severity": "medium",
+      "area": "Reproducibility / provenance",
+      "title": "Experiment manifests record dirty and mixed code versions",
+      "evidence": "403 of 460 committed RunManifests have code_version '<sha>+dirty'; the 200 H1 runs span 6 code versions (reports/audit/scripts/manifest_check.py). runner.code_version() marks any untracked file (including the experiment's own outputs) as dirty (packages/hpe/evaluation/runner.py:65-75).",
+      "mitigation_verified": "Audit re-ran all 40 H1 main-variant jobs and all 40 Exp6 main-variant jobs from scratch at 3485924: 80/80 raw outcome logs bit-identical to the committed ones.",
+      "recommendation": "Run experiments from a clean, pinned worktree; exclude the output directory from the dirty check or record a hash of the diff; refuse to start an experiment on a dirty tree unless --allow-dirty."
+    },
+    {
+      "id": "M-4",
+      "severity": "medium",
+      "area": "Scientific validity",
+      "title": "Tuning-seed overlap and asymmetric, unlogged tuning",
+      "evidence": "Developmental defaults were tuned on task seeds 7 and 21 (packages/hpe/development/learner.py:40-43); in the learning lab the task seed equals the evaluation seed (packages/hpe/evaluation/learning_lab.py:385), so evaluation seed 7 overlaps. plain_rl tuning (10 configs on seeds 1001-1003) is documented only in prose (packages/hpe/evaluation/baselines.py:17-20, experiments/README.md:47); no tuning script or log is committed for either learner.",
+      "recomputation": {
+        "H1_all_seeds": "+0.0121, 95% CI [-0.0081, +0.0313], failed",
+        "H1_excluding_seed_7": "+0.0135, 95% CI [-0.0089, +0.0344], failed",
+        "Exp6_all_seeds": "+0.0895, 95% CI [+0.0516, +0.1231], passed",
+        "Exp6_excluding_seed_7": "+0.0896, 95% CI [+0.0476, +0.1282], passed"
+      },
+      "recommendation": "Verdicts are unchanged, but commit tuning scripts + logs for every learner, reserve a disjoint tuning seed range (e.g. 1000+) for all classes, and give baselines and the proposed learner equal tuning budgets."
+    },
+    {
+      "id": "M-5",
+      "severity": "medium",
+      "area": "Scientific validity (human data)",
+      "title": "exp07b consistency criterion has low discriminating power",
+      "evidence": "The any-suggestion estimate +12.2% has 95% CI [-0.5%, +27.4%]; the CI contains both 0 and the published +14%, so a null result would also have 'passed' (reports/human_validation/exp07b_causal_grounding/report.md:6; ledger row exp07b_causal_grounding 'supported').",
+      "recommendation": "Report as 'consistent with the published estimate but not distinguishable from zero'; add a power/precision criterion (e.g. CI half-width bound) or an equivalence test; feature the walking-suggestion term (+21.2%, CI [+4.2%, +42.0%], excludes 0, published +24% inside)."
+    },
+    {
+      "id": "M-6",
+      "severity": "medium",
+      "area": "Accessibility",
+      "title": "axe-core serious violations (contrast, keyboard access to scroll regions)",
+      "evidence": "axe-core 4.10.2 on 9 routes (reports/audit/a11y_e2e.json): color-contrast (serious) on all 9 routes in light mode only (.chip--ok chips, breadcrumb/body links); scrollable-region-focusable (serious) on the agent inspector timeline <ol> and /lab/learning .table-wrap; heading-order (moderate) on /lab/experiment and /lab/evidence; empty-table-header (minor) on /lab/society. 0 critical violations; dark mode has no contrast violations; 0 horizontal overflow at 390 px.",
+      "recommendation": "Raise .chip--ok and link colours to >= 4.5:1 in the light theme; add tabindex=0 + aria-label to scrollable containers; fix heading levels; label the empty header cell."
+    },
+    {
+      "id": "L-1",
+      "severity": "low",
+      "area": "Leakage / mechanism design",
+      "title": "Held-out scores feed back into society training choices",
+      "evidence": "Tutoring targets the agent's weakest MEASURED family and sets difficulty from measured held-out accuracy (packages/hpe/world/engine.py:600-605, 1010-1016); hiring uses assess(). Aggregate scores only, never items; learning-lab experiments (H1/Exp1/Exp6/ablations) do not use this path.",
+      "recommendation": "Document as a modelled mechanism (teacher uses test scores) in world/ASSUMPTIONS.md; optionally provide a variant using the policy's own self-estimates."
+    },
+    {
+      "id": "L-2",
+      "severity": "low",
+      "area": "Security",
+      "title": "Unescaped LIKE wildcards in event agent filter",
+      "evidence": "packages/hpe/storage/repositories.py:150-151 builds other_ids LIKE '%\"<agent_id>\"%' without escaping % and _; agent_id='%' matches every multi-party event. Parameterised (no SQL injection; probe 'a00001\\' OR \\'1\\'=\\'1' returned total 0). Read-only synthetic data.",
+      "recommendation": "Escape % and _ and add ESCAPE '\\\\', or store participants in a join table."
+    },
+    {
+      "id": "L-3",
+      "severity": "low",
+      "area": "Demo integrity",
+      "title": "demo-check passes with an empty claims ledger",
+      "evidence": "make demo-check reported '[PASS] GET /research/claims - 200, 0 items' at 3485924 (scripts/demo.py). The ledger was added after the audit snapshot in 3da7504 (17 claims: 8 supported, 6 not supported, 2 not tested, 1 inconclusive).",
+      "recommendation": "Assert at least one claim and at least one stored real run in demo-check."
+    },
+    {
+      "id": "L-4",
+      "severity": "low",
+      "area": "Demo integrity",
+      "title": "Human-data results not served by /experiments",
+      "evidence": "GET /experiments lists only the 4 learning-lab experiments; reports/human_validation/* is not read by the API (apps/api/hpe_api/experiment_service.py). The ledger (3da7504) does list exp07/exp07b.",
+      "recommendation": "Serve reports/human_validation/<id>/result.json with evidence_kind=human_dataset and show it on the Proof of Learning page, visually distinct from synthetic results."
+    },
+    {
+      "id": "L-5",
+      "severity": "low",
+      "area": "Privacy",
+      "title": "Audit log retains pseudonymous user id after deletion",
+      "evidence": "After /privacy/delete, user tables have 0 rows (direct SQLite check) but export still lists 5 audit_log entries for the user (adversarial_api_raised_limits.json: export_after_delete).",
+      "recommendation": "Document the retention purpose/period in SECURITY.md; consider hashing the user id in audit entries after deletion."
+    },
+    {
+      "id": "L-6",
+      "severity": "low",
+      "area": "Testing",
+      "title": "Coverage gaps in two core modules",
+      "evidence": "Total branch coverage 91% (pytest -m 'not slow' --cov). packages/hpe/core/hashing.py 56%, packages/hpe/world/population.py 74%, evaluation/stats.py 86%, evaluation/analysis.py 87%.",
+      "recommendation": "Add tests for hashing edge cases (NaN/inf, sets, pydantic models) and population initialisation variants (uniform_0_60, newborn_cohort)."
+    }
+  ],
+  "verified_ok": [
+    "Re-analysis from raw logs byte-identical for all 4 committed learning-lab experiments (result.json and report.md).",
+    "From-scratch re-run at 3485924: 40/40 H1 and 40/40 Exp6 main-variant jobs bit-identical to committed raw outcome logs.",
+    "verify-replay on a fresh 20-agent x 4-year run: from seed and from checkpoint, chain and state hashes identical.",
+    "Independent numpy paired bootstrap reproduces H1 +0.0121 [-0.0081, +0.0313] (runner: [-0.0080, +0.0306]); verdict 'failed' confirmed. Holm matches a reference implementation.",
+    "Preregistered YAMLs unchanged since 5817dff (03:46 UTC) and committed before results (H1 results ac1bb22 04:12 UTC; exp07 prereg 1e3d019 03:42, results efc5be4 04:22).",
+    "No policy reads task-world internals (readouts, eval sets, score tables); correct_action is only consumed under full (instructional) feedback, which SymbolWorld.feedback only reveals in mode 'full'.",
+    "static_persona and developmental(use_learning=False) never change state under 300 episodes of full+bandit feedback; learning classes do.",
+    "No prohibited affirmative claims in README/docs/web/reports (all matches are negations or the prohibited-list itself).",
+    "Citations verified via Crossref: Wilson & Gilbert (2005) doi:10.1111/j.0963-7214.2005.00355.x, Curr Dir Psychol Sci 14(3):131-134; Hershfield et al. (2011) doi:10.1509/jmkr.48.spl.s23, J Mark Res 48(SPL):S23-S37. Bibliographic metadata only; paraphrased claims consistent with titles/scope but not checked against full text.",
+    "HeartSteps published values (+14% p=.06; +24% p=.02) match the PubMed abstract text (PMID 30192907).",
+    "Consent enforced (400 without consent); 9 adversarial prompts incl. prompt injection and probability elicitation produced 0 probability/guarantee phrases; every scenario labelled 'illustrative scenario'.",
+    "Privacy export/delete removes all user rows (direct SQLite check). CORS rejects foreign origins. Path-traversal probes on download/agents/evidence/experiments return 404. Run quota (20,000 agents) returns 400; events limit 1e9 returns 422. Rate limiting: 40/40 burst requests after the bucket emptied returned 429.",
+    "Secrets scan: 1,277 files, 0 findings. No SQLite DBs, .env, or raw external data tracked; human-validation outputs are derived per-participant metrics only.",
+    "make demo-check: 14/14 passed (ports 8798/5198). Web e2e: 0 console errors and 0 failed API requests on 9 routes in light and dark mode; MOCK banner absent (real API).",
+    "No hard-coded research numbers in apps/web/src; mock transport and MOCK banner share one gate (VITE_USE_MOCKS === '1')."
+  ]
+}

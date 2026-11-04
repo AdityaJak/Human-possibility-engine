@@ -1,0 +1,151 @@
+{
+  "H1/all_seeds": {
+    "n_seeds": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "treatment_mean": 0.8489,
+    "control_mean": 0.8369,
+    "estimate": 0.0121,
+    "ci_low": -0.0081,
+    "ci_high": 0.0313,
+    "relative": 0.0144,
+    "dz": 0.357,
+    "strongest_baseline": "plain_rl",
+    "threshold_abs": 0.0837,
+    "verdict": "failed"
+  },
+  "H1/excluding_seed_7": {
+    "n_seeds": 9,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9
+    ],
+    "treatment_mean": 0.851,
+    "control_mean": 0.8375,
+    "estimate": 0.0135,
+    "ci_low": -0.0089,
+    "ci_high": 0.0344,
+    "relative": 0.0161,
+    "dz": 0.38,
+    "strongest_baseline": "plain_rl",
+    "threshold_abs": 0.0838,
+    "verdict": "failed"
+  },
+  "Exp6/all_seeds": {
+    "n_seeds": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "treatment_mean": 0.7417,
+    "control_mean": 0.6522,
+    "estimate": 0.0895,
+    "ci_low": 0.0516,
+    "ci_high": 0.1231,
+    "relative": 0.1373,
+    "dz": 1.448,
+    "verdict": "passed"
+  },
+  "Exp6_vs_plain_rl/all_seeds": {
+    "n_seeds": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "treatment_mean": 0.7417,
+    "control_mean": 0.6924,
+    "estimate": 0.0493,
+    "ci_low": 0.0137,
+    "ci_high": 0.0836,
+    "relative": 0.0712,
+    "dz": 0.809
+  },
+  "Exp6/excluding_seed_7": {
+    "n_seeds": 9,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9
+    ],
+    "treatment_mean": 0.7378,
+    "control_mean": 0.6483,
+    "estimate": 0.0896,
+    "ci_low": 0.0476,
+    "ci_high": 0.1282,
+    "relative": 0.1382,
+    "dz": 1.366,
+    "verdict": "passed"
+  },
+  "Exp6_vs_plain_rl/excluding_seed_7": {
+    "n_seeds": 9,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9
+    ],
+    "treatment_mean": 0.7378,
+    "control_mean": 0.6863,
+    "estimate": 0.0515,
+    "ci_low": 0.0126,
+    "ci_high": 0.0904,
+    "relative": 0.0751,
+    "dz": 0.803
+  },
+  "H1/per_seed_dev_minus_plain_rl": {
+    "0": -0.0122,
+    "1": -0.0017,
+    "2": 0.0086,
+    "3": -0.0536,
+    "4": 0.0506,
+    "5": 0.0356,
+    "6": 0.0389,
+    "7": -0.0008,
+    "8": -0.0019,
+    "9": 0.0572
+  }
+}
