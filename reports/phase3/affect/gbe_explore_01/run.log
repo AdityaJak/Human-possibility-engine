@@ -9,3 +9,8 @@ affect_gru_shuf cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2866 fi
 affect_gru_shuf cfg1 {'batch_size': 64, 'hidden': 32, 'lr': 0.01} params=7266 fit=359s epochs=53 stop=early_stop tune_nll=0.47403 (λ=0.01)
 == affect_gru_shuf: tune NLL 0.47403 λ=0.01 causal_violations=0
 affect_gru_aux cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2739 fit=548s epochs=91 stop=early_stop tune_nll=0.47611 (λ=0.0)
+affect_gru_aux cfg1 {'batch_size': 64, 'hidden': 32, 'lr': 0.01} params=7011 fit=403s epochs=59 stop=early_stop tune_nll=0.47557 (λ=0.01)
+== affect_gru_aux: tune NLL 0.47557 λ=0.01 causal_violations=0
+affect_gru_aux_shuf cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2739 fit=561s epochs=94 stop=early_stop tune_nll=0.47508 (λ=0.0)
+affect_gru_aux_shuf cfg1 {'batch_size': 64, 'hidden': 32, 'lr': 0.01} params=7011 fit=266s epochs=36 stop=early_stop tune_nll=0.47488 (λ=0.01)
+== affect_gru_aux_shuf: tune NLL 0.47488 λ=0.01 causal_violations=0
