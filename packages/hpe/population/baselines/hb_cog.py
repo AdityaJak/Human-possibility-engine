@@ -133,11 +133,11 @@ def run_particles(seq: EncodedSeq, theta: np.ndarray, spec: _Spec) -> np.ndarray
         for a in range(K):
             if av[a]:
                 v = Q.get(keys[a], np.full(P, Q0))
-                nxt = trans.get((sk, a)) if spec.mb else None
-                if nxt:
-                    tot = sum(nxt.values())
+                succ = trans.get((sk, a)) if spec.mb else None
+                if succ:
+                    tot = sum(succ.values())
                     vmb = np.zeros(P)
-                    for s2, n2 in sorted(nxt.items()):
+                    for s2, n2 in sorted(succ.items()):
                         best = np.max(
                             [Q.get((s2, a2), np.full(P, Q0)) for a2 in avail_of.get(s2, (0,))], axis=0
                         )
