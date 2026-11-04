@@ -28,7 +28,8 @@ figure from raw logs. Unit of analysis is the seed (10 seeds). Primary test: pai
 | Exp 6 / H3 `exp06_transfer` | Does a shared representation speed learning of an unseen family? | +0.090 [+0.050, +0.123] vs specialists | passed | `reports/experiments/exp06_transfer` |
 | Ablations `exp_ablations` | Is held-out skill caused by learning rather than scripts? | freezing learning: −0.409 [−0.425, −0.394] | passed | `reports/experiments/exp_ablations` |
 | Exp 2 `exp02_twin_tutoring` | Twin societies: does tutoring access raise held-out skill through learning? | +0.029 [+0.022, +0.037]; non-learning society: exactly 0 | passed (manipulation check **failed** as defined, §4) | `reports/experiments/exp02_twin_tutoring` |
-| Exp 3–5 | social influence, midlife education, multigenerational | running at time of writing | pending | — |
+| Exp 3 `exp03_social_influence` (H2) | Do connected societies out-learn isolated ones; does misinformation hurt? | connected − isolated = −0.004 [−0.007, −0.000]; misinformation −0.002 (CI includes 0) | **FAILED** | `reports/experiments/exp03_social_influence` |
+| Exp 4–5 | midlife education, multigenerational | running at time of writing | pending | — |
 | Exp 7b `exp07b_causal_grounding` | Can our estimator recover a randomised human effect (HeartSteps V1)? | +12.2% [−0.5%, +27.4%]; published +14% inside CI | passed (see caveat §5) | `reports/human_validation/exp07b_causal_grounding` |
 | Exp 7 `exp07_human_heldout` | Do our policy classes predict held-out human choices (Psych-101)? | MCPL (primary): developmental **worse** than instance-based, +0.229 nats [+0.171, +0.289]; IGT (secondary): developmental **best** of 8 models, −0.110 [−0.140, −0.083] | **FAILED** (primary); secondary passed | `reports/human_validation/exp07_human_heldout` |
 
@@ -123,6 +124,38 @@ streams; treatment: tutoring access (extra instructional-feedback episodes) for 
   the effect replicates in plain_rl); the check measured the wrong thing. Recorded as failed; a
   corrected check (ever-tutored share) belongs in a new preregistration, not a silent edit.
 * 140 runs, 4,766 s wall, 0 LLM calls, $0 API cost.
+
+### Exp 3 — social influence (H2, failed)
+
+100 agents, 15 years, 10 paired seeds. Arms: connected vs fully isolated societies (no non-family
+social learning or interaction), each with and without a misinformation intervention (10% of adults
+broadcast wrong demonstrations); memory-only arms for comparison.
+
+| Arm | Held-out accuracy, ages 10–60 | Mean friends | Employment 18–65 |
+|---|---|---|---|
+| dev_connected | 0.823 [0.805, 0.844] | **0.018** [0.004, 0.036] | 0.664 |
+| dev_isolated | 0.827 [0.810, 0.847] | 0.000 | 0.663 |
+| dev_connected_misinfo | 0.821 [0.804, 0.841] | 0.027 | 0.660 |
+| dev_isolated_misinfo | 0.824 [0.808, 0.846] | 0.000 | 0.664 |
+| mem_connected | 0.754 [0.729, 0.777] | 0.490 [0.141, 1.003] | 0.664 |
+| mem_connected_misinfo | 0.754 [0.731, 0.777] | 0.399 | 0.663 |
+
+* Primary (connected − isolated, developmental): **−0.0040 [−0.0074, −0.0002]**, p = 0.068 → failed
+  (the point estimate is in the wrong direction; sensitivity with 4 peer demonstrations per social
+  tick: −0.0062 [−0.0095, −0.0026]).
+* Misinformation harm: connected −0.0017 [−0.0048, +0.0014]; isolated −0.0022 [−0.0045, +0.0000];
+  memory-only +0.0001 — no detectable harm anywhere.
+* Manipulation check (isolation removes friendships): +0.0185 friends [+0.0057, +0.0359] → passed,
+  but the absolute level shows the real problem.
+
+**Reading.** Social context cannot matter in this world because developmental agents barely form
+friendships — 0.018 on average over 15 years, against 0.49 for memory-only agents under identical
+world rules. The developmental activity bandit learns to spend little time socialising (its
+values-weighted reward favours study and work), so the "connected" condition delivers almost no peer
+demonstrations, and the social-learning pathway — which the learning-lab ablation also found inert —
+never engages. H2 is therefore **not supported as built**; the next step is a mechanism fix (social
+reward shaping, friendship formation rates), re-tested under a new preregistration, not a re-analysis.
+70 main + 10 sensitivity runs, 1,681 s, 0 LLM calls.
 
 ## 5. Real human data
 

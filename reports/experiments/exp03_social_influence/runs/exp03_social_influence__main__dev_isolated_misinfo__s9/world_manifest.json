@@ -1,0 +1,113 @@
+{
+  "schema_version": "0.1.0",
+  "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s9",
+  "created_at": "2026-11-04T05:05:49.331076Z",
+  "status": "completed",
+  "code_version": "79ed315",
+  "contract_version": "0.1.0",
+  "config": {
+    "schema_version": "0.1.0",
+    "seed": 9,
+    "population_seed": 9,
+    "task_seed": 9,
+    "n_agents": 100,
+    "years": 15.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [
+      {
+        "name": "isolation",
+        "kind": "social_isolation",
+        "target": {
+          "age_min": 0.0,
+          "age_max": 200.0,
+          "fraction": 1.0,
+          "household_ids": null,
+          "agent_ids": null
+        },
+        "start_year": 0.0,
+        "end_year": null,
+        "params": {}
+      },
+      {
+        "name": "rumours",
+        "kind": "misinformation",
+        "target": {
+          "age_min": 18.0,
+          "age_max": 80.0,
+          "fraction": 0.1,
+          "household_ids": null,
+          "agent_ids": null
+        },
+        "start_year": 0.0,
+        "end_year": null,
+        "params": {}
+      }
+    ],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": "society:main:dev_isolated_misinfo"
+  },
+  "config_hash": "34dba1105dcfbd2a",
+  "experiment_id": null,
+  "arm": null,
+  "policy_class": "developmental",
+  "policy_version": "0.1.0",
+  "task_world_hash": "80c8ca0fc786042d",
+  "dataset_hashes": {
+    "event_stream_sha256_chain": "e6b4a2f95b7120f2570145a47a9354f6650096c11c08274a00d8f079ea449289"
+  },
+  "event_log_path": null,
+  "event_log_sha256": null,
+  "n_events": 6025,
+  "final_state_hash": "ec3f87ac3b8bb6e9a602eefd62c9f702",
+  "checkpoints": [],
+  "compute": {
+    "wall_time_s": 23.4167,
+    "cpu_time_s": 23.1411,
+    "peak_rss_mb": 151.55,
+    "ticks": 183,
+    "agent_years": 1703.4908,
+    "events": 6025,
+    "llm_calls": 0,
+    "llm_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "cost_assumptions": "local CPU only; no paid model calls",
+    "hardware": "Intel(R) Xeon(R) Processor @ 2.80GHz; 4 logical CPUs; Linux x86_64; Python 3.13.18"
+  },
+  "nondeterminism": [],
+  "error": null
+}

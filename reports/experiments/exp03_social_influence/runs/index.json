@@ -1,0 +1,486 @@
+{
+  "jobs": [
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__main__dev_connected__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__main__dev_isolated__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected_misinfo",
+      "run_id": "exp03_social_influence__main__dev_connected_misinfo__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_isolated_misinfo",
+      "run_id": "exp03_social_influence__main__dev_isolated_misinfo__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected",
+      "run_id": "exp03_social_influence__main__mem_connected__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "mem_connected_misinfo",
+      "run_id": "exp03_social_influence__main__mem_connected_misinfo__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s0",
+      "seed": 0,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s1",
+      "seed": 1,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s2",
+      "seed": 2,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s3",
+      "seed": 3,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s4",
+      "seed": 4,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s5",
+      "seed": 5,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s6",
+      "seed": 6,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s7",
+      "seed": 7,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s8",
+      "seed": 8,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_connected",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_connected__s9",
+      "seed": 9,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s0",
+      "seed": 0,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s1",
+      "seed": 1,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s2",
+      "seed": 2,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s3",
+      "seed": 3,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s4",
+      "seed": 4,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s5",
+      "seed": 5,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s6",
+      "seed": 6,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s7",
+      "seed": 7,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s8",
+      "seed": 8,
+      "variant": "more_peer_demos"
+    },
+    {
+      "arm": "dev_isolated",
+      "run_id": "exp03_social_influence__more_peer_demos__dev_isolated__s9",
+      "seed": 9,
+      "variant": "more_peer_demos"
+    }
+  ],
+  "preregistration_hash": "f6531c961d92be5b2b407b4048087e07",
+  "skipped_arms": {}
+}

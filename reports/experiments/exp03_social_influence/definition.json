@@ -1,0 +1,206 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp03_social_influence",
+  "title": "Exp 3: social influence — connected vs isolated communities and misinformation robustness",
+  "hypothesis": "In a connected community, trust-weighted social learning diffuses skill so held-out accuracy (ages 10-60, year 15) exceeds an otherwise identical isolated community; seeded misinformation lowers accuracy, less so for a learner that discounts demonstrations conflicting with its own evidence.",
+  "falsification_criterion": "Not supported if dev_connected - dev_isolated on accuracy_10_60 has a paired 95% CI including or below 0 across 10 seeds.",
+  "arms": [
+    {
+      "name": "dev_connected",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "dev_isolated",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "isolation",
+          "kind": "social_isolation",
+          "target": {
+            "age_min": 0.0,
+            "age_max": 200.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    },
+    {
+      "name": "dev_connected_misinfo",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "rumours",
+          "kind": "misinformation",
+          "target": {
+            "age_min": 18.0,
+            "age_max": 80.0,
+            "fraction": 0.1,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    },
+    {
+      "name": "dev_isolated_misinfo",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "isolation",
+          "kind": "social_isolation",
+          "target": {
+            "age_min": 0.0,
+            "age_max": 200.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        },
+        {
+          "name": "rumours",
+          "kind": "misinformation",
+          "target": {
+            "age_min": 18.0,
+            "age_max": 80.0,
+            "fraction": 0.1,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    },
+    {
+      "name": "mem_connected",
+      "policy_class": "memory_only",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "mem_connected_misinfo",
+      "policy_class": "memory_only",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "rumours",
+          "kind": "misinformation",
+          "target": {
+            "age_min": 18.0,
+            "age_max": 80.0,
+            "fraction": 0.1,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    }
+  ],
+  "control_arm": "dev_isolated",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "base_config": {
+    "schema_version": "0.1.0",
+    "seed": 0,
+    "population_seed": null,
+    "task_seed": null,
+    "n_agents": 100,
+    "years": 15.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": null
+  },
+  "analysis": {
+    "primary_metric": "accuracy_10_60",
+    "primary_metric_definition": "Year 15: mean held-out accuracy (training families) over alive agents aged 10-60; one value per society.",
+    "comparison": "dev_connected - dev_isolated, paired by seed",
+    "test": "paired_bootstrap",
+    "alpha": 0.05,
+    "n_bootstrap": 4000,
+    "minimum_effect_of_interest": null,
+    "secondary_metrics": [
+      "youth_accuracy_10_20",
+      "mean_friends",
+      "employment_18_65"
+    ]
+  },
+  "ablations": [],
+  "validity_notes": [
+    "Misinformation is a fictional-task construct (wrong demonstrations presented as correct); it says nothing about real-world misinformation.",
+    "Depends on hpe.world semantics for social_isolation and misinformation interventions."
+  ],
+  "preregistration_hash": "f6531c961d92be5b2b407b4048087e07",
+  "created_at": "2026-11-04T04:57:18.372730Z"
+}

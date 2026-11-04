@@ -19,6 +19,11 @@ noise. Candidate causes, each a falsifiable experiment:
 3. **Label-noise fragility.** Developmental learner −0.046 vs plain RL at noise 0.15: add noise-robust
    updates (e.g. confidence-weighted, robust losses). *Accept:* sensitivity variant no longer worse.
 4. **Tuning hygiene.** Re-tune the developmental learner on seeds ≥ 1000 only; re-run H1/Exp6 on 0–9.
+5. **Social pathway is inert (Exp 3 failed).** Developmental agents form 0.018 friends on average in
+   15 years (memory-only: 0.49): the activity bandit learns away from socialising and peer
+   demonstrations never arrive. Fix the mechanism (social-connection term in the activity reward,
+   friendship formation thresholds, demonstration volume), confirm friendships form at a plausible
+   rate, then re-test H2 and misinformation robustness under a new preregistration.
 
 ## 2. Gate 4 — real human validity
 

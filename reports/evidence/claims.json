@@ -59,6 +59,35 @@
     ]
   },
   {
+    "claim_id": "exp03_social_influence",
+    "claim": "In a connected community, trust-weighted social learning diffuses skill so held-out accuracy (ages 10-60, year 15) exceeds an otherwise identical isolated community; seeded misinformation lowers accuracy, less so for a learner that discounts demonstrations conflicting with its own evidence.",
+    "status": "not_supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp03_social_influence__main__dev_connected__s0",
+      "exp03_social_influence__main__dev_connected__s1",
+      "exp03_social_influence__main__dev_connected__s2",
+      "exp03_social_influence__main__dev_connected__s3",
+      "exp03_social_influence__main__dev_connected__s4",
+      "exp03_social_influence__main__dev_connected__s5",
+      "exp03_social_influence__main__dev_connected__s6",
+      "exp03_social_influence__main__dev_connected__s7",
+      "exp03_social_influence__main__dev_connected__s8",
+      "exp03_social_influence__main__dev_connected__s9",
+      "exp03_social_influence__main__dev_connected_misinfo__s0",
+      "exp03_social_influence__main__dev_connected_misinfo__s1",
+      "... +68 more"
+    ],
+    "metric": "accuracy_10_60",
+    "value": "-0.0040 (95% CI [-0.0074, -0.0002], n=10 seeds) \u2014 primary contrast 'connection_effect' (superiority): dev_connected vs dev_isolated on accuracy_10_60: estimate -0.0040 (95% CI [-0.0074, -0.0002], n=10 seeds; relative -0.5%); threshold \u2014 -> failed",
+    "config_ref": "reports/experiments/exp03_social_influence/definition.json (preregistration f6531c961d92be5b2b407b4048087e07)",
+    "limitations": [
+      "Misinformation is a fictional-task construct (wrong demonstrations presented as correct); it says nothing about real-world misinformation.",
+      "Depends on hpe.world semantics for social_isolation and misinformation interventions.",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
     "claim_id": "exp06_transfer",
     "claim": "A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised 'barter' family than independently trained specialists when barter shares the latent structure, and shows no benefit (or negative transfer) when it does not.",
     "status": "supported",
