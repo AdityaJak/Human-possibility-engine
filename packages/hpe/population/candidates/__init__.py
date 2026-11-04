@@ -52,7 +52,7 @@ def _f1_fixedstep(cfg: dict[str, Any], k: int, d: int) -> F1Latent:
 
 def _f1_cavia(cfg: dict[str, Any], k: int, d: int) -> F1Latent:
     return F1Latent(
-        {**cfg, "d_trait": _latent_total(cfg), "d_ctx": 0, "inference": "gd", "beta": 0.0},
+        {**cfg, "d_trait": _latent_total(cfg), "d_ctx": 0, "inference": "gd", "beta": 0.0, "train_mode": "meta"},
         k,
         d,
         name="f1_cavia",

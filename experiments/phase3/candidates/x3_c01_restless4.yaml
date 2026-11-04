@@ -1,18 +1,18 @@
 # X3-C01 (exploratory, research/adaptation): design-team candidates F1/F2/F3 and their ablations vs a
-# same-size core pop_gru on restless4 (primary counted family), dev fit / tune select+report.
+# same-size core pop_gru on restless4 (primary counted family); fit dev, select and report on tune.
 # Equal treatment: every population network (pop_gru, F1/F3 backbone, F2 world model, F3 GRU challenger)
 # is trained by core.nets.train with the core defaults (batch 8, <=150 epochs, patience 10, plateau halving).
-# pop_gru gets the larger grid (lr x hidden x dropout, 8 configs); candidate backbones search hidden x dropout
-# at lr 0.01 (4 configs). F1/F3 variants share one cached backbone per config (paired ablations).
-# F1 ablations run at the backbone config selected for f1_latent on tune (two-stage tune search; counted
-# in the configuration totals reported in POPULATION_ADAPTATION_ARCHITECTURES.md).
+# pop_gru gets lr x hidden x dropout (8 configs); candidate backbones search hidden x dropout at lr 0.01
+# (4 configs). F1/F3 variants share one cached backbone per config (paired ablations). Adaptive candidates
+# subclass core.adaptation.AdaptiveBase: the harness owns adapt / frozen / length-matched donor schedules.
+# Run with OPENBLAS_NUM_THREADS=1 (small-matrix BLAS threading is pathological on the shared machine).
 experiment_id: x3_c01_restless4
-title: Design-team candidates (F1 latent, F3 episodic arbiter, F2 world model + policy) vs same-size pop_gru, restless4
+title: Design-team candidates (F3 episodic arbiter, F2 world model + policy, F1 individual latent) vs same-size pop_gru, restless4
 lane: research/adaptation
 hypothesis: >-
-  (Exploratory.) Explicit individual adaptation (F1 latent, F3 episodic memory + gate, F2 individual policy)
-  improves tune NLL over the same frozen population model with its recurrent state running and over a
-  same-size pop_gru.
+  (Exploratory.) Explicit individual adaptation (F3 episodic memory + learned gate, F2 individual policy
+  posterior, F1 online latent) improves tune NLL over the same population network with its recurrent state
+  running and over a same-size pop_gru.
 families: [restless4]
 report_partition: tune
 seed: 20261108
@@ -28,13 +28,26 @@ models:
     variants: [frozen, mismatched]
   f3_fixedmix:
     role: reference
-    grid: {hidden: [12, 32], dropout: [0.0, 0.2], mix: [0.05, 0.15, 0.3], bandwidth: [0.5]}
-    fixed: {lr: 0.01}
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2], mix: [0.05, 0.15, 0.3]}
+    fixed: {lr: 0.01, bandwidth: 0.5}
     variants: [frozen]
   f3_fixedshare:
     role: reference
     grid: {hidden: [12, 32], dropout: [0.0, 0.2], share: [0.01, 0.05, 0.2]}
     fixed: {lr: 0.01, bandwidth: 0.5}
+    variants: [frozen]
+  f3_gruepi:
+    role: reference
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01, bandwidth: 0.5}
+  f2_world_policy:
+    role: candidate
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2], prior_scale: [0.5, 1.0, 2.0]}
+    fixed: {lr: 0.01}
+    variants: [frozen, mismatched]
+  f2_delta:
+    role: reference
+    grid: {delta_alpha: [0.1, 0.3, 0.6], prior_scale: [0.5, 1.0, 2.0]}
     variants: [frozen]
   f1_latent:
     role: candidate
@@ -46,14 +59,5 @@ models:
     grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
     fixed: {lr: 0.01, m: 10}
     variants: [frozen]
-  f2_world_policy:
-    role: candidate
-    grid: {hidden: [12, 32], dropout: [0.0, 0.2], prior_scale: [0.5, 1.0, 2.0]}
-    fixed: {lr: 0.01}
-    variants: [frozen, mismatched]
-  f2_delta:
-    role: reference
-    grid: {delta_alpha: [0.1, 0.3, 0.6], prior_scale: [0.5, 1.0, 2.0]}
-    variants: [frozen]
 notes:
-  - F1 ablations (f1_trait, f1_context, f1_fixedstep) and f3_gruepi are run in x3_c01b_restless4 at the backbone config selected here.
+  - F1 ablations (f1_trait, f1_context, f1_fixedstep, f1_cavia) run in x3_c02_restless4_f1abl at the backbone config selected here for f1_latent (two-stage tune search; configurations counted in the architecture report).

@@ -27,11 +27,15 @@ recurrence and read-out, ``k_inner`` plain gradient steps with a fixed inner lea
 past NLL (no prior, no recency, no surprise) — the standard CAVIA context adapter.
 
 Training: stage 1 is the shared population backbone (``common.train_backbone``, trained exactly like
-``pop_gru``; z = 0); stage 2 (``meta=True``) is CAVIA-style meta-training of the latent pathway only (the
-z columns of the GRU input and read-out and the bilinear modulation; the backbone weights stay frozen
-unless ``meta_train_backbone``), so the z = 0 network *is* the population backbone. For each person in a
-batch, ``train_cuts`` cut points c are sampled; z is inferred on the prefix [0, c) and the outer loss is
-the NLL of trials [c, c+m). The meta-gradient is first-order (z is a constant for θ in the outer loss).
+``pop_gru``; z = 0). Stage 2 trains only the latent pathway (the z columns of the GRU input and read-out
+and the bilinear modulation; the backbone weights stay frozen), so the z = 0 network *is* the population
+backbone. ``train_mode="joint"`` (default): joint MAP / empirical-Bayes ("auto-decoder") training with a
+free code per fitting participant (z_trait_i, and z_ctx_{i,j} per block of m trials) under the same
+Gaussian priors, early-stopped on the adapt-mode NLL of held-out dev participants (online inference).
+``train_mode="meta"``: CAVIA-style first-order meta-training — for each person in a batch ``train_cuts``
+cut points c are sampled, z is inferred on the prefix [0, c) and the outer loss is the NLL of [c, c+m)
+(z is a constant for θ in the outer loss). ``meta=False`` (ablation ``f1_bolt``): no stage 2 — the latent
+pathway keeps its random initialisation.
 """
 
 from __future__ import annotations
@@ -72,11 +76,15 @@ class LatentGRU(nn.Module):
         return h
 
     def logits(self, h: torch.Tensor, z: torch.Tensor) -> torch.Tensor:
-        if not z.shape[1]:
+        """Read-out; ``z`` is [R, dz] (constant over time) or [R, T, dz] (time-varying, joint training)."""
+        if not z.shape[-1]:
             return self.head(h)
-        out = self.head(torch.cat([h, z[:, None, :].expand(-1, h.shape[1], -1)], dim=-1))
-        m = torch.einsum("rj,jkh->rkh", z, self.mod[: z.shape[1]])
-        return out + torch.einsum("rkh,rth->rtk", m, h)
+        zt = z[:, None, :].expand(-1, h.shape[1], -1) if z.dim() == 2 else z
+        out = self.head(torch.cat([h, zt], dim=-1))
+        if z.dim() == 2:
+            m = torch.einsum("rj,jkh->rkh", z, self.mod[: z.shape[1]])
+            return out + torch.einsum("rkh,rth->rtk", m, h)
+        return out + torch.einsum("rtj,jkh,rth->rtk", zt, self.mod[: zt.shape[2]], h)
 
     def readout(self, h: torch.Tensor, z: torch.Tensor, avail: torch.Tensor) -> torch.Tensor:
         return nets.masked_log_softmax(self.logits(h, z), avail)
@@ -296,6 +304,16 @@ def adapt_nll(net: LatentGRU, hp: F1Hyper, b: nets.Batch, max_rows: int = 96) ->
     return tot, cnt
 
 
+class _JointWrapper(nn.Module):
+    """The latent GRU plus free per-participant codes (fitting participants only; discarded after fit)."""
+
+    def __init__(self, net: LatentGRU, n: int, n_blocks: int, d_tr: int, d_ctx: int) -> None:
+        super().__init__()
+        self.net = net
+        self.z_tr = nn.Parameter(torch.randn(n, d_tr) * 0.01)
+        self.z_ctx = nn.Parameter(torch.randn(n, n_blocks, d_ctx) * 0.01)
+
+
 class F1Latent(AdaptiveBase):
     adaptive = True
 
@@ -342,6 +360,16 @@ class F1Latent(AdaptiveBase):
                 time.process_time() - t0 + (blog["backbone_cpu_s"] if blog["cached"] else 0.0), 2
             )
             return log
+        if str(c.get("train_mode", "joint")) == "joint":
+            log["train_mode"] = "joint"
+            log["joint_train"] = self._fit_joint(
+                train, seed, max(30.0, budget_s - (time.process_time() - t0))
+            )
+            self.net.eval()
+            own = time.process_time() - t0
+            log["cpu_s_incl_backbone"] = round(own + (blog["backbone_cpu_s"] if blog["cached"] else 0.0), 2)
+            return log
+        log["train_mode"] = "meta"
         rng = stream(seed, "f1_cuts", self.name)
         n_cuts = int(c.get("train_cuts", 2))
         train_backbone = bool(c.get("meta_train_backbone", False))
@@ -381,7 +409,7 @@ class F1Latent(AdaptiveBase):
 
         tk = common.trainer_kwargs(c)
         tk.update(
-            lr=float(c.get("meta_lr", 0.01 if not train_backbone else 0.003)),
+            lr=float(c.get("meta_lr", 0.003)),
             max_epochs=int(c.get("meta_epochs", 30)),
             patience=int(c.get("meta_patience", 6)),
             batch_size=int(c.get("meta_batch", 8)),
@@ -405,6 +433,65 @@ class F1Latent(AdaptiveBase):
         own = time.process_time() - t0
         log["cpu_s_incl_backbone"] = round(own + (blog["backbone_cpu_s"] if blog["cached"] else 0.0), 2)
         return log
+
+    def _fit_joint(self, train: list[EncodedSeq], seed: int, budget_s: float) -> dict[str, Any]:
+        """Joint MAP (empirical-Bayes / auto-decoder) training of the latent pathway.
+
+        Every fitting participant i gets free codes: z_trait_i (constant) and one z_ctx_{i,j} per block
+        j = ⌊t/m⌋ of m trials, with the same Gaussian priors as at inference. The latent pathway and the
+        codes are fitted jointly by maximum a posteriori on all of the participant's free choices; the
+        backbone stays frozen. Early stopping uses the adapt-mode NLL (online Gauss–Newton inference from
+        prefixes, exactly the harness schedule) on the held-out split, so the selected weights are those
+        that work with *online* inference, not with the oracle codes.
+        """
+        hp, c = self.hp, self.config
+        tk = common.trainer_kwargs(c)
+        tk.update(
+            lr=float(c.get("joint_lr", 0.01)),
+            max_epochs=int(c.get("meta_epochs", 30)),
+            patience=int(c.get("meta_patience", 6)),
+            batch_size=int(c.get("meta_batch", 8)),
+        )
+        fit_part, _ = nets.split_train_val(train, seed, self.name)
+        index = {s.key: i for i, s in enumerate(fit_part)}
+        n_blocks = max(1, max(int(math.ceil(s.T / hp.m)) for s in train))
+        wrapper = _JointWrapper(self.net, len(fit_part), n_blocks, hp.d_tr, hp.d_ctx)
+        hooks = self.net.freeze_backbone_part()
+        block = torch.arange(max(s.T for s in train)) // hp.m
+
+        def loss(mod: nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
+            assert isinstance(mod, _JointWrapper)
+            idx = torch.tensor([index[k] for k in b.keys])
+            z_tr = mod.z_tr[idx]
+            z_c = mod.z_ctx[idx][:, block[: b.T]]  # [B, T, d_ctx]
+            z = torch.cat([z_tr[:, None, :].expand(-1, b.T, -1), z_c], dim=-1)
+            lp = mod.net.readout(mod.net.encode(b.x, z_tr), z, b.avail)
+            s_nll, k = nets.nll_sum(lp, b)
+            prior = (z_tr**2).sum() / (2 * hp.sigma_tr**2) + (mod.z_ctx[idx] ** 2).sum() / (
+                2 * hp.sigma_ctx**2
+            )
+            return s_nll + prior, k
+
+        def val_loss(mod: nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
+            assert isinstance(mod, _JointWrapper)
+            return adapt_nll(mod.net, hp, b)
+
+        out = nets.train(
+            wrapper,
+            loss,
+            train,
+            seed=seed,
+            key=self.name,
+            budget_s=budget_s,
+            val_loss_fn=val_loss,
+            plateau=int(c.get("meta_plateau", 3)),
+            **tk,
+        )
+        for hk in hooks:
+            hk.remove()
+        self.net = wrapper.net
+        out["n_codes"] = len(fit_part)
+        return out
 
     # ------------------------------------------------------------------ person-level state
     def init_state(self) -> dict[str, Any]:

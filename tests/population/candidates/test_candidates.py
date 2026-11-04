@@ -107,3 +107,21 @@ def test_toy_adaptation_helps_only_when_individuals_differ(name, kind, cfg, n, T
     assert het < -0.01 and het < -3 * het_se, (het, het_se)
     # nobody differs: no spurious adaptation gain
     assert hom > -0.005, (hom, hom_se)
+
+
+@pytest.mark.parametrize("name", ["f3_arbiter", "f3_fixedshare", "f2_world_policy", "f2_delta"])
+def test_incremental_state_equals_state_from_scratch(name):
+    """F2/F3 update their state incrementally; the result must match one update over the whole prefix."""
+    from hpe.population.core.adaptation import schedule
+    from hpe.population.core.encoding import truncate
+
+    common.clear_backbone_cache()
+    train = make_population(12, 30, hetero=True, seed=7, kind="bandit")
+    s = make_population(1, 30, hetero=True, seed=7, offset=900, kind="bandit")[0]
+    m = get_model(name).factory(dict(SMALL), 4, input_dim(4))
+    m.fit(train, seed=3, threads=1, budget_s=60)
+    inc = schedule(m, s, mode="adapt", donor=None)[-1]
+    scratch = m.update_state(m.init_state(), truncate(s, inc[0]))
+    for key in ("theta", "P", "keys", "acts", "num_p", "num_e", "fs"):
+        if key in scratch:
+            assert np.allclose(np.asarray(inc[1][key]), np.asarray(scratch[key]), atol=1e-5), key
