@@ -212,18 +212,33 @@ class F2WorldPolicy:
         log: dict[str, Any] = {"world": self.world}
         self.k_eff = int(max(s.avail.sum(1).max() for s in train))
         if self.world == "gru":
-            wseed = derive_seed(seed, "f2_world") % (2**31 - 1)
-            nets.setup_torch(wseed, threads, self.name, repr(sorted(self.config.items())))
-            self.wm = WorldGRU(self.d_in, self.hidden, self.k_max, float(self.config.get("dropout", 0.0)))
-            log["world_model"] = nets.train(
-                self.wm,
-                world_loss,
-                train,
-                seed=wseed,
-                key="f2_world",
-                budget_s=budget_s,
-                **common.trainer_kwargs(self.config),
+            bc = common.backbone_config(self.config)
+            digest = common.seq_digest(train)
+            key = ("f2_world", digest, self.k_max, self.d_in, tuple(sorted(bc.items())))
+            wseed = derive_seed(bc["backbone_seed"], "f2_world", digest, repr(sorted(bc.items()))) % (
+                2**31 - 1
             )
+            nets.setup_torch(wseed, threads, "f2_world")
+            self.wm = WorldGRU(self.d_in, self.hidden, self.k_max, bc["dropout"])
+            cached = common.cache_get(key)
+            if cached is not None:
+                self.wm.load_state_dict(cached[0])
+                log["world_model"] = {**cached[1], "cached": True}
+            else:
+                t1 = time.process_time()
+                wlog = nets.train(
+                    self.wm,
+                    world_loss,
+                    train,
+                    seed=wseed,
+                    key="f2_world",
+                    budget_s=budget_s,
+                    **common.trainer_kwargs(self.config),
+                )
+                wlog["world_cpu_s"] = round(time.process_time() - t1, 2)
+                common.cache_put(key, self.wm, wlog)
+                log["world_model"] = {**wlog, "cached": False}
+            self.wm.eval()
         feats = [self._features(s) for s in train]
         d = feats[0].shape[2]
         Fs = np.concatenate([f[s.scored] for f, s in zip(feats, train, strict=True)])
@@ -248,7 +263,12 @@ class F2WorldPolicy:
             prior_sd=[round(float(v), 4) for v in np.sqrt(np.diag(S0))],
             map_sd=[round(float(v), 4) for v in M.std(0)],
             n_policy_trials=int(a.shape[0]),
-            cpu_s=round(time.process_time() - t0, 2),
+            cpu_s_incl_backbone=round(
+                time.process_time()
+                - t0
+                + (log["world_model"]["world_cpu_s"] if log.get("world_model", {}).get("cached") else 0.0),
+                2,
+            ),
         )
         return log
 

@@ -109,6 +109,14 @@ def clear_backbone_cache() -> None:
     _BACKBONES.clear()
 
 
+def cache_get(key: tuple[Any, ...]) -> tuple[dict[str, torch.Tensor], dict[str, Any]] | None:
+    return _BACKBONES.get(key)
+
+
+def cache_put(key: tuple[Any, ...], net: torch.nn.Module, log: dict[str, Any]) -> None:
+    _BACKBONES[key] = ({k: v.detach().clone() for k, v in net.state_dict().items()}, dict(log))
+
+
 # --------------------------------------------------------------------------- small numerics
 def log_softmax_np(logits: np.ndarray, avail: np.ndarray) -> np.ndarray:
     z = np.where(avail, logits, -np.inf)
