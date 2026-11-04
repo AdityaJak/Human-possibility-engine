@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api/client";
+import { isStaticMode } from "../../api/config";
 import { useApi } from "../../api/hooks";
 import { ClaimStatusChip } from "../../components/StatusChip";
 import { SourceTag } from "../../components/Badges";
@@ -158,7 +159,8 @@ export default function InvestorDemo() {
         <h1>What we built, what the agents learned, and what remains unproven</h1>
         <p>
           A guided route through the running system. Use the step list or <span className="kbd">←</span> <span className="kbd">→</span>. Every result shown in the linked pages comes
-          from the live API; this page contains narration only and no research numbers.
+          from {isStaticMode() ? "the repository's stored real outputs, pre-rendered by the real API code" : "the live API"}; this page contains narration only and no
+          research numbers.
         </p>
       </header>
       <div className="split" style={{ gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)" }}>

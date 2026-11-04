@@ -78,9 +78,11 @@ Independent audit: [`reports/audit/AUDIT.md`](reports/audit/AUDIT.md).
   `apps/web/vercel.json` are ready; they need your Render/Vercel accounts. Public deployments run the
   API in read-only mode (`HPE_READ_ONLY=1`): no simulation or experiment jobs are exposed.
 
-| Future Self on the static build (real engine in the browser) |
-|---|
-| ![Future Self scenarios](docs/screenshots/future_self_scenarios.png) |
+| Live site: Future Self scenarios (real engine in the browser) | Live site: investor walkthrough |
+|---|---|
+| ![Future Self scenarios on the live site](docs/screenshots/live_future_self_scenarios.png) | ![Investor demo on the live site](docs/screenshots/live_investor_demo.png) |
+
+Both captured by `scripts/e2e/` against <https://adityajak.github.io/Human-possibility-engine/> on 2026-11-04.
 
 ## Install and run (one machine, no API keys, works offline)
 
