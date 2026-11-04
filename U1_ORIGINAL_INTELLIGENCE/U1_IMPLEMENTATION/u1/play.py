@@ -6,7 +6,7 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from .env import HORIZON, N_ACT, SWITCH_T, Episode, Universe, make_world
+from .env import HORIZON, N_ACT, N_ENT, SWITCH_T, Episode, Universe, make_world
 
 
 class Agent(Protocol):
@@ -48,5 +48,6 @@ def play(agent: Agent, u: Universe, condition: str, seed: int) -> dict[str, Any]
         "norm": exp_ret / oracle,
         "norm_post_switch": exp_post / ep.oracle_expected_return(SWITCH_T),
         "first_reaction": first if first >= 0 else HORIZON,
+        "probes": int(sum(a < N_ENT for a in actions)),
         "actions": actions,
     }

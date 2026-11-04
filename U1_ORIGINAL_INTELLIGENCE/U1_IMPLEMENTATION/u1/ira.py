@@ -15,6 +15,7 @@ from functools import lru_cache
 from itertools import product
 
 import numpy as np
+from scipy.special import digamma
 
 from .env import D_APP, HORIZON, N_BITS, N_ENT, PAIRS, action_entities, decode_bits, is_pair
 
@@ -26,6 +27,12 @@ EPS = 1e-12
 def _hb(p: np.ndarray) -> np.ndarray:
     p = np.clip(p, EPS, 1 - EPS)
     return -(p * np.log(p) + (1 - p) * np.log(1 - p))
+
+
+def _expected_hb(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """E[H_b(theta)] for theta ~ Beta(a, b) (closed form)."""
+    n = a + b
+    return digamma(n + 1) - (a / n) * digamma(a + 1) - (b / n) * digamma(b + 1)
 
 
 def _h(p: np.ndarray, axis: int = -1) -> np.ndarray:
@@ -81,8 +88,12 @@ class Library:
         return len(self.n)
 
     def rbar(self) -> float:
-        s, f = self.pooled
-        return (s + 0.5) / (s + f + 1.0)
+        """Prior reaction rate for a concept pair with no evidence: the mean posterior rate over the library's
+        concept pairs (each pair counts once). R1: attempt 1 pooled all outcomes, which the agent's own
+        exploitation biased upwards (critique F11)."""
+        if not self.react:
+            return 0.5
+        return float(np.mean([(s + 0.5) / (s + f + 1.0) for s, f in self.react.values()]))
 
     def add_concept(self) -> int:
         self.bits.append(np.zeros((N_BITS, 2)))
@@ -195,7 +206,7 @@ class IRA:
         self.active_obs: list[bool] = []
         self.surp: dict[int, list[float]] = {e: [] for e in range(N_ENT)}
         self.n_resets = 0
-        self._cache: tuple[np.ndarray, np.ndarray, np.ndarray] | None = None
+        self._cache: tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray] | None = None
 
     # ----------------------------------------------------------------------------------------------- inference
     def _logpost(self) -> np.ndarray:
@@ -211,14 +222,14 @@ class IRA:
         p = np.exp(lp - lp.max()).sum(0)
         return p / p.sum()
 
-    def _rate(self, rows: np.ndarray, idx: np.ndarray) -> np.ndarray:
+    def _post(self, rows: np.ndarray, idx: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        """Beta posterior parameters of the laws ``idx`` under the assignments ``rows``."""
         r = rows.reshape((-1,) + (1,) * (idx.ndim - 1))
-        s, f = self.sz[r, idx], self.fz[r, idx]
-        a, b = self.a_law[idx], self.b_law[idx]
-        return (a + s) / (a + b + s + f)
+        return self.a_law[idx] + self.sz[r, idx], self.b_law[idx] + self.fz[r, idx]
 
-    def _predict(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """Posterior over the active assignments [Z']; pair success [Z', 10]; probe-bit rates [Z', E, 3].
+    def _predict(self) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+        """Posterior over the active assignments [Z']; pair success [Z', 10] and its expected law entropy;
+        probe-bit rates [Z', E, 3] and their expected law entropies.
 
         Assignments more than ``PRUNE`` nats below the best (< 1e-6 of the mass each) are skipped when predicting;
         they keep being updated, so they can return.
@@ -230,22 +241,23 @@ class IRA:
             rows = np.flatnonzero(lz > top - PRUNE)
             pz = np.exp(lz[rows] - top)
             pz = pz / pz.sum()
-            pp = self._rate(rows, self.law_pair[rows])
-            pb = self._rate(rows, self.law_bit[rows])
-            self._cache = (pz, pp, pb)
+            ap, bp = self._post(rows, self.law_pair[rows])
+            ab, bb = self._post(rows, self.law_bit[rows])
+            self._cache = (pz, ap / (ap + bp), _expected_hb(ap, bp), ab / (ab + bb), _expected_hb(ab, bb))
         return self._cache
 
     def act(self, t: int) -> int:
-        pz, pp, pb = self._predict()
+        pz, pp, ehp, pb, ehb = self._predict()
         phat = pz @ pp  # [10]
         if not self.cfg.active:
             zi = int(self.rng.choice(len(pz), p=pz))
             return int(N_ENT + np.argmax(pp[zi]))
-        ig_pair = _hb(phat) - pz @ _hb(pp)
-        # a probe reads 3 bits that are independent given z, so H(o | z) is the sum of the bit entropies
+        # information gain about the assignment AND the laws (BALD over (z, theta)): the outcome's predictive
+        # entropy minus its expected entropy given both. A probe reads 3 bits independent given (z, theta).
+        ig_pair = _hb(phat) - pz @ ehp
         b = [np.stack([1 - pb[..., i], pb[..., i]], -1) for i in range(N_BITS)]  # each [Z', E, 2]
         pout = np.einsum("z,zea,zeb,zec->ecba", pz, b[0], b[1], b[2], optimize=True).reshape(N_ENT, 8)
-        ig_probe = _h(pout) - pz @ _hb(pb).sum(-1)
+        ig_probe = _h(pout) - pz @ ehb.sum(-1)
         beta_t = self.cfg.beta * (1 - t / HORIZON)
         score = np.concatenate([beta_t * ig_probe, phat + beta_t * ig_pair])
         return int(np.argmax(score))
@@ -267,7 +279,7 @@ class IRA:
         self._cache = None
 
     def predictive(self, a: int, o: int) -> float:
-        pz, pp, pb = self._predict()
+        pz, pp, _, pb, _ = self._predict()
         if is_pair(a):
             ph = float(pz @ pp[:, a - N_ENT])
             return ph if o else 1 - ph

@@ -1,77 +1,97 @@
-"""Preregistered analysis (EXPERIMENTS_AND_BASELINES.md §4-§5). Paired over (universe, world seed)."""
+"""Preregistered analysis, revision R1 (EXPERIMENTS_AND_BASELINES.md §R1.4-§R1.5).
+
+The unit of inference is the **universe** (critique F6): each universe has its own trained library and comparator
+weights, so the per-universe mean paired difference is one replication. Tests are one-sided t-tests over the
+universe means (df = #universes - 1). World-level paired bootstrap intervals are reported as descriptive detail.
+Missing cells are an error, never silently dropped (critique F13).
+"""
 
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
 from typing import Any
 
 import numpy as np
+from scipy import stats as sps
 
-from .env import CONDITIONS, SHIFT_CONDITIONS
+from .env import EVAL_CONDITIONS, SHIFT_CONDITIONS
 
-EVAL_CONDITIONS = CONDITIONS[1:]
-UNIVERSES = {"dev": (0,), "confirm": (1, 2, 3)}
-METARL_SEEDS = ("metarl_s0", "metarl_s1")
+UNIVERSES = {"dev": (0,), "confirm": (4, 5, 6, 7, 8)}
+N_WORLDS = {"dev": 200, "confirm": 100}
+COMPARATORS = ("gru_narrow", "gru_broad", "rel_broad")
 PRIMARY_MARGIN = 0.10
 IID_NONINFERIORITY = -0.05
+MIN_POSITIVE_UNIVERSES = 4  # of 5
 MECHANISMS = [
     ("M1 cue-validity tracking", "ira_nocuetrack", ("cue_reversed",), 0.05),
     ("M2 open concept set", "ira_closed", ("novel_role",), 0.05),
     ("M3 re-identification", "ira_nochange", ("role_switch",), 0.05),
-    ("M4 active identification", "ira_noactive", EVAL_CONDITIONS, 0.03),
-    ("M5 cross-world library", "ira_nolibrary", ("iid", "recombined"), 0.03),
-    ("M6 concepts vs. none", "entity_bayes", ("iid",), 0.10),
+    ("M4 active identification (information gain)", "ira_noactive", EVAL_CONDITIONS, 0.03),
+    ("M5 cross-world library", "ira_nolibrary", ("iid",), 0.03),
 ]
 ACC_MARGIN = 0.05
+AGENTS = (
+    "ira",
+    "ira_noactive",
+    "ira_thompson",
+    "ira_closed",
+    "ira_nocuetrack",
+    "ira_nochange",
+    "ira_nolibrary",
+    *COMPARATORS,
+    "entity_bayes",
+    "ucb",
+    "random",
+)
 
 
-def _load(root: Path, phase: str, agent: str, cond: str) -> dict[tuple[int, int], dict[str, Any]]:
-    rows: dict[tuple[int, int], dict[str, Any]] = {}
+class IncompleteResults(RuntimeError):
+    pass
+
+
+def load(root: Path, phase: str, agent: str, cond: str, key: str = "norm", strict: bool = True) -> dict:
+    rows: dict[tuple[int, int], float] = {}
     for u in UNIVERSES[phase]:
         p = root / f"u{u}" / phase / f"{agent}__{cond}.jsonl"
         if not p.exists():
+            if strict:
+                raise IncompleteResults(f"missing {p}")
             continue
-        for line in p.read_text().splitlines():
-            r = json.loads(line)
-            rows[(u, int(r["seed"]))] = r
+        lines = [json.loads(x) for x in p.read_text().splitlines()]
+        if strict and len(lines) != N_WORLDS[phase]:
+            raise IncompleteResults(f"{p}: {len(lines)} worlds, expected {N_WORLDS[phase]}")
+        for r in lines:
+            rows[(u, int(r["seed"]))] = float(r[key])
     return rows
 
 
-def scores(root: Path, phase: str, agent: str, cond: str, key: str = "norm") -> dict[tuple[int, int], float]:
-    if agent == "metarl":  # the comparator is the mean over independently trained seeds
-        parts = [_load(root, phase, a, cond) for a in METARL_SEEDS]
-        parts = [p for p in parts if p]
-        if not parts:
-            return {}
-        keys = set.intersection(*(set(p) for p in parts))
-        return {k: float(np.mean([p[k][key] for p in parts])) for k in keys}
-    return {k: float(v[key]) for k, v in _load(root, phase, agent, cond).items()}
-
-
-def paired(a: dict, b: dict, seed: int = 0, n_boot: int = 10000) -> dict[str, Any]:
+def contrast(a: dict, b: dict, seed: int = 0, n_boot: int = 10000) -> dict[str, Any]:
     keys = sorted(set(a) & set(b))
-    if len(keys) < 2:
-        return {"n": len(keys)}
+    if set(a) != set(b):
+        raise IncompleteResults("unpaired cells")
     d = np.array([a[k] - b[k] for k in keys])
+    us = sorted({k[0] for k in keys})
+    du = np.array([np.mean([a[k] - b[k] for k in keys if k[0] == u]) for u in us])
+    est = float(du.mean())
+    if len(du) > 1 and du.std(ddof=1) > 0:
+        tstat = est / (du.std(ddof=1) / np.sqrt(len(du)))
+        p = float(sps.t.sf(tstat, df=len(du) - 1))
+    else:
+        tstat, p = float("nan"), (0.0 if est > 0 else 1.0)
     rng = np.random.default_rng(seed)
     boots = d[rng.integers(0, len(d), size=(n_boot, len(d)))].mean(1)
-    sd = float(d.std(ddof=1))
-    t = float(d.mean() / (sd / math.sqrt(len(d)))) if sd > 0 else math.inf
-    p_t = 0.5 * math.erfc(t / math.sqrt(2))  # one-sided, normal approximation (n >= 50)
-    p_boot = float((boots <= 0).mean())
-    per_u = {}
-    for u in sorted({k[0] for k in keys}):
-        du = np.array([a[k] - b[k] for k in keys if k[0] == u])
-        per_u[str(u)] = round(float(du.mean()), 4)
     return {
-        "n": len(keys),
-        "estimate": round(float(d.mean()), 4),
-        "ci95": [round(float(np.quantile(boots, 0.025)), 4), round(float(np.quantile(boots, 0.975)), 4)],
-        "p_one_sided": max(p_boot, p_t),
-        "sd": round(sd, 4),
-        "per_universe": per_u,
+        "estimate": round(est, 4),
+        "per_universe": {str(u): round(float(v), 4) for u, v in zip(us, du, strict=True)},
+        "n_universes_positive": int((du > 0).sum()),
+        "t": round(float(tstat), 3),
+        "p_universe_t": p,
+        "world_level_ci95": [
+            round(float(np.quantile(boots, 0.025)), 4),
+            round(float(np.quantile(boots, 0.975)), 4),
+        ],
+        "n_worlds": len(d),
     }
 
 
@@ -86,66 +106,73 @@ def holm(ps: list[float]) -> list[float]:
 
 
 def summarize(root: Path, phase: str) -> dict[str, Any]:
-    agents = [
-        "ira",
-        "ira_noactive",
-        "ira_closed",
-        "ira_nocuetrack",
-        "ira_nochange",
-        "ira_nolibrary",
-        "metarl",
-        *METARL_SEEDS,
-        "entity_bayes",
-        "ucb",
-        "random",
-    ]
-    table: dict[str, dict[str, Any]] = {}
-    for ag in agents:
+    strict = phase == "confirm"
+    table: dict[str, dict[str, float]] = {}
+    for ag in AGENTS:
         for c in EVAL_CONDITIONS:
-            s = scores(root, phase, ag, c)
+            s = load(root, phase, ag, c, strict=False)
             if s:
-                v = np.array(list(s.values()))
-                table.setdefault(ag, {})[c] = {"mean": round(float(v.mean()), 4), "n": len(v)}
+                table.setdefault(ag, {})[c] = round(float(np.mean(list(s.values()))), 4)
     out: dict[str, Any] = {"phase": phase, "universes": UNIVERSES[phase], "table": table}
-    ira = {c: scores(root, phase, "ira", c) for c in EVAL_CONDITIONS}
-    mrl = {c: scores(root, phase, "metarl", c) for c in EVAL_CONDITIONS}
-    prim = {c: paired(ira[c], mrl[c], seed=11) for c in EVAL_CONDITIONS}
-    shift_ps = [prim[c].get("p_one_sided", 1.0) for c in SHIFT_CONDITIONS]
-    adj = holm(shift_ps)
-    n_pass = 0
-    for c, pa in zip(SHIFT_CONDITIONS, adj, strict=True):
-        r = prim[c]
-        r["p_holm"] = pa
-        r["passes"] = bool(
-            r.get("estimate", -1) >= PRIMARY_MARGIN
-            and pa < 0.05
-            and all(v > 0 for v in r.get("per_universe", {"x": -1}).values())
-        )
-        n_pass += r["passes"]
-    iid_ok = prim["iid"].get("estimate", -1) >= IID_NONINFERIORITY
-    out["primary"] = {
-        "contrasts": prim,
-        "shift_conditions_passed": n_pass,
-        "iid_noninferior": iid_ok,
-        "H1_supported": bool(n_pass >= 3 and iid_ok),
-    }
+    ira = {c: load(root, phase, "ira", c, strict=strict) for c in EVAL_CONDITIONS}
+    primary: dict[str, Any] = {}
+    for comp in COMPARATORS:
+        present = any((root / f"u{u}" / phase).glob(f"{comp}__*.jsonl") for u in UNIVERSES[phase])
+        if not present and comp != COMPARATORS[0]:
+            primary[comp] = {"status": "not run (stage 2 runs only if H1 holds against gru_narrow)"}
+            continue
+        try:
+            cs = {
+                c: contrast(ira[c], load(root, phase, comp, c, strict=strict), seed=11)
+                for c in EVAL_CONDITIONS
+            }
+        except IncompleteResults:
+            if strict:
+                raise
+            continue
+        adj = holm([cs[c]["p_universe_t"] for c in SHIFT_CONDITIONS])
+        n_pass = 0
+        for c, pa in zip(SHIFT_CONDITIONS, adj, strict=True):
+            r = cs[c]
+            r["p_holm"] = pa
+            r["passes"] = bool(
+                r["estimate"] >= PRIMARY_MARGIN
+                and pa < 0.05
+                and r["n_universes_positive"] >= MIN_POSITIVE_UNIVERSES
+            )
+            n_pass += r["passes"]
+        primary[comp] = {
+            "contrasts": cs,
+            "shift_conditions_passed": n_pass,
+            "iid_noninferior": bool(cs["iid"]["estimate"] >= IID_NONINFERIORITY),
+            "H1_vs_this_comparator": bool(n_pass >= 3 and cs["iid"]["estimate"] >= IID_NONINFERIORITY),
+        }
+    out["primary"] = primary
+    out["H1_supported"] = bool(primary) and all(
+        v.get("H1_vs_this_comparator", False) for v in primary.values()
+    )
+    out["stage2_warranted"] = bool(primary.get(COMPARATORS[0], {}).get("H1_vs_this_comparator", False))
     mech = []
     for name, comp, conds, margin in MECHANISMS:
-        a_s: dict = {}
-        b_s: dict = {}
-        for c in conds:  # average over the listed conditions per (universe, seed)
-            ia, cb = scores(root, phase, "ira", c), scores(root, phase, comp, c)
-            for k in set(ia) & set(cb):
-                a_s.setdefault(k, []).append(ia[k])
-                b_s.setdefault(k, []).append(cb[k])
-        a_m = {k: float(np.mean(v)) for k, v in a_s.items() if len(v) == len(conds)}
-        b_m = {k: float(np.mean(v)) for k, v in b_s.items() if len(v) == len(conds)}
-        r = paired(a_m, b_m, seed=12)
+        a_m: dict = {}
+        b_m: dict = {}
+        try:
+            ia = [load(root, phase, "ira", c, strict=strict) for c in conds]
+            cb = [load(root, phase, comp, c, strict=strict) for c in conds]
+        except IncompleteResults:
+            if strict:
+                raise
+            continue
+        keys = set.intersection(*(set(x) for x in ia + cb))
+        for k in keys:
+            a_m[k] = float(np.mean([x[k] for x in ia]))
+            b_m[k] = float(np.mean([x[k] for x in cb]))
+        r = contrast(a_m, b_m, seed=12)
         r.update({"mechanism": name, "comparator": comp, "conditions": list(conds), "margin": margin})
         mech.append(r)
-    for r, pa in zip(mech, holm([r.get("p_one_sided", 1.0) for r in mech]), strict=True):
+    for r, pa in zip(mech, holm([r["p_universe_t"] for r in mech]), strict=True):
         r["p_holm"] = pa
-        r["passes"] = bool(r.get("estimate", -1) >= r["margin"] and pa < 0.05)
+        r["passes"] = bool(r["estimate"] >= r["margin"] and pa < 0.05)
     out["mechanisms"] = mech
     acc_a, acc_f = {}, {}
     for u in UNIVERSES[phase]:
@@ -155,33 +182,23 @@ def summarize(root: Path, phase: str) -> dict[str, Any]:
             for r in rows[len(rows) // 2 :]:
                 acc_a[(u, r["seed"])] = r["accumulating"]
                 acc_f[(u, r["seed"])] = r["frozen"]
+        elif strict:
+            raise IncompleteResults(f"missing {p}")
     if acc_a:
-        r = paired(acc_a, acc_f, seed=13)
-        r["passes"] = bool(r.get("estimate", -1) >= ACC_MARGIN and r.get("p_one_sided", 1) < 0.05)
+        r = contrast(acc_a, acc_f, seed=13)
+        r["passes"] = bool(r["estimate"] >= ACC_MARGIN and r["p_universe_t"] < 0.05)
         out["accumulation"] = r
-    diag = {}
-    for ag in ("ira", "metarl", "ira_nochange"):
-        s = scores(root, phase, ag, "role_switch", "norm_post_switch")
+    diag: dict[str, Any] = {}
+    for ag in ("ira", "ira_nochange", *COMPARATORS):
+        s = load(root, phase, ag, "role_switch", "norm_post_switch", strict=False)
         if s:
             diag[f"{ag} post-switch norm"] = round(float(np.mean(list(s.values()))), 4)
-    for ag in ("ira", "metarl", "entity_bayes", "ucb"):
-        for c in ("iid", "novel_role"):
-            s = scores(root, phase, ag, c, "first_reaction")
+    for ag in ("ira", *COMPARATORS):
+        for c in EVAL_CONDITIONS:
+            s = load(root, phase, ag, c, "probes", strict=False)
             if s:
-                diag[f"{ag} {c} steps to first reaction"] = round(float(np.mean(list(s.values()))), 2)
+                diag[f"{ag} {c} probes per world"] = round(float(np.mean(list(s.values()))), 2)
     out["diagnostics"] = diag
     (root / f"summary_{phase}.json").write_text(json.dumps(out, indent=1, default=str))
-    print(
-        json.dumps(
-            {
-                "table": table,
-                "primary": out["primary"],
-                "mechanisms": mech,
-                "accumulation": out.get("accumulation"),
-                "diagnostics": diag,
-            },
-            indent=1,
-            default=str,
-        )
-    )
+    print(json.dumps(out, indent=1, default=str))
     return out

@@ -1,18 +1,20 @@
-"""Hidden-law entity worlds, version 2 (MATHEMATICAL_FORMULATION.md §1; v1 rejected as too easy, see
-``results/dev/env_v1_findings.md``).
+"""Hidden-law entity worlds, version 3 (revision R1; v1 rejected as too easy, ``results/dev/env_v1_findings.md``;
+v2 = attempt 1, whose generator could produce universes in which a condition is impossible).
 
-A universe fixes hidden laws: for each role a 3-bit probe signature (each bit observed with probability 0.9 of being
-correct), a 3-bit appearance code, and a symmetric role-pair reaction law. A world is one episode with five entities
-whose roles are hidden. Agents see appearances, their own actions, outcomes and rewards only.
+A universe fixes hidden laws over eight roles — known roles 0-4 (training and test), the unseen role 5 (test only),
+and extra roles 6-7 (used only in the *broad* training distribution of one comparator): a 3-bit probe signature per
+role (all eight distinct; each bit read correctly with probability 0.9), a 3-bit appearance code per role (all
+distinct), and a symmetric reaction law. Every universe is checked to make every condition samplable.
 
-Outcome noise uses common random numbers: ``unif[t, a, :]`` is drawn once per world, so every agent that takes
-action ``a`` at step ``t`` receives the same outcome.
+A world is one episode with five entities whose roles are hidden. Agents see appearances, their own actions,
+outcomes and rewards only. Outcome noise uses common random numbers (``unif[t, a, :]`` drawn once per world).
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from itertools import combinations
+from functools import lru_cache
+from itertools import combinations, product
 
 import numpy as np
 
@@ -24,11 +26,13 @@ PAIRS: tuple[tuple[int, int], ...] = tuple(combinations(range(N_ENT), 2))  # 10 
 N_ACT = N_ENT + len(PAIRS)  # 5 probes + 10 pairs
 P_HI, P_LO = 0.9, 0.05
 BIT_HI, BIT_LO = 0.9, 0.1
-N_ROLES = 6
+N_ROLES = 8
 KNOWN_ROLES = (0, 1, 2, 3, 4)
 NOVEL_ROLE = 5
+EXTRA_ROLES = (6, 7)  # broad training distribution only
 SWITCH_T = 10
-CONDITIONS = ("train", "iid", "cue_reversed", "recombined", "novel_role", "role_switch")
+CONDITIONS = ("train", "iid", "cue_reversed", "recombined", "novel_role", "role_switch", "train_broad")
+EVAL_CONDITIONS = ("iid", "cue_reversed", "recombined", "novel_role", "role_switch")
 SHIFT_CONDITIONS = ("cue_reversed", "recombined", "novel_role", "role_switch")
 CODES = np.array([[(c >> b) & 1 for b in range(3)] for c in range(8)])  # the 8 three-bit patterns
 
@@ -45,7 +49,7 @@ def is_pair(a: int) -> bool:
 class Universe:
     seed: int
     sig: np.ndarray  # [N_ROLES, N_BITS] probe signature bits
-    code: np.ndarray  # [N_ROLES, 3] appearance code bits (novel role: unused, appearance is random)
+    code: np.ndarray  # [N_ROLES, 3] appearance code bits (unseen/extra roles in test: appearance random)
     law: np.ndarray  # [N_ROLES, N_ROLES] bool, symmetric
 
     def bit_probs(self, r: int) -> np.ndarray:
@@ -55,20 +59,68 @@ class Universe:
         return P_HI if self.law[r, s] else P_LO
 
 
+def reacting(u: Universe, roles: np.ndarray) -> list[int]:
+    return [k for k, (i, j) in enumerate(PAIRS) if u.law[roles[i], roles[j]]]
+
+
+def _n_react(law: np.ndarray, roles: tuple[int, ...]) -> int:
+    return sum(bool(law[roles[i], roles[j]]) for i, j in PAIRS)
+
+
+@lru_cache(maxsize=1)
+def _known_tuples() -> tuple[tuple[int, ...], ...]:
+    return tuple(product(KNOWN_ROLES, repeat=N_ENT))
+
+
+def feasible(law: np.ndarray) -> bool:
+    """Every condition must be samplable: train (2-3 distinct known roles, 1-2 reacting pairs, and a valid switch
+    for role_switch), recombined (4-5 distinct, 1-2 reacting), novel_role, and the extra-role worlds."""
+    train_ok = switch_ok = recomb_ok = False
+    for r in _known_tuples():
+        k = len(set(r))
+        n = _n_react(law, r)
+        if not 1 <= n <= 2:
+            continue
+        if k in (2, 3):
+            train_ok = True
+            if not switch_ok and _switch_options(law, np.array(r)):
+                switch_ok = True
+        elif k >= 4:
+            recomb_ok = True
+        if train_ok and switch_ok and recomb_ok:
+            break
+    special_ok = all(_special_ok(law, s) for s in (NOVEL_ROLE, *EXTRA_ROLES))
+    return train_ok and switch_ok and recomb_ok and special_ok
+
+
+def _special_ok(law: np.ndarray, special: int) -> bool:
+    for n_new in (1, 2):
+        for known in product(KNOWN_ROLES, repeat=N_ENT - n_new):
+            roles = (*known, *([special] * n_new))
+            react = [p for p, (i, j) in enumerate(PAIRS) if law[roles[i], roles[j]]]
+            if 1 <= len(react) <= 2 and all(
+                special in (roles[PAIRS[p][0]], roles[PAIRS[p][1]]) for p in react
+            ):
+                return True
+    return False
+
+
 def make_universe(seed: int) -> Universe:
-    rng = np.random.default_rng([seed, 101])
-    sig = CODES[rng.permutation(8)[:N_ROLES]]
-    code = CODES[rng.permutation(8)[:N_ROLES]]
+    rng = np.random.default_rng([seed, 111])
+    sig = CODES[rng.permutation(8)]
+    code = CODES[rng.permutation(8)]
     for _ in range(100000):
         law = np.zeros((N_ROLES, N_ROLES), dtype=bool)
         for a in range(N_ROLES):
             for b in range(a, N_ROLES):
                 law[a, b] = law[b, a] = bool(rng.random() < (0.12 if a == b else 0.25))
         k = law[:5, :5]
-        n_known = int(np.triu(k).sum())
-        if not (all(k[r].any() for r in KNOWN_ROLES) and 3 <= n_known <= 5):
+        if not (all(k[r].any() for r in KNOWN_ROLES) and 3 <= int(np.triu(k).sum()) <= 5):
             continue
-        if law[NOVEL_ROLE, NOVEL_ROLE] or not (1 <= int(law[NOVEL_ROLE, :5].sum()) <= 2):
+        if any(law[s, s] or not (1 <= int(law[s, :5].sum()) <= 2) for s in (NOVEL_ROLE, *EXTRA_ROLES)):
+            continue
+        law[np.ix_((NOVEL_ROLE, *EXTRA_ROLES), (NOVEL_ROLE, *EXTRA_ROLES))] = False
+        if not feasible(law):
             continue
         return Universe(seed, sig, code, law)
     raise RuntimeError("no universe satisfied the constraints")
@@ -89,14 +141,11 @@ class World:
         return r
 
 
-def reacting(u: Universe, roles: np.ndarray) -> list[int]:
-    return [k for k, (i, j) in enumerate(PAIRS) if u.law[roles[i], roles[j]]]
-
-
 def _appearance(rng: np.random.Generator, u: Universe, roles: np.ndarray, rho: float) -> np.ndarray:
+    """Known roles show their code (each bit flipped with probability 1 - rho); other roles look random."""
     x = rng.normal(size=(N_ENT, D_APP))
     for e, r in enumerate(roles):
-        bits = rng.integers(0, 2, size=3) if r == NOVEL_ROLE else u.code[r].copy()
+        bits = u.code[r].copy() if r in KNOWN_ROLES else rng.integers(0, 2, size=3)
         flip = rng.random(3) >= rho
         bits = np.where(flip, 1 - bits, bits)
         x[e, :3] = np.where(bits == 1, 2.0, -2.0) + 0.3 * rng.normal(size=3)
@@ -114,10 +163,22 @@ def _sample_roles(rng: np.random.Generator, u: Universe, n_distinct: tuple[int, 
     raise RuntimeError("could not sample a world")
 
 
-def _sample_switch(rng: np.random.Generator, u: Universe, roles: np.ndarray) -> tuple[int, int, int] | None:
-    """One entity of a reacting pair changes role at SWITCH_T: every pair reacting before stops reacting, and
-    1-2 pairs react after. None if no such change exists for these roles."""
-    react = reacting(u, roles)
+def _sample_special(rng: np.random.Generator, u: Universe, special: int) -> np.ndarray:
+    for _ in range(100000):
+        n_new = int(rng.choice([1, 2]))
+        k = int(rng.choice([2, 3]))
+        subset = rng.choice(np.array(KNOWN_ROLES), size=k, replace=False)
+        known = np.concatenate([subset, rng.choice(subset, size=N_ENT - n_new - k)])[: N_ENT - n_new]
+        roles = np.concatenate([known, np.full(n_new, special)]).astype(int)
+        rng.shuffle(roles)
+        react = reacting(u, roles)
+        if 1 <= len(react) <= 2 and all(special in (roles[PAIRS[p][0]], roles[PAIRS[p][1]]) for p in react):
+            return roles
+    raise RuntimeError("could not sample a special-role world")
+
+
+def _switch_options(law: np.ndarray, roles: np.ndarray) -> list[tuple[int, int]]:
+    react = [p for p, (i, j) in enumerate(PAIRS) if law[roles[i], roles[j]]]
     options = []
     for e in sorted({i for p in react for i in PAIRS[p]}):
         for new in KNOWN_ROLES:
@@ -125,51 +186,43 @@ def _sample_switch(rng: np.random.Generator, u: Universe, roles: np.ndarray) -> 
                 continue
             after = roles.copy()
             after[e] = new
-            if (
-                not any(u.law[after[i], after[j]] for i, j in (PAIRS[q] for q in react))
-                and 1 <= len(reacting(u, after)) <= 2
-            ):
-                options.append((SWITCH_T, e, new))
-    if not options:
-        return None
-    return options[int(rng.integers(len(options)))]
+            n_after = sum(bool(law[after[i], after[j]]) for i, j in PAIRS)
+            if not any(law[after[i], after[j]] for i, j in (PAIRS[q] for q in react)) and 1 <= n_after <= 2:
+                options.append((e, new))
+    return options
 
 
 def make_world(u: Universe, condition: str, seed: int) -> World:
     if condition not in CONDITIONS:
         raise ValueError(condition)
-    rng = np.random.default_rng([u.seed, seed, CONDITIONS.index(condition), 202])
+    rng = np.random.default_rng([u.seed, seed, CONDITIONS.index(condition), 212])
     rho = 0.9
     switch = None
-    if condition in ("train", "iid", "cue_reversed", "role_switch"):
+    if condition == "train_broad":
+        rho = float(rng.uniform(0.3, 1.0))
+        kind = rng.random()
+        if kind < 0.25:
+            roles = _sample_special(rng, u, int(rng.choice(EXTRA_ROLES)))
+        else:
+            roles = _sample_roles(rng, u, (2, 3))
+            if kind < 0.5:
+                while not (opts := _switch_options(u.law, roles)):
+                    roles = _sample_roles(rng, u, (2, 3))
+                e, new = opts[int(rng.integers(len(opts)))]
+                switch = (int(rng.integers(5, 16)), e, new)
+    elif condition in ("train", "iid", "cue_reversed", "role_switch"):
         roles = _sample_roles(rng, u, (2, 3))
         if condition == "cue_reversed":
             rho = 0.1
+        if condition == "role_switch":
+            while not (opts := _switch_options(u.law, roles)):
+                roles = _sample_roles(rng, u, (2, 3))
+            e, new = opts[int(rng.integers(len(opts)))]
+            switch = (SWITCH_T, e, new)
     elif condition == "recombined":
         roles = _sample_roles(rng, u, (4, 5))
-    else:  # novel_role: 1-2 entities of the unseen role; every reacting pair involves it
-        for _ in range(100000):
-            n_new = int(rng.choice([1, 2]))
-            k = int(rng.choice([2, 3]))
-            subset = rng.choice(np.array(KNOWN_ROLES), size=k, replace=False)
-            known = np.concatenate([subset, rng.choice(subset, size=N_ENT - n_new - k)])[: N_ENT - n_new]
-            roles = np.concatenate([known, np.full(n_new, NOVEL_ROLE)]).astype(int)
-            rng.shuffle(roles)
-            react = reacting(u, roles)
-            if 1 <= len(react) <= 2 and all(
-                NOVEL_ROLE in (roles[PAIRS[p][0]], roles[PAIRS[p][1]]) for p in react
-            ):
-                break
-        else:
-            raise RuntimeError("could not sample a novel_role world")
-    if condition == "role_switch":
-        for _ in range(100000):
-            switch = _sample_switch(rng, u, roles)
-            if switch is not None:
-                break
-            roles = _sample_roles(rng, u, (2, 3))
-        if switch is None:
-            raise RuntimeError("could not sample a switch")
+    else:  # novel_role
+        roles = _sample_special(rng, u, NOVEL_ROLE)
     x = _appearance(rng, u, roles, rho)
     return World(condition, roles, x, switch, meta={"rho": rho})
 
@@ -191,7 +244,7 @@ class Episode:
 
     def __init__(self, u: Universe, world: World, seed: int) -> None:
         self.u, self.world = u, world
-        rng = np.random.default_rng([u.seed, seed, CONDITIONS.index(world.condition), 303])
+        rng = np.random.default_rng([u.seed, seed, CONDITIONS.index(world.condition), 313])
         self.unif = rng.random((HORIZON, N_ACT, N_BITS))
 
     def pair_probs(self, t: int) -> np.ndarray:

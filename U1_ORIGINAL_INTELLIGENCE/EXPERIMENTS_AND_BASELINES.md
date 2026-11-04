@@ -150,3 +150,131 @@ curves, every dev run, and every abandoned design.
   discovery. The meta-RL agent was still not evaluated on any shift condition before the freeze.
 * **D-4 (speed).** Prediction skips assignments more than 14 nats below the best (each < 1e-6 of the mass);
   measured differences from unpruned inference on 40 dev worlds per condition were ≤ 0.02.
+
+---
+
+# R1 — Revision 1 (attempt 2): preregistration
+
+_Written 2026-11-04, after the independent critique (`INDEPENDENT_CRITIQUE.md`, commit c5922ab) and finalised
+**after attempt 1's confirmatory results were known** (commit dfe2071: H1 not supported). It was written **before**
+any R1 confirmatory universe (4–8) was generated. The R1 margins, thresholds and decision structure are those of
+attempt 1, carried over unchanged; only the unit of inference (universe-level, F6) and the added comparators are
+new. The
+sections above (attempt 1) are kept unchanged as the historical record; attempt 1's results are reported in full in
+`TRANSFER_RESULTS.md` whatever they are. The R1 freeze (`results_r1/FREEZE.json`) hashes this whole file and every
+module in `U1_IMPLEMENTATION/u1/`._
+
+## R1.0 Why a revision
+
+1. **The frozen attempt-1 agent did not implement the principle (critique F1, verified).** Its information gain was
+   computed about the concept assignment only, using the posterior-mean law. With no probe counts in the library,
+   every assignment predicts 0.5 per probe bit, so the information value of a probe was exactly zero. IRA never
+   probed: 0 probes in 56,000 dev and confirmatory steps, and 0 probe counts in all four libraries. Identification
+   ran only through pair outcomes, driven by an optimistic prior.
+2. **That prior was biased (F11, verified).** The prior reaction rate pooled the agent's own outcomes, which are
+   dominated by exploitation: 0.77–0.80 against a true rate near 0.18.
+3. **The "no active identification" ablation tested something else (F4).** It compared Thompson sampling against
+   greedy action selection.
+4. **The attempt-1 generator was invalid for one condition.** Universe 2 cannot produce a `recombined` world
+   (1–2 reacting pairs among 4–5 distinct roles is impossible under its laws). The confirmatory run stopped there;
+   the frozen code was then run on universe 2's other conditions.
+5. **The comparator was narrow (F5), the shifts' robustness was supplied by design (F3), and the statistics treated
+   worlds as independent although each universe is one replication (F6).**
+
+## R1.1 Changes (each traced to a finding)
+
+| change | finding | where |
+|---|---|---|
+| Information gain over the assignment **and** the laws: $\mathrm{IG}_a = H(\hat p_a) - \sum_z P(z)\,\mathbb E_{\theta\mid z,\mathcal D}H(o\mid\theta)$ (closed form under Beta posteriors) | F1 | `ira.py` `_expected_hb`, `act` |
+| Prior for an unobserved concept pair = mean posterior rate over the library's concept pairs (each pair once); re-clustering uses a symmetric Beta(½,½) pair prior | F11 | `ira.py` `Library.rbar`, `recluster.py` |
+| `ira_noactive` = the same greedy agent with β = 0; attempt 1's variant kept as `ira_thompson` (descriptive) | F4 | `experiment.py` |
+| Universe generator rejects universes in which any condition is impossible; environment v3 (8 roles: 0–4 known, 5 unseen, 6–7 broad-training-only; all signatures and codes distinct) | attempt-1 defect | `env.py` `feasible` |
+| **Broad training distribution** `train_broad` for meta-RL comparators. It contains the *kinds* of variation IRA's priors admit: cue validity ρ ~ U(0.3, 1); a role switch at a random t ∈ [5, 15] in 25% of worlds; 1–2 entities of a training-only extra role (6 or 7) in 25% of worlds. The tested values stay held out: ρ = 0.1, the unseen role 5, 4–5 distinct roles | F3 | `env.py`, `metarl.py` |
+| **Relational meta-RL comparator** (`rel`): permutation-equivariant per-entity GRU, self-attention, symmetric pair head | F5 | `metarl.py` `RelNet` |
+| **Universe as the unit of inference**: 5 confirmatory universes (4–8) × 100 worlds per condition; one-sided t-test over universe means (df = 4); missing cells are an error | F6, F13 | `stats.py` |
+| Probe counts, new-concept use (MAP concept is new) and library-vs-role agreement reported for every IRA run | F2 | `play.py`, `experiment.py` |
+| Tests: closed-form expected entropy, IRA probes when identity is uncertain, re-clustering on records with pair outcomes, relational equivariance, strict statistics | F14 | `tests/test_u1.py` |
+
+Not changed (accepted limitations; F3, F7): IRA's generative model is specified by the designers (latent types,
+Bernoulli laws, the action→entity binding). The cue-reliability prior stays uniform on {0, ½, 1}, the surprise
+threshold stays τ = 4, and the concept concentration stays α = 1. The environment family is the one co-designed
+with IRA; `role_switch` stops every reacting pair (a v2 change that attempt 1 did not disclose: in v1 only the
+chosen pair stopped).
+
+## R1.2 Agents
+
+| agent | trained on | budget |
+|---|---|---|
+| `ira` + `ira_noactive` (β = 0), `ira_closed`, `ira_nocuetrack`, `ira_nochange`, `ira_nolibrary` (`ira_thompson` dev only) | 300 `train` worlds (seeds 100000–100299); library re-clustered every 50 worlds; frozen for evaluation | ≈ 1–3 CPU-min training |
+| `gru_narrow` | flat GRU (hidden 128, lr 1e-3), narrow `train` distribution | 15,000 A2C updates × 128 worlds = 1.92 M episodes |
+| `gru_broad` | the same, on `train_broad` | 1.92 M episodes |
+| `rel_broad` | relational agent (hidden 64, lr 1e-3), on `train_broad` | 1.92 M episodes |
+| `entity_bayes`, `ucb`, `random` | — | — |
+
+All meta-RL agents act greedily (attempt 1's selection) and use one training seed per universe.
+
+**Staged execution** (decided after attempt 1's results were known; see R1.0). Stage 1 runs IRA (all variants), `gru_narrow`, the baselines and A on universes 4–8. Stage 2
+(`gru_broad`, `rel_broad`) runs only if H1 holds against `gru_narrow`. H1 requires all three comparators
+(intersection–union), so if it fails against `gru_narrow` it is not supported whatever stage 2 would show. Skipping
+stage 2 then saves ≈ 4 CPU-hours and changes no conclusion. Hyperparameters were
+not searched again; `rel` had a single configuration (time limit; disclosed).
+
+## R1.3 Development (universe 0 of environment v3; seeds 0–199)
+
+* IRA β ∈ {0.5, 1, 2} selected on **`iid` only**, each with its own library.
+* Each meta-RL comparator is trained on universe 0. Adequacy check: dev `iid` score ≥ 0.85 × IRA's. A comparator
+  that fails is trained once more with 2× the updates.
+* Before the freeze, IRA and the three comparators are evaluated on all five conditions in universe 0 (200 dev
+  worlds each), and the IRA ablations on 50 dev worlds each (a bug check). Everything is reported in R1-D. The
+  thresholds below are fixed **now**, before any R1 comparator result exists.
+* Compute: IRA costs ≈ 0.6–0.7 CPU-s per world in R1, against ≈ 0.01 for the comparators. `ira_thompson` is
+  therefore run only on development worlds.
+
+## R1.4 Hypotheses (confirmatory universes 4–8; seeds 10000–10099 per condition)
+
+For a contrast X − Y, let $d_u$ be the mean paired difference in universe $u$. The estimate is $\bar d$ over the
+five universes; $p$ comes from a one-sided t-test on $\{d_u\}$ (df = 4).
+
+**H1 (primary).** For each comparator C ∈ {`gru_narrow`, `gru_broad`, `rel_broad`} and each shift condition c, the
+contrast IRA − C passes iff:
+* $\bar d \ge 0.10$;
+* the Holm-adjusted p (over the 4 shift conditions, within C) is < 0.05;
+* $d_u > 0$ in ≥ 4 of 5 universes.
+
+**H1 holds against C** iff ≥ 3 of 4 conditions pass and IRA is non-inferior on `iid` ($\bar d \ge -0.05$).
+**H1 is supported** iff it holds against **all three** comparators (an intersection–union test, so there is no
+correction across comparators).
+
+**Mechanisms** (IRA − ablation; Holm over M1–M5; each passes iff $\bar d \ge$ margin and Holm p < 0.05):
+
+| | ablation | condition(s) | margin |
+|---|---|---|---|
+| M1 | `ira_nocuetrack` | cue_reversed | 0.05 |
+| M2 | `ira_closed` | novel_role | 0.05 |
+| M3 | `ira_nochange` | role_switch | 0.05 |
+| M4 | `ira_noactive` (β = 0) | mean over all five | 0.03 |
+| M5 | `ira_nolibrary` | iid | 0.03 |
+
+**A (secondary).** Accumulation, as in attempt 1 (50 sequential `novel_role` worlds per universe, seeds
+20000–20049; additive consolidation vs. the same library frozen; last 25 worlds), tested at the universe level with
+margin 0.05.
+
+**Descriptive (preregistered, no threshold):**
+* probes per world;
+* the fraction of `novel_role` worlds in which IRA's MAP assignment uses a new concept;
+* adjusted Rand index of each training library against the true roles;
+* `entity_bayes`, `ucb`, `random`.
+
+## R1.5 Decision rule
+
+* **H1 supported and M4 passes and at least one of M1–M3 passes** → *advance, narrowly*: in this co-designed
+  environment family, the agent beats generic meta-learners, including a relational meta-learner trained on the
+  same kinds of variation, under held-out shift values, and active identification explains part of it. Novelty
+  level: a new empirical finding about a combination (see `PRIOR_ART_AND_NOVELTY.md` for the precedents —
+  Alchemy, EMPA — that bound it). Not a new principle.
+* **H1 supported but M4 fails** → a structured-prior advantage that is not attributable to the proposed active
+  identification; no mechanism claim.
+* **H1 holds against `gru_narrow` but not against `gru_broad` or `rel_broad`** → the advantage reflects what the
+  comparator was trained on or built with, not the principle → *reject* the principle-level claim.
+* **H1 fails against `gru_narrow`** → *reject*.
+* A failing → reject "accumulates new concepts without retraining".

@@ -1,15 +1,15 @@
-"""U1 experiment runner (preregistration: ``U1_ORIGINAL_INTELLIGENCE/EXPERIMENTS_AND_BASELINES.md``).
+"""U1 experiment runner, revision R1 (preregistration: ``EXPERIMENTS_AND_BASELINES.md`` §R1).
 
-    python -m u1.experiment train-ira     --universe U --beta B --out DIR
-    python -m u1.experiment train-metarl  --universe U --hidden H --lr LR --updates N --seed S --out DIR
+    python -m u1.experiment train-ira     --universe U --beta B [--final] --out DIR
+    python -m u1.experiment train-metarl  --universe U --arch gru|rel --dist train|train_broad --tag NAME --out DIR
     python -m u1.experiment eval          --universe U --phase dev|confirm --agents a,b --conditions c,d --out DIR
     python -m u1.experiment accumulate    --universe U --phase dev|confirm --out DIR
     python -m u1.experiment freeze        --out DIR        # hashes code + preregistration; required for confirm
     python -m u1.experiment summarize     --out DIR
 
-Seeds: training worlds 100000+ (condition 'train'); dev evaluation 0-199; confirmatory evaluation 10000-10199;
+Seeds: training worlds 100000+ (condition 'train'); dev evaluation 0-199; confirmatory evaluation 10000-10099;
 accumulation sequences dev 30000-30049, confirmatory 20000-20049. Universe 0 is the development universe;
-universes 1-3 are confirmatory and are not used before the freeze.
+universes 4-8 are the R1 confirmatory universes (1-3 belong to attempt 1) and are not generated before the freeze.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from typing import Any
 import numpy as np
 
 from .baselines import EntityBayes, RandomPairs, UCBPairs
-from .env import CONDITIONS, make_universe, make_world
+from .env import EVAL_CONDITIONS, make_universe, make_world
 from .ira import IRA, IRAConfig, Library
 from .play import play
 from .train import train_library
@@ -33,12 +33,14 @@ from .train import train_library
 ROOT = Path(__file__).resolve().parents[2]  # U1_ORIGINAL_INTELLIGENCE/
 PREREG = ROOT / "EXPERIMENTS_AND_BASELINES.md"
 DEV_UNIVERSES = (0,)
-CONFIRM_UNIVERSES = (1, 2, 3)
-SEEDS = {"dev": range(0, 200), "confirm": range(10000, 10200)}
+CONFIRM_UNIVERSES = (4, 5, 6, 7, 8)
+SEEDS = {"dev": range(0, 200), "confirm": range(10000, 10100)}
 ACC_SEEDS = {"dev": range(30000, 30050), "confirm": range(20000, 20050)}
+METARL_AGENTS = ("gru_narrow", "gru_broad", "rel_broad")
 IRA_VARIANTS = {
     "ira": {},
-    "ira_noactive": {"active": False},
+    "ira_noactive": {"beta": 0.0},  # R1: greedy without the information-gain term (critique F4)
+    "ira_thompson": {"active": False},  # attempt 1's "noactive": Thompson sampling of the assignment
     "ira_closed": {"open_set": False},
     "ira_nocuetrack": {"cue_track": False},
     "ira_nochange": {"change": False},
@@ -104,22 +106,21 @@ def make_agent(name: str, universe: int, seed: int, out: Path, cache: dict[str, 
         return UCBPairs()
     if name == "random":
         return RandomPairs(np.random.default_rng([universe, seed, 608]))
-    if name.startswith("metarl"):
+    if name in METARL_AGENTS:
         import torch
 
-        from .metarl import MetaRLAgent, Net
+        from .metarl import MetaRLAgent, make_net
 
         torch.set_num_threads(1)
-        tag = name.split("_", 1)[1] if "_" in name else "s0"
-        key = f"net_{tag}"
+        key = f"net_{name}"
         if key not in cache:
-            info = json.loads((d / f"metarl_{tag}.json").read_text())
-            net = Net(info["config"]["hidden"])
-            net.load_state_dict(torch.load(d / f"metarl_{tag}.pt"))
+            info = json.loads((d / f"metarl_{name}.json").read_text())
+            net = make_net(info["config"]["arch"], info["config"]["hidden"])
+            net.load_state_dict(torch.load(d / f"metarl_{name}.pt"))
             net.eval()
-            cache[key] = (net, info["config"]["hidden"])
-        net, hidden = cache[key]
-        return MetaRLAgent(net, hidden, st["metarl_greedy"], np.random.default_rng([universe, seed, 609]))
+            cache[key] = (net, info["config"]["arch"])
+        net, arch = cache[key]
+        return MetaRLAgent(net, arch, st["metarl_greedy"], np.random.default_rng([universe, seed, 609]))
     raise ValueError(name)
 
 
@@ -163,7 +164,7 @@ def cmd_train_metarl(a: argparse.Namespace) -> None:
     torch.set_num_threads(1)
     u = make_universe(a.universe)
     d = udir(Path(a.out), a.universe)
-    cfg = MetaRLConfig(hidden=a.hidden, lr=a.lr, updates=a.updates, seed=a.seed)
+    cfg = MetaRLConfig(arch=a.arch, dist=a.dist, hidden=a.hidden, lr=a.lr, updates=a.updates, seed=a.seed)
     logf = open(d / f"metarl_{a.tag}.log", "w")
 
     def log(m: str) -> None:
@@ -185,7 +186,7 @@ def cmd_eval(a: argparse.Namespace) -> None:
     u = make_universe(a.universe)
     d = udir(out, a.universe) / a.phase
     d.mkdir(exist_ok=True)
-    conds = a.conditions.split(",") if a.conditions else list(CONDITIONS[1:])
+    conds = a.conditions.split(",") if a.conditions else list(EVAL_CONDITIONS)
     for name in a.agents.split(","):
         cache: dict[str, Any] = {}
         for c in conds:
@@ -198,6 +199,8 @@ def cmd_eval(a: argparse.Namespace) -> None:
                 ag = make_agent(name, a.universe, s, out, cache)
                 m = play(ag, u, c, s)
                 if isinstance(ag, IRA):
+                    zstar, _ = ag.map_assignment()
+                    m["fresh_entities"] = int((zstar >= ag.ck).sum())  # entities whose MAP concept is new
                     m["resets"] = ag.n_resets
                     m["w_post"] = (
                         [round(float(v), 4) for v in ag.w_posterior()] if ag.cfg.cue_track else [1.0]
@@ -268,11 +271,13 @@ def main(argv: list[str] | None = None) -> None:
     t.add_argument("--out", required=True)
     m = sub.add_parser("train-metarl")
     m.add_argument("--universe", type=int, required=True)
+    m.add_argument("--arch", choices=["gru", "rel"], required=True)
+    m.add_argument("--dist", choices=["train", "train_broad"], required=True)
     m.add_argument("--hidden", type=int, default=128)
     m.add_argument("--lr", type=float, default=1e-3)
-    m.add_argument("--updates", type=int, default=20000)
+    m.add_argument("--updates", type=int, default=15000)
     m.add_argument("--seed", type=int, default=0)
-    m.add_argument("--tag", default="s0")
+    m.add_argument("--tag", required=True, choices=list(METARL_AGENTS))
     m.add_argument("--out", required=True)
     e = sub.add_parser("eval")
     e.add_argument("--universe", type=int, required=True)

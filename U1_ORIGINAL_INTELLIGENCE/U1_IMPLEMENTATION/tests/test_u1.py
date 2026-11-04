@@ -25,7 +25,7 @@ from u1.env import (
 from u1.ira import IRA, IRAConfig, Library, _space
 from u1.play import play
 from u1.recluster import WorldRecord, recluster
-from u1.stats import holm, paired
+from u1.stats import contrast, holm
 
 
 @pytest.fixture(scope="module")
@@ -34,13 +34,18 @@ def uni() -> env.Universe:
 
 
 def test_universe_constraints() -> None:
-    for s in range(20):
+    for s in range(12):
         u = make_universe(s)
         assert (u.law == u.law.T).all()
-        assert len({tuple(r) for r in u.sig}) == 6
-        assert len({tuple(r) for r in u.code[:5]}) == 5
+        assert len({tuple(r) for r in u.sig}) == 8 and len({tuple(r) for r in u.code}) == 8
         assert all(u.law[r, :5].any() for r in range(5))
-        assert not u.law[NOVEL_ROLE, NOVEL_ROLE] and 1 <= u.law[NOVEL_ROLE, :5].sum() <= 2
+        for sp in (NOVEL_ROLE, *env.EXTRA_ROLES):
+            assert not u.law[sp, sp] and 1 <= u.law[sp, :5].sum() <= 2
+        assert env.feasible(u.law)
+        for (
+            cond
+        ) in CONDITIONS:  # R1: every condition must be samplable in every universe (attempt 1 failed this)
+            make_world(u, cond, 0)
 
 
 @pytest.mark.parametrize("cond", CONDITIONS)
@@ -49,7 +54,7 @@ def test_world_conditions(uni: env.Universe, cond: str) -> None:
         w = make_world(uni, cond, s)
         r0 = w.roles_at(0)
         assert 1 <= len(reacting(uni, r0)) <= 2
-        distinct = len(set(r0.tolist()) - {NOVEL_ROLE})
+        distinct = len(set(r0.tolist()) - {NOVEL_ROLE, *env.EXTRA_ROLES})
         if cond in ("train", "iid", "cue_reversed", "role_switch"):
             assert 2 <= distinct <= 3 and NOVEL_ROLE not in r0
         if cond == "recombined":
@@ -61,7 +66,12 @@ def test_world_conditions(uni: env.Universe, cond: str) -> None:
             after = w.roles_at(SWITCH_T)
             before = set(reacting(uni, r0))
             assert w.switch is not None and not before & set(reacting(uni, after)) and reacting(uni, after)
-        assert w.meta["rho"] == (0.1 if cond == "cue_reversed" else 0.9)
+        if cond == "train_broad":
+            assert 0.3 <= w.meta["rho"] <= 1.0
+            assert NOVEL_ROLE not in r0
+        else:
+            assert w.meta["rho"] == (0.1 if cond == "cue_reversed" else 0.9)
+            assert not set(env.EXTRA_ROLES) & set(r0.tolist())
 
 
 def test_world_determinism_and_common_random_numbers(uni: env.Universe) -> None:
@@ -163,9 +173,89 @@ def test_recluster_recovers_roles_from_clean_records(uni: env.Universe) -> None:
     assert purity > 0.9
 
 
-def test_holm_and_paired() -> None:
+def test_holm_and_universe_level_contrast() -> None:
     assert holm([0.01, 0.04, 0.03]) == pytest.approx([0.03, 0.06, 0.06])
-    a = {(1, i): 1.0 + 0.01 * (i % 3) for i in range(100)}
-    b = {(1, i): 0.5 for i in range(100)}
-    r = paired(a, b)
-    assert r["estimate"] > 0.49 and r["p_one_sided"] < 1e-3 and r["per_universe"]["1"] > 0
+    a = {(u, i): 1.0 + 0.01 * (i % 3) + 0.02 * u for u in range(5) for i in range(100)}
+    b = {(u, i): 0.5 for u in range(5) for i in range(100)}
+    r = contrast(a, b)
+    assert r["estimate"] > 0.49 and r["p_universe_t"] < 1e-3 and r["n_universes_positive"] == 5
+
+
+def test_expected_entropy_closed_form() -> None:
+    from u1.ira import _expected_hb
+
+    rng = np.random.default_rng(0)
+    for a, b in ((0.5, 0.5), (1.0, 1.0), (3.0, 7.0), (40.0, 2.0)):
+        th = np.clip(rng.beta(a, b, size=400000), 1e-12, 1 - 1e-12)
+        mc = float(np.mean(-(th * np.log(th) + (1 - th) * np.log(1 - th))))
+        assert abs(float(_expected_hb(np.array(a), np.array(b))) - mc) < 3e-3
+
+
+def test_ira_probes_when_identity_is_uncertain(uni: env.Universe) -> None:
+    """R1 (critique F1): with law uncertainty in the information gain, an empty-library IRA must probe."""
+    probes = [
+        play(IRA(Library(), IRAConfig(beta=1.0), np.random.default_rng(s)), uni, "iid", s)["probes"]
+        for s in range(8)
+    ]
+    assert sum(probes) > 0
+
+
+def test_rbar_is_pair_level_not_outcome_pooled() -> None:
+    lib = Library()
+    lib.react = {(0, 0): [90.0, 10.0], (0, 1): [0.0, 3.0], (1, 1): [0.0, 3.0]}
+    lib.pooled = [90.0, 16.0]
+    assert lib.rbar() < 0.5 < lib.pooled[0] / sum(lib.pooled)
+
+
+def test_recluster_with_pair_records(uni: env.Universe) -> None:
+    """Records with probes AND pair outcomes, as produced in real training (critique F14)."""
+    rng = np.random.default_rng(0)
+    records, truth = [], []
+    for s in range(80):
+        w = make_world(uni, "train", 100000 + s)
+        obs = []
+        for e in range(N_ENT):
+            bits = (rng.random(3) < uni.bit_probs(int(w.roles[e]))).astype(int)
+            obs.append((e, int(bits[0] + 2 * bits[1] + 4 * bits[2])))
+        for p, (i, j) in enumerate(PAIRS):
+            obs.append((N_ENT + p, int(rng.random() < uni.pair_prob(int(w.roles[i]), int(w.roles[j])))))
+        records.append(WorldRecord(w.x, obs))
+        truth.append(w.roles)
+    _lib, assign = recluster(records, np.random.default_rng(1), sweeps=20)
+    pairs: dict[int, list[int]] = {}
+    for (wi, e), c in assign.items():
+        pairs.setdefault(c, []).append(int(truth[wi][e]))
+    purity = sum(max(np.bincount(v)) for v in pairs.values()) / sum(len(v) for v in pairs.values())
+    assert purity > 0.9
+
+
+@pytest.mark.parametrize("arch", ["gru", "rel"])
+def test_metarl_shapes_and_equivariance(uni: env.Universe, arch: str) -> None:
+    import torch
+    from u1.metarl import TrainWorlds, make_net, observe_fn
+
+    torch.manual_seed(0)
+    net = make_net(arch, 16)
+    x = np.random.default_rng(0).normal(size=(2, N_ENT, 4)).astype(np.float32)
+    obs = observe_fn(arch)(x, np.array([7, 2]), np.array([1, 5]), np.array([1.0, 0.0], dtype=np.float32), 3)
+    logits, v, _h = net(torch.from_numpy(obs), net.init_state(2))
+    assert logits.shape == (2, N_ACT) and v.shape == (2,)
+    if arch == "rel":  # permuting entities permutes probe logits
+        perm = np.array([1, 0, 2, 3, 4])
+        obs_p = observe_fn(arch)(x[:, perm], np.array([-1, -1]), np.array([0, 0]), np.zeros(2, np.float32), 0)
+        obs_0 = observe_fn(arch)(x, np.array([-1, -1]), np.array([0, 0]), np.zeros(2, np.float32), 0)
+        l0, _, _ = net(torch.from_numpy(obs_0), net.init_state(2))
+        lp, _, _ = net(torch.from_numpy(obs_p), net.init_state(2))
+        assert torch.allclose(l0[:, :N_ENT][:, perm], lp[:, :N_ENT], atol=1e-5)
+    tw = TrainWorlds(uni, "train_broad", np.random.default_rng(0), pool=50)
+    xs, pair_p, bit_p, _t_sw = tw.sample(4)
+    assert (
+        xs.shape == (4, N_ENT, 4) and pair_p.shape == (2, 4, len(PAIRS)) and bit_p.shape == (2, 4, N_ENT, 3)
+    )
+
+
+def test_stats_refuse_incomplete(tmp_path) -> None:
+    from u1.stats import IncompleteResults, load
+
+    with pytest.raises(IncompleteResults):
+        load(tmp_path, "confirm", "ira", "iid")

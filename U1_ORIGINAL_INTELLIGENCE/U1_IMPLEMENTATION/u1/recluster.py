@@ -2,7 +2,7 @@
 
 Collapsed Gibbs sampling over the concept of every consolidated entity in every stored world, under the same
 generative model the agent uses online (an infinite-relational-model-style clustering: Kemp et al. 2006/2010):
-CRP(α) membership; Beta(½,½) laws per concept and probe bit; Beta(r̄, 1-r̄) reaction law per concept pair;
+CRP(α) membership; Beta(½,½) laws per concept and probe bit and per concept pair (reaction);
 Beta(1,1) appearance-sign law per concept and feature (cue reliability fixed at 1 because stored training worlds
 come from one appearance regime). The final assignment is rebuilt into a ``Library``.
 """
@@ -72,7 +72,7 @@ def recluster(
     n_items = len(on)
     pooled_s = sum(o for rec in records for a, o in rec.obs if is_pair(a))
     pooled_f = sum(1 - o for rec in records for a, o in rec.obs if is_pair(a))
-    rb = (pooled_s + 0.5) / (pooled_s + pooled_f + 1.0)
+    rb = 0.5  # R1: symmetric Beta(1/2, 1/2) prior on pair laws (attempt 1 used the selection-biased pooled rate)
     z = rng.integers(0, k_init, size=n_items)
     bon = np.zeros((k_max, N_BITS))
     boff = np.zeros((k_max, N_BITS))
