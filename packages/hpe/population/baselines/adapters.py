@@ -403,6 +403,12 @@ class BayesHead(_BackboneAdapter):
 
 
 # ============================================================================ exemplar mixture
+def _sqdist(A: np.ndarray, B: np.ndarray) -> np.ndarray:
+    """Pairwise squared Euclidean distances without materialising ``[n, m, d]``."""
+    d2 = (A**2).sum(axis=1)[:, None] + (B**2).sum(axis=1)[None, :] - 2.0 * (A @ B.T)
+    return np.maximum(d2, 0.0)
+
+
 class ExemplarMix(_BackboneAdapter):
     name = "exemplar_mix"
 
@@ -437,7 +443,7 @@ class ExemplarMix(_BackboneAdapter):
         """Row t: kernel-weighted frequencies of the person's scored choices at steps s < t (+ 1/K prior)."""
         gamma = float(self.config.get("decay", 1.0))
         T, K = H.shape[0], seq.avail.shape[1]
-        d2 = ((H[:, None, :] - H[None, :, :]) ** 2).sum(axis=2)
+        d2 = _sqdist(H, H)
         w = np.exp(-d2 / (2.0 * self.ell2))
         t = np.arange(T)[:, None]
         s = np.arange(T)[None, :]
@@ -455,7 +461,7 @@ class ExemplarMix(_BackboneAdapter):
         H, out = hidden_states(net, seq)
         if idx.size == 0:
             return out
-        d2 = ((H[:, None, :] - Hd[idx][None, :, :]) ** 2).sum(axis=2)
+        d2 = _sqdist(H, Hd[idx])
         w = np.exp(-d2 / (2.0 * self.ell2))
         K = seq.avail.shape[1]
         Y = np.zeros((idx.size, K))

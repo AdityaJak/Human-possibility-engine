@@ -1,0 +1,21 @@
+# X3-B01b (exploratory, evaluation team): core population RNN comparators on two_step (counted only if its parser
+# is admitted by the director; validation in docs/phase3/HUMAN_DATA_VALIDATION.md). Same grids and trainer as X3-B01.
+experiment_id: x3_b01b_two_step_rnn
+title: Population RNN comparators (pop_gru, pop_lstm) on two_step, tune partition
+lane: science/validation-v3
+hypothesis: (Exploratory.) Establish the tune NLL of the core population RNN comparators on two_step under equal caps.
+families: [two_step]
+report_partition: tune
+seed: 20261108
+threads: 2
+models:
+  pop_gru:
+    role: comparator
+    grid: {hidden: [16, 32, 64], lr: [0.003, 0.01], dropout: [0.0, 0.2]}
+    fixed: {max_epochs: 150, patience: 10, batch_size: 8}
+  pop_lstm:
+    role: comparator
+    grid: {hidden: [16, 32, 64], lr: [0.003, 0.01], dropout: [0.0, 0.2]}
+    fixed: {max_epochs: 150, patience: 10, batch_size: 8}
+notes:
+  - "Trainer defaults per director commit 8a3d72cb; budget 2700 CPU-s per model and family."
