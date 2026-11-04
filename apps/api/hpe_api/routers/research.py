@@ -152,3 +152,12 @@ def research_metrics(ctx: AppContext = Depends(get_ctx)) -> dict[str, Any]:
         "read_only": ctx.settings.read_only,
         "note": "Synthetic research prototype; not validated for predicting human futures.",
     }
+
+
+@router.get("/research/phase3", tags=["research"])
+def research_phase3(ctx: AppContext = Depends(get_ctx)) -> dict[str, Any]:
+    """Phase III results exactly as committed under reports/phase3/ and the Phase III registry."""
+    from hpe.population.core.dashboard import collect
+
+    reports = ctx.settings.reports_dir
+    return collect(reports, reports.resolve().parent / "docs")
