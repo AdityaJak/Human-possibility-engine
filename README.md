@@ -34,6 +34,9 @@ pretending to predict fate.
   over 15 years). A mechanism gap, recorded as a failed preregistered test.
 * **Midlife education — no effect.** Opening adult education at 38–45 changed nothing measurable in
   five years (−0.003 [−0.015, +0.007]); the design did not measure uptake. Recorded as failed.
+* **Intergenerational transmission — inconclusive.** Under cross-fostering, children's skill
+  correlates with neither rearing nor biological household (−0.075 [−0.177, +0.023] and −0.017): every
+  child reaches the same plateau, so the design could not detect transmission.
 * **Real human choices — mixed.** On held-out participants from Psych-101, the developmental learner
   predicts Iowa Gambling Task choices better than every other model tested (−0.110 nats vs the
   instance-based reference), but on the preregistered primary task (multiple-cue learning) it is clearly

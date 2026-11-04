@@ -1,8 +1,9 @@
 # BUILD_STATUS
 
 _Last updated: 2026-11-04 05:05 UTC. All 8 lanes merged into `claude/human-possibility-engine-yjujoc`;
-remote verified; CI green on the last completed run. Society experiments 3–5 were still executing
-locally at the time of writing (not committed; nothing is implied to continue after the session ends)._
+remote verified; CI green on the last completed run. All preregistered experiments (learning lab,
+society 2–5, human data 7/7b) are executed and committed. The 10,000-agent benchmark was executing at the
+time of writing; nothing is implied to continue after the session ends._
 
 Legend: **implemented** (code exists) · **tested** (tests pass in the integrated branch) · **partial** · **not started**
 
