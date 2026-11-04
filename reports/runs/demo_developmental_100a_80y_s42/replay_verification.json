@@ -1,0 +1,17 @@
+{
+  "run_id": "demo_developmental_100a_80y_s42",
+  "stored_chain": "9da372cc28110dd9743641d5e544f895e438c4a0bdefc1d2901f55cd2d2895f8",
+  "stored_state": "1f9cbdbb3336db06edd92d10843be5ae",
+  "from_seed": {
+    "chain_identical": true,
+    "state_identical": true,
+    "wall_s": 96.43
+  },
+  "from_checkpoint": {
+    "checkpoint_tick": 487,
+    "chain_identical": true,
+    "state_identical": true,
+    "wall_s": 54.07
+  },
+  "passed": true
+}

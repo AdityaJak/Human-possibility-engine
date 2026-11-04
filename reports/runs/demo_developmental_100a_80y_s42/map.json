@@ -1,0 +1,782 @@
+{
+  "width": 100.0,
+  "height": 60.0,
+  "places": [
+    {
+      "place_id": "elder_centre",
+      "kind": "elder_center",
+      "name": "Elder Centre",
+      "x": 78.0,
+      "y": 50.0,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0000",
+      "kind": "home",
+      "name": "Home h0000",
+      "x": 62.06289375743541,
+      "y": 4.154001233315194,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0001",
+      "kind": "home",
+      "name": "Home h0001",
+      "x": 74.6009929305925,
+      "y": 54.87471835815304,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0002",
+      "kind": "home",
+      "name": "Home h0002",
+      "x": 74.21402018385128,
+      "y": 4.8238876609257195,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0003",
+      "kind": "home",
+      "name": "Home h0003",
+      "x": 83.45755286797117,
+      "y": 57.56850144512613,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0004",
+      "kind": "home",
+      "name": "Home h0004",
+      "x": 28.18359978126481,
+      "y": 6.783461608268258,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0005",
+      "kind": "home",
+      "name": "Home h0005",
+      "x": 60.27695817134676,
+      "y": 4.346102994848731,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0006",
+      "kind": "home",
+      "name": "Home h0006",
+      "x": 4.461040283493232,
+      "y": 11.592826891256761,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0007",
+      "kind": "home",
+      "name": "Home h0007",
+      "x": 31.647183729087146,
+      "y": 57.505281292569876,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0008",
+      "kind": "home",
+      "name": "Home h0008",
+      "x": 5.167718429017437,
+      "y": 5.68318494039695,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0009",
+      "kind": "home",
+      "name": "Home h0009",
+      "x": 84.5463553162697,
+      "y": 55.279043374534794,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0010",
+      "kind": "home",
+      "name": "Home h0010",
+      "x": 9.874510205698858,
+      "y": 39.43236773517237,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0011",
+      "kind": "home",
+      "name": "Home h0011",
+      "x": 70.18862118798339,
+      "y": 55.16685111197863,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0012",
+      "kind": "home",
+      "name": "Home h0012",
+      "x": 6.73484486693586,
+      "y": 51.637504903755776,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0013",
+      "kind": "home",
+      "name": "Home h0013",
+      "x": 26.683876441549067,
+      "y": 54.943072964729794,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0014",
+      "kind": "home",
+      "name": "Home h0014",
+      "x": 8.14335749117524,
+      "y": 46.26800309149948,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0015",
+      "kind": "home",
+      "name": "Home h0015",
+      "x": 6.865738200344137,
+      "y": 16.335955934038992,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0016",
+      "kind": "home",
+      "name": "Home h0016",
+      "x": 10.368073140496062,
+      "y": 9.424343193709813,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0017",
+      "kind": "home",
+      "name": "Home h0017",
+      "x": 97.55024969228506,
+      "y": 17.8053020076559,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0018",
+      "kind": "home",
+      "name": "Home h0018",
+      "x": 4.248771576677813,
+      "y": 7.605806081543484,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0019",
+      "kind": "home",
+      "name": "Home h0019",
+      "x": 94.86270874800952,
+      "y": 16.703999814504172,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0020",
+      "kind": "home",
+      "name": "Home h0020",
+      "x": 57.41607667689278,
+      "y": 3.9996744074692456,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0021",
+      "kind": "home",
+      "name": "Home h0021",
+      "x": 10.831353868510677,
+      "y": 39.9264478224854,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0022",
+      "kind": "home",
+      "name": "Home h0022",
+      "x": 6.338799529251163,
+      "y": 2.620348194042526,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0023",
+      "kind": "home",
+      "name": "Home h0023",
+      "x": 87.70071260589172,
+      "y": 53.16744478087892,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0024",
+      "kind": "home",
+      "name": "Home h0024",
+      "x": 7.919047643812604,
+      "y": 18.66637871548873,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0025",
+      "kind": "home",
+      "name": "Home h0025",
+      "x": 22.53503694032362,
+      "y": 6.980017908370352,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0026",
+      "kind": "home",
+      "name": "Home h0026",
+      "x": 97.04126376525474,
+      "y": 12.035017171906958,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0027",
+      "kind": "home",
+      "name": "Home h0027",
+      "x": 68.41921427238606,
+      "y": 55.849853178265846,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0028",
+      "kind": "home",
+      "name": "Home h0028",
+      "x": 78.20520160498036,
+      "y": 57.35731279713069,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0029",
+      "kind": "home",
+      "name": "Home h0029",
+      "x": 94.06413653383895,
+      "y": 4.053078419340012,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0030",
+      "kind": "home",
+      "name": "Home h0030",
+      "x": 31.66762958403626,
+      "y": 54.73959085076677,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0031",
+      "kind": "home",
+      "name": "Home h0031",
+      "x": 90.16241596702652,
+      "y": 29.585143577923382,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0032",
+      "kind": "home",
+      "name": "Home h0032",
+      "x": 30.816179189403258,
+      "y": 4.8696328532837425,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0033",
+      "kind": "home",
+      "name": "Home h0033",
+      "x": 83.32126798333682,
+      "y": 55.25870191846489,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0034",
+      "kind": "home",
+      "name": "Home h0034",
+      "x": 29.051306335640405,
+      "y": 55.3665225518655,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0035",
+      "kind": "home",
+      "name": "Home h0035",
+      "x": 33.10136596255282,
+      "y": 55.47223539271481,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0036",
+      "kind": "home",
+      "name": "Home h0036",
+      "x": 8.013595347837544,
+      "y": 25.774153701558177,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0037",
+      "kind": "home",
+      "name": "Home h0037",
+      "x": 90.77189393365545,
+      "y": 12.859704434121651,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0038",
+      "kind": "home",
+      "name": "Home h0038",
+      "x": 11.556962031459197,
+      "y": 41.02017761125762,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0039",
+      "kind": "home",
+      "name": "Home h0039",
+      "x": 4.465161193511043,
+      "y": 27.07596340328045,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0040",
+      "kind": "home",
+      "name": "Home h0040",
+      "x": 10.837181033308035,
+      "y": 14.921600429553191,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0041",
+      "kind": "home",
+      "name": "Home h0041",
+      "x": 44.59927830873814,
+      "y": 4.41146960276574,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0042",
+      "kind": "home",
+      "name": "Home h0042",
+      "x": 76.57671407714398,
+      "y": 4.803426704264405,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0043",
+      "kind": "home",
+      "name": "Home h0043",
+      "x": 53.25309189413259,
+      "y": 6.290074717797107,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0044",
+      "kind": "home",
+      "name": "Home h0044",
+      "x": 60.64407535091214,
+      "y": 5.042292975510229,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0045",
+      "kind": "home",
+      "name": "Home h0045",
+      "x": 71.75915855303796,
+      "y": 4.994670206078094,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0046",
+      "kind": "home",
+      "name": "Home h0046",
+      "x": 90.38340704905781,
+      "y": 32.010581913182456,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0047",
+      "kind": "home",
+      "name": "Home h0047",
+      "x": 8.942280964328898,
+      "y": 22.427954998453988,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0048",
+      "kind": "home",
+      "name": "Home h0048",
+      "x": 91.36861186252116,
+      "y": 5.9278060409183855,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0049",
+      "kind": "home",
+      "name": "Home h0049",
+      "x": 6.532215061395879,
+      "y": 28.50961288620009,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0050",
+      "kind": "home",
+      "name": "Home h0050",
+      "x": 42.471595536150076,
+      "y": 54.550384126418656,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0051",
+      "kind": "home",
+      "name": "Home h0051",
+      "x": 8.149561271655509,
+      "y": 8.092373445028327,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0052",
+      "kind": "home",
+      "name": "Home h0052",
+      "x": 60.07027403229899,
+      "y": 5.567557533400725,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0053",
+      "kind": "home",
+      "name": "Home h0053",
+      "x": 4.157619665441093,
+      "y": 45.322711714768694,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0054",
+      "kind": "home",
+      "name": "Home h0054",
+      "x": 95.00245356146019,
+      "y": 46.402677972710556,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0055",
+      "kind": "home",
+      "name": "Home h0055",
+      "x": 97.78337988456299,
+      "y": 8.38953942737848,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0056",
+      "kind": "home",
+      "name": "Home h0056",
+      "x": 96.2982234162072,
+      "y": 29.92465548332045,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0057",
+      "kind": "home",
+      "name": "Home h0057",
+      "x": 92.00585210482514,
+      "y": 52.25081113563277,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0058",
+      "kind": "home",
+      "name": "Home h0058",
+      "x": 50.25176736957994,
+      "y": 3.4074733271266098,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0059",
+      "kind": "home",
+      "name": "Home h0059",
+      "x": 93.87656672626,
+      "y": 54.53238077072922,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0060",
+      "kind": "home",
+      "name": "Home h0060",
+      "x": 95.25308592312297,
+      "y": 56.19291132726724,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0061",
+      "kind": "home",
+      "name": "Home h0061",
+      "x": 11.00251882734844,
+      "y": 39.43007167773681,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0062",
+      "kind": "home",
+      "name": "Home h0062",
+      "x": 5.239754572449025,
+      "y": 52.38738409582395,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0063",
+      "kind": "home",
+      "name": "Home h0063",
+      "x": 92.05067609966949,
+      "y": 35.21325564797456,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0064",
+      "kind": "home",
+      "name": "Home h0064",
+      "x": 69.98773718732262,
+      "y": 55.180339296685,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0065",
+      "kind": "home",
+      "name": "Home h0065",
+      "x": 20.379576895683588,
+      "y": 2.8691647048513405,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0066",
+      "kind": "home",
+      "name": "Home h0066",
+      "x": 2.4380537853710265,
+      "y": 49.71470732252612,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0067",
+      "kind": "home",
+      "name": "Home h0067",
+      "x": 69.85846819840044,
+      "y": 6.603307823601218,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0068",
+      "kind": "home",
+      "name": "Home h0068",
+      "x": 58.52139962289772,
+      "y": 54.91211037578419,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0069",
+      "kind": "home",
+      "name": "Home h0069",
+      "x": 53.177334956494995,
+      "y": 53.97486252580332,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0070",
+      "kind": "home",
+      "name": "Home h0070",
+      "x": 91.32800439391555,
+      "y": 18.419782019089233,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0071",
+      "kind": "home",
+      "name": "Home h0071",
+      "x": 93.07328701779646,
+      "y": 36.84551219791994,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0072",
+      "kind": "home",
+      "name": "Home h0072",
+      "x": 3.7411810348810364,
+      "y": 52.20269854218587,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0073",
+      "kind": "home",
+      "name": "Home h0073",
+      "x": 11.588943146979146,
+      "y": 15.104772723216024,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0074",
+      "kind": "home",
+      "name": "Home h0074",
+      "x": 92.8707829339148,
+      "y": 28.675131264214784,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0075",
+      "kind": "home",
+      "name": "Home h0075",
+      "x": 10.383372526041477,
+      "y": 45.89072485684007,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0076",
+      "kind": "home",
+      "name": "Home h0076",
+      "x": 95.87192537819945,
+      "y": 45.35122318494498,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0077",
+      "kind": "home",
+      "name": "Home h0077",
+      "x": 87.89325873868566,
+      "y": 53.46571265897541,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0078",
+      "kind": "home",
+      "name": "Home h0078",
+      "x": 20.270937803408746,
+      "y": 56.27128342904816,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0079",
+      "kind": "home",
+      "name": "Home h0079",
+      "x": 7.4683909713647285,
+      "y": 52.69547460898768,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0080",
+      "kind": "home",
+      "name": "Home h0080",
+      "x": 91.21269808139732,
+      "y": 19.706191282285886,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0081",
+      "kind": "home",
+      "name": "Home h0081",
+      "x": 95.97661366993314,
+      "y": 19.947420469465484,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0082",
+      "kind": "home",
+      "name": "Home h0082",
+      "x": 61.289139117210944,
+      "y": 53.47617390920749,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0083",
+      "kind": "home",
+      "name": "Home h0083",
+      "x": 4.763473015205433,
+      "y": 14.544457277517104,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0084",
+      "kind": "home",
+      "name": "Home h0084",
+      "x": 9.231753418271637,
+      "y": 31.324305749138464,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0085",
+      "kind": "home",
+      "name": "Home h0085",
+      "x": 16.737355834202983,
+      "y": 57.146777420940175,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0086",
+      "kind": "home",
+      "name": "Home h0086",
+      "x": 7.0005857699559435,
+      "y": 17.071141215949595,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0087",
+      "kind": "home",
+      "name": "Home h0087",
+      "x": 94.1934470910303,
+      "y": 12.80899027251121,
+      "capacity": null
+    },
+    {
+      "place_id": "home_h0088",
+      "kind": "home",
+      "name": "Home h0088",
+      "x": 45.27769492980308,
+      "y": 57.69579304697682,
+      "capacity": null
+    },
+    {
+      "place_id": "plaza",
+      "kind": "gathering",
+      "name": "Plaza",
+      "x": 50.0,
+      "y": 46.0,
+      "capacity": null
+    },
+    {
+      "place_id": "school_north",
+      "kind": "school",
+      "name": "North School",
+      "x": 30.0,
+      "y": 12.0,
+      "capacity": null
+    },
+    {
+      "place_id": "school_south",
+      "kind": "school",
+      "name": "South School",
+      "x": 30.0,
+      "y": 50.0,
+      "capacity": null
+    },
+    {
+      "place_id": "tutoring_centre",
+      "kind": "tutoring_center",
+      "name": "Tutoring Centre",
+      "x": 22.0,
+      "y": 30.0,
+      "capacity": null
+    },
+    {
+      "place_id": "work_market",
+      "kind": "workplace",
+      "name": "Market",
+      "x": 50.0,
+      "y": 30.0,
+      "capacity": null
+    },
+    {
+      "place_id": "work_sorting_house",
+      "kind": "workplace",
+      "name": "Sorting House",
+      "x": 70.0,
+      "y": 10.0,
+      "capacity": null
+    },
+    {
+      "place_id": "work_watch_post",
+      "kind": "workplace",
+      "name": "Watch Post",
+      "x": 85.0,
+      "y": 30.0,
+      "capacity": null
+    }
+  ]
+}
