@@ -1,0 +1,101 @@
+# Machine-readable task board (spec §47C). Status: todo | in_progress | review | done | blocked
+# Owner = lane branch. "done" requires the acceptance test to pass in the integrated branch.
+version: 1
+updated: 2026-11-04
+tasks:
+  - id: T00-contracts
+    title: Freeze v0.1 contracts (schemas, Policy protocol, World/Sink protocols, registry, TS/JSON export)
+    owner: orchestrator
+    depends_on: []
+    acceptance: "pytest tests/contracts && python scripts/export_contracts.py --check"
+    status: done
+  - id: T01-tasks
+    title: Novel-symbol task world, held-out splits, assess/practice/transfer_probe, leakage checks
+    owner: orchestrator
+    depends_on: [T00-contracts]
+    acceptance: "pytest tests/tasks"
+    status: done
+  - id: T10-dev-learner
+    title: Developmental learner (shared representation, plasticity/age gates, replay memory, forgetting, curriculum, trust-weighted social learning, activity bandit) + ablation flags
+    owner: research/development
+    depends_on: [T00-contracts, T01-tasks]
+    acceptance: "pytest tests/development; conformance with check_learning=True; parameters change only with learning enabled"
+    status: in_progress
+  - id: T20-world
+    title: Society kernel (households, lifecycle, school, tutoring, jobs, economy, social net, shocks, interventions, map frames, assessments, snapshots, determinism)
+    owner: sim/world
+    depends_on: [T00-contracts, T01-tasks]
+    acceptance: "pytest tests/world; 100 agents x 80 years completes; identical event hash on rerun and on snapshot/resume"
+    status: in_progress
+  - id: T30-baselines
+    title: static_persona, memory_only, plain_rl baselines registered and conformant
+    owner: science/evaluation
+    depends_on: [T00-contracts, T01-tasks]
+    acceptance: "pytest tests/evaluation -k baselines"
+    status: in_progress
+  - id: T31-stats-runner
+    title: Statistics (paired bootstrap, permutation, effect sizes, Holm, calibration), preregistered experiment runner, report regeneration from raw logs
+    owner: science/evaluation
+    depends_on: [T30-baselines]
+    acceptance: "pytest tests/evaluation; report regenerated from raw outcomes equals stored result"
+    status: in_progress
+  - id: T32-learning-lab
+    title: Exp1 acquired learning, Exp6 transfer (+ orthogonal control), baseline comparison and ablations in controlled learning lab
+    owner: science/evaluation
+    depends_on: [T30-baselines, T10-dev-learner]
+    acceptance: "experiments run from YAML with >=5 seeds; results + figures in reports/experiments"
+    status: in_progress
+  - id: T33-society-experiments
+    title: Exp2 twin-society tutoring (primary), Exp3 social influence/misinformation, Exp4 midlife education, Exp5 multigenerational/cross-foster
+    owner: science/evaluation
+    depends_on: [T20-world, T31-stats-runner]
+    acceptance: "paired-seed runs reproduce from seeds; CIs; mechanism check with non-learning policy"
+    status: in_progress
+  - id: T40-storage
+    title: SQLite namespaces + migrations, JSONL/SQLite event sinks, checkpoint store, stored-run loader
+    owner: platform/backend
+    depends_on: [T00-contracts]
+    acceptance: "pytest tests/storage"
+    status: in_progress
+  - id: T41-api
+    title: FastAPI endpoints per docs/INTERFACES.md §4, job queue, interactive runs, quotas/rate limits, OpenAPI export
+    owner: platform/backend
+    depends_on: [T40-storage, T20-world]
+    acceptance: "pytest tests/api with real World integration test"
+    status: in_progress
+  - id: T42-futures
+    title: Future Self scenario engine (templates, deterministic calculators, evidence registry, safety routing, no-probability validator), privacy consent/export/delete
+    owner: platform/backend
+    depends_on: [T00-contracts]
+    acceptance: "pytest tests/futures; import-boundary test (no hpe.world/development/evaluation imports)"
+    status: in_progress
+  - id: T50-web
+    title: Research dashboard (live society map, agent inspector, proof of learning, twin experiment, evidence, benchmarks) + Future Self app + investor demo route
+    owner: product/frontend
+    depends_on: [T00-contracts]
+    acceptance: "npm run lint && npm run typecheck && npm test && npm run build; e2e against real API"
+    status: in_progress
+  - id: T60-infra
+    title: CI (python+web), Dockerfiles + docker-compose, make demo, scale benchmarks (1k, 10k) with disclosed hardware
+    owner: infra/release
+    depends_on: [T20-world, T41-api, T50-web]
+    acceptance: "CI green; docker compose config validates; benchmark records in reports/scale"
+    status: todo
+  - id: T70-human-validation
+    title: External human behavioural dataset adapter with verified license; held-out participant choice-prediction for all policy classes
+    owner: science/human-validation
+    depends_on: [T10-dev-learner, T30-baselines]
+    acceptance: "license verified and documented; held-out NLL report; or explicit unpassed gate"
+    status: todo
+  - id: T80-audit
+    title: Independent audit (reproducibility, leakage, claims, privacy, accessibility, security)
+    owner: audit/review
+    depends_on: [T32-learning-lab, T33-society-experiments, T50-web]
+    acceptance: "reports/audit/AUDIT.md with go/no-go per gate"
+    status: todo
+  - id: T90-investor-assets
+    title: INVESTOR_DEMO.md, INVESTOR_TECHNICAL_DILIGENCE.md, investor brief, technology note, video shot list, Evidence page data
+    owner: orchestrator
+    depends_on: [T32-learning-lab, T33-society-experiments, T50-web]
+    acceptance: "every number traces to a committed run/experiment id"
+    status: todo

@@ -1,0 +1,3841 @@
+{
+  "$defs": {
+    "AffectProxies": {
+      "additionalProperties": false,
+      "description": "Modelled control signals. Labelled proxies; not experienced emotions.",
+      "properties": {
+        "energy": {
+          "default": 1.0,
+          "title": "Energy",
+          "type": "number"
+        },
+        "motivation": {
+          "default": 0.5,
+          "title": "Motivation",
+          "type": "number"
+        },
+        "social_connection": {
+          "default": 0.5,
+          "title": "Social Connection",
+          "type": "number"
+        },
+        "stress": {
+          "default": 0.0,
+          "title": "Stress",
+          "type": "number"
+        }
+      },
+      "title": "AffectProxies",
+      "type": "object"
+    },
+    "AgentDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "latest_decision_explanation": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latest Decision Explanation"
+        },
+        "parameter_history": {
+          "items": {
+            "$ref": "#/$defs/ParameterPoint"
+          },
+          "title": "Parameter History",
+          "type": "array"
+        },
+        "recent_memories": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Recent Memories",
+          "type": "array"
+        },
+        "relationships": {
+          "items": {
+            "$ref": "#/$defs/SocialEdge"
+          },
+          "title": "Relationships",
+          "type": "array"
+        },
+        "skill_curve": {
+          "items": {
+            "$ref": "#/$defs/SkillPoint"
+          },
+          "title": "Skill Curve",
+          "type": "array"
+        },
+        "state": {
+          "$ref": "#/$defs/AgentState"
+        },
+        "timeline": {
+          "items": {
+            "$ref": "#/$defs/ExperienceEvent"
+          },
+          "title": "Timeline",
+          "type": "array"
+        }
+      },
+      "required": [
+        "state",
+        "timeline",
+        "skill_curve",
+        "parameter_history",
+        "relationships"
+      ],
+      "title": "AgentDetail",
+      "type": "object"
+    },
+    "AgentFrame": {
+      "additionalProperties": false,
+      "description": "Compact per-agent map state for live/replay rendering.",
+      "properties": {
+        "activity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Activity"
+        },
+        "age": {
+          "title": "Age",
+          "type": "number"
+        },
+        "alive": {
+          "title": "Alive",
+          "type": "boolean"
+        },
+        "household_id": {
+          "title": "Household Id",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "place_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Place Id"
+        },
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "x",
+        "y",
+        "place_id",
+        "activity",
+        "age",
+        "alive",
+        "household_id"
+      ],
+      "title": "AgentFrame",
+      "type": "object"
+    },
+    "AgentPage": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/AgentSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "limit": {
+          "title": "Limit",
+          "type": "integer"
+        },
+        "offset": {
+          "title": "Offset",
+          "type": "integer"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "AgentPage",
+      "type": "object"
+    },
+    "AgentState": {
+      "additionalProperties": false,
+      "properties": {
+        "activity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activity"
+        },
+        "affect": {
+          "$ref": "#/$defs/AffectProxies"
+        },
+        "age_years": {
+          "title": "Age Years",
+          "type": "number"
+        },
+        "agent_id": {
+          "title": "Agent Id",
+          "type": "string"
+        },
+        "alive": {
+          "default": true,
+          "title": "Alive",
+          "type": "boolean"
+        },
+        "birth_cohort_year": {
+          "title": "Birth Cohort Year",
+          "type": "integer"
+        },
+        "birth_tick": {
+          "title": "Birth Tick",
+          "type": "integer"
+        },
+        "capabilities": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CapabilityState"
+          },
+          "title": "Capabilities",
+          "type": "object"
+        },
+        "children": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Children",
+          "type": "array"
+        },
+        "death_tick": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Death Tick"
+        },
+        "education_years": {
+          "default": 0.0,
+          "title": "Education Years",
+          "type": "number"
+        },
+        "enrolled_school": {
+          "default": false,
+          "title": "Enrolled School",
+          "type": "boolean"
+        },
+        "household_id": {
+          "title": "Household Id",
+          "type": "string"
+        },
+        "household_resources": {
+          "default": 0.0,
+          "title": "Household Resources",
+          "type": "number"
+        },
+        "job_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Job Id"
+        },
+        "memory_items": {
+          "default": 0,
+          "title": "Memory Items",
+          "type": "integer"
+        },
+        "n_friends": {
+          "default": 0,
+          "title": "N Friends",
+          "type": "integer"
+        },
+        "parents": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Parents",
+          "type": "array"
+        },
+        "partner_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Partner Id"
+        },
+        "persona": {
+          "default": "",
+          "description": "generated biography text; descriptive only, used by static baseline",
+          "title": "Persona",
+          "type": "string"
+        },
+        "place_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Place Id"
+        },
+        "policy": {
+          "$ref": "#/$defs/PolicyDescriptor"
+        },
+        "resources": {
+          "default": 0.0,
+          "title": "Resources",
+          "type": "number"
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Run Id"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "stage": {
+          "$ref": "#/$defs/LifeStage"
+        },
+        "traits": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Traits",
+          "type": "object"
+        },
+        "tutored": {
+          "default": false,
+          "title": "Tutored",
+          "type": "boolean"
+        },
+        "values": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Values",
+          "type": "object"
+        },
+        "x": {
+          "default": 0.0,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "default": 0.0,
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "agent_id",
+        "household_id",
+        "birth_tick",
+        "birth_cohort_year",
+        "age_years",
+        "stage",
+        "policy"
+      ],
+      "title": "AgentState",
+      "type": "object"
+    },
+    "AgentSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "activity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Activity"
+        },
+        "age_years": {
+          "title": "Age Years",
+          "type": "number"
+        },
+        "agent_id": {
+          "title": "Agent Id",
+          "type": "string"
+        },
+        "alive": {
+          "title": "Alive",
+          "type": "boolean"
+        },
+        "education_years": {
+          "title": "Education Years",
+          "type": "number"
+        },
+        "household_id": {
+          "title": "Household Id",
+          "type": "string"
+        },
+        "job_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Job Id"
+        },
+        "mean_measured_accuracy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mean Measured Accuracy"
+        },
+        "n_friends": {
+          "title": "N Friends",
+          "type": "integer"
+        },
+        "resources": {
+          "title": "Resources",
+          "type": "number"
+        },
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agent_id",
+        "household_id",
+        "age_years",
+        "stage",
+        "alive",
+        "activity",
+        "job_id",
+        "education_years",
+        "resources",
+        "mean_measured_accuracy",
+        "n_friends"
+      ],
+      "title": "AgentSummary",
+      "type": "object"
+    },
+    "AnalysisPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "alpha": {
+          "default": 0.05,
+          "title": "Alpha",
+          "type": "number"
+        },
+        "comparison": {
+          "description": "e.g. 'treatment - control, paired by seed'",
+          "title": "Comparison",
+          "type": "string"
+        },
+        "minimum_effect_of_interest": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Effect Of Interest"
+        },
+        "n_bootstrap": {
+          "default": 2000,
+          "title": "N Bootstrap",
+          "type": "integer"
+        },
+        "primary_metric": {
+          "title": "Primary Metric",
+          "type": "string"
+        },
+        "primary_metric_definition": {
+          "title": "Primary Metric Definition",
+          "type": "string"
+        },
+        "secondary_metrics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Secondary Metrics",
+          "type": "array"
+        },
+        "test": {
+          "default": "paired_bootstrap",
+          "enum": [
+            "paired_bootstrap",
+            "unpaired_bootstrap",
+            "permutation",
+            "welch_t"
+          ],
+          "title": "Test",
+          "type": "string"
+        }
+      },
+      "required": [
+        "primary_metric",
+        "primary_metric_definition",
+        "comparison"
+      ],
+      "title": "AnalysisPlan",
+      "type": "object"
+    },
+    "ArmDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/Intervention"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "policy_class": {
+          "$ref": "#/$defs/PolicyClass"
+        },
+        "policy_params": {
+          "additionalProperties": true,
+          "title": "Policy Params",
+          "type": "object"
+        },
+        "world_overrides": {
+          "additionalProperties": true,
+          "title": "World Overrides",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "policy_class"
+      ],
+      "title": "ArmDefinition",
+      "type": "object"
+    },
+    "ArmSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "arm": {
+          "title": "Arm",
+          "type": "string"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object"
+          },
+          "description": "metric -> {mean, sd, ci_low, ci_high, n}",
+          "title": "Metrics",
+          "type": "object"
+        },
+        "n_runs": {
+          "title": "N Runs",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "arm",
+        "n_runs"
+      ],
+      "title": "ArmSummary",
+      "type": "object"
+    },
+    "BenchmarkRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_years_per_s": {
+          "title": "Agent Years Per S",
+          "type": "number"
+        },
+        "benchmark_id": {
+          "title": "Benchmark Id",
+          "type": "string"
+        },
+        "dt_days": {
+          "title": "Dt Days",
+          "type": "integer"
+        },
+        "events": {
+          "title": "Events",
+          "type": "integer"
+        },
+        "hardware": {
+          "title": "Hardware",
+          "type": "string"
+        },
+        "n_agents": {
+          "title": "N Agents",
+          "type": "integer"
+        },
+        "notes": {
+          "default": "",
+          "title": "Notes",
+          "type": "string"
+        },
+        "peak_rss_mb": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Peak Rss Mb"
+        },
+        "policy_class": {
+          "$ref": "#/$defs/PolicyClass"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "timeout"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "ticks_per_s": {
+          "title": "Ticks Per S",
+          "type": "number"
+        },
+        "wall_time_s": {
+          "title": "Wall Time S",
+          "type": "number"
+        },
+        "years": {
+          "title": "Years",
+          "type": "number"
+        }
+      },
+      "required": [
+        "benchmark_id",
+        "n_agents",
+        "years",
+        "dt_days",
+        "policy_class",
+        "wall_time_s",
+        "peak_rss_mb",
+        "agent_years_per_s",
+        "ticks_per_s",
+        "events",
+        "hardware",
+        "status"
+      ],
+      "title": "BenchmarkRecord",
+      "type": "object"
+    },
+    "Calculation": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "formula",
+        "inputs",
+        "result",
+        "unit",
+        "evidence_id"
+      ],
+      "title": "Calculation",
+      "type": "object"
+    },
+    "CapabilityState": {
+      "additionalProperties": false,
+      "description": "Skill in one task family. ``measured_*`` comes ONLY from held-out assessment;\n``self_estimate_*`` is the policy's internal belief (e.g. Beta mastery posterior) and is\nnever treated as evidence of skill.",
+      "properties": {
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "last_assessed_tick": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Assessed Tick"
+        },
+        "last_practice_tick": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Practice Tick"
+        },
+        "measured_accuracy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measured Accuracy"
+        },
+        "measured_ci_high": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measured Ci High"
+        },
+        "measured_ci_low": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measured Ci Low"
+        },
+        "measured_log_loss": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measured Log Loss"
+        },
+        "n_assessment_items": {
+          "default": 0,
+          "title": "N Assessment Items",
+          "type": "integer"
+        },
+        "practice_episodes": {
+          "default": 0,
+          "title": "Practice Episodes",
+          "type": "integer"
+        },
+        "self_estimate_mean": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Self Estimate Mean"
+        },
+        "self_estimate_sd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Self Estimate Sd"
+        }
+      },
+      "required": [
+        "family"
+      ],
+      "title": "CapabilityState",
+      "type": "object"
+    },
+    "ClaimRecord": {
+      "additionalProperties": false,
+      "description": "One row on the investor Evidence page.",
+      "properties": {
+        "claim": {
+          "title": "Claim",
+          "type": "string"
+        },
+        "claim_id": {
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "config_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Config Ref"
+        },
+        "evidence_kind": {
+          "enum": [
+            "synthetic_simulation",
+            "human_dataset",
+            "engineering",
+            "none"
+          ],
+          "title": "Evidence Kind",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "metric": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metric"
+        },
+        "run_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Run Ids",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "supported",
+            "not_supported",
+            "inconclusive",
+            "not_tested",
+            "blocked"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "claim_id",
+        "claim",
+        "status",
+        "evidence_kind"
+      ],
+      "title": "ClaimRecord",
+      "type": "object"
+    },
+    "ComputeReport": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_years": {
+          "default": 0.0,
+          "title": "Agent Years",
+          "type": "number"
+        },
+        "cost_assumptions": {
+          "default": "local CPU only; no paid model calls",
+          "title": "Cost Assumptions",
+          "type": "string"
+        },
+        "cpu_time_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cpu Time S"
+        },
+        "estimated_cost_usd": {
+          "default": 0.0,
+          "title": "Estimated Cost Usd",
+          "type": "number"
+        },
+        "events": {
+          "default": 0,
+          "title": "Events",
+          "type": "integer"
+        },
+        "hardware": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hardware"
+        },
+        "llm_calls": {
+          "default": 0,
+          "title": "Llm Calls",
+          "type": "integer"
+        },
+        "llm_tokens": {
+          "default": 0,
+          "title": "Llm Tokens",
+          "type": "integer"
+        },
+        "peak_rss_mb": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Peak Rss Mb"
+        },
+        "ticks": {
+          "default": 0,
+          "title": "Ticks",
+          "type": "integer"
+        },
+        "wall_time_s": {
+          "title": "Wall Time S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "wall_time_s"
+      ],
+      "title": "ComputeReport",
+      "type": "object"
+    },
+    "ConsentRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "granted": {
+          "title": "Granted",
+          "type": "boolean"
+        },
+        "namespace": {
+          "$ref": "#/$defs/DataNamespace",
+          "default": "user_private"
+        },
+        "purpose": {
+          "enum": [
+            "future_self_demo",
+            "reflection_storage",
+            "personalization"
+          ],
+          "title": "Purpose",
+          "type": "string"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "purpose",
+        "granted"
+      ],
+      "title": "ConsentRecord",
+      "type": "object"
+    },
+    "DataNamespace": {
+      "description": "Spec \u00a722 data separation. Every stored row belongs to exactly one namespace.",
+      "enum": [
+        "synthetic_simulation",
+        "external_dataset",
+        "user_private",
+        "experiment",
+        "evidence"
+      ],
+      "title": "DataNamespace",
+      "type": "string"
+    },
+    "DecisionOption": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "optional user-provided numbers, e.g. monthly_income, savings",
+          "title": "Inputs",
+          "type": "object"
+        },
+        "kind": {
+          "default": "other",
+          "enum": [
+            "current_path",
+            "new_job",
+            "learn_skill",
+            "start_project",
+            "education",
+            "other"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "option_id": {
+          "title": "Option Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "option_id",
+        "label"
+      ],
+      "title": "DecisionOption",
+      "type": "object"
+    },
+    "DecisionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "consent_given": {
+          "title": "Consent Given",
+          "type": "boolean"
+        },
+        "constraints": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "title": "Constraints",
+          "type": "object"
+        },
+        "horizon_years": {
+          "default": 3.0,
+          "exclusiveMinimum": 0,
+          "maximum": 10,
+          "title": "Horizon Years",
+          "type": "number"
+        },
+        "options": {
+          "items": {
+            "$ref": "#/$defs/DecisionOption"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Options",
+          "type": "array"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "user_id": {
+          "description": "pseudonymous demo user id",
+          "title": "User Id",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/ValueWeight"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "user_id",
+        "consent_given",
+        "question",
+        "options",
+        "values"
+      ],
+      "title": "DecisionRequest",
+      "type": "object"
+    },
+    "EffectEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_high": {
+          "title": "Ci High",
+          "type": "number"
+        },
+        "ci_level": {
+          "default": 0.95,
+          "title": "Ci Level",
+          "type": "number"
+        },
+        "ci_low": {
+          "title": "Ci Low",
+          "type": "number"
+        },
+        "contrast": {
+          "title": "Contrast",
+          "type": "string"
+        },
+        "estimate": {
+          "title": "Estimate",
+          "type": "number"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "n_units": {
+          "title": "N Units",
+          "type": "integer"
+        },
+        "p_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P Value"
+        },
+        "passed_minimum_effect": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Passed Minimum Effect"
+        },
+        "standardized_effect": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Standardized Effect"
+        },
+        "unit_of_analysis": {
+          "default": "seed",
+          "title": "Unit Of Analysis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric",
+        "contrast",
+        "estimate",
+        "ci_low",
+        "ci_high",
+        "n_units",
+        "method"
+      ],
+      "title": "EffectEstimate",
+      "type": "object"
+    },
+    "EventPage": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/ExperienceEvent"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "limit": {
+          "title": "Limit",
+          "type": "integer"
+        },
+        "offset": {
+          "title": "Offset",
+          "type": "integer"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "EventPage",
+      "type": "object"
+    },
+    "EventQuery": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agent Id"
+        },
+        "limit": {
+          "default": 200,
+          "maximum": 5000,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "offset": {
+          "default": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "tick_from": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tick From"
+        },
+        "tick_to": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tick To"
+        },
+        "types": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Types"
+        }
+      },
+      "title": "EventQuery",
+      "type": "object"
+    },
+    "EventType": {
+      "enum": [
+        "birth",
+        "death",
+        "stage_change",
+        "school_enroll",
+        "school_graduate",
+        "tutoring_session",
+        "learning_episode",
+        "policy_update",
+        "assessment",
+        "decision",
+        "job_start",
+        "job_end",
+        "wage",
+        "social_interaction",
+        "friendship_formed",
+        "partnership_formed",
+        "mentorship",
+        "shock",
+        "intervention",
+        "inheritance",
+        "checkpoint",
+        "run_start",
+        "run_end"
+      ],
+      "title": "EventType",
+      "type": "string"
+    },
+    "EvidenceRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability": {
+          "default": "",
+          "title": "Applicability",
+          "type": "string"
+        },
+        "citation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Citation"
+        },
+        "claim": {
+          "title": "Claim",
+          "type": "string"
+        },
+        "data_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Data Ref"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date"
+        },
+        "domain": {
+          "title": "Domain",
+          "type": "string"
+        },
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "namespace": {
+          "$ref": "#/$defs/DataNamespace",
+          "default": "evidence"
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Run Id"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/EvidenceSourceType"
+        },
+        "uncertainty": {
+          "default": "",
+          "title": "Uncertainty",
+          "type": "string"
+        },
+        "validation_status": {
+          "$ref": "#/$defs/ValidationStatus"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "domain",
+        "source_type",
+        "claim",
+        "validation_status"
+      ],
+      "title": "EvidenceRecord",
+      "type": "object"
+    },
+    "EvidenceSourceType": {
+      "enum": [
+        "user_fact",
+        "deterministic_calculation",
+        "external_study",
+        "simulated_outcome",
+        "assumption",
+        "narrative"
+      ],
+      "title": "EvidenceSourceType",
+      "type": "string"
+    },
+    "ExperienceEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agent Id"
+        },
+        "day": {
+          "title": "Day",
+          "type": "integer"
+        },
+        "namespace": {
+          "$ref": "#/$defs/DataNamespace",
+          "default": "synthetic_simulation"
+        },
+        "other_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Other Ids",
+          "type": "array"
+        },
+        "payload": {
+          "additionalProperties": true,
+          "title": "Payload",
+          "type": "object"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "seq": {
+          "description": "monotonic sequence number within a run (replay order)",
+          "title": "Seq",
+          "type": "integer"
+        },
+        "tick": {
+          "title": "Tick",
+          "type": "integer"
+        },
+        "type": {
+          "$ref": "#/$defs/EventType"
+        }
+      },
+      "required": [
+        "seq",
+        "run_id",
+        "tick",
+        "day",
+        "type",
+        "provenance"
+      ],
+      "title": "ExperienceEvent",
+      "type": "object"
+    },
+    "ExperimentCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/ExperimentDefinition"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "title": "ExperimentCreate",
+      "type": "object"
+    },
+    "ExperimentDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "ablations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Ablations",
+          "type": "array"
+        },
+        "analysis": {
+          "$ref": "#/$defs/AnalysisPlan"
+        },
+        "arms": {
+          "items": {
+            "$ref": "#/$defs/ArmDefinition"
+          },
+          "title": "Arms",
+          "type": "array"
+        },
+        "base_config": {
+          "$ref": "#/$defs/SimulationConfig"
+        },
+        "control_arm": {
+          "title": "Control Arm",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "experiment_id": {
+          "title": "Experiment Id",
+          "type": "string"
+        },
+        "falsification_criterion": {
+          "title": "Falsification Criterion",
+          "type": "string"
+        },
+        "hypothesis": {
+          "title": "Hypothesis",
+          "type": "string"
+        },
+        "preregistration_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "stable hash of this definition, frozen before any run",
+          "title": "Preregistration Hash"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Seeds",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "validity_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validity Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "experiment_id",
+        "title",
+        "hypothesis",
+        "falsification_criterion",
+        "arms",
+        "control_arm",
+        "seeds",
+        "base_config",
+        "analysis"
+      ],
+      "title": "ExperimentDefinition",
+      "type": "object"
+    },
+    "ExperimentInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/ExperimentDefinition"
+        },
+        "experiment_id": {
+          "title": "Experiment Id",
+          "type": "string"
+        },
+        "outcomes_sample": {
+          "items": {
+            "$ref": "#/$defs/OutcomeObservation"
+          },
+          "title": "Outcomes Sample",
+          "type": "array"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExperimentResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source": {
+          "default": "live",
+          "enum": [
+            "live",
+            "stored_real_output"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/JobStatus"
+        }
+      },
+      "required": [
+        "experiment_id",
+        "status",
+        "definition"
+      ],
+      "title": "ExperimentInfo",
+      "type": "object"
+    },
+    "ExperimentResult": {
+      "additionalProperties": false,
+      "properties": {
+        "ablations": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Ablations",
+          "type": "array"
+        },
+        "arms": {
+          "items": {
+            "$ref": "#/$defs/ArmSummary"
+          },
+          "title": "Arms",
+          "type": "array"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "effects": {
+          "items": {
+            "$ref": "#/$defs/EffectEstimate"
+          },
+          "title": "Effects",
+          "type": "array"
+        },
+        "experiment_id": {
+          "title": "Experiment Id",
+          "type": "string"
+        },
+        "figures": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Figures",
+          "type": "array"
+        },
+        "generated_from": {
+          "default": "raw event logs",
+          "description": "what the analysis was regenerated from",
+          "title": "Generated From",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "preregistration_hash": {
+          "title": "Preregistration Hash",
+          "type": "string"
+        },
+        "run_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Run Ids",
+          "type": "array"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "sensitivity": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Sensitivity",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "inconclusive",
+            "error"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "status_reason": {
+          "title": "Status Reason",
+          "type": "string"
+        },
+        "synthetic_disclaimer": {
+          "default": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+          "title": "Synthetic Disclaimer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "experiment_id",
+        "preregistration_hash",
+        "status",
+        "status_reason",
+        "arms",
+        "effects",
+        "run_ids"
+      ],
+      "title": "ExperimentResult",
+      "type": "object"
+    },
+    "FramesResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "frames": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/AgentFrame"
+            },
+            "type": "array"
+          },
+          "title": "Frames",
+          "type": "array"
+        },
+        "map": {
+          "$ref": "#/$defs/WorldMap"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "ticks": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Ticks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "run_id",
+        "map",
+        "ticks",
+        "frames"
+      ],
+      "title": "FramesResponse",
+      "type": "object"
+    },
+    "Health": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "llm_provider": {
+          "default": "none",
+          "title": "Llm Provider",
+          "type": "string"
+        },
+        "offline_demo_runs": {
+          "default": 0,
+          "title": "Offline Demo Runs",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "degraded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "version",
+        "contract_version"
+      ],
+      "title": "Health",
+      "type": "object"
+    },
+    "Intervention": {
+      "additionalProperties": false,
+      "properties": {
+        "end_year": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Year"
+        },
+        "kind": {
+          "$ref": "#/$defs/InterventionKind"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "params": {
+          "additionalProperties": true,
+          "title": "Params",
+          "type": "object"
+        },
+        "start_year": {
+          "default": 0.0,
+          "title": "Start Year",
+          "type": "number"
+        },
+        "target": {
+          "$ref": "#/$defs/InterventionTarget"
+        }
+      },
+      "required": [
+        "name",
+        "kind"
+      ],
+      "title": "Intervention",
+      "type": "object"
+    },
+    "InterventionKind": {
+      "enum": [
+        "tutoring_access",
+        "school_access",
+        "midlife_education",
+        "social_isolation",
+        "misinformation",
+        "cash_transfer",
+        "caregiving_support",
+        "cross_foster"
+      ],
+      "title": "InterventionKind",
+      "type": "string"
+    },
+    "InterventionTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "age_max": {
+          "default": 200.0,
+          "title": "Age Max",
+          "type": "number"
+        },
+        "age_min": {
+          "default": 0.0,
+          "title": "Age Min",
+          "type": "number"
+        },
+        "agent_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agent Ids"
+        },
+        "fraction": {
+          "default": 1.0,
+          "description": "fraction of eligible agents, assigned by seeded randomisation",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fraction",
+          "type": "number"
+        },
+        "household_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Household Ids"
+        }
+      },
+      "title": "InterventionTarget",
+      "type": "object"
+    },
+    "JobStatus": {
+      "enum": [
+        "queued",
+        "running",
+        "paused",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "JobStatus",
+      "type": "string"
+    },
+    "LearningUpdate": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "title": "Agent Id",
+          "type": "string"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "feedback_mode": {
+          "enum": [
+            "none",
+            "bandit",
+            "full"
+          ],
+          "title": "Feedback Mode",
+          "type": "string"
+        },
+        "loss": {
+          "title": "Loss",
+          "type": "number"
+        },
+        "n_samples": {
+          "title": "N Samples",
+          "type": "integer"
+        },
+        "n_updates_total": {
+          "title": "N Updates Total",
+          "type": "integer"
+        },
+        "param_delta_norm": {
+          "title": "Param Delta Norm",
+          "type": "number"
+        },
+        "policy_class": {
+          "$ref": "#/$defs/PolicyClass"
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Run Id"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "tick": {
+          "title": "Tick",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agent_id",
+        "tick",
+        "policy_class",
+        "family",
+        "source",
+        "feedback_mode",
+        "n_samples",
+        "loss",
+        "param_delta_norm",
+        "n_updates_total"
+      ],
+      "title": "LearningUpdate",
+      "type": "object"
+    },
+    "LifeStage": {
+      "enum": [
+        "infant",
+        "child",
+        "adolescent",
+        "adult",
+        "elder"
+      ],
+      "title": "LifeStage",
+      "type": "string"
+    },
+    "LogConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment_interval_years": {
+          "default": 1.0,
+          "title": "Assessment Interval Years",
+          "type": "number"
+        },
+        "checkpoint_every_years": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 10.0,
+          "title": "Checkpoint Every Years"
+        },
+        "decision_sample_rate": {
+          "default": 0.02,
+          "description": "share of activity decisions logged with explanations",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Decision Sample Rate",
+          "type": "number"
+        },
+        "frames_every_ticks": {
+          "default": 1,
+          "description": "0 disables map frames",
+          "minimum": 0,
+          "title": "Frames Every Ticks",
+          "type": "integer"
+        },
+        "log_learning_episodes": {
+          "default": true,
+          "title": "Log Learning Episodes",
+          "type": "boolean"
+        }
+      },
+      "title": "LogConfig",
+      "type": "object"
+    },
+    "OutcomeObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "age_years": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Age Years"
+        },
+        "agent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agent Id"
+        },
+        "arm": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arm"
+        },
+        "experiment_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Experiment Id"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Run Id"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Seed"
+        },
+        "source": {
+          "default": "simulation",
+          "enum": [
+            "simulation",
+            "human_dataset"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "split": {
+          "default": "n/a",
+          "enum": [
+            "train",
+            "holdout",
+            "transfer",
+            "human_holdout",
+            "n/a"
+          ],
+          "title": "Split",
+          "type": "string"
+        },
+        "tick": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tick"
+        },
+        "unit": {
+          "default": "",
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "metric",
+        "value"
+      ],
+      "title": "OutcomeObservation",
+      "type": "object"
+    },
+    "ParameterPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "age_years": {
+          "title": "Age Years",
+          "type": "number"
+        },
+        "summary": {
+          "additionalProperties": true,
+          "title": "Summary",
+          "type": "object"
+        },
+        "tick": {
+          "title": "Tick",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tick",
+        "age_years",
+        "summary"
+      ],
+      "title": "ParameterPoint",
+      "type": "object"
+    },
+    "Place": {
+      "additionalProperties": false,
+      "properties": {
+        "capacity": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capacity"
+        },
+        "kind": {
+          "enum": [
+            "home",
+            "school",
+            "workplace",
+            "gathering",
+            "tutoring_center",
+            "elder_center"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "place_id": {
+          "title": "Place Id",
+          "type": "string"
+        },
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "place_id",
+        "kind",
+        "name",
+        "x",
+        "y"
+      ],
+      "title": "Place",
+      "type": "object"
+    },
+    "PolicyClass": {
+      "enum": [
+        "static_persona",
+        "memory_only",
+        "plain_rl",
+        "developmental",
+        "random"
+      ],
+      "title": "PolicyClass",
+      "type": "string"
+    },
+    "PolicyDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter_summary": {
+          "additionalProperties": true,
+          "title": "Parameter Summary",
+          "type": "object"
+        },
+        "policy_class": {
+          "$ref": "#/$defs/PolicyClass"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_class",
+        "version"
+      ],
+      "title": "PolicyDescriptor",
+      "type": "object"
+    },
+    "PrivacyDeleteResult": {
+      "additionalProperties": false,
+      "properties": {
+        "deleted": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Deleted",
+          "type": "object"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "deleted"
+      ],
+      "title": "PrivacyDeleteResult",
+      "type": "object"
+    },
+    "PrivacyExport": {
+      "additionalProperties": false,
+      "properties": {
+        "exported_at": {
+          "title": "Exported At",
+          "type": "string"
+        },
+        "records": {
+          "additionalProperties": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "title": "Records",
+          "type": "object"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "exported_at",
+        "records"
+      ],
+      "title": "PrivacyExport",
+      "type": "object"
+    },
+    "PrivacyRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id"
+      ],
+      "title": "PrivacyRequest",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "code_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Version"
+        },
+        "mechanism": {
+          "description": "name of the code mechanism that produced the event, e.g. 'world.school.enrol'",
+          "title": "Mechanism",
+          "type": "string"
+        },
+        "rng_stream": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rng Stream"
+        },
+        "source": {
+          "enum": [
+            "world",
+            "policy",
+            "evaluation",
+            "intervention",
+            "storage"
+          ],
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "mechanism"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Reflection": {
+      "additionalProperties": false,
+      "properties": {
+        "chosen_option_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chosen Option Id"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "decision_id": {
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        },
+        "values_changed": {
+          "items": {
+            "$ref": "#/$defs/ValueWeight"
+          },
+          "title": "Values Changed",
+          "type": "array"
+        },
+        "what_happened": {
+          "default": "",
+          "title": "What Happened",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "decision_id"
+      ],
+      "title": "Reflection",
+      "type": "object"
+    },
+    "ReversibleExperiment": {
+      "additionalProperties": false,
+      "properties": {
+        "cost_note": {
+          "default": "",
+          "title": "Cost Note",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "duration_days": {
+          "title": "Duration Days",
+          "type": "integer"
+        },
+        "learns_about": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Learns About",
+          "type": "array"
+        },
+        "reversibility": {
+          "default": "fully_reversible",
+          "enum": [
+            "fully_reversible",
+            "mostly_reversible"
+          ],
+          "title": "Reversibility",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "duration_days"
+      ],
+      "title": "ReversibleExperiment",
+      "type": "object"
+    },
+    "RunControl": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "pause",
+            "resume",
+            "reset",
+            "cancel"
+          ],
+          "title": "Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "title": "RunControl",
+      "type": "object"
+    },
+    "RunCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/SimulationConfig"
+        },
+        "mode": {
+          "default": "background",
+          "description": "background: run to completion as a job; interactive: keep world in memory for step/pause",
+          "enum": [
+            "background",
+            "interactive"
+          ],
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "config"
+      ],
+      "title": "RunCreate",
+      "type": "object"
+    },
+    "RunInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "current_tick": {
+          "default": 0,
+          "title": "Current Tick",
+          "type": "integer"
+        },
+        "current_year": {
+          "default": 0.0,
+          "title": "Current Year",
+          "type": "number"
+        },
+        "latest_tick": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WorldTick"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "manifest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RunManifest"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mode": {
+          "enum": [
+            "background",
+            "interactive",
+            "stored"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "progress": {
+          "default": 0.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Progress",
+          "type": "number"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source": {
+          "default": "live",
+          "description": "stored_real_output = precomputed run loaded from reports/, produced by real code",
+          "enum": [
+            "live",
+            "stored_real_output"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/JobStatus"
+        }
+      },
+      "required": [
+        "run_id",
+        "status",
+        "mode"
+      ],
+      "title": "RunInfo",
+      "type": "object"
+    },
+    "RunManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "arm": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arm"
+        },
+        "checkpoints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Checkpoints",
+          "type": "array"
+        },
+        "code_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "git commit sha (+dirty flag)",
+          "title": "Code Version"
+        },
+        "compute": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ComputeReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "config": {
+          "$ref": "#/$defs/SimulationConfig"
+        },
+        "config_hash": {
+          "title": "Config Hash",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "0.1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "dataset_hashes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Dataset Hashes",
+          "type": "object"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "event_log_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Event Log Path"
+        },
+        "event_log_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Event Log Sha256"
+        },
+        "experiment_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Experiment Id"
+        },
+        "final_state_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Final State Hash"
+        },
+        "n_events": {
+          "default": 0,
+          "title": "N Events",
+          "type": "integer"
+        },
+        "nondeterminism": {
+          "description": "any non-seeded inputs, e.g. external LLM calls",
+          "items": {
+            "type": "string"
+          },
+          "title": "Nondeterminism",
+          "type": "array"
+        },
+        "policy_class": {
+          "$ref": "#/$defs/PolicyClass"
+        },
+        "policy_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Policy Version"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/JobStatus",
+          "default": "queued"
+        },
+        "task_world_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Task World Hash"
+        }
+      },
+      "required": [
+        "run_id",
+        "config",
+        "config_hash",
+        "policy_class"
+      ],
+      "title": "RunManifest",
+      "type": "object"
+    },
+    "SafetyNotice": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "health",
+            "financial",
+            "legal",
+            "relationship",
+            "crisis",
+            "none"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "referral": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Referral"
+        }
+      },
+      "required": [
+        "category",
+        "message"
+      ],
+      "title": "SafetyNotice",
+      "type": "object"
+    },
+    "Scenario": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRecord"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "calculations": {
+          "items": {
+            "$ref": "#/$defs/Calculation"
+          },
+          "title": "Calculations",
+          "type": "array"
+        },
+        "cannot_predict": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cannot Predict",
+          "type": "array"
+        },
+        "decision_id": {
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "disclaimer": {
+          "default": "Illustrative scenario conditioned on the assumptions listed. It is not a prediction of your future and contains no individualized probability estimates.",
+          "title": "Disclaimer",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "label": {
+          "const": "illustrative scenario",
+          "default": "illustrative scenario",
+          "title": "Label",
+          "type": "string"
+        },
+        "narrative": {
+          "title": "Narrative",
+          "type": "string"
+        },
+        "narrative_source": {
+          "default": "template",
+          "enum": [
+            "template",
+            "llm_external"
+          ],
+          "title": "Narrative Source",
+          "type": "string"
+        },
+        "option_id": {
+          "title": "Option Id",
+          "type": "string"
+        },
+        "reversible_experiments": {
+          "items": {
+            "$ref": "#/$defs/ReversibleExperiment"
+          },
+          "title": "Reversible Experiments",
+          "type": "array"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "tradeoffs": {
+          "items": {
+            "$ref": "#/$defs/Tradeoff"
+          },
+          "title": "Tradeoffs",
+          "type": "array"
+        },
+        "uncertainties": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Uncertainties",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "decision_id",
+        "option_id",
+        "title",
+        "narrative"
+      ],
+      "title": "Scenario",
+      "type": "object"
+    },
+    "ScenarioResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRecord"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "safety": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SafetyNotice"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "scenarios": {
+          "items": {
+            "$ref": "#/$defs/Scenario"
+          },
+          "title": "Scenarios",
+          "type": "array"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "simulation_separation_note": {
+          "default": "No result from the synthetic agent society is used as evidence about your life.",
+          "title": "Simulation Separation Note",
+          "type": "string"
+        },
+        "value_alignment_note": {
+          "title": "Value Alignment Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision_id",
+        "scenarios",
+        "evidence",
+        "value_alignment_note"
+      ],
+      "title": "ScenarioResponse",
+      "type": "object"
+    },
+    "SimulationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "dt_days": {
+          "default": 30,
+          "maximum": 366,
+          "minimum": 1,
+          "title": "Dt Days",
+          "type": "integer"
+        },
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/Intervention"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "log": {
+          "$ref": "#/$defs/LogConfig"
+        },
+        "max_events": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 5000000,
+          "title": "Max Events"
+        },
+        "n_agents": {
+          "default": 100,
+          "maximum": 20000,
+          "minimum": 1,
+          "title": "N Agents",
+          "type": "integer"
+        },
+        "policy_class": {
+          "$ref": "#/$defs/PolicyClass",
+          "default": "developmental"
+        },
+        "policy_params": {
+          "additionalProperties": true,
+          "title": "Policy Params",
+          "type": "object"
+        },
+        "population_seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "initial population; defaults to seed (matched across twin arms)",
+          "title": "Population Seed"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "seed": {
+          "default": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "task_seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "task-world rules; defaults to seed",
+          "title": "Task Seed"
+        },
+        "world": {
+          "$ref": "#/$defs/WorldParams"
+        },
+        "years": {
+          "default": 80.0,
+          "exclusiveMinimum": 0,
+          "maximum": 150,
+          "title": "Years",
+          "type": "number"
+        }
+      },
+      "title": "SimulationConfig",
+      "type": "object"
+    },
+    "SkillPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "accuracy": {
+          "title": "Accuracy",
+          "type": "number"
+        },
+        "age_years": {
+          "title": "Age Years",
+          "type": "number"
+        },
+        "ci_high": {
+          "title": "Ci High",
+          "type": "number"
+        },
+        "ci_low": {
+          "title": "Ci Low",
+          "type": "number"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "log_loss": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Log Loss"
+        },
+        "n_items": {
+          "title": "N Items",
+          "type": "integer"
+        },
+        "split": {
+          "default": "holdout",
+          "enum": [
+            "holdout",
+            "transfer"
+          ],
+          "title": "Split",
+          "type": "string"
+        },
+        "tick": {
+          "title": "Tick",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tick",
+        "age_years",
+        "family",
+        "accuracy",
+        "ci_low",
+        "ci_high",
+        "n_items"
+      ],
+      "title": "SkillPoint",
+      "type": "object"
+    },
+    "SocialEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "dst": {
+          "title": "Dst",
+          "type": "string"
+        },
+        "formed_tick": {
+          "default": 0,
+          "title": "Formed Tick",
+          "type": "integer"
+        },
+        "interactions": {
+          "default": 0,
+          "title": "Interactions",
+          "type": "integer"
+        },
+        "kind": {
+          "$ref": "#/$defs/SocialEdgeKind"
+        },
+        "src": {
+          "title": "Src",
+          "type": "string"
+        },
+        "trust": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Trust",
+          "type": "number"
+        }
+      },
+      "required": [
+        "src",
+        "dst",
+        "kind"
+      ],
+      "title": "SocialEdge",
+      "type": "object"
+    },
+    "SocialEdgeKind": {
+      "enum": [
+        "parent",
+        "child",
+        "sibling",
+        "partner",
+        "friend",
+        "classmate",
+        "coworker",
+        "mentor",
+        "tutor"
+      ],
+      "title": "SocialEdgeKind",
+      "type": "string"
+    },
+    "StepRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "include_frames": {
+          "default": true,
+          "title": "Include Frames",
+          "type": "boolean"
+        },
+        "ticks": {
+          "default": 1,
+          "maximum": 1200,
+          "minimum": 1,
+          "title": "Ticks",
+          "type": "integer"
+        }
+      },
+      "title": "StepRequest",
+      "type": "object"
+    },
+    "TimeSeriesResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "ticks": {
+          "items": {
+            "$ref": "#/$defs/WorldTick"
+          },
+          "title": "Ticks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "run_id",
+        "ticks"
+      ],
+      "title": "TimeSeriesResponse",
+      "type": "object"
+    },
+    "Tradeoff": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "likely_better",
+            "likely_worse",
+            "mixed",
+            "unclear"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "value_key": {
+          "title": "Value Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_key",
+        "direction",
+        "rationale"
+      ],
+      "title": "Tradeoff",
+      "type": "object"
+    },
+    "ValidationStatus": {
+      "enum": [
+        "validated",
+        "unvalidated",
+        "illustrative",
+        "insufficient_evidence"
+      ],
+      "title": "ValidationStatus",
+      "type": "string"
+    },
+    "ValueWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "description": "e.g. autonomy, income, relationships, stability, learning, health, time",
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "weight": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "weight"
+      ],
+      "title": "ValueWeight",
+      "type": "object"
+    },
+    "WorldMap": {
+      "additionalProperties": false,
+      "properties": {
+        "height": {
+          "title": "Height",
+          "type": "number"
+        },
+        "places": {
+          "items": {
+            "$ref": "#/$defs/Place"
+          },
+          "title": "Places",
+          "type": "array"
+        },
+        "width": {
+          "title": "Width",
+          "type": "number"
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "places"
+      ],
+      "title": "WorldMap",
+      "type": "object"
+    },
+    "WorldParams": {
+      "additionalProperties": false,
+      "description": "Abstract world parameters. These are modelling assumptions, not empirical estimates.",
+      "properties": {
+        "annual_birth_rate_per_couple": {
+          "default": 0.18,
+          "title": "Annual Birth Rate Per Couple",
+          "type": "number"
+        },
+        "baseline_tutoring_fraction": {
+          "default": 0.0,
+          "description": "share of children with tutoring absent any intervention",
+          "title": "Baseline Tutoring Fraction",
+          "type": "number"
+        },
+        "caregiver_episodes_per_tick": {
+          "default": 2,
+          "title": "Caregiver Episodes Per Tick",
+          "type": "integer"
+        },
+        "consumption_per_member": {
+          "default": 0.55,
+          "title": "Consumption Per Member",
+          "type": "number"
+        },
+        "enable_age_gate": {
+          "default": true,
+          "title": "Enable Age Gate",
+          "type": "boolean"
+        },
+        "initial_age_distribution": {
+          "default": "young_families",
+          "enum": [
+            "uniform_0_60",
+            "young_families",
+            "newborn_cohort"
+          ],
+          "title": "Initial Age Distribution",
+          "type": "string"
+        },
+        "label_noise": {
+          "default": 0.05,
+          "maximum": 0.5,
+          "minimum": 0.0,
+          "title": "Label Noise",
+          "type": "number"
+        },
+        "max_age_years": {
+          "default": 105.0,
+          "title": "Max Age Years",
+          "type": "number"
+        },
+        "max_population": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "soft carrying capacity; default 1.5 * n_agents",
+          "title": "Max Population"
+        },
+        "mortality_gompertz_a": {
+          "default": 5e-05,
+          "title": "Mortality Gompertz A",
+          "type": "number"
+        },
+        "mortality_gompertz_b": {
+          "default": 0.095,
+          "title": "Mortality Gompertz B",
+          "type": "number"
+        },
+        "n_households": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "default: n_agents // 4",
+          "title": "N Households"
+        },
+        "n_jobs_per_100_agents": {
+          "default": 45,
+          "title": "N Jobs Per 100 Agents",
+          "type": "integer"
+        },
+        "peer_demonstrations_per_social_tick": {
+          "default": 2,
+          "title": "Peer Demonstrations Per Social Tick",
+          "type": "integer"
+        },
+        "retirement_age": {
+          "default": 67.0,
+          "title": "Retirement Age",
+          "type": "number"
+        },
+        "school_end_age": {
+          "default": 18.0,
+          "title": "School End Age",
+          "type": "number"
+        },
+        "school_episodes_per_tick": {
+          "default": 6,
+          "title": "School Episodes Per Tick",
+          "type": "integer"
+        },
+        "school_full_feedback_fraction": {
+          "default": 0.25,
+          "title": "School Full Feedback Fraction",
+          "type": "number"
+        },
+        "school_start_age": {
+          "default": 6.0,
+          "title": "School Start Age",
+          "type": "number"
+        },
+        "self_study_episodes_per_tick": {
+          "default": 4,
+          "title": "Self Study Episodes Per Tick",
+          "type": "integer"
+        },
+        "shock_rate_per_year": {
+          "default": 0.15,
+          "title": "Shock Rate Per Year",
+          "type": "number"
+        },
+        "tutoring_episodes_per_tick": {
+          "default": 4,
+          "title": "Tutoring Episodes Per Tick",
+          "type": "integer"
+        },
+        "wage_base": {
+          "default": 1.0,
+          "title": "Wage Base",
+          "type": "number"
+        },
+        "work_episodes_per_tick": {
+          "default": 4,
+          "title": "Work Episodes Per Tick",
+          "type": "integer"
+        }
+      },
+      "title": "WorldParams",
+      "type": "object"
+    },
+    "WorldTick": {
+      "additionalProperties": false,
+      "properties": {
+        "age_histogram": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Age Histogram",
+          "type": "object"
+        },
+        "births": {
+          "default": 0,
+          "title": "Births",
+          "type": "integer"
+        },
+        "day": {
+          "title": "Day",
+          "type": "integer"
+        },
+        "deaths": {
+          "default": 0,
+          "title": "Deaths",
+          "type": "integer"
+        },
+        "employment_rate": {
+          "default": 0.0,
+          "title": "Employment Rate",
+          "type": "number"
+        },
+        "events_emitted": {
+          "default": 0,
+          "title": "Events Emitted",
+          "type": "integer"
+        },
+        "frames": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AgentFrame"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Frames"
+        },
+        "mean_measured_accuracy": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Mean Measured Accuracy",
+          "type": "object"
+        },
+        "mean_resources": {
+          "default": 0.0,
+          "title": "Mean Resources",
+          "type": "number"
+        },
+        "population": {
+          "title": "Population",
+          "type": "integer"
+        },
+        "resource_gini": {
+          "default": 0.0,
+          "title": "Resource Gini",
+          "type": "number"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "school_enrolment_rate": {
+          "default": 0.0,
+          "title": "School Enrolment Rate",
+          "type": "number"
+        },
+        "tick": {
+          "title": "Tick",
+          "type": "integer"
+        },
+        "wall_time_ms": {
+          "default": 0.0,
+          "title": "Wall Time Ms",
+          "type": "number"
+        },
+        "year": {
+          "title": "Year",
+          "type": "number"
+        }
+      },
+      "required": [
+        "run_id",
+        "tick",
+        "day",
+        "year",
+        "population"
+      ],
+      "title": "WorldTick",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HPE contracts",
+  "version": "0.1.0"
+}

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
+
+# Runtime data (never commit real-user data)
+data/
+*.sqlite
+*.sqlite3
+*.db
+!datasets/**/README.md
+
+# External datasets are downloaded, never committed (see docs/DATA_SOURCES.md)
+datasets/external/
+
+# Node / web
+node_modules/
+apps/web/dist/
+apps/web/.vite/
+*.tsbuildinfo
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Large scratch outputs (committed results live in reports/ with manifests)
+reports/**/scratch/
+reports/scale/raw/

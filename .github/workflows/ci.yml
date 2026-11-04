@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          uv venv .venv
+          uv pip install --python .venv/bin/python -e ".[dev,parquet]"
+      - name: Lint
+        run: |
+          .venv/bin/ruff check .
+          .venv/bin/ruff format --check .
+      - name: Type check
+        run: .venv/bin/mypy
+      - name: Contract schemas up to date
+        run: .venv/bin/python scripts/export_contracts.py --check
+      - name: Tests
+        run: .venv/bin/python -m pytest -q -m "not slow" --cov --cov-report=term --cov-report=xml
+      - name: Seeded smoke simulation
+        run: .venv/bin/python -m hpe.cli smoke --out data/ci-smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke-run
+          path: data/ci-smoke
+          if-no-files-found: ignore
