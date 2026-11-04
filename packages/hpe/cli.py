@@ -7,7 +7,9 @@ import sys
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(prog="hpe", description="Human Possibility Engine CLI (no API keys required)")
+    ap = argparse.ArgumentParser(
+        prog="hpe", description="Human Possibility Engine CLI (no API keys required)"
+    )
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("info", help="print versions and registered policy classes")
     args = ap.parse_args(argv)
