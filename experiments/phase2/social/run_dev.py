@@ -297,9 +297,9 @@ def main() -> int:
         "| contrast | treatment − control | metric | estimate | 95% CI (paired, seeds) |",
         "|---|---|---|---|---|",
     ]
-    for c in contrasts:
+    for ct in contrasts:
         lines.append(
-            f"| {c['name']} | {c['treatment']} − {c['control']} | {c['metric']} | {c['estimate']:+.4f} | [{c['ci_low']:+.4f}, {c['ci_high']:+.4f}] (n={c['n']}) |"
+            f"| {ct['name']} | {ct['treatment']} − {ct['control']} | {ct['metric']} | {ct['estimate']:+.4f} | [{ct['ci_low']:+.4f}, {ct['ci_high']:+.4f}] (n={ct['n']}) |"
         )
     (out / "report.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines[-len(contrasts) - 3 :]))
