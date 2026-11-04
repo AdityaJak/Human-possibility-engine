@@ -208,3 +208,39 @@ every freeze and two blocking any Gate A2/B freeze. Changes, each implemented in
 Power (S-3): at plausible spreads B2 is under-powered (pass probability 0.07–0.92 at 1.5× the margin
 depending on the paired SD); under no effect every rule passes with probability ≤ 0.002. Margins are not
 changed; the limitation is reported with any B result.
+
+## 12. Amendment A3-2 (2026-11-04) — Gate D and Gate E designs (critic G-4, G-5); no data seen for either
+
+**Gate D — cross-domain transfer (leave-one-family-out).**
+
+* Targets: the counted families (restless4, garcia, described; two_step if counted). Sources for target T: the
+  dev partitions of every other generic family (bandit2, srl3, horizon, casino, wpt, garcia, described,
+  restless4, two_step when registered) except T. MCPL/IGT are excluded (different trial format).
+* **History-only inputs**: the current- and previous-context feature slots are zeroed for every model in Gate D,
+  in pretraining and on the target, because feature slots mean different things across families (G-4).
+* k ∈ {0, 16, 64} target participants, drawn from the target's dev partition by a seeded sampler, 5 draws per
+  k, scores averaged over draws per test participant. Fine-tuning epochs and learning rate are selected on the
+  target's tune partition from a fixed grid of ≤ 6 settings shared by all models.
+* Models at equal budget: the candidate pretrained on the sources then adapted on k; a **specialist** of the
+  same class trained only on the k target participants; a **pretrained `pop_gru`** on the sources fine-tuned on
+  k; the **strongest low-data baseline** `hb_cog` with its population prior fitted on the k target participants.
+* Pass (confirmatory): at k = 16 the candidate beats the specialist, the pretrained `pop_gru` and `hb_cog` by
+  ≥ 0.02 nats/choice each (Holm over counted targets, max(bootstrap, t) p) in ≥ 2 counted targets. k = 0 and
+  k = 64 are reported. Tune stop rule: the same margins on tune.
+
+**Gate E — continual learning (synthetic switching suite with a known reference solution).**
+
+* Generator (`hpe.population.continual`): sequences of 300 trials; K = 4 options; 3 latent contexts per
+  sequence, each a Bernoulli reward vector (one option at 0.8, the others drawn from [0.15, 0.45]); blocks of
+  20–40 trials; context order revisits earlier contexts (≥ 2 returns per sequence); context identity is not
+  observed. Reference solutions: (i) an oracle that knows the context and its reward vector (upper bound);
+  (ii) the Bayes filter over contexts with Beta posteriors (the optimal learner given the generative model).
+* Learners within a sequence: online fine-tuning of a small network (no protection), EWC, experience replay,
+  the meta-learned recurrent learner (F4, weights frozen at test, adapting in context), and any candidate.
+* Metrics: post-switch adaptation (mean reward in the 10 trials after a switch, as a fraction of the oracle's);
+  savings on return to a previously seen context (first 10 trials on return minus first 10 trials on first
+  exposure); forgetting (reward on a return minus reward at the end of that context's previous block).
+* Seeds: development 0–199; **confirmatory 3000–3049, untouched** (no generation or evaluation of seeds ≥ 3000
+  before a freeze). Pass: the candidate's savings exceed fine-tuning, EWC and replay (paired 95 % CI over the 50
+  confirmatory seeds excludes 0, Holm over the three) and its post-switch adaptation is not more than 10 %
+  below the best of them. A synthetic pass does not establish human validity.
