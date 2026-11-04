@@ -1,0 +1,124 @@
+[07:54:11] gate_a_dev: seeds [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009], agents 20, code 70437a063f67406b5fbbb341b18b8c65cefff80c, x86_64 4 cpu, Linux 6.18.44-fc-v233, python 3.13.18
+[07:54:11] freeze check developmental: held-out probabilities CHANGED, state hash changed after 60 practice episodes
+[07:54:11] freeze check developmental_frozen: held-out probabilities unchanged, state hash unchanged after 60 practice episodes
+[07:54:11] freeze check hybrid_exemplar: held-out probabilities CHANGED, state hash changed after 60 practice episodes
+[07:54:11] freeze check hybrid_exemplar_frozen: held-out probabilities unchanged, state hash unchanged after 60 practice episodes
+[07:54:11] freeze check plain_rl: held-out probabilities CHANGED, state hash changed after 60 practice episodes
+[07:54:11] freeze check plain_rl_frozen: held-out probabilities unchanged, state hash changed after 60 practice episodes
+[07:54:11] freeze check age_script_only: held-out probabilities unchanged, state hash unchanged after 60 practice episodes
+[07:54:11] freeze check static_persona: held-out probabilities unchanged, state hash unchanged after 60 practice episodes
+[07:54:11] 110 jobs on 4 worker(s)
+[07:54:18] 1/110 main/developmental seed 1000: final 0.840 (init 0.444) cpu 3.1s
+[07:54:18] 2/110 main/developmental seed 1001: final 0.836 (init 0.444) cpu 2.8s
+[07:54:18] 3/110 main/developmental seed 1002: final 0.819 (init 0.444) cpu 2.8s
+[07:54:18] 4/110 main/developmental seed 1003: final 0.874 (init 0.444) cpu 3.1s
+[07:54:24] 5/110 main/developmental seed 1004: final 0.817 (init 0.444) cpu 3.5s
+[07:54:24] 6/110 main/developmental seed 1005: final 0.799 (init 0.444) cpu 3.3s
+[07:54:25] 7/110 main/developmental seed 1006: final 0.794 (init 0.444) cpu 3.4s
+[07:54:25] 8/110 main/developmental seed 1007: final 0.852 (init 0.444) cpu 3.5s
+[07:54:30] 9/110 main/developmental seed 1008: final 0.821 (init 0.444) cpu 2.9s
+[07:54:30] 10/110 main/developmental seed 1009: final 0.872 (init 0.444) cpu 3.1s
+[07:54:30] 11/110 main/developmental_frozen seed 1000: final 0.444 (init 0.444) cpu 1.5s
+[07:54:30] 12/110 main/developmental_frozen seed 1001: final 0.444 (init 0.444) cpu 1.5s
+[07:54:31] 13/110 main/developmental_frozen seed 1002: final 0.444 (init 0.444) cpu 1.7s
+[07:54:32] 14/110 main/developmental_frozen seed 1003: final 0.444 (init 0.444) cpu 1.8s
+[07:54:33] 15/110 main/developmental_frozen seed 1004: final 0.444 (init 0.444) cpu 1.8s
+[07:54:34] 16/110 main/developmental_frozen seed 1005: final 0.444 (init 0.444) cpu 1.8s
+[07:54:35] 17/110 main/developmental_frozen seed 1006: final 0.444 (init 0.444) cpu 1.9s
+[07:54:36] 18/110 main/developmental_frozen seed 1007: final 0.444 (init 0.444) cpu 1.8s
+[07:54:36] 19/110 main/developmental_frozen seed 1008: final 0.444 (init 0.444) cpu 1.7s
+[07:54:37] 20/110 main/developmental_frozen seed 1009: final 0.444 (init 0.444) cpu 1.7s
+[07:55:12] 21/110 main/hybrid_exemplar seed 1000: final 0.831 (init 0.444) cpu 17.1s
+[07:55:12] 22/110 main/hybrid_exemplar seed 1001: final 0.821 (init 0.444) cpu 17.3s
+[07:55:12] 23/110 main/hybrid_exemplar seed 1002: final 0.813 (init 0.444) cpu 17.3s
+[07:55:13] 24/110 main/hybrid_exemplar seed 1003: final 0.863 (init 0.444) cpu 17.2s
+[07:55:48] 25/110 main/hybrid_exemplar seed 1004: final 0.833 (init 0.444) cpu 17.8s
+[07:55:48] 26/110 main/hybrid_exemplar seed 1005: final 0.804 (init 0.444) cpu 17.3s
+[07:55:48] 27/110 main/hybrid_exemplar seed 1006: final 0.811 (init 0.444) cpu 17.2s
+[07:55:50] 28/110 main/hybrid_exemplar seed 1007: final 0.823 (init 0.444) cpu 17.2s
+[07:56:23] 29/110 main/hybrid_exemplar seed 1008: final 0.808 (init 0.444) cpu 15.9s
+[07:56:25] 30/110 main/hybrid_exemplar seed 1009: final 0.894 (init 0.444) cpu 16.2s
+[07:56:25] 31/110 main/hybrid_exemplar_frozen seed 1000: final 0.444 (init 0.444) cpu 3.5s
+[07:56:25] 32/110 main/hybrid_exemplar_frozen seed 1001: final 0.444 (init 0.444) cpu 3.5s
+[07:56:25] 33/110 main/hybrid_exemplar_frozen seed 1002: final 0.444 (init 0.444) cpu 3.7s
+[07:56:25] 34/110 main/hybrid_exemplar_frozen seed 1003: final 0.444 (init 0.444) cpu 3.6s
+[07:56:25] 35/110 main/hybrid_exemplar_frozen seed 1004: final 0.444 (init 0.444) cpu 3.3s
+[07:56:25] 36/110 main/hybrid_exemplar_frozen seed 1005: final 0.444 (init 0.444) cpu 3.3s
+[07:56:25] 37/110 main/hybrid_exemplar_frozen seed 1006: final 0.444 (init 0.444) cpu 3.3s
+[07:56:25] 38/110 main/hybrid_exemplar_frozen seed 1007: final 0.444 (init 0.444) cpu 3.4s
+[07:56:27] 39/110 main/hybrid_exemplar_frozen seed 1008: final 0.444 (init 0.444) cpu 3.0s
+[07:56:29] 40/110 main/hybrid_exemplar_frozen seed 1009: final 0.444 (init 0.444) cpu 3.0s
+[07:56:30] 41/110 main/plain_rl seed 1000: final 0.812 (init 0.444) cpu 3.4s
+[07:56:32] 42/110 main/plain_rl seed 1001: final 0.823 (init 0.444) cpu 3.4s
+[07:56:35] 43/110 main/plain_rl seed 1002: final 0.798 (init 0.444) cpu 3.5s
+[07:56:36] 44/110 main/plain_rl seed 1003: final 0.885 (init 0.444) cpu 3.6s
+[07:56:38] 45/110 main/plain_rl seed 1004: final 0.832 (init 0.444) cpu 3.8s
+[07:56:40] 46/110 main/plain_rl seed 1005: final 0.758 (init 0.444) cpu 3.8s
+[07:56:42] 47/110 main/plain_rl seed 1006: final 0.742 (init 0.444) cpu 3.7s
+[07:56:43] 48/110 main/plain_rl seed 1007: final 0.788 (init 0.444) cpu 3.5s
+[07:56:46] 49/110 main/plain_rl seed 1008: final 0.827 (init 0.444) cpu 3.6s
+[07:56:48] 50/110 main/plain_rl seed 1009: final 0.873 (init 0.444) cpu 3.5s
+[07:56:51] 51/110 main/plain_rl_frozen seed 1000: final 0.444 (init 0.444) cpu 3.6s
+[07:56:51] 52/110 main/plain_rl_frozen seed 1001: final 0.444 (init 0.444) cpu 3.5s
+[07:56:53] 53/110 main/plain_rl_frozen seed 1002: final 0.444 (init 0.444) cpu 3.7s
+[07:56:55] 54/110 main/plain_rl_frozen seed 1003: final 0.444 (init 0.444) cpu 3.7s
+[07:56:57] 55/110 main/plain_rl_frozen seed 1004: final 0.444 (init 0.444) cpu 3.6s
+[07:56:58] 56/110 main/plain_rl_frozen seed 1005: final 0.444 (init 0.444) cpu 3.6s
+[07:57:00] 57/110 main/plain_rl_frozen seed 1006: final 0.444 (init 0.444) cpu 3.2s
+[07:57:03] 58/110 main/plain_rl_frozen seed 1007: final 0.444 (init 0.444) cpu 3.7s
+[07:57:06] 59/110 main/plain_rl_frozen seed 1008: final 0.444 (init 0.444) cpu 3.8s
+[07:57:06] 60/110 main/plain_rl_frozen seed 1009: final 0.444 (init 0.444) cpu 4.1s
+[07:57:06] 61/110 main/age_script_only seed 1000: final 0.413 (init 0.433) cpu 2.8s
+[07:57:09] 62/110 main/age_script_only seed 1001: final 0.448 (init 0.452) cpu 2.6s
+[07:57:10] 63/110 main/age_script_only seed 1002: final 0.437 (init 0.429) cpu 2.4s
+[07:57:11] 64/110 main/age_script_only seed 1003: final 0.421 (init 0.407) cpu 2.5s
+[07:57:12] 65/110 main/age_script_only seed 1004: final 0.440 (init 0.439) cpu 2.6s
+[07:57:14] 66/110 main/age_script_only seed 1005: final 0.447 (init 0.453) cpu 2.6s
+[07:57:15] 67/110 main/age_script_only seed 1006: final 0.439 (init 0.436) cpu 2.6s
+[07:57:17] 68/110 main/age_script_only seed 1007: final 0.482 (init 0.481) cpu 2.6s
+[07:57:18] 69/110 main/age_script_only seed 1008: final 0.417 (init 0.410) cpu 2.8s
+[07:57:20] 70/110 main/age_script_only seed 1009: final 0.460 (init 0.457) cpu 2.6s
+[07:57:20] 71/110 main/static_persona seed 1000: final 0.413 (init 0.433) cpu 2.6s
+[07:57:22] 72/110 main/static_persona seed 1001: final 0.448 (init 0.452) cpu 2.5s
+[07:57:23] 73/110 main/static_persona seed 1002: final 0.437 (init 0.429) cpu 2.4s
+[07:57:25] 74/110 main/static_persona seed 1003: final 0.421 (init 0.407) cpu 2.5s
+[07:57:25] 75/110 main/static_persona seed 1004: final 0.440 (init 0.439) cpu 2.3s
+[07:57:27] 76/110 main/static_persona seed 1005: final 0.447 (init 0.453) cpu 2.6s
+[07:57:28] 77/110 main/static_persona seed 1006: final 0.439 (init 0.436) cpu 2.3s
+[07:57:30] 78/110 main/static_persona seed 1007: final 0.482 (init 0.481) cpu 2.5s
+[07:57:30] 79/110 main/static_persona seed 1008: final 0.417 (init 0.410) cpu 2.4s
+[07:57:33] 80/110 main/static_persona seed 1009: final 0.460 (init 0.457) cpu 2.5s
+[07:57:35] 81/110 permuted_feedback/developmental seed 1000: final 0.424 (init 0.444) cpu 3.7s
+[07:57:38] 82/110 permuted_feedback/developmental seed 1001: final 0.445 (init 0.444) cpu 4.1s
+[07:57:38] 83/110 permuted_feedback/developmental seed 1002: final 0.454 (init 0.444) cpu 3.9s
+[07:57:42] 84/110 permuted_feedback/developmental seed 1003: final 0.433 (init 0.444) cpu 4.3s
+[07:57:43] 85/110 permuted_feedback/developmental seed 1004: final 0.446 (init 0.444) cpu 3.9s
+[07:57:45] 86/110 permuted_feedback/developmental seed 1005: final 0.432 (init 0.444) cpu 4.0s
+[07:57:45] 87/110 permuted_feedback/developmental seed 1006: final 0.421 (init 0.444) cpu 3.7s
+[07:57:49] 88/110 permuted_feedback/developmental seed 1007: final 0.438 (init 0.444) cpu 3.8s
+[07:57:52] 89/110 permuted_feedback/developmental seed 1008: final 0.431 (init 0.444) cpu 4.2s
+[07:57:54] 90/110 permuted_feedback/developmental seed 1009: final 0.447 (init 0.444) cpu 4.2s
+[07:58:23] 91/110 permuted_feedback/hybrid_exemplar seed 1000: final 0.423 (init 0.444) cpu 18.5s
+[07:58:28] 92/110 permuted_feedback/hybrid_exemplar seed 1001: final 0.438 (init 0.444) cpu 18.9s
+[07:58:31] 93/110 permuted_feedback/hybrid_exemplar seed 1002: final 0.436 (init 0.444) cpu 19.0s
+[07:58:34] 94/110 permuted_feedback/hybrid_exemplar seed 1003: final 0.443 (init 0.444) cpu 19.1s
+[07:59:03] 95/110 permuted_feedback/hybrid_exemplar seed 1004: final 0.436 (init 0.444) cpu 19.0s
+[07:59:07] 96/110 permuted_feedback/hybrid_exemplar seed 1005: final 0.405 (init 0.444) cpu 19.0s
+[07:59:11] 97/110 permuted_feedback/hybrid_exemplar seed 1006: final 0.414 (init 0.444) cpu 19.1s
+[07:59:14] 98/110 permuted_feedback/hybrid_exemplar seed 1007: final 0.444 (init 0.444) cpu 18.9s
+[07:59:45] 99/110 permuted_feedback/hybrid_exemplar seed 1008: final 0.457 (init 0.444) cpu 19.5s
+[07:59:47] 100/110 permuted_feedback/hybrid_exemplar seed 1009: final 0.437 (init 0.444) cpu 19.8s
+[07:59:47] 101/110 permuted_feedback/plain_rl seed 1000: final 0.455 (init 0.444) cpu 5.4s
+[07:59:47] 102/110 permuted_feedback/plain_rl seed 1001: final 0.430 (init 0.444) cpu 6.0s
+[07:59:47] 103/110 permuted_feedback/plain_rl seed 1002: final 0.440 (init 0.444) cpu 5.9s
+[07:59:47] 104/110 permuted_feedback/plain_rl seed 1003: final 0.454 (init 0.444) cpu 5.5s
+[07:59:47] 105/110 permuted_feedback/plain_rl seed 1004: final 0.460 (init 0.444) cpu 5.3s
+[07:59:50] 106/110 permuted_feedback/plain_rl seed 1005: final 0.458 (init 0.444) cpu 4.8s
+[07:59:54] 107/110 permuted_feedback/plain_rl seed 1006: final 0.413 (init 0.444) cpu 4.6s
+[07:59:56] 108/110 permuted_feedback/plain_rl seed 1007: final 0.458 (init 0.444) cpu 4.7s
+[07:59:56] 109/110 permuted_feedback/plain_rl seed 1008: final 0.444 (init 0.444) cpu 4.6s
+[07:59:57] 110/110 permuted_feedback/plain_rl seed 1009: final 0.448 (init 0.444) cpu 4.4s
+[07:59:59] wrote /home/user/Human-possibility-engine/.claude/worktrees/agent-a4ec7bededb9b5381/reports/phase2/evaluation_v2/gate_a_dev/results.json and report.md; cpu 658s wall 346s
+[07:59:59] developmental: frozen-copy +0.388 [+0.372, +0.404] permuted -0.007 [-0.014, -0.001] age-script +0.392 [+0.374, +0.412]
+[07:59:59] hybrid_exemplar: frozen-copy +0.386 [+0.371, +0.404] permuted -0.011 [-0.020, -0.003] age-script +0.390 [+0.371, +0.409]
+[07:59:59] plain_rl: frozen-copy +0.369 [+0.343, +0.396] permuted +0.001 [-0.008, +0.009] age-script +0.373 [+0.341, +0.404]

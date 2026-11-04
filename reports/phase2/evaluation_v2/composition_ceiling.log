@@ -1,0 +1,33 @@
+[08:14:31] shared seed 1000 op=OR: lstsq_raw/composition=0.600, logistic_raw/composition=0.633, logistic_quad/composition=0.617, oracle_prims/composition=1.000
+[08:14:32] shared seed 1001 op=AND: lstsq_raw/composition=0.700, logistic_raw/composition=0.800, logistic_quad/composition=0.667, oracle_prims/composition=1.000
+[08:14:32] shared seed 1002 op=XOR: lstsq_raw/composition=0.633, logistic_raw/composition=0.567, logistic_quad/composition=0.550, oracle_prims/composition=1.000
+[08:14:33] shared seed 1003 op=OR: lstsq_raw/composition=0.717, logistic_raw/composition=0.667, logistic_quad/composition=0.433, oracle_prims/composition=1.000
+[08:14:33] shared seed 1004 op=OR: lstsq_raw/composition=0.583, logistic_raw/composition=0.583, logistic_quad/composition=0.667, oracle_prims/composition=1.000
+[08:14:34] shared seed 1005 op=IMPLIES: lstsq_raw/composition=0.600, logistic_raw/composition=0.683, logistic_quad/composition=0.633, oracle_prims/composition=1.000
+[08:14:34] shared seed 1006 op=OR: lstsq_raw/composition=0.550, logistic_raw/composition=0.550, logistic_quad/composition=0.517, oracle_prims/composition=1.000
+[08:14:35] shared seed 1007 op=IMPLIES: lstsq_raw/composition=0.500, logistic_raw/composition=0.683, logistic_quad/composition=0.850, oracle_prims/composition=1.000
+[08:14:35] shared seed 1008 op=XOR: lstsq_raw/composition=0.550, logistic_raw/composition=0.633, logistic_quad/composition=0.767, oracle_prims/composition=1.000
+[08:14:36] shared seed 1009 op=IMPLIES: lstsq_raw/composition=0.817, logistic_raw/composition=0.917, logistic_quad/composition=0.850, oracle_prims/composition=1.000
+[08:14:36] control seed 1000 op=OR: lstsq_raw/composition=0.583, logistic_raw/composition=0.583, logistic_quad/composition=0.583, oracle_prims/composition=0.583
+[08:14:37] control seed 1001 op=AND: lstsq_raw/composition=0.583, logistic_raw/composition=0.617, logistic_quad/composition=0.617, oracle_prims/composition=0.500
+[08:14:37] control seed 1002 op=XOR: lstsq_raw/composition=0.500, logistic_raw/composition=0.500, logistic_quad/composition=0.567, oracle_prims/composition=0.633
+[08:14:38] control seed 1003 op=OR: lstsq_raw/composition=0.317, logistic_raw/composition=0.317, logistic_quad/composition=0.450, oracle_prims/composition=0.500
+[08:14:38] control seed 1004 op=OR: lstsq_raw/composition=0.283, logistic_raw/composition=0.300, logistic_quad/composition=0.317, oracle_prims/composition=0.850
+[08:14:39] control seed 1005 op=IMPLIES: lstsq_raw/composition=0.600, logistic_raw/composition=0.650, logistic_quad/composition=0.767, oracle_prims/composition=0.500
+[08:14:40] control seed 1006 op=OR: lstsq_raw/composition=0.733, logistic_raw/composition=0.717, logistic_quad/composition=0.533, oracle_prims/composition=0.600
+[08:14:40] control seed 1007 op=IMPLIES: lstsq_raw/composition=0.583, logistic_raw/composition=0.633, logistic_quad/composition=0.467, oracle_prims/composition=0.500
+[08:14:41] control seed 1008 op=XOR: lstsq_raw/composition=0.400, logistic_raw/composition=0.400, logistic_quad/composition=0.350, oracle_prims/composition=0.667
+[08:14:41] control seed 1009 op=IMPLIES: lstsq_raw/composition=0.467, logistic_raw/composition=0.550, logistic_quad/composition=0.533, oracle_prims/composition=0.500
+[08:14:42] == shared
+[08:14:42]   lstsq_raw: primitive_a=0.997 [0.990, 1.000], primitive_b=0.538 [0.473, 0.597], composition=0.625 [0.575, 0.682], composition_pair=0.748 [0.650, 0.848]
+[08:14:42]   logistic_raw: primitive_a=1.000 [1.000, 1.000], primitive_b=0.535 [0.468, 0.602], composition=0.672 [0.612, 0.745], composition_pair=0.742 [0.647, 0.840]
+[08:14:42]   logistic_quad: primitive_a=0.947 [0.917, 0.972], primitive_b=0.472 [0.397, 0.538], composition=0.655 [0.573, 0.735], composition_pair=0.640 [0.547, 0.730]
+[08:14:42]   oracle_prims: primitive_a=1.000 [1.000, 1.000], primitive_b=1.000 [1.000, 1.000], composition=1.000 [1.000, 1.000], composition_pair=1.000 [1.000, 1.000]
+[08:14:42]   composition by op (logistic_raw): AND=0.800 (n=1), IMPLIES=0.761 (n=3), OR=0.608 (n=4), XOR=0.600 (n=2)
+[08:14:42] == control
+[08:14:42]   lstsq_raw: primitive_a=0.972 [0.930, 1.000], primitive_b=0.573 [0.508, 0.635], composition=0.505 [0.420, 0.587], composition_pair=0.675 [0.512, 0.828]
+[08:14:42]   logistic_raw: primitive_a=1.000 [1.000, 1.000], primitive_b=0.563 [0.483, 0.637], composition=0.527 [0.437, 0.608], composition_pair=0.650 [0.495, 0.793]
+[08:14:42]   logistic_quad: primitive_a=0.917 [0.872, 0.955], primitive_b=0.495 [0.447, 0.548], composition=0.518 [0.443, 0.598], composition_pair=0.557 [0.512, 0.600]
+[08:14:42]   oracle_prims: primitive_a=1.000 [1.000, 1.000], primitive_b=1.000 [1.000, 1.000], composition=0.583 [0.523, 0.655], composition_pair=0.642 [0.552, 0.733]
+[08:14:42]   composition by op (logistic_raw): AND=0.617 (n=1), IMPLIES=0.611 (n=3), OR=0.479 (n=4), XOR=0.450 (n=2)
+[08:14:42] wrote /home/user/Human-possibility-engine/.claude/worktrees/agent-a4ec7bededb9b5381/reports/phase2/evaluation_v2/composition_ceiling.json (cpu 11.12 s)

@@ -124,8 +124,12 @@ class StaticPersonaPolicy(BasePolicy):
             logits = logits + np.array([0.0, 1.5 * (self.traits["sociability"] - 0.3)])
         return logits
 
+    def _temperature(self, age_years: float) -> float:
+        """Softmax temperature; age-independent for the plain persona (subclasses may script it)."""
+        return 1.0 / self.decisiveness
+
     def _probs(self, obs: Observation) -> np.ndarray:
-        return masked_softmax(self._logits(obs), obs.action_mask, 1.0 / self.decisiveness)
+        return masked_softmax(self._logits(obs), obs.action_mask, self._temperature(obs.age_years))
 
     def action_probabilities_batch(
         self, family: str, kind: DecisionKind, contexts: np.ndarray, n_actions: int, age_years: float
@@ -143,7 +147,7 @@ class StaticPersonaPolicy(BasePolicy):
                 logits = logits + np.array([0.0, self.traits["risk_tolerance"] - 0.5])
         else:
             return super().action_probabilities_batch(family, kind, contexts, n_actions, age_years)
-        return masked_softmax(logits, None, 1.0 / self.decisiveness)
+        return masked_softmax(logits, None, self._temperature(age_years))
 
     def _explain(self, obs: Observation, probs: np.ndarray, action: int) -> dict[str, Any]:
         dominant = max(self.traits, key=lambda k: self.traits[k])
@@ -183,6 +187,57 @@ class StaticPersonaPolicy(BasePolicy):
         self.traits = {k: float(v) for k, v in state["traits"].items()}
         self.decisiveness = 1.0 + 2.0 * self.traits["diligence"]
         self._cache = {}
+
+
+# =========================================================================================
+# Age-script-only null (Gate A / H2 control)
+# =========================================================================================
+
+
+def scripted_plasticity(age_years: float) -> float:
+    """The Phase I plasticity schedule (``hpe.development.schedules.plasticity``), copied verbatim so
+    this candidate-free lane does not import the learner package; ``tests/evaluation/test_gate_a_controls.py``
+    asserts equality with the original. A SCRIPTED modelling assumption: 1.5 in childhood (<12),
+    linear to 1.0 at 25, flat to 50, then linear decline to a floor of 0.4 at 90."""
+    a = float(age_years)
+    if a < 12.0:
+        return 1.5
+    if a < 25.0:
+        return 1.5 - 0.5 * (a - 12.0) / 13.0
+    if a < 50.0:
+        return 1.0
+    return max(0.4, 1.0 - 0.6 * (a - 50.0) / 40.0)
+
+
+class AgeScriptOnlyPolicy(StaticPersonaPolicy):
+    """The H2 null: a static persona whose behaviour changes with simulated age ONLY through scripts.
+
+    * Perceptual age gate: applied by the world to every policy class (``enable_gate``); this class
+      adds nothing, so it experiences exactly the gate the candidates experience.
+    * Plasticity-shaped scaling: the persona readout's decisiveness is multiplied by the Phase I
+      plasticity schedule of the agent's current age, so choice sharpness follows the same scripted
+      curve that scales the developmental learner's step sizes — but no parameter ever moves.
+
+    Any candidate's held-out gain over this policy cannot come from age labels or scripted maturation.
+    Spec: docs/phase2/specs/GATE_B_FAMILY_3_AND_GATE_A_CONTROLS.md §2.
+    """
+
+    policy_class: ClassVar[str] = "age_script_only"
+    version = "1.0.0"
+
+    def _temperature(self, age_years: float) -> float:
+        return 1.0 / (self.decisiveness * scripted_plasticity(age_years))
+
+    def _explain(self, obs: Observation, probs: np.ndarray, action: int) -> dict[str, Any]:
+        out = super()._explain(obs, probs, action)
+        out["rule"] = "fixed persona heuristic with scripted age plasticity (never updated)"
+        out["plasticity"] = scripted_plasticity(obs.age_years)
+        return out
+
+    def parameter_summary(self) -> dict[str, Any]:
+        out = super().parameter_summary()
+        out["age_schedule"] = "plasticity (scripted, Phase I schedule)"
+        return out
 
 
 # =========================================================================================
@@ -618,6 +673,7 @@ BASELINE_CLASSES: dict[str, type[BasePolicy]] = {
     "static_persona": StaticPersonaPolicy,
     "memory_only": MemoryOnlyPolicy,
     "plain_rl": PlainRLPolicy,
+    "age_script_only": AgeScriptOnlyPolicy,
 }
 
 for _name, _cls in BASELINE_CLASSES.items():

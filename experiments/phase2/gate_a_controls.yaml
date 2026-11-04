@@ -1,0 +1,105 @@
+# Gate A controls (spec docs/phase2/specs/GATE_B_FAMILY_3_AND_GATE_A_CONTROLS.md §2), DEV-seed edition.
+#
+# Frozen copies, the permuted-feedback copy (sensitivity variant `permuted_feedback`, lab option
+# feedback_permutation: true) and the age-script null, under hpe.evaluation.learning_lab with common
+# random numbers. Dev seeds 1000-1009 only; the confirmatory copy must use seeds 500-509 and a new
+# experiment_id (the runner refuses to mix preregistration hashes).
+#
+# LIMITATION (contract v0.1.0 is frozen): hpe.contracts.schemas.PolicyClass does not include
+# `age_script_only` or `hybrid_exemplar`, so this YAML can only express the enum arms. The full
+# protocol with those two classes is run by reports/phase2/evaluation_v2/scripts/gate_a_dev.py
+# (same lab, same params, same seeds). Contract-change request: add both names to PolicyClass
+# (backward compatible, additive); then add the arms here:
+#   - {name: hybrid_exemplar, policy_class: hybrid_exemplar}
+#   - {name: hybrid_exemplar_frozen, policy_class: hybrid_exemplar, policy_params: {use_learning: false}}
+#   - {name: age_script_only, policy_class: age_script_only}
+# and the contrasts developmental_vs_age_script / hybrid_vs_age_script (superiority, min_effect 0.10).
+protocol:
+  kind: learning_lab
+  params:
+    n_agents: 20
+    episodes_per_family: 300
+    block: 10
+    checkpoint_every: 50
+    feedback_mode: bandit
+    full_feedback_fraction: 0.0
+    label_noise: 0.05
+    age_start: 8.0
+    age_end: 18.0
+    enable_gate: true
+    demonstrations_per_block: 0      # outcome feedback is the only teaching signal, so the permutation removes all of it
+    skip_transfer: true
+    skip_retention: true
+  contrasts:
+    - name: developmental_vs_frozen
+      primary: true
+      treatment: developmental
+      control: developmental_frozen
+      metric: final_heldout_accuracy
+      kind: superiority
+      min_effect: 0.10
+      description: "frozen-copy gain: learning must add >= 0.10 held-out accuracy over the same architecture with learning disabled"
+    - name: plain_rl_vs_frozen
+      treatment: plain_rl
+      control: plain_rl_frozen
+      metric: final_heldout_accuracy
+      kind: superiority
+      min_effect: 0.10
+      description: "frozen-copy gain of the strong baseline (lr = 0 copy)"
+    - name: developmental_permuted_equivalence
+      treatment: developmental
+      control: developmental_frozen
+      metric: final_heldout_accuracy
+      kind: equivalence
+      margin: 0.02
+      description: "evaluated inside the permuted_feedback variant: with outcome information permuted, the learner must be within +-0.02 of its frozen copy (frozen copies ignore feedback, so they are the same runs); in the main variant this contrast is expected to fail, which is the frozen-copy gain"
+    - name: plain_rl_permuted_equivalence
+      treatment: plain_rl
+      control: plain_rl_frozen
+      metric: final_heldout_accuracy
+      kind: equivalence
+      margin: 0.02
+      description: "as above for the strong baseline"
+    - name: developmental_vs_static_persona
+      treatment: developmental
+      control: static_persona
+      metric: final_heldout_accuracy
+      kind: superiority
+      min_effect: 0.10
+      description: "interim stand-in for the age-script-only null until PolicyClass admits age_script_only (static_persona has the same readout without the scripted age schedule)"
+  sensitivity:
+    - name: permuted_feedback
+      params: {feedback_permutation: true}
+      arms: [developmental, developmental_frozen, plain_rl, plain_rl_frozen]
+      contrasts: [developmental_permuted_equivalence, plain_rl_permuted_equivalence]
+definition:
+  experiment_id: phase2_gate_a_controls_dev
+  title: "Gate A controls (dev seeds): frozen copy, permuted feedback, age-script null"
+  hypothesis: >-
+    Measured held-out skill comes from outcome information processed by learning: it disappears when learning
+    is frozen and when the outcome information is permuted, and it exceeds what scripted age gates alone produce.
+  falsification_criterion: >-
+    Gate A fails for a learner if its frozen-copy gain is < 0.10 or its CI includes 0, if its permuted-feedback copy
+    gains more than 0.02 over the frozen copy (learning from something other than outcome information), or if its
+    gain over the age-script-only null is < 0.10.
+  arms:
+    - {name: developmental, policy_class: developmental}
+    - {name: developmental_frozen, policy_class: developmental, policy_params: {use_learning: false}}
+    - {name: plain_rl, policy_class: plain_rl}
+    - {name: plain_rl_frozen, policy_class: plain_rl, policy_params: {lr: 0.0}}
+    - {name: static_persona, policy_class: static_persona}
+  control_arm: developmental_frozen
+  seeds: [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009]
+  base_config: {seed: 1000, n_agents: 20, years: 10}
+  analysis:
+    primary_metric: final_heldout_accuracy
+    primary_metric_definition: "Mean held-out accuracy over the v1 training families (sort, compare, signal) after 300 episodes/family, mean over 20 agents."
+    comparison: "developmental - developmental_frozen, paired by seed"
+    test: paired_bootstrap
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.10
+    secondary_metrics: [final_log_loss]
+  validity_notes:
+    - "Dev seeds; exploratory. Seeds 500-509 are reserved for the confirmatory copy."
+    - "Frozen copies: developmental use_learning=false (development lane flag); plain_rl lr=0.0 (baseline parameter). Both verified to leave the policy state hash unchanged after practice (scripts/gate_a_dev.py freeze check)."
+    - "feedback_permutation keeps the observed items, decision count and update calls identical; only the outcome information is drawn from an independently sampled item of the same family and split."
