@@ -117,3 +117,61 @@ tasks:
     depends_on: [T33-society-experiments]
     acceptance: "ADR merged; export_contracts --check green; preregistration hashes of committed experiments unchanged or re-run"
     status: todo
+  - id: D01-static-site
+    title: Static deployment (pre-rendered API from stored real outputs + in-browser Future Self engine) with GitHub Pages workflow and post-deploy browser verification
+    owner: orchestrator
+    depends_on: [T50-web, T41-api]
+    acceptance: "make static-site; scripts/e2e/routes.js and future_self.js pass against the build"
+    status: done
+  - id: D02-pages-enablement
+    title: Publish the static site at https://adityajak.github.io/Human-possibility-engine/
+    owner: founder
+    depends_on: [D01-static-site]
+    acceptance: "pages workflow deploy + verify jobs green; URL opens"
+    status: blocked
+    blocker: "configure-pages: 'Resource not accessible by integration' — enable Pages (Settings -> Pages -> Source: GitHub Actions) then re-run"
+  - id: D03-live-backend
+    title: Live read-only API on Render + web on Vercel (interactive simulations behind HPE_READ_ONLY)
+    owner: founder
+    depends_on: [D01-static-site]
+    acceptance: "render.yaml blueprint applied; /health ok; HPE_CORS_ORIGINS set"
+    status: blocked
+    blocker: "requires Render/Vercel accounts (docs/DEPLOYMENT.md B, C)"
+  - id: P2-01-stage1
+    title: Phase II Stage 1 — reproduction, gap analysis, thesis v2, registry, frozen partitions
+    owner: director
+    depends_on: []
+    acceptance: "docs/phase2/* + reports/phase2/stage1_reproduction.json + partitions sha"
+    status: done
+  - id: P2-02-human-validation
+    title: Phase II human validation v2 + state-of-the-art benchmark (lane research/human-validation-v2)
+    owner: research/human-validation-v2
+    depends_on: [P2-01-stage1]
+    acceptance: "dev-pilot tables, test lock test, STATE_OF_THE_ART_BENCHMARK.md"
+    status: in_progress
+  - id: P2-03-cognitive
+    title: Phase II Candidate A hybrid exemplar learner + v2 task families (lane research/cognitive-architecture)
+    owner: research/cognitive-architecture
+    depends_on: [P2-01-stage1]
+    acceptance: "hybrid_exemplar conformant; dev results with CIs; v2 families with leakage checks"
+    status: in_progress
+  - id: P2-04-causal
+    title: Phase II causal validity (estimator simulation, HTE, OPE on HeartSteps)
+    owner: research/causal
+    depends_on: [P2-01-stage1]
+    acceptance: "CAUSAL_VALIDITY_REPORT.md with coverage/bias, HTE dev+test, OPE"
+    status: todo
+    note: "first attempt killed by API rate limit; partial code in worktree"
+  - id: P2-05-critic
+    title: Phase II independent design review + guard tooling
+    owner: research/critic
+    depends_on: [P2-01-stage1]
+    acceptance: "INDEPENDENT_REVIEW_V2.md design section; scripts/phase2_guard.py + tests"
+    status: todo
+    note: "first attempt killed by API rate limit"
+  - id: P2-06-social-affective
+    title: Phase II Candidates D (affective) and E (social) — world mechanism repair with instrumentation
+    owner: research/social-developmental + research/affective
+    depends_on: [P2-01-stage1]
+    acceptance: "instrumented relationship formation + knowledge transfer; affect vs matched-complexity control"
+    status: todo
