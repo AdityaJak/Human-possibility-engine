@@ -1,7 +1,7 @@
 # Machine-readable task board (spec §47C). Status: todo | in_progress | review | done | blocked
 # Owner = lane branch. "done" requires the acceptance test to pass in the integrated branch.
 version: 1
-updated: 2026-11-04 (all preregistered experiments executed and committed; 1k and 10k benchmarks measured)
+updated: "2026-11-04 Phase II: all lanes merged except affective (not executed); pilot B X-010 running; no confirmatory gate run"
 tasks:
   - id: T00-contracts
     title: Freeze v0.1 contracts (schemas, Policy protocol, World/Sink protocols, registry, TS/JSON export)
@@ -148,30 +148,43 @@ tasks:
     owner: research/human-validation-v2
     depends_on: [P2-01-stage1]
     acceptance: "dev-pilot tables, test lock test, STATE_OF_THE_ART_BENCHMARK.md"
-    status: in_progress
+    status: done
   - id: P2-03-cognitive
     title: Phase II Candidate A hybrid exemplar learner + v2 task families (lane research/cognitive-architecture)
     owner: research/cognitive-architecture
     depends_on: [P2-01-stage1]
     acceptance: "hybrid_exemplar conformant; dev results with CIs; v2 families with leakage checks"
-    status: in_progress
+    status: done
   - id: P2-04-causal
     title: Phase II causal validity (estimator simulation, HTE, OPE on HeartSteps)
     owner: research/causal
     depends_on: [P2-01-stage1]
     acceptance: "CAUSAL_VALIDITY_REPORT.md with coverage/bias, HTE dev+test, OPE"
-    status: todo
+    status: done
     note: "first attempt killed by API rate limit; partial code in worktree"
   - id: P2-05-critic
     title: Phase II independent design review + guard tooling
     owner: research/critic
     depends_on: [P2-01-stage1]
     acceptance: "INDEPENDENT_REVIEW_V2.md design section; scripts/phase2_guard.py + tests"
-    status: todo
+    status: review
     note: "first attempt killed by API rate limit"
   - id: P2-06-social-affective
     title: Phase II Candidates D (affective) and E (social) — world mechanism repair with instrumentation
     owner: research/social-developmental + research/affective
     depends_on: [P2-01-stage1]
     acceptance: "instrumented relationship formation + knowledge transfer; affect vs matched-complexity control"
+    status: in_progress
+    note: "social half done (X-social, merged); affective half not executed (lane killed by usage-credit limit)"
+  - id: P2-07-pilot-b
+    title: Candidate A vs strongest references on the pristine Gate-D families (dev/tune, exploratory)
+    owner: director
+    depends_on: [P2-02-human-validation, P2-03-cognitive]
+    acceptance: "reports/phase2/human/p2_human_dev_pilot_hybrid committed; ledger row X-010"
+    status: in_progress
+  - id: P2-08-decision
+    title: Stage 8 GO / PIVOT / NO-GO on the foundational hypothesis
+    owner: director
+    depends_on: [P2-07-pilot-b]
+    acceptance: "BREAKTHROUGH_STATUS.md decision with evidence; INVESTOR_TECHNICAL_BRIEF updated"
     status: todo

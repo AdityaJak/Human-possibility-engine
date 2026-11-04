@@ -30,6 +30,27 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | Vercel (web) | config verified, **not deployed** (needs account) | `apps/web/vercel.json` |
 | Local full stack | works | `make demo`, `make demo-check` 14/14 |
 
+## Phase II — Scientific Breakthrough Mandate (2026-11-04)
+
+| Item | Status | Evidence |
+|---|---|---|
+| Stage 1 diagnose: reproduction, gap analysis, thesis v2 with fixed gates, frozen partitions | done | `docs/phase2/`, `reports/phase2/stage1_reproduction.json`, partitions sha `7dc2e779…` |
+| Candidate A `hybrid_exemplar` + v2 task families | built, dev-evaluated (exploratory) | X-003/X-004: MCPL −0.040 vs exemplar reference; ≤ best exemplar baseline on 3/5 synthetic families |
+| Candidate-free gate tooling (composition family, Gate A controls) | built, dev-evaluated | X-007 (controls pass), X-008 (composition uninformative: parity unlearned by all) |
+| Human validation v2 (9 families, test lock, equal grids, GRU/PVL/Bayes/GCM references) | built, dev pilot done | X-009: population-fitted GRU beats every per-participant learner in 8/9 families |
+| Candidate A on pristine families (pilot B, X-010) | **running at time of writing** | `reports/phase2/human/p2_human_dev_pilot_hybrid/` (not committed until complete) |
+| Social mechanism v2 (Candidate E) | built, dev-evaluated, bit-identical off | friendships repaired via information exchange; connected − isolated ≈ 0 |
+| Causal validity (estimator sim, HTE, OPE) | done incl. two test-partition confirmations (deviations recorded) | C-001 not supported; C-002 passed; Gate E untouched |
+| Affective mechanisms (Candidate D) | **not executed** (lane killed by usage-credit limit, twice) | `AFFECTIVE_MODEL_REPORT.md` |
+| Independent critic | design review done (blocking findings acted on); results review **pending** (lane killed by credit limit) | `INDEPENDENT_REVIEW_V2.md`, `scripts/phase2_guard.py` (clean) |
+| State-of-the-art benchmark | written; no SOTA claim | Centaur/Minitaur not runnable here; published figures non-comparable |
+| Confirmatory gate evaluations | **none run** | `EXPERIMENT_REGISTRY.md` §4; draft `gateD_v2.yaml` not frozen |
+| GO / PIVOT / NO-GO | pending X-010 | `BREAKTHROUGH_STATUS.md` |
+
+Phase II compute ≈ 3 CPU-h, 0 GPU, 0 paid API calls. All lanes ran as parallel worktrees; four lane
+runs were terminated by the account's API usage-credit limit (two salvaged by the orchestrator from
+their worktrees, two never started).
+
 ## Components
 
 | Component | Status | Notes |

@@ -3,6 +3,9 @@
 All notable changes are recorded here. Dates are UTC.
 
 ## [Unreleased]
+### Phase II (2026-11-04)
+- Static backend-free deployment (pre-rendered API + in-browser Future Self engine) with GitHub Pages workflow and post-deploy browser verification; read-only public API mode; Render/Vercel configs.
+- Phase II research: thesis v2 with fixed gates, frozen participant partitions, Candidate A hybrid exemplar learner, v2 and composition task families, Gate A controls, nine-family human validation with GRU/PVL/Bayes/GCM references, social mechanism v2, causal validity (simulation, HTE, OPE), independent design review + leakage guard, state-of-the-art benchmark; all results exploratory except two causal confirmations; no breakthrough claimed.
 ### Fixed
 - 2026-11-04 Twin-society and proof-of-learning pages filtered out the real experiments; API outcome samples were always empty (wrong path); all axe violations (contrast, focusable scroll regions, heading order) resolved.
 - 2026-11-04 Future Self safety: indirect crisis language, medical/legal vocabulary, input size limits (audit H-1, M-1, M-2); API parsing of world assessment payloads; react-router 7.18.5 (GHSA-wrjc-x8rr-h8h6); CI venv reuse.
