@@ -1,0 +1,52 @@
+{
+  "centring": "Treatment indicators centred at the empirical share of each treatment level among available decision points (constant over time), with p_tilde = p (unit weights). The design randomisation probabilities are not verified from the paper text in this session.",
+  "comparison_rule": "consistent if log(1 + published_percent/100) lies inside our 95% cluster-bootstrap CI for the corresponding term; the primary comparison is any_suggestion.",
+  "controls": [
+    "intercept",
+    "log(jbsteps30pre.zero + 0.5)",
+    "study_day"
+  ],
+  "dataset": "heartsteps_v1_suggestions",
+  "estimand": "Marginal causal excursion effect (Boruvka et al. 2018) of A_t = suggestion delivered at an available decision point on Y_t = log(jbsteps30.zero + 0.5), averaged over study days and suggestion types; secondary: walking and anti-sedentary suggestions vs none; time-moderated effect (study day).",
+  "experiment_id": "exp07b_causal_grounding",
+  "falsification_criterion": "Fails if the published estimate (log scale) lies outside our 95% participant-cluster bootstrap CI.",
+  "hypothesis": "A centred least-squares estimate of the causal excursion effect of delivering an activity suggestion (vs none) on log 30-minute step count, computed from the public HeartSteps V1 data, is consistent with the effect published by Klasnja et al. (2019).",
+  "identification_assumptions": [
+    "Treatment was randomised at each available decision point (micro-randomised trial design), so A_t is independent of potential outcomes given availability.",
+    "Consistency and no interference between participants.",
+    "Positivity: 0 < P(A_t = 1 | available) < 1.",
+    "The estimand is a causal excursion effect conditional on availability, marginal over the realised treatment history; it is not a total effect of the HeartSteps programme.",
+    "Zero-imputation of missing tracker minutes (jbsteps30.zero) follows the dataset's provided columns; complete-case is a sensitivity analysis."
+  ],
+  "n_bootstrap": 2000,
+  "outcome": "log(jbsteps30.zero + 0.5)",
+  "preregistration_hash": "db680486f77f864f",
+  "published": [
+    {
+      "published_p": "p = .06",
+      "published_percent": 14.0,
+      "source": "Klasnja et al. 2019, Ann Behav Med 53(6):573-582, abstract (PubMed PMID 30192907), retrieved 2026-11-04",
+      "term": "any_suggestion",
+      "verified_text": "Averaging over study days and types of activity suggestions, delivering a suggestion versus no suggestion increased the 30-min step count by 14% (p = .06), 35 additional steps over the 253-step average."
+    },
+    {
+      "published_p": "p = .02",
+      "published_percent": 24.0,
+      "source": "Klasnja et al. 2019, abstract (PMID 30192907), retrieved 2026-11-04",
+      "term": "walking_suggestion",
+      "verified_text": "Averaging over study days, delivering a walking suggestion versus no suggestion increased the average step count by 24% (59 steps; p = .02)."
+    }
+  ],
+  "seed": 20261104,
+  "sensitivity": [
+    "complete-case outcome log(jbsteps30 + 0.5) (rows with missing Jawbone minutes dropped)",
+    "nominal centring probabilities 0.6 (any) / 0.3 (walking) / 0.3 (anti-sedentary) [unverified design values]",
+    "no control covariates (intercept only)"
+  ],
+  "title": "Can our causal-estimation pipeline recover the published HeartSteps V1 suggestion effect?",
+  "validity_notes": [
+    "The public dataset contains 37 participants; the paper reports a 6-week MRT with 44 adults. The analysed samples may differ.",
+    "The paper's exact control covariates and outcome transform are not verified from its full text in this session (only the abstract was accessible).",
+    "This is the only real causal estimate in the repository. It is not mixed with, and does not validate, any simulation result."
+  ]
+}

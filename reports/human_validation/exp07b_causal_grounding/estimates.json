@@ -1,0 +1,276 @@
+{
+  "code_version": "0dc0d7b6aee0c9685dbad5da5687b3e0e16cf7b4",
+  "created_at": "2026-11-04T03:52:59.822732+00:00",
+  "primary": {
+    "centring": "empirical",
+    "controls": true,
+    "mean_outcome_steps": 213.65204855842185,
+    "n_clusters": 37,
+    "n_obs": 6590,
+    "outcome": "zero",
+    "p_any": 0.5940819423368741,
+    "p_sedentary": 0.2620637329286798,
+    "p_walking": 0.33186646433990896,
+    "terms": [
+      {
+        "ci_high_bootstrap": 0.24231238842015548,
+        "ci_high_sandwich": 0.24679156624027832,
+        "ci_low_bootstrap": -0.004556179099241317,
+        "ci_low_sandwich": -0.01591516089611368,
+        "df": 36,
+        "estimate": 0.11543820267208231,
+        "n_bootstrap": 2000,
+        "p_value": 0.0831258212591737,
+        "percent_effect": 12.236515323771153,
+        "se_cluster_robust": 0.0647669010926985,
+        "t": 1.7823641508933679,
+        "term": "any_suggestion"
+      },
+      {
+        "ci_high_bootstrap": 0.350811951847188,
+        "ci_high_sandwich": 0.35686406903637335,
+        "ci_low_bootstrap": 0.0414523789982903,
+        "ci_low_sandwich": 0.02739855376732761,
+        "df": 36,
+        "estimate": 0.19213131140185047,
+        "n_bootstrap": 2000,
+        "p_value": 0.023517345966288395,
+        "percent_effect": 21.182963356574742,
+        "se_cluster_robust": 0.08122540550629576,
+        "t": 2.3654090761905575,
+        "term": "walking_suggestion"
+      },
+      {
+        "ci_high_bootstrap": 0.18884610283518757,
+        "ci_high_sandwich": 0.18683246571779297,
+        "ci_low_bootstrap": -0.14274174351167,
+        "ci_low_sandwich": -0.15859252369869029,
+        "df": 36,
+        "estimate": 0.014119971009551351,
+        "n_bootstrap": 2000,
+        "p_value": 0.8692379284340012,
+        "percent_effect": 1.4220128652668953,
+        "se_cluster_robust": 0.0851600047259873,
+        "t": 0.16580519288349127,
+        "term": "antisedentary_suggestion"
+      }
+    ]
+  },
+  "published": [
+    {
+      "published_p": "p = .06",
+      "published_percent": 14.0,
+      "source": "Klasnja et al. 2019, Ann Behav Med 53(6):573-582, abstract (PubMed PMID 30192907), retrieved 2026-11-04",
+      "term": "any_suggestion",
+      "verified_text": "Averaging over study days and types of activity suggestions, delivering a suggestion versus no suggestion increased the 30-min step count by 14% (p = .06), 35 additional steps over the 253-step average."
+    },
+    {
+      "published_p": "p = .02",
+      "published_percent": 24.0,
+      "source": "Klasnja et al. 2019, abstract (PMID 30192907), retrieved 2026-11-04",
+      "term": "walking_suggestion",
+      "verified_text": "Averaging over study days, delivering a walking suggestion versus no suggestion increased the average step count by 24% (59 steps; p = .02)."
+    }
+  ],
+  "sensitivity": {
+    "complete_case": {
+      "centring": "empirical",
+      "controls": true,
+      "mean_outcome_steps": 242.71108429581108,
+      "n_clusters": 37,
+      "n_obs": 5801,
+      "outcome": "complete",
+      "p_any": 0.5924840544733666,
+      "p_sedentary": 0.2575418031373901,
+      "p_walking": 0.3347698672642648,
+      "terms": [
+        {
+          "ci_high_bootstrap": 0.28401701291540554,
+          "ci_high_sandwich": 0.2945663515363663,
+          "ci_low_bootstrap": 0.02008333978971697,
+          "ci_low_sandwich": 0.004697848201603905,
+          "df": 36,
+          "estimate": 0.1496320998689851,
+          "n_bootstrap": 2000,
+          "p_value": 0.04337970599449956,
+          "percent_effect": 16.14068823759509,
+          "se_cluster_robust": 0.07146328108919754,
+          "t": 2.0938319314253206,
+          "term": "any_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.3633148815842111,
+          "ci_high_sandwich": 0.3692302246703256,
+          "ci_low_bootstrap": 0.04826042723401535,
+          "ci_low_sandwich": 0.03449259196219531,
+          "df": 36,
+          "estimate": 0.20186140831626045,
+          "n_bootstrap": 2000,
+          "p_value": 0.019460284405619373,
+          "percent_effect": 22.367840470835475,
+          "se_cluster_robust": 0.0825251769756004,
+          "t": 2.4460584722640863,
+          "term": "walking_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.27057241386132497,
+          "ci_high_sandwich": 0.27240962447256856,
+          "ci_low_bootstrap": -0.1078210034170403,
+          "ci_low_sandwich": -0.11853175374666759,
+          "df": 36,
+          "estimate": 0.07693893536295048,
+          "n_bootstrap": 2000,
+          "p_value": 0.42994563672596176,
+          "percent_effect": 7.9976126028845185,
+          "se_cluster_robust": 0.09638147394308194,
+          "t": 0.798275147860747,
+          "term": "antisedentary_suggestion"
+        }
+      ]
+    },
+    "no_controls": {
+      "centring": "empirical",
+      "controls": false,
+      "mean_outcome_steps": 213.65204855842185,
+      "n_clusters": 37,
+      "n_obs": 6590,
+      "outcome": "zero",
+      "p_any": 0.5940819423368741,
+      "p_sedentary": 0.2620637329286798,
+      "p_walking": 0.33186646433990896,
+      "terms": [
+        {
+          "ci_high_bootstrap": 0.22999337097768544,
+          "ci_high_sandwich": 0.2387944252658721,
+          "ci_low_bootstrap": -0.031158717363743767,
+          "ci_low_sandwich": -0.04207177145679494,
+          "df": 36,
+          "estimate": 0.09836132690453858,
+          "n_bootstrap": 2000,
+          "p_value": 0.16406416817974395,
+          "percent_effect": 10.33613872459738,
+          "se_cluster_robust": 0.06924388035931438,
+          "t": 1.4205057023686491,
+          "term": "any_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.32388852927627687,
+          "ci_high_sandwich": 0.3407395996121735,
+          "ci_low_bootstrap": 0.006641722772009125,
+          "ci_low_sandwich": 0.013892810096105157,
+          "df": 36,
+          "estimate": 0.17731620485413932,
+          "n_bootstrap": 2000,
+          "p_value": 0.0342713392076761,
+          "percent_effect": 19.400858475203407,
+          "se_cluster_robust": 0.08057979298742055,
+          "t": 2.2005045965037473,
+          "term": "walking_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.2076439510926781,
+          "ci_high_sandwich": 0.2067628651948974,
+          "ci_low_bootstrap": -0.20247501633724774,
+          "ci_low_sandwich": -0.2221266793554348,
+          "df": 36,
+          "estimate": -0.007681907080268705,
+          "n_bootstrap": 2000,
+          "p_value": 0.9424859855952242,
+          "percent_effect": -0.7652476640925279,
+          "se_cluster_robust": 0.10573709708302284,
+          "t": -0.07265101172805048,
+          "term": "antisedentary_suggestion"
+        }
+      ]
+    },
+    "nominal_centring": {
+      "centring": "nominal",
+      "controls": true,
+      "mean_outcome_steps": 213.65204855842185,
+      "n_clusters": 37,
+      "n_obs": 6590,
+      "outcome": "zero",
+      "p_any": 0.6,
+      "p_sedentary": 0.3,
+      "p_walking": 0.3,
+      "terms": [
+        {
+          "ci_high_bootstrap": 0.24123274734203018,
+          "ci_high_sandwich": 0.2467915662402869,
+          "ci_low_bootstrap": -0.004198542807209292,
+          "ci_low_sandwich": -0.015915160896122243,
+          "df": 36,
+          "estimate": 0.11543820267208232,
+          "n_bootstrap": 2000,
+          "p_value": 0.0831258212591929,
+          "percent_effect": 12.236515323771155,
+          "se_cluster_robust": 0.06476690109270272,
+          "t": 1.782364150893252,
+          "term": "any_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.3503916495624293,
+          "ci_high_sandwich": 0.3568640690363952,
+          "ci_low_bootstrap": 0.04370915636412471,
+          "ci_low_sandwich": 0.02739855376730599,
+          "df": 36,
+          "estimate": 0.1921313114018506,
+          "n_bootstrap": 2000,
+          "p_value": 0.02351734596630542,
+          "percent_effect": 21.18296335657476,
+          "se_cluster_robust": 0.08122540550630648,
+          "t": 2.3654090761902467,
+          "term": "walking_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.18379516041509414,
+          "ci_high_sandwich": 0.1868324657177938,
+          "ci_low_bootstrap": -0.14160584280208685,
+          "ci_low_sandwich": -0.15859252369869095,
+          "df": 36,
+          "estimate": 0.014119971009551433,
+          "n_bootstrap": 2000,
+          "p_value": 0.8692379284340009,
+          "percent_effect": 1.4220128652669035,
+          "se_cluster_robust": 0.08516000472598767,
+          "t": 0.1658051928834915,
+          "term": "antisedentary_suggestion"
+        }
+      ]
+    }
+  },
+  "time_moderated": {
+    "beta0": 0.11619450548099403,
+    "beta1": -0.012639573782845429,
+    "day_centre": 22.0,
+    "max_day": 61,
+    "terms": [
+      {
+        "ci_high_bootstrap": 0.24075593103680926,
+        "ci_high_sandwich": 0.24729788774913206,
+        "ci_low_bootstrap": -0.006840586527756046,
+        "ci_low_sandwich": -0.014908876787144004,
+        "df": 36,
+        "estimate": 0.11619450548099403,
+        "n_bootstrap": 2000,
+        "p_value": 0.08065476572553802,
+        "se_cluster_robust": 0.06464364186510002,
+        "t": 1.7974622426668294,
+        "term": "any_suggestion:intercept"
+      },
+      {
+        "ci_high_bootstrap": -0.0003098443245354053,
+        "ci_high_sandwich": -0.00031960747639958424,
+        "ci_low_bootstrap": -0.024627725433154304,
+        "ci_low_sandwich": -0.02495954008929127,
+        "df": 36,
+        "estimate": -0.012639573782845429,
+        "n_bootstrap": 2000,
+        "p_value": 0.044636253448956366,
+        "se_cluster_robust": 0.006074652506486361,
+        "t": -2.080707294672281,
+        "term": "any_suggestion:day_minus_centre"
+      }
+    ]
+  }
+}
