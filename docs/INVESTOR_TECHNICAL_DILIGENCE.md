@@ -34,7 +34,7 @@ with no language model and no API key (Tiers 1–2 in `ARCHITECTURE.md`).
 | Causal estimator recovers a randomised human effect | supported with caveats | HeartSteps +12% vs published +14% |
 | Agents predict held-out human choices | **mixed; preregistered primary failed** | IGT: best of 8 models (−0.11 nats vs instance-based); MCPL: worse than exemplar models (+0.23 nats) |
 | Bit-identical replay of a 100-agent, 80-year society | supported (engineering) | from seed and from checkpoint |
-| 1,000 / 10,000 agents | **not tested** | no benchmark record |
+| 1,000 / 10,000 agents run | supported (engineering) | 1,000 × 10 y in 165.7 s (912 MB); 10,000 × 1 y in 720.7 s (5.1 GB), disclosed hardware and load; no scientific claim at scale |
 
 ## 4. Threats to validity (and where we stand)
 

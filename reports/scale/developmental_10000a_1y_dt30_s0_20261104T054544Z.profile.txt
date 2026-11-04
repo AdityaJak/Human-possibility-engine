@@ -1,0 +1,33 @@
+         481584360 function calls (477852642 primitive calls) in 716.800 seconds
+
+   Ordered by: cumulative time
+   List reduced from 326 to 25 due to restriction <25>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.360    0.360  720.711  720.711 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:788(run)
+        1    0.003    0.003  476.662  476.662 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:301(_ensure_initialized)
+        1    0.336    0.336  476.659  476.659 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:357(_initialize)
+   753157    3.765    0.000  456.089    0.001 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:516(_practice)
+   690447   13.797    0.000  451.343    0.001 /home/user/Human-possibility-engine/packages/hpe/tasks/assessment.py:119(practice)
+    10000    2.324    0.000  400.642    0.040 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:443(_prehistory)
+       13    0.013    0.001  243.689   18.745 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:819(_step_one)
+  2752011    4.132    0.000  211.839    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:534(learn)
+  2570527   30.759    0.000  193.029    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:487(_learn_task)
+  2914117   20.706    0.000  127.162    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:319(decide)
+  2732873   58.868    0.000  120.282    0.000 /home/user/Human-possibility-engine/packages/hpe/tasks/symbols.py:225(sample_item)
+       13    1.531    0.118   91.094    7.007 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:969(_run_activities)
+  2914117    1.764    0.000   83.037    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:275(action_probabilities)
+  2914117   13.006    0.000   81.273    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:248(_probs)
+  4010512   64.025    0.000   74.414    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:412(_apply)
+        2   25.792   12.896   61.381   30.691 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:1770(_job_market)
+  1286390   10.880    0.000   51.535    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:459(_replay)
+        2    1.149    0.574   46.494   23.247 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:1693(_assess_all)
+   162106    2.249    0.000   39.435    0.000 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:564(_demonstrate)
+       13    2.640    0.203   38.099    2.931 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:1119(_social_phase)
+    72480    4.313    0.000   37.674    0.001 /home/user/Human-possibility-engine/packages/hpe/tasks/assessment.py:57(assess)
+  5303160    7.805    0.000   35.110    0.000 /home/user/Human-possibility-engine/packages/hpe/development/learner.py:217(_task_forward_cached)
+    22211    1.465    0.000   33.263    0.001 /home/user/Human-possibility-engine/packages/hpe/world/engine.py:1194(_meeting)
+ 36073673   13.370    0.000   30.135    0.000 {built-in method builtins.max}
+  7243539    9.310    0.000   30.087    0.000 /home/user/Human-possibility-engine/packages/hpe/tasks/symbols.py:269(perceive)
+
+

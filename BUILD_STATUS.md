@@ -2,8 +2,8 @@
 
 _Last updated: 2026-11-04 05:05 UTC. All 8 lanes merged into `claude/human-possibility-engine-yjujoc`;
 remote verified; CI green on the last completed run. All preregistered experiments (learning lab,
-society 2–5, human data 7/7b) are executed and committed. The 10,000-agent benchmark was executing at the
-time of writing; nothing is implied to continue after the session ends._
+society 2–5, human data 7/7b) and the 1,000- and 10,000-agent benchmarks are executed and committed.
+Nothing is implied to continue after the session ends._
 
 Legend: **implemented** (code exists) · **tested** (tests pass in the integrated branch) · **partial** · **not started**
 
@@ -43,7 +43,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | Evidence ledger / Evidence page | implemented | 18 claims; 9 supported, 6 not supported, 1 inconclusive, 2 not tested |
 | Investor assets | implemented | `docs/INVESTOR_DEMO.md`, `docs/INVESTOR_TECHNICAL_DILIGENCE.md`, screenshots, recording shot list |
 | 1,000-agent benchmark | measured | 1,000 × 10 y: 165.7 s wall, 64.2 agent-years/s, 912 MB peak RSS, load avg 2.2–2.9 disclosed (`reports/scale/developmental_1000a_10y_*.json`) |
-| 10,000-agent benchmark | **not started** | `make bench-10k`; deferred until the society experiments finish (memory contention) |
+| 10,000-agent benchmark | measured | 10,000 × 1 y: 720.7 s wall / 712.6 s CPU, 5.1 GB peak RSS, 194,969 events, load avg ≈1 (quiet); 476 s of it is one-time prehistory; cProfile top-25 committed alongside (`reports/scale/developmental_10000a_1y_*.json/.profile.txt`) |
 | Society experiments 2–5 | committed | all four executed at full budget (10 paired seeds each); re-analysis byte-identical for each |
 | Exp 7 with all policy classes | committed | `reports/human_validation/exp07_human_heldout` (2,654 s) |
 
@@ -71,7 +71,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | §52 Gate 2 measurable learning, ablations, honest uncertainty | GO | preregistered results incl. a failed H1 |
 | §52 Gate 3 web/API integration, demo, accessibility, secrets | conditional | e2e verified; secrets scan clean; accessibility fixes open |
 | §52 Gate 4 external human evidence for the learner | **NO-GO** | primary human test (MCPL) failed; secondary (IGT) passed; causal pipeline validated on HeartSteps |
-| §52 Gate 5 performance to 10,000 agents | **NO-GO** (partial) | 1,000 agents measured (165.7 s for 10 years, 912 MB); no 10,000-agent record yet |
+| §52 Gate 5 performance to 10,000 agents | GO as an engineering benchmark only | 1,000 × 10 y: 165.7 s, 912 MB; 10,000 × 1 y: 720.7 s, 5.1 GB, completed on disclosed hardware. No scientific claim at scale: the spec's "only scale when scientifically justified" condition is not met while H1/H2 stand failed |
 | §42 Gate 1 `make demo` + 100-agent seeded run with replay | GO | |
 | §42 Gate 2 learned parameters change with experience; held-out skill; baselines | GO | |
 | §42 Gate 3 randomised simulated intervention reproduces, exports, flags model dependence | GO (Exp 2 committed after audit) | |

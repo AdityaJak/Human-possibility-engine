@@ -289,7 +289,12 @@ forgetting) applied to every policy class; it is not evidence about human ageing
   64.2 agent-years/s, 912 MB peak RSS, 157,118 events, population 1,000 → 1,114** (load average
   2.2–2.9 from concurrent experiment workers, disclosed in the record). Throughput per agent-year
   improved with scale (38.7 → 64.2 agent-years/s), so per-tick overhead, not per-agent work, dominates
-  at 100 agents. **No 10,000-agent benchmark has been run yet.**
+  at 100 agents. **10,000 agents × 1 year, developmental: 720.7 s wall, 712.6 s CPU, 5.1 GB peak
+  RSS, 194,969 events, population 10,000 → 10,226, completed** (quiet machine, load ≈ 1). cProfile
+  (committed next to the record): 476 s is the one-time seeded practice prehistory for 10,000 agents;
+  the 13 ticks take 244 s (≈18.7 s per tick, so ≈230 s per further simulated year); the yearly job
+  market costs ≈30 s per call and is the worst-scaling phase; assessment ≈23 s per yearly call.
+  Overall 15.0 agent-years/s, or ≈0.066 CPU-s per agent-year including prehistory.
 * Cost: $0 in API calls (no language model anywhere). CPU: 114 s per 100-agent × 80-year run
   ≈ 0.014 CPU-s per agent-year; at an *assumed* $0.05 per vCPU-hour that is ≈ $0.002 per such run.
 

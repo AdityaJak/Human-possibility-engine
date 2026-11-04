@@ -1,0 +1,15 @@
+{
+  "benchmark_id": "developmental_10000a_1y_dt30_s0_20261104T054544Z",
+  "n_agents": 10000,
+  "years": 1.0,
+  "dt_days": 30,
+  "policy_class": "developmental",
+  "wall_time_s": 720.711,
+  "peak_rss_mb": 5107.0,
+  "agent_years_per_s": 14.963,
+  "ticks_per_s": 0.018,
+  "events": 194969,
+  "hardware": "Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
+  "status": "completed",
+  "notes": "world.run() wall time (excludes 0.04s World() construction); cpu 712.6s; 13 ticks; 10784 agent-years; population at end 10226; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 0.77/1.80/2.36, after 1.03/1.05/1.54; profile: developmental_10000a_1y_dt30_s0_20261104T054544Z.profile.txt"
+}

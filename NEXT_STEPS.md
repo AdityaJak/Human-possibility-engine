@@ -47,9 +47,14 @@ noise. Candidate causes, each a falsifiable experiment:
 
 ## 3. Scale (Phase 4)
 
-* Run `make bench-1k` and `make bench-10k` on a quiet machine; record in `reports/scale/`.
-* Profile hot paths: per-episode `practice()` overhead, per-agent timeline growth in memory, event
-  serialisation. Vectorise assessment across agents; move per-agent histories to the event store.
+* Done: 1,000 × 10 y (165.7 s, 912 MB) and 10,000 × 1 y (720.7 s, 5.1 GB) measured; records and a
+  cProfile are in `reports/scale/`. Not done: multi-year 10k runs, cost per agent-year at steady state.
+* From the 10k profile, in order of payoff: (1) the seeded population prehistory is 66% of a 1-year
+  run (400 s) — make it lazy or cache it per (population_seed, task_seed); (2) `_job_market` is ≈30 s
+  per yearly call at 10k and scales superlinearly — replace the ranking with a vectorised sort;
+  (3) vectorise `practice()`/`assess()` across agents (2.9 M `decide` calls, 2.75 M `learn` calls per
+  year at 10k); (4) move per-agent timelines and skill curves out of process memory into the event
+  store (≈0.5 KB/agent/tick today, 5.1 GB peak at 10k × 1 y).
 * Job queue for long API runs (current: thread pool, in-process).
 
 ## 4. Product (Future Self)

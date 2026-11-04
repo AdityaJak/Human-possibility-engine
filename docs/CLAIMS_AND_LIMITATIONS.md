@@ -33,7 +33,9 @@ The authoritative, machine-generated list of claims is [`docs/EVIDENCE.md`](EVID
   establish only that effects flow through learning *inside the model*.
 * That any result is validated for predicting a real person's future. Gate 4 (human validity of the
   developmental learner) is not passed; see `reports/human_validation/exp07_human_heldout`.
-* That the system scales to 10,000 agents, unless a completed benchmark record exists in `reports/scale/`.
+* That anything is *scientifically* established at 10,000 agents. What exists is an engineering
+  benchmark: 10,000 agents ran one simulated year in 720.7 s with 5.1 GB peak RSS (`reports/scale/`).
+  Agent count is not a result, and multi-year 10k runs have not been measured.
 * Any individualised probability in Future Self. Scenarios are illustrative; calculations only use the
   person's own inputs; unknowns are shown as "cannot predict".
 

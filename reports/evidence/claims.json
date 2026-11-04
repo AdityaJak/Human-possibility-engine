@@ -302,6 +302,20 @@
     ]
   },
   {
+    "claim_id": "bench:developmental_10000a_1y_dt30_s0_20261104T054544Z",
+    "claim": "10,000 agents (developmental) simulate 1 years at dt=30 d.",
+    "status": "supported",
+    "evidence_kind": "engineering",
+    "run_ids": [],
+    "metric": "wall time / throughput",
+    "value": "720.7 s; 15.0 agent-years/s; peak RSS 5107 MB; completed",
+    "config_ref": "reports/scale/developmental_10000a_1y_dt30_s0_20261104T054544Z.json",
+    "limitations": [
+      "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
+      "world.run() wall time (excludes 0.04s World() construction); cpu 712.6s; 13 ticks; 10784 agent-years; population at end 10226; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 0.77/1.80/2.36, after 1.03/1.05/1.54; profile: developmental_10000a_1y_dt30_s0_20261104T054544Z.profile.txt"
+    ]
+  },
+  {
     "claim_id": "bench:developmental_1000a_10y_dt30_s0_20261104T052934Z",
     "claim": "1,000 agents (developmental) simulate 10 years at dt=30 d.",
     "status": "supported",
@@ -341,19 +355,6 @@
     "limitations": [
       "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
       "world.run() wall time (excludes 0.04s World() construction); cpu 5.6s; 25 ticks; 211 agent-years; population at end 106; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 3.56/3.56/3.55, after 3.60/3.57/3.55"
-    ]
-  },
-  {
-    "claim_id": "bench:10000_agents",
-    "claim": "The simulator runs 10,000 agents.",
-    "status": "not_tested",
-    "evidence_kind": "none",
-    "run_ids": [],
-    "metric": null,
-    "value": null,
-    "config_ref": null,
-    "limitations": [
-      "No completed benchmark record exists yet; do not claim this."
     ]
   },
   {
