@@ -3,12 +3,15 @@ name: ci
 on:
   push:
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *" # nightly: slow tests (full 100-agent x 80-year lifespan run, 1,000-agent run)
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
@@ -32,14 +35,24 @@ jobs:
         run: .venv/bin/mypy
       - name: Contract schemas up to date
         run: .venv/bin/python scripts/export_contracts.py --check
-      - name: Tests
-        run: .venv/bin/python -m pytest -q -m "not slow" --cov --cov-report=term --cov-report=xml
-      - name: Seeded smoke simulation
+      - name: OpenAPI document up to date
+        run: .venv/bin/python apps/api/export_openapi.py --check
+      - name: Unit tests (fast)
+        run: .venv/bin/python -m pytest -q -m "not slow and not integration" --cov --cov-report=term --cov-report=xml
+      - name: Integration tests (API + real World)
+        run: .venv/bin/python -m pytest -q -m "integration and not slow"
+      - name: Seeded smoke simulation (replay-determinism check)
         run: .venv/bin/python -m hpe.cli smoke --out data/ci-smoke
+      - name: Benchmark smoke (25 agents x 1 year, recorded as BenchmarkRecord)
+        run: .venv/bin/python scripts/bench_scale.py --agents 25 --years 1 --policy developmental --timeout 900 --out data/ci-bench --id ci_smoke_developmental_25a_1y
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: smoke-run
-          path: data/ci-smoke
+          name: smoke-and-benchmark
+          path: |
+            data/ci-smoke
+            data/ci-bench
+            coverage.xml
           if-no-files-found: ignore
 
   web:
@@ -60,3 +73,60 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  demo-check:
+    # Full stack from a clean checkout: API (uvicorn) + built web app, then a headless walkthrough.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [python, web]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: make setup
+        run: make setup UV_VENV_FLAGS=--allow-existing
+      - name: make demo-check
+        run: make demo-check
+
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Secrets scan (git-visible files)
+        run: python scripts/scan_secrets.py
+      - name: Python dependency audit (locked versions)
+        run: |
+          uv export --frozen --no-dev --no-emit-project --format requirements-txt -o requirements.lock.txt
+          uvx pip-audit==2.9.0 --disable-pip --require-hashes -r requirements.lock.txt
+      - name: npm audit (production deps, fail on high/critical)
+        working-directory: apps/web
+        run: npm audit --omit=dev --audit-level=high
+
+  slow:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          uv venv --allow-existing .venv
+          uv pip install --python .venv/bin/python -e ".[dev,parquet]"
+      - name: Slow tests
+        run: .venv/bin/python -m pytest -q -m slow
