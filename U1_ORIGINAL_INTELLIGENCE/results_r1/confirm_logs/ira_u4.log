@@ -1,0 +1,29 @@
+train 50: mean norm (last 50) 0.844; K=4 sizes=[71, 57, 45, 22]
+train 100: mean norm (last 50) 0.863; K=8 sizes=[107, 63, 58, 50, 27, 25, 24, 23]
+train 150: mean norm (last 50) 0.843; K=7 sizes=[137, 107, 95, 94, 85, 17, 15]
+train 200: mean norm (last 50) 0.926; K=6 sizes=[211, 194, 143, 97, 60, 1]
+train 250: mean norm (last 50) 0.811; K=9 sizes=[292, 154, 134, 112, 105, 47, 17, 8, 1]
+train 300: mean norm (last 50) 0.911; K=7 sizes=[295, 257, 199, 103, 74, 44, 43]
+{"beta": 0.5, "train_norm_mean": 0.8661759259259261, "cpu_s": 147.803213175, "K": 7}
+u4 confirm ira             iid           norm 0.892 (66s)
+u4 confirm ira             cue_reversed  norm 0.800 (86s)
+u4 confirm ira             recombined    norm 0.933 (66s)
+u4 confirm ira             novel_role    norm 0.715 (77s)
+u4 confirm ira             role_switch   norm 0.814 (67s)
+u4 confirm ira_noactive    iid           norm 0.914 (64s)
+u4 confirm ira_noactive    cue_reversed  norm 0.832 (80s)
+u4 confirm ira_noactive    recombined    norm 0.943 (62s)
+u4 confirm ira_noactive    novel_role    norm 0.797 (74s)
+u4 confirm ira_noactive    role_switch   norm 0.819 (63s)
+u4 confirm ira_closed      iid           norm 0.868 (37s)
+u4 confirm ira_closed      cue_reversed  norm 0.810 (42s)
+u4 confirm ira_closed      recombined    norm 0.941 (38s)
+u4 confirm ira_closed      novel_role    norm 0.704 (40s)
+u4 confirm ira_closed      role_switch   norm 0.794 (41s)
+u4 confirm ira_nocuetrack  iid           norm 0.881 (16s)
+u4 confirm ira_nocuetrack  cue_reversed  norm 0.769 (19s)
+u4 confirm ira_nocuetrack  recombined    norm 0.941 (16s)
+u4 confirm ira_nocuetrack  novel_role    norm 0.698 (19s)
+u4 confirm ira_nocuetrack  role_switch   norm 0.807 (18s)
+u4 confirm ira_nochange    iid           norm 0.916 (60s)
+u4 confirm ira_nochange    cue_reversed  norm 0.821 (80s)

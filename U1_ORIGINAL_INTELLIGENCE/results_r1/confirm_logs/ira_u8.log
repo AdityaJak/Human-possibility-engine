@@ -1,0 +1,20 @@
+train 50: mean norm (last 50) 0.873; K=4 sizes=[91, 29, 29, 11]
+train 100: mean norm (last 50) 0.915; K=5 sizes=[126, 74, 49, 43, 17]
+train 150: mean norm (last 50) 0.903; K=5 sizes=[237, 158, 38, 20, 12]
+train 200: mean norm (last 50) 0.889; K=6 sizes=[213, 95, 94, 93, 92, 46]
+train 250: mean norm (last 50) 0.879; K=6 sizes=[314, 175, 145, 102, 47, 8]
+train 300: mean norm (last 50) 0.912; K=6 sizes=[367, 219, 132, 111, 106, 1]
+{"beta": 0.5, "train_norm_mean": 0.8953703703703707, "cpu_s": 71.73108052100001, "K": 6}
+u8 confirm ira             iid           norm 0.881 (26s)
+u8 confirm ira             cue_reversed  norm 0.678 (38s)
+u8 confirm ira             recombined    norm 0.804 (28s)
+u8 confirm ira             novel_role    norm 0.883 (28s)
+u8 confirm ira             role_switch   norm 0.730 (30s)
+u8 confirm ira_noactive    iid           norm 0.888 (25s)
+u8 confirm ira_noactive    cue_reversed  norm 0.653 (36s)
+u8 confirm ira_noactive    recombined    norm 0.804 (27s)
+u8 confirm ira_noactive    novel_role    norm 0.899 (29s)
+u8 confirm ira_noactive    role_switch   norm 0.738 (30s)
+u8 confirm ira_closed      iid           norm 0.874 (14s)
+u8 confirm ira_closed      cue_reversed  norm 0.664 (20s)
+u8 confirm ira_closed      recombined    norm 0.810 (15s)
