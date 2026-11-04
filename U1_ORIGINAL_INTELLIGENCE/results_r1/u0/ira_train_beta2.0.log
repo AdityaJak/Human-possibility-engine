@@ -1,0 +1,7 @@
+train 50: mean norm (last 50) 0.691; K=5 sizes=[64, 55, 51, 47, 17]
+train 100: mean norm (last 50) 0.788; K=5 sizes=[114, 102, 96, 94, 39]
+train 150: mean norm (last 50) 0.821; K=6 sizes=[169, 150, 139, 116, 51, 21]
+train 200: mean norm (last 50) 0.750; K=7 sizes=[205, 200, 190, 117, 95, 37, 31]
+train 250: mean norm (last 50) 0.747; K=6 sizes=[272, 270, 262, 223, 76, 1]
+train 300: mean norm (last 50) 0.806; K=5 sizes=[324, 319, 296, 289, 85]
+{"beta": 2.0, "train_norm_mean": 0.7671203703703705, "cpu_s": 82.257009842, "K": 5}

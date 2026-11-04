@@ -189,8 +189,8 @@ module in `U1_IMPLEMENTATION/u1/`._
 | Prior for an unobserved concept pair = mean posterior rate over the library's concept pairs (each pair once); re-clustering uses a symmetric Beta(½,½) pair prior | F11 | `ira.py` `Library.rbar`, `recluster.py` |
 | `ira_noactive` = the same greedy agent with β = 0; attempt 1's variant kept as `ira_thompson` (descriptive) | F4 | `experiment.py` |
 | Universe generator rejects universes in which any condition is impossible; environment v3 (8 roles: 0–4 known, 5 unseen, 6–7 broad-training-only; all signatures and codes distinct) | attempt-1 defect | `env.py` `feasible` |
-| **Broad training distribution** `train_broad` for meta-RL comparators. It contains the *kinds* of variation IRA's priors admit: cue validity ρ ~ U(0.3, 1); a role switch at a random t ∈ [5, 15] in 25% of worlds; 1–2 entities of a training-only extra role (6 or 7) in 25% of worlds. The tested values stay held out: ρ = 0.1, the unseen role 5, 4–5 distinct roles | F3 | `env.py`, `metarl.py` |
-| **Relational meta-RL comparator** (`rel`): permutation-equivariant per-entity GRU, self-attention, symmetric pair head | F5 | `metarl.py` `RelNet` |
+| **Broad training distribution** `train_broad` for meta-RL comparators. It contains the *kinds* of variation IRA's priors admit: cue validity ρ ~ U(0.3, 1); a role switch in 25% of worlds at t ∈ {5–8, 12–15}; 1–2 entities of a training-only extra role (6 or 7) in 25% of worlds. The tested values stay held out: ρ = 0.1, the unseen role 5, 4–5 distinct roles, and a switch at t = 10. The switch *construction* is the same as in the test, so `role_switch` is only a near-held-out shift for the broad comparators (review R1-d) | F3 | `env.py`, `metarl.py` |
+| **Relational meta-RL comparator** (`rel`): permutation-equivariant per-entity GRU, self-attention, symmetric pair head. The attention output feeds the heads but not the recurrent state, so each entity's memory holds only its own interactions (review; disclosed) | F5 | `metarl.py` `RelNet` |
 | **Universe as the unit of inference**: 5 confirmatory universes (4–8) × 100 worlds per condition; one-sided t-test over universe means (df = 4); missing cells are an error | F6, F13 | `stats.py` |
 | Probe counts, new-concept use (MAP concept is new) and library-vs-role agreement reported for every IRA run | F2 | `play.py`, `experiment.py` |
 | Tests: closed-form expected entropy, IRA probes when identity is uncertain, re-clustering on records with pair outcomes, relational equivariance, strict statistics | F14 | `tests/test_u1.py` |
@@ -206,9 +206,10 @@ chosen pair stopped).
 | agent | trained on | budget |
 |---|---|---|
 | `ira` + `ira_noactive` (β = 0), `ira_closed`, `ira_nocuetrack`, `ira_nochange`, `ira_nolibrary` (`ira_thompson` dev only) | 300 `train` worlds (seeds 100000–100299); library re-clustered every 50 worlds; frozen for evaluation | ≈ 1–3 CPU-min training |
-| `gru_narrow` | flat GRU (hidden 128, lr 1e-3), narrow `train` distribution | 15,000 A2C updates × 128 worlds = 1.92 M episodes |
-| `gru_broad` | the same, on `train_broad` | 1.92 M episodes |
-| `rel_broad` | relational agent (hidden 64, lr 1e-3), on `train_broad` | 1.92 M episodes |
+| `gru_narrow` | flat GRU (hidden 128, lr 1e-3), narrow `train` distribution | 20,000 A2C updates × 128 worlds = 2.56 M episodes (as in attempt 1) |
+| `gru_broad` | the same, on `train_broad` | 2.56 M episodes |
+| `rel_broad` | relational agent (hidden 64, lr 1e-3), on `train_broad` | 2.56 M episodes |
+| `ira_beta1` (descriptive) | `ira` with β = 1 at evaluation (same library) | — |
 | `entity_bayes`, `ucb`, `random` | — | — |
 
 All meta-RL agents act greedily (attempt 1's selection) and use one training seed per universe.
@@ -274,7 +275,35 @@ margin 0.05.
   Alchemy, EMPA — that bound it). Not a new principle.
 * **H1 supported but M4 fails** → a structured-prior advantage that is not attributable to the proposed active
   identification; no mechanism claim.
-* **H1 holds against `gru_narrow` but not against `gru_broad` or `rel_broad`** → the advantage reflects what the
-  comparator was trained on or built with, not the principle → *reject* the principle-level claim.
+* **H1 holds against `gru_narrow` but not against `gru_broad` or `rel_broad`** → a learner trained on near-test task
+  structure (or with relational structure) matches IRA. The principle-level claim is then rejected: it is not shown
+  that IRA's advantage is "only priors", but it is shown that the advantage is not unique to IRA's mechanism.
 * **H1 fails against `gru_narrow`** → *reject*.
 * A failing → reject "accumulates new concepts without retraining".
+
+## R1-D — Development disclosure before the R1 freeze
+
+* **Review of R1 by the critic** (`INDEPENDENT_CRITIQUE.md`, section "Review of revision R1"). It found:
+  * R1-a, a blocker: `ira_noactive` crashed because β was passed twice. The fix to `ira_cfg` had silently failed to
+    apply, and the dev bug check had crashed on it too.
+  * The dev protocol had not yet been run on the committed code.
+  * β = 0.5 hardly probes.
+  * `role_switch` was not held out for the broad comparators.
+  * An undisclosed budget cut for `gru_narrow` (15k vs 20k updates).
+  All are fixed or disclosed above. A test now builds every agent through the runner, and the stage-2 gate fails
+  loudly if the stage-1 summary is missing.
+* **Provenance of dev artefacts.** The β-selection libraries and the dev `gru_narrow`/`gru_broad`/`rel_broad` models
+  were trained by a scratch copy of the R1 code. It differed from the committed code only in formatting, in the
+  `ira_cfg` bug (which affects only `ira_noactive`), in 15,000 instead of 20,000 updates, and, for the broad models,
+  in switch times drawn from [5, 15]. The dev models therefore serve only the adequacy check. All dev evaluations
+  below were run with the committed code.
+* **β selection** (dev `iid`, 200 worlds): 0.5 → 0.865, 1.0 → 0.857, 2.0 → 0.779; probes per world 0.04 / 1.42 /
+  3.31. The preregistered rule picks β = 0.5. The margin over β = 1 (0.008) is below the paired standard error
+  (≈ 0.014). No tie rule was preregistered, and none is introduced after seeing the numbers. Instead `ira_beta1` is
+  reported descriptively.
+* **Predictions written before the freeze** (from the dev numbers and the critic's runs):
+  * M2 (open concept set) and M4 (information gain, β = 0.5 vs 0) are expected to **fail**. On dev, the selected
+    agent barely probes and gave no new concept to any unseen-role entity.
+  * An "advance" verdict is therefore nearly unreachable by construction.
+  * If H1 fails against `gru_narrow`, as in attempt 1, R1 rejects the hypothesis for the agent that does implement
+    information gain over laws.

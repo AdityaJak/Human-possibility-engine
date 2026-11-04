@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/claude-0/-home-user-Human-possibility-engine/33fb0885-e6c9-5ef6-844d-3d837a9c3b5a/scratchpad/r1/u1/experiment.py", line 320, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/claude-0/-home-user-Human-possibility-engine/33fb0885-e6c9-5ef6-844d-3d837a9c3b5a/scratchpad/r1/u1/experiment.py", line 310, in main
+    {
+    ~
+    ...<4 lines>...
+        "freeze": cmd_freeze,
+        ~~~~~~~~~~~~~~~~~~~~~
+    }[a.cmd](a)
+    ~~~~~~~~^^^
+  File "/tmp/claude-0/-home-user-Human-possibility-engine/33fb0885-e6c9-5ef6-844d-3d837a9c3b5a/scratchpad/r1/u1/experiment.py", line 204, in cmd_eval
+    ag = make_agent(name, a.universe, s, out, cache)
+  File "/tmp/claude-0/-home-user-Human-possibility-engine/33fb0885-e6c9-5ef6-844d-3d837a9c3b5a/scratchpad/r1/u1/experiment.py", line 100, in make_agent
+    return IRA(lib, ira_cfg(name, st["beta"]), np.random.default_rng([universe, seed, 606]))
+                    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-Human-possibility-engine/33fb0885-e6c9-5ef6-844d-3d837a9c3b5a/scratchpad/r1/u1/experiment.py", line 87, in ira_cfg
+    return IRAConfig(beta=beta, **IRA_VARIANTS[name])
+TypeError: u1.ira.IRAConfig() got multiple values for keyword argument 'beta'

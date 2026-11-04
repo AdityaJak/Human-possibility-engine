@@ -1,0 +1,21 @@
+train 50: mean norm (last 50) 0.717; K=6 sizes=[49, 48, 47, 39, 19, 1]
+train 100: mean norm (last 50) 0.879; K=7 sizes=[70, 67, 65, 63, 59, 29, 29]
+train 150: mean norm (last 50) 0.844; K=6 sizes=[148, 133, 129, 116, 50, 5]
+train 200: mean norm (last 50) 0.837; K=5 sizes=[208, 182, 157, 143, 80]
+train 250: mean norm (last 50) 0.882; K=7 sizes=[252, 212, 212, 161, 80, 30, 21]
+train 300: mean norm (last 50) 0.896; K=9 sizes=[249, 190, 176, 161, 133, 119, 91, 22, 1]
+{"beta": 1.0, "train_norm_mean": 0.8425925925925927, "cpu_s": 120.63353345, "K": 9}
+train 50: mean norm (last 50) 0.751; K=5 sizes=[64, 58, 48, 48, 2]
+train 100: mean norm (last 50) 0.861; K=5 sizes=[139, 134, 55, 52, 7]
+train 150: mean norm (last 50) 0.836; K=6 sizes=[158, 151, 145, 112, 20, 2]
+train 200: mean norm (last 50) 0.881; K=8 sizes=[154, 153, 131, 116, 99, 96, 15, 2]
+train 250: mean norm (last 50) 0.859; K=7 sizes=[259, 220, 218, 86, 85, 49, 40]
+train 300: mean norm (last 50) 0.870; K=9 sizes=[275, 226, 222, 112, 112, 70, 68, 40, 15]
+{"beta": 0.5, "train_norm_mean": 0.8429444444444446, "cpu_s": 121.859201356, "K": 9}
+train 50: mean norm (last 50) 0.691; K=5 sizes=[64, 55, 51, 47, 17]
+train 100: mean norm (last 50) 0.788; K=5 sizes=[114, 102, 96, 94, 39]
+train 150: mean norm (last 50) 0.821; K=6 sizes=[169, 150, 139, 116, 51, 21]
+train 200: mean norm (last 50) 0.750; K=7 sizes=[205, 200, 190, 117, 95, 37, 31]
+train 250: mean norm (last 50) 0.747; K=6 sizes=[272, 270, 262, 223, 76, 1]
+train 300: mean norm (last 50) 0.806; K=5 sizes=[324, 319, 296, 289, 85]
+{"beta": 2.0, "train_norm_mean": 0.7671203703703705, "cpu_s": 82.257009842, "K": 5}

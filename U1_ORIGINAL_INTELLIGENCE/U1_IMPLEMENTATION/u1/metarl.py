@@ -59,7 +59,7 @@ class MetaRLConfig:
     hidden: int = 128
     lr: float = 1e-3
     batch: int = 128
-    updates: int = 15000
+    updates: int = 20000
     ent_start: float = 0.05
     ent_end: float = 0.003
     gamma: float = 1.0

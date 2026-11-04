@@ -31,6 +31,7 @@ KNOWN_ROLES = (0, 1, 2, 3, 4)
 NOVEL_ROLE = 5
 EXTRA_ROLES = (6, 7)  # broad training distribution only
 SWITCH_T = 10
+BROAD_SWITCH_TIMES = (5, 6, 7, 8, 12, 13, 14, 15)  # the test's t = 10 is held out (R1 review item 4)
 CONDITIONS = ("train", "iid", "cue_reversed", "recombined", "novel_role", "role_switch", "train_broad")
 EVAL_CONDITIONS = ("iid", "cue_reversed", "recombined", "novel_role", "role_switch")
 SHIFT_CONDITIONS = ("cue_reversed", "recombined", "novel_role", "role_switch")
@@ -94,8 +95,11 @@ def feasible(law: np.ndarray) -> bool:
 
 
 def _special_ok(law: np.ndarray, special: int) -> bool:
+    """Same support as ``_sample_special``: 1-2 special entities, the rest 2-3 distinct known roles."""
     for n_new in (1, 2):
         for known in product(KNOWN_ROLES, repeat=N_ENT - n_new):
+            if len(set(known)) not in (2, 3):
+                continue
             roles = (*known, *([special] * n_new))
             react = [p for p, (i, j) in enumerate(PAIRS) if law[roles[i], roles[j]]]
             if 1 <= len(react) <= 2 and all(
@@ -209,7 +213,7 @@ def make_world(u: Universe, condition: str, seed: int) -> World:
                 while not (opts := _switch_options(u.law, roles)):
                     roles = _sample_roles(rng, u, (2, 3))
                 e, new = opts[int(rng.integers(len(opts)))]
-                switch = (int(rng.integers(5, 16)), e, new)
+                switch = (int(rng.choice(BROAD_SWITCH_TIMES)), e, new)
     elif condition in ("train", "iid", "cue_reversed", "role_switch"):
         roles = _sample_roles(rng, u, (2, 3))
         if condition == "cue_reversed":

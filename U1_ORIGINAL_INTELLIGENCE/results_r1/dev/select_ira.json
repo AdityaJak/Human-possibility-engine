@@ -1,0 +1,17 @@
+{
+ "0.5": {
+  "iid_dev_norm": 0.8646,
+  "probes_per_world": 0.04,
+  "cpu_s_per_world": 0.737
+ },
+ "1.0": {
+  "iid_dev_norm": 0.857,
+  "probes_per_world": 1.42,
+  "cpu_s_per_world": 0.6
+ },
+ "2.0": {
+  "iid_dev_norm": 0.7792,
+  "probes_per_world": 3.31,
+  "cpu_s_per_world": 0.086
+ }
+}

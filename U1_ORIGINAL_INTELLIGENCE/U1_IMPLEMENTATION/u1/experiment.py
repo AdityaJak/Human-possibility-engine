@@ -40,7 +40,10 @@ METARL_AGENTS = ("gru_narrow", "gru_broad", "rel_broad")
 IRA_VARIANTS = {
     "ira": {},
     "ira_noactive": {"beta": 0.0},  # R1: greedy without the information-gain term (critique F4)
-    "ira_thompson": {"active": False},  # attempt 1's "noactive": Thompson sampling of the assignment
+    "ira_thompson": {"active": False},
+    "ira_beta1": {
+        "beta": 1.0
+    },  # descriptive (R1 review item 3): more information-seeking at evaluation  # attempt 1's "noactive": Thompson sampling of the assignment
     "ira_closed": {"open_set": False},
     "ira_nocuetrack": {"cue_track": False},
     "ira_nochange": {"change": False},
@@ -76,15 +79,13 @@ def udir(out: Path, universe: int) -> Path:
 
 def load_settings(out: Path) -> dict[str, Any]:
     p = out / "settings.json"
-    return (
-        json.loads(p.read_text())
-        if p.exists()
-        else {"beta": 1.0, "metarl_greedy": True, "metarl_hidden": 128}
-    )
+    return json.loads(p.read_text()) if p.exists() else {"beta": 1.0, "metarl_greedy": True}
 
 
 def ira_cfg(name: str, beta: float) -> IRAConfig:
-    return IRAConfig(beta=beta, **IRA_VARIANTS[name])
+    """The selected beta, overridden by the variant where it sets one (ira_noactive: beta = 0)."""
+    kw: dict[str, Any] = {"beta": beta, **IRA_VARIANTS[name]}
+    return IRAConfig(**kw)
 
 
 def make_agent(name: str, universe: int, seed: int, out: Path, cache: dict[str, Any]) -> Any:
@@ -195,7 +196,12 @@ def cmd_eval(a: argparse.Namespace) -> None:
                 continue
             t0 = time.process_time()
             rows = []
-            for s in SEEDS[a.phase]:
+            seeds = list(SEEDS[a.phase])
+            if a.limit:
+                if a.phase == "confirm":
+                    sys.exit("--limit is for development runs only")
+                seeds = seeds[: a.limit]
+            for s in seeds:
                 ag = make_agent(name, a.universe, s, out, cache)
                 m = play(ag, u, c, s)
                 if isinstance(ag, IRA):
@@ -275,7 +281,7 @@ def main(argv: list[str] | None = None) -> None:
     m.add_argument("--dist", choices=["train", "train_broad"], required=True)
     m.add_argument("--hidden", type=int, default=128)
     m.add_argument("--lr", type=float, default=1e-3)
-    m.add_argument("--updates", type=int, default=15000)
+    m.add_argument("--updates", type=int, default=20000)
     m.add_argument("--seed", type=int, default=0)
     m.add_argument("--tag", required=True, choices=list(METARL_AGENTS))
     m.add_argument("--out", required=True)
@@ -285,6 +291,7 @@ def main(argv: list[str] | None = None) -> None:
     e.add_argument("--agents", required=True)
     e.add_argument("--conditions", default="")
     e.add_argument("--resume", action="store_true")
+    e.add_argument("--limit", type=int, default=0, help="dev only: evaluate the first N seeds")
     e.add_argument("--out", required=True)
     c = sub.add_parser("accumulate")
     c.add_argument("--universe", type=int, required=True)

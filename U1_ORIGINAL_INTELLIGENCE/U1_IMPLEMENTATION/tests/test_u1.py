@@ -259,3 +259,30 @@ def test_stats_refuse_incomplete(tmp_path) -> None:
 
     with pytest.raises(IncompleteResults):
         load(tmp_path, "confirm", "ira", "iid")
+
+
+def test_every_agent_builds_through_the_runner_and_plays(tmp_path, uni: env.Universe) -> None:
+    """R1 review item 1: every name the confirmatory runner uses must build via make_agent and play a world."""
+    import json
+
+    import torch
+    from u1 import experiment as ex
+    from u1.metarl import make_net
+
+    d = tmp_path / "u0"
+    d.mkdir()
+    (d / "ira_library.json").write_text(json.dumps(Library().to_json()))
+    for name, arch in (("gru_narrow", "gru"), ("gru_broad", "gru"), ("rel_broad", "rel")):
+        torch.save(make_net(arch, 8).state_dict(), d / f"metarl_{name}.pt")
+        (d / f"metarl_{name}.json").write_text(json.dumps({"config": {"arch": arch, "hidden": 8}}))
+    for name in [*ex.IRA_VARIANTS, *ex.METARL_AGENTS, "entity_bayes", "ucb", "random"]:
+        m = play(ex.make_agent(name, 0, 1, tmp_path, {}), uni, "iid", 1)
+        assert 0.0 <= m["norm"] <= 1.0 + 1e-9
+    assert ex.ira_cfg("ira_noactive", 0.5).beta == 0.0
+    assert ex.ira_cfg("ira", 0.5).beta == 0.5 and ex.ira_cfg("ira_beta1", 0.5).beta == 1.0
+
+
+def test_broad_training_holds_out_the_test_switch_time(uni: env.Universe) -> None:
+    times = {make_world(uni, "train_broad", s).switch for s in range(400)}
+    ts = {sw[0] for sw in times if sw is not None}
+    assert ts and env.SWITCH_T not in ts

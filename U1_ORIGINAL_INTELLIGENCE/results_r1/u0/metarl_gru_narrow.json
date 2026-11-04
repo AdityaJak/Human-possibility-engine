@@ -1,0 +1,21 @@
+{
+ "config": {
+  "arch": "gru",
+  "dist": "train",
+  "hidden": 128,
+  "lr": 0.001,
+  "batch": 128,
+  "updates": 15000,
+  "ent_start": 0.05,
+  "ent_end": 0.003,
+  "gamma": 1.0,
+  "lam": 0.95,
+  "value_coef": 0.5,
+  "clip": 1.0,
+  "seed": 0
+ },
+ "train_return_last1000": 16.5130546875,
+ "seconds": 644.2346918582916,
+ "parameters": 106640,
+ "cpu_s": 643.487109916
+}

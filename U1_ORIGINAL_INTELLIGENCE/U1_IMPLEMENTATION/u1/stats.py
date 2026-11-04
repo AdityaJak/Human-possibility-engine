@@ -33,6 +33,7 @@ MECHANISMS = [
 ACC_MARGIN = 0.05
 AGENTS = (
     "ira",
+    "ira_beta1",
     "ira_noactive",
     "ira_thompson",
     "ira_closed",

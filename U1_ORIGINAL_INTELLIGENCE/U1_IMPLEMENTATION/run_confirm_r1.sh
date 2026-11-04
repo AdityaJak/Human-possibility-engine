@@ -8,7 +8,7 @@ LOG=$OUT/confirm_logs
 mkdir -p "$LOG"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 BETA=$(python3 -c "import json;print(json.load(open('$OUT/settings.json'))['beta'])")
-IRA_AGENTS=ira,ira_noactive,ira_closed,ira_nocuetrack,ira_nochange,ira_nolibrary,entity_bayes,ucb,random
+IRA_AGENTS=ira,ira_noactive,ira_closed,ira_nocuetrack,ira_nochange,ira_nolibrary,ira_beta1,entity_bayes,ucb,random
 JOBS=$LOG/jobs.txt
 : > "$JOBS"
 # Stage 1: IRA (all variants) + gru_narrow + baselines + accumulation
@@ -16,7 +16,12 @@ for U in 4 5 6 7 8; do echo "$PY -m u1.experiment train-ira --universe $U --beta
 for U in 4 5 6 7 8; do echo "$PY -m u1.experiment train-metarl --universe $U --arch gru --dist train --tag gru_narrow --out $OUT > $LOG/gru_narrow_u$U.log 2>&1 && $PY -m u1.experiment eval --universe $U --phase confirm --agents gru_narrow --resume --out $OUT >> $LOG/gru_narrow_u$U.log 2>&1" >> "$JOBS"; done
 xargs -P 4 -I{} bash -c "{}" < "$JOBS"
 $PY -m u1.experiment summarize --out $OUT --phase confirm > $LOG/summary_stage1.log 2>&1
-echo "stage 1 summary exit $?"
+STATUS=$?
+echo "stage 1 summary exit $STATUS"
+if [ $STATUS -ne 0 ] || [ ! -f $OUT/summary_confirm.json ]; then
+  echo "STAGE 1 FAILED: no complete summary (see $LOG/summary_stage1.log); not deciding stage 2" >&2
+  exit 1
+fi
 if python3 -c "import json,sys; sys.exit(0 if json.load(open('$OUT/summary_confirm.json'))['stage2_warranted'] else 1)"; then
   echo "stage 2: H1 holds against gru_narrow -> training gru_broad and rel_broad"
   : > "$LOG/jobs2.txt"

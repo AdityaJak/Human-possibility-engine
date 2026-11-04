@@ -393,3 +393,232 @@ changes):
 * a meta-learner trained with randomised nuisances, plus a relational or belief-based meta-learner;
 * at least 10 universes, analysed at the universe level;
 * shift types specified by someone other than IRA's designers.
+
+## Review of revision R1 (before the R1 freeze)
+
+_Reviewed at commit `6dc56ef` (R1 code and the R1 section of `EXPERIMENTS_AND_BASELINES.md`), with attempt 1's
+results (`dfe2071`, `results/report_confirm.md`) in view.
+
+Critic runs are marked **[critic run R1]**:
+* development universe 0 of environment v3 only, single thread, about 77 CPU-s in total;
+* they used the director's dev libraries (`ira_library_beta0.5.json`) from the scratch folder `r1/results_r1/u0/`;
+* no confirmatory universe (4–8) was generated or used._
+
+**Statement: R1 must not be frozen until all five items below are done.**
+
+1. The `ira_noactive` crash is fixed and covered by a test (R1-a).
+2. The R1.3 development protocol has run end to end on the *committed* code (R1-b).
+3. The preregistration states what the selected agent actually does, and the resulting M2/M4 predictions (R1-c).
+4. It says honestly that `role_switch` is not held out for the broad comparators — or holds out t = 10 (R1-f).
+5. It restores or discloses the cut in `gru_narrow`'s training budget (R1-g).
+
+Items 1 and 2 are blockers. Items 3–5 are text changes or one-line changes. With all five done, R1 may be frozen. R1-h
+and R1-j are recommended but not required.
+
+### R1-a — `ira_noactive` crashes, and the crash would be reported as "H1 fails" — **blocker**
+
+* **The bug.** `ira_cfg` calls `IRAConfig(beta=beta, **IRA_VARIANTS[name])` (experiment.py:87). R1 sets
+  `IRA_VARIANTS["ira_noactive"] = {"beta": 0.0}`, so `beta` is passed twice and raises
+  `TypeError: got multiple values for keyword argument 'beta'`. **[critic run R1]** I built every variant; only
+  `ira_noactive` fails.
+* **Effect on the run.** In `run_confirm_r1.sh:15`, `eval --agents ira,ira_noactive,…` stops at `ira_noactive` in
+  every universe. Because the job chain uses `&&`, none of the following runs anywhere: `ira_closed`,
+  `ira_nocuetrack`, `ira_nochange`, `ira_nolibrary`, `entity_bayes`, `ucb`, `random`, or the accumulation test.
+* **How it would be misreported.** The strict `summarize` then raises *before* writing `summary_confirm.json`. The
+  stage-2 gate (`run_confirm_r1.sh:20`) cannot read the file and falls through to the message "stage 2 skipped: H1
+  does not hold against gru_narrow". A crash would be reported as a scientific result.
+* **Fix:**
+  * let the variant override β (`IRAConfig(**{"beta": beta, **IRA_VARIANTS[name]})`);
+  * add a test that builds every agent through `make_agent`;
+  * make the gate fail loudly when the summary is missing or `summarize` exits non-zero.
+
+### R1-b — The R1.3 development protocol has not run yet — **blocker (procedural)**
+
+* R1.3 commits to evaluating every agent on all five conditions in universe 0, with the ablations as a 50-world bug
+  check, before the freeze. That check would have caught R1-a. R1-D does not exist yet.
+* The dev artefacts so far came from a scratch copy. Its `env.py`, `metarl.py` and `stats.py` differ from the
+  committed files **only by formatting** (diff checked). That is acceptable, but say so in R1-D: the freeze hashes the
+  committed bytes.
+
+### R1-c — F1 is fixed in the mathematics, not in the selected agent's behaviour — **major (must be stated before the freeze)**
+
+**What is fixed:**
+
+* `_expected_hb` is the correct closed form. For θ ~ Beta(a, b), with n = a + b,
+  E[H_b(θ)] = ψ(n+1) − (a/n)ψ(a+1) − (b/n)ψ(b+1). The critic derived this independently, and there is a Monte-Carlo
+  test.
+* `act` now computes the mutual information between the outcome and (z, θ). With no probe counts, a probe is worth
+  about 0.31 nats per bit, so IRA probes during training.
+* The R1 dev libraries do carry probe counts:
+  * β = 2: crisp signatures, 303–843 bit observations per concept;
+  * β = 0.5: 0–51 per concept.
+
+**What is not fixed.** The selection rule (`iid` only) picked β = 0.5 (0.8646) over β = 1 (0.857).
+
+* The difference, 0.008, is below the paired SE at 200 worlds (≈ 0.014, using the per-world SDs from attempt 1's
+  dev data). The choice is effectively a coin flip.
+* The winner barely probes: 0.04 probes per world on `iid` (`select_ira.json`), against 1.42 for β = 1.
+
+**[critic run R1]** β = 0.5 library, 15 dev worlds per condition:
+
+| condition | probes/world (β=0.5) | norm β=0.5 | norm β=0 (`ira_noactive`) |
+|---|---|---|---|
+| `iid` | 0.13 | 0.861 | 0.874 |
+| `cue_reversed` | **0.00** | 0.802 | 0.802 |
+| `novel_role` | 0.33 | 0.681 | 0.651 |
+
+In `novel_role`, 0 of 21 role-5 entities ended with a new MAP concept, under both β values.
+
+**Consequences:**
+
+* The agent that would be frozen again identifies almost only through pair outcomes. It does not probe even when its
+  cue is reversed, and it never opens a concept.
+* M4 is predicted to fail: +0.006 averaged over these three conditions, against a 0.03 margin. M2 is predicted to fail
+  as well.
+* The "advance" branch requires M4, so it is close to unreachable by construction.
+
+The test stays interpretable — a failing M4 is informative. But the freeze must not happen without:
+
+* writing these predictions into R1-D;
+* not describing F1 as "fixed" without this qualifier.
+
+**Optional.** A pre-stated tie rule, e.g. "the largest β within one paired SE of the best `iid` score" (which would
+pick β = 1). This is still a dev-only choice on `iid` data, so it is permissible, but it must be disclosed as decided
+after seeing the dev `iid` numbers. Whatever is chosen must be fixed before the freeze.
+
+### R1-d — The prior reaction rate (F11) — **resolved**
+
+* `Library.rbar` is now the mean posterior rate over concept pairs, each pair counted once. **[critic run R1]** It is
+  0.284 for the selected dev library, against a true reacting-pair density of 4/15 = 0.267 among the known roles of
+  v3 universe 0. (The fraction of pairs that react per training world is 0.178.)
+* Re-clustering uses a symmetric Beta(½,½) pair prior.
+* Minor: the online agent (prior r̄) and the Gibbs re-clustering (prior ½) now use different pair priors, so the
+  `recluster.py` docstring ("same generative model the agent uses online") is no longer exact.
+
+### R1-e — The M4 ablation (F4) — **resolved once R1-a is fixed**
+
+`ira_noactive` is now β = 0. `ira_thompson` is kept as a descriptive, dev-only variant.
+
+### R1-f — `train_broad` as an answer to F3: good, but `role_switch` is not held out — **major (text or one-line fix)**
+
+**What is good.** Three test values are genuinely held out:
+
+* cue validity: training uses ρ ~ U(0.3, 1), which admits uninformative and mildly reversed cues, while the test uses
+  ρ = 0.1;
+* the unseen role: extra roles 6–7, whose signatures differ from role 5, stand in for it in training;
+* recombination: 4–5 distinct roles never occur in training.
+
+**`role_switch` is not held out.** `train_broad` uses the identical `_switch_options` construction (every reacting
+pair stops) at t ∈ {5, …, 15} (env.py:208-212). That range includes the test's t = 10 (env.py:217-221). So
+`role_switch` is *in-distribution* for `gru_broad` and `rel_broad`, and R1.5's phrase "under held-out shift values" is
+false for it. Either:
+
+* hold out t = 10, e.g. by training on t ∈ {5–8, 12–15}; or
+* say explicitly that `role_switch` is in-distribution for the broad comparators.
+
+**Broad training gives more than IRA's priors.** It also hands the comparators task-structure regularities that IRA's
+priors do not encode:
+
+* special-role worlds in which *every* reacting pair involves the special entity — the same sampler serves roles 6/7
+  and role 5 (env.py:166-177);
+* switches that stop every reacting pair.
+
+Under the intersection–union test this is conservative for H1. But it means "H1 fails against the broad comparators"
+would show *"a learner trained on near-test task structure matches IRA"*, not cleanly *"IRA's advantage is only its
+priors"*. State that reading in R1.5 before the freeze.
+
+### R1-g — A change that favours IRA, made after attempt 1 and not disclosed — **major (restore or disclose)**
+
+* `gru_narrow` now trains for 15,000 updates (R1.2; `--updates` default 15000). Attempt 1's comparator — the one that
+  beat IRA on 3 of 4 shifts — trained for 20,000.
+* The cut is not listed among the R1.1 changes. In attempt 1's dev curve the difference is small (mean training return
+  16.477 at 15k vs 16.565 at 20k).
+* But it weakens the stage-1 gatekeeper after seeing it win. Restore 20k for `gru_narrow` (about 4 more CPU-min per
+  universe). Otherwise, list it in R1.1 with its reason and the dev `iid` score at 15k.
+
+### R1-h — The relational comparator is correct and equivariant, with a memory limitation — **minor (disclose)**
+
+**Correct.**
+
+* `make_ent_obs` layout (17 dims) checked, with no overlaps:
+
+  | dims | content |
+  |---|---|
+  | 0–3 | own appearance |
+  | 4 | probed flag |
+  | 5 | paired flag |
+  | 6–8 | probe bits |
+  | 9 | reaction |
+  | 10 | reward |
+  | 11–14 | partner appearance |
+  | 15 | t |
+  | 16 | first-step flag |
+
+* `RelNet` is permutation-equivariant:
+  * shared per-entity encoder and GRU;
+  * position-free self-attention;
+  * a symmetric pair head on (zᵢ+zⱼ, zᵢ⊙zⱼ);
+  * a mean-pooled value.
+* It learns: dev training return was 12.26 after 1,000 updates.
+
+**Limitation.** The attention output is not fed back into the recurrent state (metarl.py:108-114 returns the
+pre-attention `h`). Each entity's memory therefore holds only its own interactions plus its partners' appearances.
+Cross-entity facts, such as "pair (i, j) already failed", must be re-derived at every step by matching appearances.
+Disclose this together with the single configuration (hidden 64).
+
+### R1-i — Statistics, staging and the intersection–union logic — **sound, with caveats**
+
+**What is correct.**
+
+* One-sided t-tests over universe means (df = 4), Holm within each comparator, and at least 4 of 5 universes positive.
+* The intersection–union test needs no correction across comparators.
+* A comparator that was not run counts as not passing (stats.py:151-153).
+* Strict loading refuses missing or unpaired cells.
+* Staging is valid for the H1 decision: H1 cannot be supported if it fails against `gru_narrow`.
+
+**Caveats:**
+
+* If stage 2 is skipped, R1 says nothing about the broad or relational comparators, and the final text must not imply
+  they were tested.
+* The mechanism tests have no per-universe sign rule (unlike H1). That is acceptable, but state it.
+* Power. Attempt 1's between-universe SDs of the shift contrasts were about 0.03–0.05 (`report_confirm.md`). With 5
+  universes, a true δ = 0.10 and SD 0.05 give t ≈ 4.5 (Holm-adjusted p ≈ 0.02). With SD 0.08 the same δ fails Holm.
+  So the design only has power for effects comfortably above the margin.
+
+### R1-j — `feasible()` is looser than the sampler — **minor**
+
+* `_special_ok` accepts known parts with any number of distinct roles (env.py:96-105). `_sample_special` draws only
+  2–3 distinct (env.py:166-177).
+* A universe could therefore pass `feasible()` while `novel_role` (or an extra-role world) cannot be sampled — the
+  same failure mode as attempt 1's universe 2.
+* **[critic run R1]** In 300 feasible synthetic laws (private RNG, same law rule as `make_universe`, no universe
+  seed), 0 showed the mismatch. The risk is theoretical, but align the check: skip known parts with fewer than 2 or
+  more than 3 distinct roles.
+
+### R1-k — Is R1 tuned to attempt 1's results?
+
+**No sign of tuning in most of the design.**
+
+* Thresholds and margins are copied unchanged, and the confirmatory universes (4–8) are new.
+* The IRA changes trace to critique findings that were committed *before* attempt 1's results: `c5922ab` at 21:00
+  precedes `dfe2071` at 21:24.
+
+**Changes made after seeing the results:**
+
+* the staged design (disclosed);
+* β re-selection (same rule);
+* the `gru_narrow` budget cut (R1-g, undisclosed).
+
+**Reporting requirement.** R1 is a *second* confirmatory attempt, on a revised agent. Attempt 1 remains the
+confirmatory test of the original agent (H1 not supported) and must be reported as such. The two must not be pooled,
+and R1 must not replace attempt 1.
+
+### What R1 can and cannot establish (given R1-c and R1-f)
+
+* **If stage 1 fails**, R1 replicates attempt 1's rejection with an agent that is able to probe.
+* **If H1 holds against all three comparators**, R1 shows a structured-prior advantage over generic meta-learners,
+  some of them trained on near-test task structure. No mechanism claim follows unless M4 (and M2, for concept
+  creation) pass, and on dev evidence they are predicted to fail.
+* **The principle-level claim still needs both:**
+  * M4 to pass at the frozen β;
+  * new concepts to actually be used in `novel_role`.
