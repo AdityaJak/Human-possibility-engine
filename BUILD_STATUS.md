@@ -11,7 +11,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | # | Deliverable | Status | Evidence |
 |---|---|---|---|
 | 1 | Monorepo with README and one-command setup (`make setup`, `make demo`) | implemented, tested | `make demo-check` 14/14 (infra lane + audit, ports 8790/8798) |
-| 2 | Test suite with actual output | tested | `pytest -m "not slow"` → **285 passed, 5 deselected** (95 s); web → **58 passed**; slow tier 5 tests (100×80y, 1,000×2y) passed in the world lane (176 s) |
+| 2 | Test suite with actual output | tested | `pytest -m "not slow"` → **285 passed, 5 deselected** (95 s); `pytest -m slow` at integrated HEAD → **5 passed** (148 s; 100×80y lifespan, 1,000×2y, under concurrent experiment load); web → **58 passed** |
 | 3 | Synthetic demo data, sample simulations, reproducible experiment configs | implemented, tested | `reports/runs/demo_developmental_100a_80y_s42` (replay verified), `experiments/*.yaml` with preregistration hashes |
 | 4 | Research dashboard + Future Self app with real navigation | implemented, tested, verified end-to-end against the real API (9 routes, 0 console errors, 0 failed requests) | `apps/web`, `docs/screenshots/` |
 | 5 | OpenAPI docs, schemas, architecture, DB design | implemented | `docs/openapi.json` (33 paths), `packages/hpe/contracts/schema/`, `ARCHITECTURE.md`, `packages/hpe/storage/migrations.py` |
