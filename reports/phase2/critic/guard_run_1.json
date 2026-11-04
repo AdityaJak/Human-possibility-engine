@@ -1,0 +1,32 @@
+{
+ "check": "check-test-access",
+ "partitions": "reports/phase2/partitions/psych101.json",
+ "n_test_keys": 726,
+ "files_scanned": 2181,
+ "violations": [],
+ "disclosed_phase1_contact": [
+  {
+   "kind": "test_participant_key",
+   "file": "reports/human_validation/exp07_human_heldout/fits.json",
+   "distinct_test_keys": 204,
+   "occurrences": 612,
+   "sample": [
+    "steingroever2015data/exp1.csv#10",
+    "steingroever2015data/exp1.csv#103",
+    "steingroever2015data/exp1.csv#106"
+   ]
+  },
+  {
+   "kind": "test_participant_key",
+   "file": "reports/human_validation/exp07_human_heldout/outcomes.jsonl.gz",
+   "distinct_test_keys": 200,
+   "occurrences": 6654,
+   "sample": [
+    "collsiöö2023MCPL/exp1.csv#0",
+    "collsiöö2023MCPL/exp1.csv#13",
+    "collsiöö2023MCPL/exp1.csv#18"
+   ]
+  }
+ ],
+ "clean": true
+}
