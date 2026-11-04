@@ -1,0 +1,49 @@
+{
+ "invocations": [
+  {
+   "code_version": "dcfaac6d491bcc35935e7ff3f2ac28b5bbd0e4ac+dirty",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 1,
+   "targets": [
+    "restless4"
+   ],
+   "wall_s": 569.8,
+   "cpu_s": 564.0,
+   "llm_calls": 0,
+   "partitions_read": [
+    "dev",
+    "tune"
+   ]
+  },
+  {
+   "code_version": "dcfaac6d491bcc35935e7ff3f2ac28b5bbd0e4ac+dirty",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 1,
+   "targets": [
+    "garcia"
+   ],
+   "wall_s": 705.8,
+   "cpu_s": 698.3,
+   "llm_calls": 0,
+   "partitions_read": [
+    "dev",
+    "tune"
+   ]
+  },
+  {
+   "code_version": "eaa2e37370ecb3a19f1fd6eb14a784acf1855617+dirty",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 1,
+   "targets": [
+    "described"
+   ],
+   "wall_s": 2351.3,
+   "cpu_s": 2328.7,
+   "llm_calls": 0,
+   "partitions_read": [
+    "dev",
+    "tune"
+   ]
+  }
+ ]
+}

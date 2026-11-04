@@ -1,0 +1,33 @@
+[restless4] sources {bandit2: 32, srl3: 30, horizon: 103, casino: 31, wpt: 9, garcia: 138, described: 85}; target dev 348, tune 174
+[restless4] pretrained: val NLL 0.5072, epochs 40, max_epochs, CPU 94.7
+[restless4] meta_reptile: {'outer_steps_done': 300, 'stopped': 'outer_steps', 'cpu_s': 45.8}
+[restless4] pretrained_pop_gru k=0: tune NLL 1.3128 (lapse 0.02)
+[restless4] pretrained_pop_gru k=16: tune NLL 0.8498 (lr=0.01,epochs=20, lapse 0.01); draws [0.8617, 0.8532, 0.8362, 0.8459, 0.852]; causal=ok
+[restless4] pretrained_pop_gru k=64: tune NLL 0.7923 (lr=0.01,epochs=20, lapse 0.01); draws [0.8038, 0.7936, 0.7859, 0.7888, 0.7895]; causal=ok
+[restless4] specialist k=16: tune NLL 0.8781 (lr=0.01,epochs=60, lapse 0.05); draws [0.9112, 0.8657, 0.869, 0.8673, 0.8774]; causal=ok
+[restless4] specialist k=64: tune NLL 0.8115 (lr=0.003,epochs=60, lapse 0.01); draws [0.8212, 0.8135, 0.804, 0.8043, 0.8148]; causal=ok
+[restless4] meta_reptile k=0: tune NLL 1.3343 (lapse 0.05)
+[restless4] meta_reptile k=16: tune NLL 0.8522 (lr=0.01,epochs=20, lapse 0.01); draws [0.8704, 0.8553, 0.8385, 0.8416, 0.8549]; causal=ok
+[restless4] meta_reptile k=64: tune NLL 0.7933 (lr=0.01,epochs=20, lapse 0.01); draws [0.8076, 0.7964, 0.7925, 0.7816, 0.7881]; causal=ok
+[garcia] sources {bandit2: 32, srl3: 30, horizon: 103, casino: 31, wpt: 9, described: 85, restless4: 348}; target dev 138, tune 68
+[garcia] pretrained: val NLL 0.5588, epochs 40, max_epochs, CPU 117.3
+[garcia] meta_reptile: {'outer_steps_done': 300, 'stopped': 'outer_steps', 'cpu_s': 45.6}
+[garcia] pretrained_pop_gru k=0: tune NLL 0.5906 (lapse 0.2)
+[garcia] pretrained_pop_gru k=16: tune NLL 0.5684 (lr=0.01,epochs=20, lapse 0.05); draws [0.5647, 0.575, 0.5634, 0.5679, 0.5712]; causal=ok
+[garcia] pretrained_pop_gru k=64: tune NLL 0.5594 (lr=0.003,epochs=20, lapse 0.02); draws [0.5584, 0.5603, 0.5576, 0.5585, 0.5623]; causal=ok
+[garcia] specialist k=16: tune NLL 0.5711 (lr=0.003,epochs=60, lapse 0.02); draws [0.5684, 0.5769, 0.5691, 0.5694, 0.5717]; causal=ok
+[garcia] specialist k=64: tune NLL 0.5628 (lr=0.003,epochs=60, lapse 0.01); draws [0.5617, 0.5649, 0.5608, 0.5629, 0.5636]; causal=ok
+[garcia] meta_reptile k=0: tune NLL 0.5963 (lapse 0.2)
+[garcia] meta_reptile k=16: tune NLL 0.5712 (lr=0.003,epochs=20, lapse 0.05); draws [0.5647, 0.573, 0.5665, 0.5728, 0.5788]; causal=ok
+[garcia] meta_reptile k=64: tune NLL 0.5605 (lr=0.003,epochs=20, lapse 0.02); draws [0.5586, 0.5623, 0.5585, 0.5594, 0.5637]; causal=ok
+[described] sources {bandit2: 32, srl3: 30, horizon: 103, casino: 31, wpt: 9, garcia: 138, restless4: 348}; target dev 85, tune 41
+[described] pretrained: val NLL 0.5873, epochs 40, max_epochs, CPU 102.6
+[described] meta_reptile: {'outer_steps_done': 300, 'stopped': 'outer_steps', 'cpu_s': 43.9}
+[described] pretrained_pop_gru k=0: tune NLL 0.4984 (lapse 0.0)
+[described] pretrained_pop_gru k=16: tune NLL 0.3702 (lr=0.003,epochs=60, lapse 0.0); draws [0.3702, 0.3718, 0.3689, 0.371, 0.3693]; causal=ok
+[described] pretrained_pop_gru k=64: tune NLL 0.3618 (lr=0.01,epochs=60, lapse 0.0); draws [0.3619, 0.3613, 0.3632, 0.3604, 0.362]; causal=ok
+[described] specialist k=16: tune NLL 0.3739 (lr=0.01,epochs=60, lapse 0.0); draws [0.3689, 0.3784, 0.3702, 0.3764, 0.3753]; causal=ok
+[described] specialist k=64: tune NLL 0.3632 (lr=0.01,epochs=60, lapse 0.0); draws [0.3642, 0.3624, 0.3633, 0.3636, 0.3623]; causal=ok
+[described] meta_reptile k=0: tune NLL 0.4991 (lapse 0.0)
+[described] meta_reptile k=16: tune NLL 0.3704 (lr=0.003,epochs=60, lapse 0.0); draws [0.3718, 0.3724, 0.3688, 0.3694, 0.3696]; causal=ok
+[described] meta_reptile k=64: tune NLL 0.3617 (lr=0.01,epochs=60, lapse 0.0); draws [0.3627, 0.3607, 0.3623, 0.3619, 0.3608]; causal=ok
