@@ -1,0 +1,116 @@
+{
+  "jobs": [
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__static_persona__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__static_persona__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__static_persona__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__memory_only__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__memory_only__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__memory_only__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__plain_rl__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__plain_rl__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__pipeline_validation__main__plain_rl__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__static_persona__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__static_persona__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__static_persona__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__memory_only__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__memory_only__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__memory_only__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__plain_rl__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__plain_rl__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__pipeline_validation__high_label_noise__plain_rl__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    }
+  ],
+  "preregistration_hash": "ef3112ea0d2cc207781de211ac258690",
+  "skipped_arms": {
+    "developmental": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")"
+  }
+}

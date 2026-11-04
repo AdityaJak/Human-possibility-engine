@@ -1,0 +1,143 @@
+{
+  "kind": "learning_lab",
+  "params": {
+    "n_agents": 5,
+    "episodes_per_family": 80,
+    "block": 10,
+    "checkpoint_every": 20,
+    "feedback_mode": "bandit",
+    "full_feedback_fraction": 0.25,
+    "label_noise": 0.05,
+    "age_start": 8.0,
+    "age_end": 18.0,
+    "enable_gate": true,
+    "demonstrations_per_block": 1,
+    "demo_trust": 0.8,
+    "transfer_modes": [
+      "shared"
+    ],
+    "transfer_shots": [
+      0,
+      4,
+      16,
+      64
+    ],
+    "retention_gap_years": 2.0
+  },
+  "contrasts": [
+    {
+      "name": "learning_is_necessary",
+      "treatment": "developmental",
+      "control": "ablate_learning",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.1,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": true,
+      "description": "with policy learning frozen (age gates and everything else unchanged) held-out skill must drop by >= 0.10"
+    },
+    {
+      "name": "feedback_is_necessary",
+      "treatment": "developmental",
+      "control": "ablate_feedback",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "memory_contribution",
+      "treatment": "developmental",
+      "control": "ablate_memory",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "shared_representation_contribution",
+      "treatment": "developmental",
+      "control": "ablate_shared_representation",
+      "metric": "transfer_auc/shared/trained",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "social_learning_contribution",
+      "treatment": "developmental",
+      "control": "ablate_social_learning",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "plasticity_schedule_contribution",
+      "treatment": "developmental",
+      "control": "ablate_plasticity_schedule",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "curriculum_contribution",
+      "treatment": "developmental",
+      "control": "ablate_curriculum",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "forgetting_effect_on_retention",
+      "treatment": "developmental",
+      "control": "ablate_forgetting",
+      "metric": "retention_change",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    }
+  ],
+  "sensitivity": [],
+  "pipeline_validation": true
+}

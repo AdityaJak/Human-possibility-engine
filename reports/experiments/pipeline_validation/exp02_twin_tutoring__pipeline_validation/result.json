@@ -1,0 +1,28 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp02_twin_tutoring__pipeline_validation",
+  "preregistration_hash": "69e4454129aa0f75f98b64caa16dd4b8",
+  "status": "inconclusive",
+  "status_reason": "primary contrast not computed: no data for arm(s) ['dev_tutoring', 'dev_control']",
+  "arms": [],
+  "effects": [],
+  "run_ids": [],
+  "sensitivity": [],
+  "ablations": [],
+  "figures": [],
+  "limitations": [
+    "PIPELINE VALIDATION RUN: scaled-down budget and seeds; not the preregistered experiment. Do not cite as a research result.",
+    "Simulated effects reflect the simulator's assumption that tutoring = extra instructional-feedback episodes; they are not estimates of real tutoring effects.",
+    "Cohorts after year 0 include agents born during the run; births can differ between arms through downstream dynamics.",
+    "Depends on hpe.world semantics for tutoring_access and AgentState.tutored (sim/world lane).",
+    "Arm 'dev_control' was NOT run: hpe.world.World not available in this build.",
+    "Arm 'dev_tutoring' was NOT run: hpe.world.World not available in this build.",
+    "Arm 'rl_control' was NOT run: hpe.world.World not available in this build.",
+    "Arm 'rl_tutoring' was NOT run: hpe.world.World not available in this build.",
+    "Arm 'static_control' was NOT run: hpe.world.World not available in this build.",
+    "Arm 'static_tutoring' was NOT run: hpe.world.World not available in this build."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T03:47:23.645240Z"
+}

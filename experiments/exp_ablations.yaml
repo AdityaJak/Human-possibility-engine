@@ -1,0 +1,99 @@
+# Ablations of the developmental learner (spec §38: remove memory, environmental feedback and policy learning
+# individually, plus the other developmental components).
+protocol:
+  kind: learning_lab
+  params:
+    n_agents: 20
+    episodes_per_family: 300
+    block: 10
+    checkpoint_every: 60
+    feedback_mode: bandit
+    full_feedback_fraction: 0.25
+    label_noise: 0.05
+    age_start: 8.0
+    age_end: 18.0
+    enable_gate: true
+    demonstrations_per_block: 1      # trusted teacher demonstrations, so social learning can matter
+    demo_trust: 0.8
+    transfer_modes: [shared]
+    transfer_shots: [0, 4, 16, 64]
+    retention_gap_years: 2.0
+  contrasts:
+    - name: learning_is_necessary
+      primary: true
+      treatment: developmental
+      control: ablate_learning
+      metric: final_heldout_accuracy
+      kind: superiority
+      min_effect: 0.10
+      description: "with policy learning frozen (age gates and everything else unchanged) held-out skill must drop by >= 0.10"
+    - name: feedback_is_necessary
+      treatment: developmental
+      control: ablate_feedback
+      metric: final_heldout_accuracy
+      kind: superiority
+    - name: memory_contribution
+      treatment: developmental
+      control: ablate_memory
+      metric: final_heldout_accuracy
+      kind: exploratory
+    - name: shared_representation_contribution
+      treatment: developmental
+      control: ablate_shared_representation
+      metric: transfer_auc/shared/trained
+      kind: exploratory
+    - name: social_learning_contribution
+      treatment: developmental
+      control: ablate_social_learning
+      metric: final_heldout_accuracy
+      kind: exploratory
+    - name: plasticity_schedule_contribution
+      treatment: developmental
+      control: ablate_plasticity_schedule
+      metric: final_heldout_accuracy
+      kind: exploratory
+    - name: curriculum_contribution
+      treatment: developmental
+      control: ablate_curriculum
+      metric: final_heldout_accuracy
+      kind: exploratory
+    - name: forgetting_effect_on_retention
+      treatment: developmental
+      control: ablate_forgetting
+      metric: retention_change
+      kind: exploratory
+definition:
+  experiment_id: exp_ablations
+  title: "Ablations: which developmental components produce held-out skill?"
+  hypothesis: >-
+    Held-out skill comes from experience-driven parameter learning, not from scripted age gates: freezing policy
+    learning or withholding feedback removes the gain; other components contribute measurably or not at all.
+  falsification_criterion: >-
+    The learning claim is refuted if freezing policy learning (ablate_learning) does not reduce held-out accuracy by
+    >= 0.10 with a paired 95% CI excluding 0 — that would mean measured skill comes from scripted mechanisms.
+  arms:
+    - {name: developmental, policy_class: developmental}
+    - {name: ablate_learning, policy_class: developmental, policy_params: {use_learning: false}}
+    - {name: ablate_feedback, policy_class: developmental, policy_params: {use_feedback: false}}
+    - {name: ablate_memory, policy_class: developmental, policy_params: {use_memory: false}}
+    - {name: ablate_shared_representation, policy_class: developmental, policy_params: {use_shared_representation: false}}
+    - {name: ablate_social_learning, policy_class: developmental, policy_params: {use_social_learning: false}}
+    - {name: ablate_plasticity_schedule, policy_class: developmental, policy_params: {use_plasticity_schedule: false}}
+    - {name: ablate_curriculum, policy_class: developmental, policy_params: {use_curriculum: false}}
+    - {name: ablate_forgetting, policy_class: developmental, policy_params: {use_forgetting: false}}
+  control_arm: ablate_learning
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  base_config: {seed: 0, n_agents: 20, years: 10}
+  analysis:
+    primary_metric: final_heldout_accuracy
+    primary_metric_definition: "Mean held-out accuracy over training families after 300 episodes/family + 30 teacher demonstrations/family."
+    comparison: "developmental - ablate_learning, paired by seed"
+    test: paired_bootstrap
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.10
+    secondary_metrics: [transfer_auc/shared/trained, retention_change, final_log_loss]
+  ablations: [ablate_learning, ablate_feedback, ablate_memory, ablate_shared_representation, ablate_social_learning,
+              ablate_plasticity_schedule, ablate_curriculum, ablate_forgetting]
+  validity_notes:
+    - "Curriculum only affects self-directed practice choice; in this fixed-schedule lab it may have no effect by design."
+    - "Ablation flags are implemented by the research/development lane; this experiment only toggles them."

@@ -1,0 +1,101 @@
+{
+  "jobs": [
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_none__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_none__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_none__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_bandit__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_bandit__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_bandit__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_full__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_full__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__rl_full__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__static_none__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__static_none__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__static_none__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__static_full__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__static_full__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__pipeline_validation__main__static_full__s2",
+      "seed": 2,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "a9e44777059d1d3e97e4a72bacd6fe18",
+  "skipped_arms": {
+    "dev_bandit": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "dev_full": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "dev_none": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "dev_none_frozen": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")"
+  }
+}

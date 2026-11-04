@@ -1,0 +1,854 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp01_acquired_learning__pipeline_validation",
+  "preregistration_hash": "a9e44777059d1d3e97e4a72bacd6fe18",
+  "status": "inconclusive",
+  "status_reason": "primary contrast not computed: no data for arm(s) ['dev_full', 'dev_none']",
+  "arms": [
+    {
+      "arm": "rl_bandit",
+      "n_runs": 3,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "compute/param_updates": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 37.333333333333336,
+          "sd": 16.65332799572906,
+          "ci_low": 24.0,
+          "ci_high": 56.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 24.0,
+          "sd": 4.0,
+          "ci_low": 20.0,
+          "ci_high": 28.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 136.0,
+          "sd": 41.569219381653056,
+          "ci_low": 88.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.7459259259259259,
+          "sd": 0.04787242992918886,
+          "ci_low": 0.7155555555555556,
+          "ci_high": 0.8011111111111111,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8111111111111112,
+          "sd": 0.021688023662159044,
+          "ci_low": 0.79,
+          "ci_high": 0.8333333333333334,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8366666666666666,
+          "sd": 0.030550504633038912,
+          "ci_low": 0.8033333333333333,
+          "ci_high": 0.8633333333333333,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.59,
+          "sd": 0.1026861453383291,
+          "ci_low": 0.5133333333333333,
+          "ci_high": 0.7066666666666667,
+          "n": 3.0
+        },
+        "final_log_loss": {
+          "mean": 0.5738319929715695,
+          "sd": 0.03980886069747997,
+          "ci_low": 0.5339008677816481,
+          "ci_high": 0.6135174521390654,
+          "n": 3.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.8251851851851852,
+          "sd": 0.011880751801737416,
+          "ci_low": 0.8122222222222222,
+          "ci_high": 0.8355555555555556,
+          "n": 3.0
+        },
+        "generalization_gap": {
+          "mean": 0.07925925925925924,
+          "sd": 0.0464057964309075,
+          "ci_low": 0.026666666666666682,
+          "ci_high": 0.11444444444444439,
+          "n": 3.0
+        },
+        "heldout_ece": {
+          "mean": 0.1551928432839802,
+          "sd": 0.028616071310924616,
+          "ci_low": 0.1255011241183059,
+          "ci_high": 0.18259580830604857,
+          "n": 3.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/practice_items": {
+          "mean": 1380.0,
+          "sd": 0.0,
+          "ci_low": 1380.0,
+          "ci_high": 1380.0,
+          "n": 3.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.15481481481481482,
+          "sd": 0.057602440506139795,
+          "ci_low": -0.21844444444444444,
+          "ci_high": -0.10622222222222222,
+          "n": 3.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6544444444444445,
+          "sd": 0.046666666666666676,
+          "ci_low": 0.6211111111111112,
+          "ci_high": 0.7077777777777778,
+          "n": 3.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6544444444444445,
+          "sd": 0.046666666666666676,
+          "ci_low": 0.6211111111111112,
+          "ci_high": 0.7077777777777778,
+          "n": 3.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 3.0
+        }
+      }
+    },
+    {
+      "arm": "rl_full",
+      "n_runs": 3,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "compute/param_updates": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 30.666666666666668,
+          "sd": 10.066445913694333,
+          "ci_low": 20.0,
+          "ci_high": 40.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 25.333333333333332,
+          "sd": 4.618802153517007,
+          "ci_low": 20.0,
+          "ci_high": 28.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 89.33333333333333,
+          "sd": 45.489925624618614,
+          "ci_low": 52.0,
+          "ci_high": 140.0,
+          "n": 3.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.7966666666666667,
+          "sd": 0.04514722145313347,
+          "ci_low": 0.7588888888888888,
+          "ci_high": 0.8466666666666667,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.85,
+          "sd": 0.04409585518440988,
+          "ci_low": 0.8166666666666668,
+          "ci_high": 0.9,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.861111111111111,
+          "sd": 0.005091750772173092,
+          "ci_low": 0.8566666666666668,
+          "ci_high": 0.8666666666666666,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.6788888888888888,
+          "sd": 0.0933531724946443,
+          "ci_low": 0.5866666666666667,
+          "ci_high": 0.7733333333333333,
+          "n": 3.0
+        },
+        "final_log_loss": {
+          "mean": 0.49072751698949607,
+          "sd": 0.04366121681843358,
+          "ci_low": 0.44073014676088657,
+          "ci_high": 0.5213386063777087,
+          "n": 3.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.8837037037037035,
+          "sd": 0.007143445008143038,
+          "ci_low": 0.8755555555555553,
+          "ci_high": 0.888888888888889,
+          "n": 3.0
+        },
+        "generalization_gap": {
+          "mean": 0.08703703703703702,
+          "sd": 0.04119111334899847,
+          "ci_low": 0.040000000000000015,
+          "ci_high": 0.11666666666666665,
+          "n": 3.0
+        },
+        "heldout_ece": {
+          "mean": 0.14794560540726945,
+          "sd": 0.0074163390842345404,
+          "ci_low": 0.14243210843046278,
+          "ci_high": 0.15637713131222428,
+          "n": 3.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/practice_items": {
+          "mean": 1380.0,
+          "sd": 0.0,
+          "ci_low": 1380.0,
+          "ci_high": 1380.0,
+          "n": 3.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.14866666666666667,
+          "sd": 0.05027381813751025,
+          "ci_low": -0.20666666666666664,
+          "ci_high": -0.11755555555555557,
+          "n": 3.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6544444444444445,
+          "sd": 0.046666666666666676,
+          "ci_low": 0.6211111111111112,
+          "ci_high": 0.7077777777777778,
+          "n": 3.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6544444444444445,
+          "sd": 0.046666666666666676,
+          "ci_low": 0.6211111111111112,
+          "ci_high": 0.7077777777777778,
+          "n": 3.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 3.0
+        }
+      }
+    },
+    {
+      "arm": "rl_none",
+      "n_runs": 3,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 160.0,
+          "sd": 0.0,
+          "ci_low": 160.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 160.0,
+          "sd": 0.0,
+          "ci_low": 160.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 160.0,
+          "sd": 0.0,
+          "ci_low": 160.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.3333333333333332,
+          "sd": 0.0,
+          "ci_low": 0.3333333333333332,
+          "ci_high": 0.3333333333333332,
+          "n": 3.0
+        },
+        "final_log_loss": {
+          "mean": 0.8283022165960002,
+          "sd": 0.0,
+          "ci_low": 0.8283022165960002,
+          "ci_high": 0.8283022165960002,
+          "n": 3.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 3.0
+        },
+        "generalization_gap": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "heldout_ece": {
+          "mean": 0.06296296296296296,
+          "sd": 0.019510469912690263,
+          "ci_low": 0.0444444444444444,
+          "ci_high": 0.0833333333333333,
+          "n": 3.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/practice_items": {
+          "mean": 1380.0,
+          "sd": 0.0,
+          "ci_low": 1380.0,
+          "ci_high": 1380.0,
+          "n": 3.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6544444444444445,
+          "sd": 0.046666666666666676,
+          "ci_low": 0.6211111111111112,
+          "ci_high": 0.7077777777777778,
+          "n": 3.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6544444444444445,
+          "sd": 0.046666666666666676,
+          "ci_low": 0.6211111111111112,
+          "ci_high": 0.7077777777777778,
+          "n": 3.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 3.0
+        }
+      }
+    },
+    {
+      "arm": "static_full",
+      "n_runs": 3,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 150.66666666666666,
+          "sd": 16.165807537309522,
+          "ci_low": 132.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 132.0,
+          "sd": 28.0,
+          "ci_low": 104.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 160.0,
+          "sd": 0.0,
+          "ci_low": 160.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4418518518518519,
+          "sd": 0.006119522830317873,
+          "ci_low": 0.43555555555555553,
+          "ci_high": 0.4477777777777778,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.48,
+          "sd": 0.07623064417352846,
+          "ci_low": 0.42333333333333334,
+          "ci_high": 0.5666666666666667,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5377777777777778,
+          "sd": 0.05178302310102685,
+          "ci_low": 0.48,
+          "ci_high": 0.58,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.30777777777777776,
+          "sd": 0.030245905752924882,
+          "ci_low": 0.27999999999999997,
+          "ci_high": 0.34,
+          "n": 3.0
+        },
+        "final_log_loss": {
+          "mean": 2.7642831765264355,
+          "sd": 0.09560015011592901,
+          "ci_low": 2.700733499400292,
+          "ci_high": 2.8742274950996767,
+          "n": 3.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.45444444444444443,
+          "sd": 0.016367688736284747,
+          "ci_low": 0.43555555555555553,
+          "ci_high": 0.4644444444444445,
+          "n": 3.0
+        },
+        "generalization_gap": {
+          "mean": 0.012592592592592619,
+          "sd": 0.011129614223197627,
+          "ci_low": -3.3306690738754695e-17,
+          "ci_high": 0.021111111111111202,
+          "n": 3.0
+        },
+        "heldout_ece": {
+          "mean": 0.47366009567636297,
+          "sd": 0.01229952522094241,
+          "ci_low": 0.4608192307579005,
+          "ci_high": 0.48533528424505806,
+          "n": 3.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/practice_items": {
+          "mean": 1380.0,
+          "sd": 0.0,
+          "ci_low": 1380.0,
+          "ci_high": 1380.0,
+          "n": 3.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5777777777777778,
+          "sd": 0.020367003088692635,
+          "ci_low": 0.5599999999999999,
+          "ci_high": 0.6,
+          "n": 3.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5777777777777778,
+          "sd": 0.020367003088692635,
+          "ci_low": 0.5599999999999999,
+          "ci_high": 0.6,
+          "n": 3.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5777777777777778,
+          "sd": 0.020367003088692635,
+          "ci_low": 0.5599999999999999,
+          "ci_high": 0.6,
+          "n": 3.0
+        }
+      }
+    },
+    {
+      "arm": "static_none",
+      "n_runs": 3,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 240.0,
+          "sd": 0.0,
+          "ci_low": 240.0,
+          "ci_high": 240.0,
+          "n": 3.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 150.66666666666666,
+          "sd": 16.165807537309522,
+          "ci_low": 132.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 132.0,
+          "sd": 28.0,
+          "ci_low": 104.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 160.0,
+          "sd": 0.0,
+          "ci_low": 160.0,
+          "ci_high": 160.0,
+          "n": 3.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4418518518518519,
+          "sd": 0.006119522830317873,
+          "ci_low": 0.43555555555555553,
+          "ci_high": 0.4477777777777778,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.48,
+          "sd": 0.07623064417352846,
+          "ci_low": 0.42333333333333334,
+          "ci_high": 0.5666666666666667,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5377777777777778,
+          "sd": 0.05178302310102685,
+          "ci_low": 0.48,
+          "ci_high": 0.58,
+          "n": 3.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.30777777777777776,
+          "sd": 0.030245905752924882,
+          "ci_low": 0.27999999999999997,
+          "ci_high": 0.34,
+          "n": 3.0
+        },
+        "final_log_loss": {
+          "mean": 2.7642831765264355,
+          "sd": 0.09560015011592901,
+          "ci_low": 2.700733499400292,
+          "ci_high": 2.8742274950996767,
+          "n": 3.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.45444444444444443,
+          "sd": 0.016367688736284747,
+          "ci_low": 0.43555555555555553,
+          "ci_high": 0.4644444444444445,
+          "n": 3.0
+        },
+        "generalization_gap": {
+          "mean": 0.012592592592592619,
+          "sd": 0.011129614223197627,
+          "ci_low": -3.3306690738754695e-17,
+          "ci_high": 0.021111111111111202,
+          "n": 3.0
+        },
+        "heldout_ece": {
+          "mean": 0.47366009567636297,
+          "sd": 0.01229952522094241,
+          "ci_low": 0.4608192307579005,
+          "ci_high": 0.48533528424505806,
+          "n": 3.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "leakage/practice_items": {
+          "mean": 1380.0,
+          "sd": 0.0,
+          "ci_low": 1380.0,
+          "ci_high": 1380.0,
+          "n": 3.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5777777777777778,
+          "sd": 0.020367003088692635,
+          "ci_low": 0.5599999999999999,
+          "ci_high": 0.6,
+          "n": 3.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5777777777777778,
+          "sd": 0.020367003088692635,
+          "ci_low": 0.5599999999999999,
+          "ci_high": 0.6,
+          "n": 3.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 3.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5777777777777778,
+          "sd": 0.020367003088692635,
+          "ci_low": 0.5599999999999999,
+          "ci_high": 0.6,
+          "n": 3.0
+        }
+      }
+    }
+  ],
+  "effects": [
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "instruction_vs_no_feedback_plain_rl: rl_full - rl_none",
+      "estimate": 0.35222222222222216,
+      "ci_low": 0.31444444444444436,
+      "ci_high": 0.4022222222222222,
+      "ci_level": 0.95,
+      "p_value": 0.25,
+      "standardized_effect": 7.8016367538334075,
+      "n_units": 3,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "mechanism_check_static_persona: static_full - static_none",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": null,
+      "standardized_effect": 0.0,
+      "n_units": 3,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.02",
+      "passed_minimum_effect": true
+    }
+  ],
+  "run_ids": [
+    "exp01_acquired_learning__pipeline_validation__main__rl_bandit__s0",
+    "exp01_acquired_learning__pipeline_validation__main__rl_bandit__s1",
+    "exp01_acquired_learning__pipeline_validation__main__rl_bandit__s2",
+    "exp01_acquired_learning__pipeline_validation__main__rl_full__s0",
+    "exp01_acquired_learning__pipeline_validation__main__rl_full__s1",
+    "exp01_acquired_learning__pipeline_validation__main__rl_full__s2",
+    "exp01_acquired_learning__pipeline_validation__main__rl_none__s0",
+    "exp01_acquired_learning__pipeline_validation__main__rl_none__s1",
+    "exp01_acquired_learning__pipeline_validation__main__rl_none__s2",
+    "exp01_acquired_learning__pipeline_validation__main__static_full__s0",
+    "exp01_acquired_learning__pipeline_validation__main__static_full__s1",
+    "exp01_acquired_learning__pipeline_validation__main__static_full__s2",
+    "exp01_acquired_learning__pipeline_validation__main__static_none__s0",
+    "exp01_acquired_learning__pipeline_validation__main__static_none__s1",
+    "exp01_acquired_learning__pipeline_validation__main__static_none__s2"
+  ],
+  "sensitivity": [],
+  "ablations": [],
+  "figures": [
+    "figures/primary_metric.png",
+    "figures/learning_curves.png",
+    "figures/transfer_shared.png"
+  ],
+  "limitations": [
+    "PIPELINE VALIDATION RUN: scaled-down budget and seeds; not the preregistered experiment. Do not cite as a research result.",
+    "Feedback conditions are properties of the synthetic environment; 'instruction' here means revealing the correct answer, not human teaching.",
+    "Retention measures forgetting dynamics built into each policy class (baselines do not forget by construction).",
+    "Arm 'dev_bandit' was NOT run: policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\").",
+    "Arm 'dev_full' was NOT run: policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\").",
+    "Arm 'dev_none' was NOT run: policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\").",
+    "Arm 'dev_none_frozen' was NOT run: policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T03:47:16.550161Z"
+}

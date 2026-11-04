@@ -1,0 +1,95 @@
+# Experiment 1 — Acquired learning under randomised instructional-feedback conditions (spec §14).
+protocol:
+  kind: learning_lab
+  params:
+    n_agents: 20
+    episodes_per_family: 300
+    block: 10
+    checkpoint_every: 30
+    feedback_mode: bandit
+    full_feedback_fraction: 0.0
+    label_noise: 0.05
+    age_start: 8.0
+    age_end: 18.0
+    enable_gate: true
+    criterion: 0.7
+    retention_gap_years: 3.0
+    transfer_modes: [shared]
+    transfer_shots: [0, 8, 32]
+  contrasts:
+    - name: instruction_vs_no_feedback_developmental
+      primary: true
+      treatment: dev_full
+      control: dev_none
+      metric: final_heldout_accuracy
+      kind: superiority
+      min_effect: 0.05
+      description: "instructional feedback must raise held-out accuracy by >= 0.05 over the no-feedback condition"
+    - name: outcome_feedback_vs_none_developmental
+      treatment: dev_bandit
+      control: dev_none
+      metric: final_heldout_accuracy
+      kind: superiority
+    - name: instruction_vs_outcome_efficiency_developmental
+      treatment: dev_full
+      control: dev_bandit
+      metric: episodes_to_criterion/compare
+      direction: less
+      kind: superiority
+    - name: no_feedback_learning_is_null_developmental
+      treatment: dev_none
+      control: dev_none_frozen
+      metric: final_heldout_accuracy
+      kind: equivalence
+      margin: 0.03
+      description: "without any outcome information the learner should be no better than a frozen copy"
+    - name: instruction_vs_no_feedback_plain_rl
+      treatment: rl_full
+      control: rl_none
+      metric: final_heldout_accuracy
+      kind: superiority
+    - name: mechanism_check_static_persona
+      treatment: static_full
+      control: static_none
+      metric: final_heldout_accuracy
+      kind: equivalence
+      margin: 0.02
+      description: "a non-learning persona must show no feedback effect: differences arise from the learning mechanism, not hard-coded outputs"
+    - name: retention_developmental_full
+      treatment: dev_full
+      control: rl_full
+      metric: retention_change
+      kind: exploratory
+definition:
+  experiment_id: exp01_acquired_learning
+  title: "Exp 1: acquired learning — identical agents randomised to none / outcome / instructional feedback"
+  hypothesis: >-
+    Identical initial agents acquire held-out skill as a function of the feedback they receive: instructional
+    (full) feedback > outcome-only (bandit) feedback > no feedback, and a non-learning persona shows no effect.
+  falsification_criterion: >-
+    Not supported if dev_full fails to exceed dev_none by >= 0.05 held-out accuracy with the paired 95% CI excluding 0
+    across 10 seeds. The mechanism check fails if static_full and static_none differ by more than 0.02.
+  arms:
+    - {name: dev_none, policy_class: developmental, world_overrides: {feedback_mode: none}}
+    - {name: dev_bandit, policy_class: developmental, world_overrides: {feedback_mode: bandit}}
+    - {name: dev_full, policy_class: developmental, world_overrides: {feedback_mode: full}}
+    - {name: dev_none_frozen, policy_class: developmental, policy_params: {use_learning: false}, world_overrides: {feedback_mode: none}}
+    - {name: rl_none, policy_class: plain_rl, world_overrides: {feedback_mode: none}}
+    - {name: rl_bandit, policy_class: plain_rl, world_overrides: {feedback_mode: bandit}}
+    - {name: rl_full, policy_class: plain_rl, world_overrides: {feedback_mode: full}}
+    - {name: static_none, policy_class: static_persona, world_overrides: {feedback_mode: none}}
+    - {name: static_full, policy_class: static_persona, world_overrides: {feedback_mode: full}}
+  control_arm: dev_none
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  base_config: {seed: 0, n_agents: 20, years: 10}
+  analysis:
+    primary_metric: final_heldout_accuracy
+    primary_metric_definition: "Mean held-out accuracy over training families after 300 episodes/family; mean over 20 agents; one value per seed."
+    comparison: "dev_full - dev_none, paired by seed"
+    test: paired_bootstrap
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.05
+    secondary_metrics: [episodes_to_criterion/compare, retention_change, final_log_loss, transfer_auc/shared/trained]
+  validity_notes:
+    - "Feedback conditions are properties of the synthetic environment; 'instruction' here means revealing the correct answer, not human teaching."
+    - "Retention measures forgetting dynamics built into each policy class (baselines do not forget by construction)."

@@ -1,0 +1,125 @@
+# Experiment 2 (PRIMARY preregistered education-access intervention) — twin societies.
+# Control and treatment societies are clones: same seed, population_seed and task_seed; per-agent
+# per-purpose RNG streams (common random numbers). Only tutoring access for children differs.
+protocol:
+  kind: society
+  params:
+    record_agent_accuracy: true
+    metrics:
+      - {name: cohort_accuracy_16_20, fn: cohort_mean_accuracy, args: {age_min: 16, age_max: 20}}
+      - {name: cohort_size_16_20, fn: cohort_size, args: {age_min: 16, age_max: 20}}
+      - {name: tutored_share_16_20, fn: tutored_share, args: {age_min: 16, age_max: 20}}
+      - {name: cohort_accuracy_8_12, fn: cohort_mean_accuracy, args: {age_min: 8, age_max: 12}}
+      - {name: cohort_barter_16_20, fn: cohort_mean_accuracy, args: {age_min: 16, age_max: 20, families: barter}}
+      - {name: adult_accuracy_25_60, fn: cohort_mean_accuracy, args: {age_min: 25, age_max: 60}}
+      - {name: employment_18_30, fn: employment_rate, args: {age_min: 18, age_max: 30}}
+      - {name: education_years_16_20, fn: mean_education_years, args: {age_min: 16, age_max: 20}}
+      - {name: resource_gini, fn: resource_gini, args: {}}
+      - {name: population, fn: population, args: {}}
+  contrasts:
+    - name: tutoring_effect_developmental
+      primary: true
+      treatment: dev_tutoring
+      control: dev_control
+      metric: cohort_accuracy_16_20
+      kind: superiority
+      min_effect: 0.02
+      description: "children tutored at ages 5-15 have higher held-out accuracy at 16-20 (>= 0.02, paired 95% CI excluding 0)"
+    - name: mechanism_check_static_persona
+      treatment: static_tutoring
+      control: static_control
+      metric: cohort_accuracy_16_20
+      kind: equivalence
+      margin: 0.02
+      description: "a non-learning society must show no skill effect from tutoring; effect must flow through learning"
+    - name: manipulation_check
+      treatment: dev_tutoring
+      control: dev_control
+      metric: tutored_share_16_20
+      kind: superiority
+      min_effect: 0.5
+    - name: tutoring_effect_plain_rl
+      treatment: rl_tutoring
+      control: rl_control
+      metric: cohort_accuracy_16_20
+      kind: superiority
+    - name: tutoring_effect_on_transfer_family
+      treatment: dev_tutoring
+      control: dev_control
+      metric: cohort_barter_16_20
+      kind: exploratory
+    - name: tutoring_effect_on_employment
+      treatment: dev_tutoring
+      control: dev_control
+      metric: employment_18_30
+      kind: exploratory
+    - name: spillover_to_adults
+      treatment: dev_tutoring
+      control: dev_control
+      metric: adult_accuracy_25_60
+      kind: exploratory
+  sensitivity:
+    - name: tutoring_episodes_2
+      params: {tutoring_episodes_per_tick: 2}
+      arms: [dev_control, dev_tutoring]
+      contrasts: [tutoring_effect_developmental]
+    - name: tutoring_episodes_8
+      params: {tutoring_episodes_per_tick: 8}
+      arms: [dev_control, dev_tutoring]
+      contrasts: [tutoring_effect_developmental]
+    - name: high_label_noise
+      params: {label_noise: 0.15}
+      arms: [dev_control, dev_tutoring]
+      contrasts: [tutoring_effect_developmental]
+    - name: no_age_gate
+      params: {enable_age_gate: false}
+      arms: [dev_control, dev_tutoring]
+      contrasts: [tutoring_effect_developmental]
+definition:
+  experiment_id: exp02_twin_tutoring
+  title: "Exp 2: twin-society tutoring-access intervention (primary preregistered education experiment)"
+  hypothesis: >-
+    In a society of developmental learners, giving every child aged 5-15 access to tutoring (extra instructional
+    feedback episodes) raises held-out task accuracy at ages 16-20 relative to a cloned control society, and the
+    effect appears only when agents can learn.
+  falsification_criterion: >-
+    Not supported if dev_tutoring - dev_control on cohort_accuracy_16_20 is < 0.02 or its paired 95% CI includes 0
+    across 10 seed pairs. The mechanism claim fails if static_tutoring - static_control falls outside +/-0.02.
+  arms:
+    - {name: dev_control, policy_class: developmental}
+    - name: dev_tutoring
+      policy_class: developmental
+      interventions:
+        - {name: child_tutoring, kind: tutoring_access, target: {age_min: 5, age_max: 15, fraction: 1.0}, start_year: 0.0}
+    - {name: rl_control, policy_class: plain_rl}
+    - name: rl_tutoring
+      policy_class: plain_rl
+      interventions:
+        - {name: child_tutoring, kind: tutoring_access, target: {age_min: 5, age_max: 15, fraction: 1.0}, start_year: 0.0}
+    - {name: static_control, policy_class: static_persona}
+    - name: static_tutoring
+      policy_class: static_persona
+      interventions:
+        - {name: child_tutoring, kind: tutoring_access, target: {age_min: 5, age_max: 15, fraction: 1.0}, start_year: 0.0}
+  control_arm: dev_control
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  base_config:
+    seed: 0
+    n_agents: 100
+    years: 20
+    dt_days: 30
+    log: {frames_every_ticks: 0, decision_sample_rate: 0.0, log_learning_episodes: false, assessment_interval_years: 1.0, checkpoint_every_years: null}
+  analysis:
+    primary_metric: cohort_accuracy_16_20
+    primary_metric_definition: >-
+      At simulated year 20: mean over alive agents aged 16-20 of their latest held-out assessment accuracy averaged
+      over the training families (world-run hpe.tasks.assess, learning disabled); one value per society (seed).
+    comparison: "dev_tutoring - dev_control, paired by seed (clone societies)"
+    test: paired_bootstrap
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.02
+    secondary_metrics: [cohort_size_16_20, tutored_share_16_20, cohort_accuracy_8_12, cohort_barter_16_20, employment_18_30, education_years_16_20, resource_gini, population]
+  validity_notes:
+    - "Simulated effects reflect the simulator's assumption that tutoring = extra instructional-feedback episodes; they are not estimates of real tutoring effects."
+    - "Cohorts after year 0 include agents born during the run; births can differ between arms through downstream dynamics."
+    - "Depends on hpe.world semantics for tutoring_access and AgentState.tutored (sim/world lane)."

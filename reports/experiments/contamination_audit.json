@@ -1,0 +1,38 @@
+{
+  "clean": true,
+  "episodes_per_family": 120,
+  "eval_sets_fixed": true,
+  "policies": {
+    "memory_only": {
+      "assessment_mutates_policy": false,
+      "distinct_practice_symbols": 64,
+      "holdout_symbols_in_practice": 0,
+      "practice_items": 360
+    },
+    "plain_rl": {
+      "assessment_mutates_policy": false,
+      "distinct_practice_symbols": 64,
+      "holdout_symbols_in_practice": 0,
+      "practice_items": 360
+    },
+    "random": {
+      "assessment_mutates_policy": false,
+      "distinct_practice_symbols": 64,
+      "holdout_symbols_in_practice": 0,
+      "practice_items": 360
+    },
+    "static_persona": {
+      "assessment_mutates_policy": false,
+      "distinct_practice_symbols": 64,
+      "holdout_symbols_in_practice": 0,
+      "practice_items": 360
+    }
+  },
+  "seed": 0,
+  "task_world_leakage": {
+    "clean": true,
+    "holdout_symbols": 32,
+    "overlap": 0,
+    "train_symbols": 64
+  }
+}

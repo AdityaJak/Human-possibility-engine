@@ -1,0 +1,80 @@
+# Experiment 6 / H3 — Cross-domain transfer to a never-practised task family, with a negative-transfer control.
+protocol:
+  kind: learning_lab
+  params:
+    n_agents: 20
+    episodes_per_family: 300
+    block: 10
+    checkpoint_every: 60
+    feedback_mode: bandit
+    full_feedback_fraction: 0.25
+    label_noise: 0.05
+    age_start: 8.0
+    age_end: 18.0
+    enable_gate: true
+    transfer_modes: [shared, orthogonal]
+    transfer_shots: [0, 2, 4, 8, 16, 32, 64]
+    transfer_feedback: bandit
+    skip_retention: true
+  contrasts:
+    - name: shared_representation_vs_specialists
+      primary: true
+      treatment: developmental
+      control: developmental_specialists
+      metric: transfer_auc/shared/trained
+      kind: superiority
+      min_effect: 0.03
+      description: "few-shot learning curve area on 'barter' (shared latent world) must exceed independent specialists by >= 0.03"
+    - name: shared_vs_plain_rl
+      treatment: developmental
+      control: plain_rl
+      metric: transfer_auc/shared/trained
+      kind: superiority
+    - name: transfer_gain_vs_plain_rl
+      treatment: developmental
+      control: plain_rl
+      metric: transfer_gain/shared
+      kind: superiority
+      description: "benefit of prior training (trained minus fresh agent AUC) exceeds that of plain RL (expected ~0)"
+    - name: orthogonal_control_no_benefit
+      treatment: developmental
+      control: developmental_specialists
+      metric: transfer_auc/orthogonal/trained
+      kind: exploratory
+      description: "in the orthogonal world a shared representation should not help; a negative estimate = negative transfer"
+    - name: orthogonal_gain_vs_plain_rl
+      treatment: developmental
+      control: plain_rl
+      metric: transfer_gain/orthogonal
+      kind: exploratory
+definition:
+  experiment_id: exp06_transfer
+  title: "Exp 6 / H3: transfer to an unseen task family (shared vs orthogonal latent structure)"
+  hypothesis: >-
+    A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised
+    'barter' family than independently trained specialists when barter shares the latent structure, and shows no
+    benefit (or negative transfer) when it does not.
+  falsification_criterion: >-
+    Not supported if the developmental learner's few-shot AUC on barter (shared world) does not exceed the
+    specialist ablation by >= 0.03 with a paired 95% CI excluding 0 across 10 seeds.
+  arms:
+    - {name: developmental, policy_class: developmental}
+    - {name: developmental_specialists, policy_class: developmental, policy_params: {use_shared_representation: false}}
+    - {name: plain_rl, policy_class: plain_rl}
+    - {name: memory_only, policy_class: memory_only}
+  control_arm: developmental_specialists
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  base_config: {seed: 0, n_agents: 20, years: 10}
+  analysis:
+    primary_metric: transfer_auc/shared/trained
+    primary_metric_definition: >-
+      Mean held-out accuracy on barter across shot counts {0,2,4,8,16,32,64} of bandit-feedback practice,
+      measured on a clone of each trained agent (transfer_probe); mean over 20 agents; one value per seed.
+    comparison: "developmental - developmental_specialists, paired by seed"
+    test: paired_bootstrap
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.03
+    secondary_metrics: [transfer_gain/shared, transfer_auc/orthogonal/trained, transfer_gain/orthogonal, zero_shot/barter, final_heldout_accuracy]
+  validity_notes:
+    - "Barter is never practised during development; leakage/holdout_symbols_in_practice must be 0."
+    - "Because all rules are linear in the raw features, a shared representation can only help through sample efficiency."

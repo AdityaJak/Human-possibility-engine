@@ -1,0 +1,199 @@
+{
+  "kind": "society",
+  "params": {
+    "record_agent_accuracy": true,
+    "metrics": [
+      {
+        "name": "cohort_accuracy_16_20",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 16,
+          "age_max": 20
+        }
+      },
+      {
+        "name": "cohort_size_16_20",
+        "fn": "cohort_size",
+        "args": {
+          "age_min": 16,
+          "age_max": 20
+        }
+      },
+      {
+        "name": "tutored_share_16_20",
+        "fn": "tutored_share",
+        "args": {
+          "age_min": 16,
+          "age_max": 20
+        }
+      },
+      {
+        "name": "cohort_accuracy_8_12",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 8,
+          "age_max": 12
+        }
+      },
+      {
+        "name": "cohort_barter_16_20",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 16,
+          "age_max": 20,
+          "families": "barter"
+        }
+      },
+      {
+        "name": "adult_accuracy_25_60",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 25,
+          "age_max": 60
+        }
+      },
+      {
+        "name": "employment_18_30",
+        "fn": "employment_rate",
+        "args": {
+          "age_min": 18,
+          "age_max": 30
+        }
+      },
+      {
+        "name": "education_years_16_20",
+        "fn": "mean_education_years",
+        "args": {
+          "age_min": 16,
+          "age_max": 20
+        }
+      },
+      {
+        "name": "resource_gini",
+        "fn": "resource_gini",
+        "args": {}
+      },
+      {
+        "name": "population",
+        "fn": "population",
+        "args": {}
+      }
+    ]
+  },
+  "contrasts": [
+    {
+      "name": "tutoring_effect_developmental",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.02,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": true,
+      "description": "children tutored at ages 5-15 have higher held-out accuracy at 16-20 (>= 0.02, paired 95% CI excluding 0)"
+    },
+    {
+      "name": "mechanism_check_static_persona",
+      "treatment": "static_tutoring",
+      "control": "static_control",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "equivalence",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": 0.02,
+      "primary": false,
+      "description": "a non-learning society must show no skill effect from tutoring; effect must flow through learning"
+    },
+    {
+      "name": "manipulation_check",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "metric": "tutored_share_16_20",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.5,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "tutoring_effect_plain_rl",
+      "treatment": "rl_tutoring",
+      "control": "rl_control",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "tutoring_effect_on_transfer_family",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "metric": "cohort_barter_16_20",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "tutoring_effect_on_employment",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "metric": "employment_18_30",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "spillover_to_adults",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "metric": "adult_accuracy_25_60",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    }
+  ],
+  "sensitivity": [
+    {
+      "name": "tutoring_episodes_2",
+      "params": {
+        "tutoring_episodes_per_tick": 2
+      },
+      "arms": [
+        "dev_control",
+        "dev_tutoring"
+      ],
+      "contrasts": [
+        "tutoring_effect_developmental"
+      ]
+    }
+  ],
+  "pipeline_validation": true
+}

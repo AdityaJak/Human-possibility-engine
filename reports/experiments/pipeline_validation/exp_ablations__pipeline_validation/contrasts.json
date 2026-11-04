@@ -1,0 +1,98 @@
+[
+  {
+    "contrast": "learning_is_necessary",
+    "control": "ablate_learning",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "final_heldout_accuracy",
+    "primary": true,
+    "reason": "no data for arm(s) ['developmental', 'ablate_learning']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "feedback_is_necessary",
+    "control": "ablate_feedback",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_feedback']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "memory_contribution",
+    "control": "ablate_memory",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_memory']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "shared_representation_contribution",
+    "control": "ablate_shared_representation",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "transfer_auc/shared/trained",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_shared_representation']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "social_learning_contribution",
+    "control": "ablate_social_learning",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_social_learning']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "plasticity_schedule_contribution",
+    "control": "ablate_plasticity_schedule",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_plasticity_schedule']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "curriculum_contribution",
+    "control": "ablate_curriculum",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_curriculum']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "forgetting_effect_on_retention",
+    "control": "ablate_forgetting",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "retention_change",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'ablate_forgetting']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  }
+]

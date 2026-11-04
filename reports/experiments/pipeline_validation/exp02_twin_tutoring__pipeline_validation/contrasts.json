@@ -1,0 +1,86 @@
+[
+  {
+    "contrast": "tutoring_effect_developmental",
+    "control": "dev_control",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "cohort_accuracy_16_20",
+    "primary": true,
+    "reason": "no data for arm(s) ['dev_tutoring', 'dev_control']",
+    "treatment": "dev_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "mechanism_check_static_persona",
+    "control": "static_control",
+    "control_selection": "",
+    "kind": "equivalence",
+    "metric": "cohort_accuracy_16_20",
+    "primary": false,
+    "reason": "no data for arm(s) ['static_tutoring', 'static_control']",
+    "treatment": "static_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "manipulation_check",
+    "control": "dev_control",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "tutored_share_16_20",
+    "primary": false,
+    "reason": "no data for arm(s) ['dev_tutoring', 'dev_control']",
+    "treatment": "dev_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "tutoring_effect_plain_rl",
+    "control": "rl_control",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "cohort_accuracy_16_20",
+    "primary": false,
+    "reason": "no data for arm(s) ['rl_tutoring', 'rl_control']",
+    "treatment": "rl_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "tutoring_effect_on_transfer_family",
+    "control": "dev_control",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "cohort_barter_16_20",
+    "primary": false,
+    "reason": "no data for arm(s) ['dev_tutoring', 'dev_control']",
+    "treatment": "dev_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "tutoring_effect_on_employment",
+    "control": "dev_control",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "employment_18_30",
+    "primary": false,
+    "reason": "no data for arm(s) ['dev_tutoring', 'dev_control']",
+    "treatment": "dev_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "spillover_to_adults",
+    "control": "dev_control",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "adult_accuracy_25_60",
+    "primary": false,
+    "reason": "no data for arm(s) ['dev_tutoring', 'dev_control']",
+    "treatment": "dev_tutoring",
+    "variant": "main",
+    "verdict": "not_computed"
+  }
+]
