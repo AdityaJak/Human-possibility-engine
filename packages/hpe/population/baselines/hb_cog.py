@@ -20,11 +20,11 @@ without feedback to the next step's state are counted; the action's value become
 
 Hierarchy: a fixed grid of ``P`` particles (5 α × 3 ρ × 5 β × 4 κ × 2 δ = 600; × 3 w with ``mb``). Population prior = mixing weights
 ``π`` over the particles, fitted on the dev participants by EM (non-parametric maximum likelihood of the mixing
-distribution, with ``c`` pseudo-counts per particle). Per person, the posterior over particles is updated online
-from the person's own scored choices (likelihood tempered by ``τ``); the prediction for step t is the
-posterior-predictive mixture with the posterior from steps < t — causal by construction. ``mode="frozen"``: the
-posterior stays at the population prior (each particle's learning still runs). ``donor=``: the posterior is
-computed from the donor's whole sequence and held fixed.
+distribution, with ``c`` pseudo-counts per particle). Person-level state (``core.adaptation.AdaptiveBase``; the
+harness owns the adapt / frozen / donor modes): the posterior log-weights over particles,
+``log π + τ Σ_{s in history, scored} log p_θ(a_s)``, recomputed every ``m`` trials (config ``m``, default 5) from
+the history the harness passes; the prediction is the posterior-predictive mixture. Each particle's own value
+learning runs in context over the sequence (causal), so ``frozen`` (= prior weights throughout) still learns values.
 """
 
 from __future__ import annotations
@@ -36,6 +36,7 @@ from typing import Any, ClassVar
 
 import numpy as np
 
+from hpe.population.core.adaptation import AdaptiveBase
 from hpe.population.core.encoding import EncodedSeq, Layout
 from hpe.population.core.interface import ModelSpec, register_model
 
@@ -158,12 +159,13 @@ def chosen_loglik(seq: EncodedSeq, lp: np.ndarray) -> np.ndarray:
     return np.where(seq.scored[:, None], ll, 0.0)
 
 
-class HBCog:
+class HBCog(AdaptiveBase):
     name = "hb_cog"
     adaptive = True
 
     def __init__(self, config: dict[str, Any], k_max: int, d_in: int) -> None:
         self.config = dict(config)
+        self.update_every = max(1, int(config.get("m", 5)))
         self.k_max = k_max
         self.spec = _Spec(config)
         self.theta = particle_grid(self.spec.mb)
@@ -220,25 +222,25 @@ class HBCog:
             "cpu_s": round(time.process_time() - t0, 2),
         }
 
-    def predict_logprobs(
-        self, seq: EncodedSeq, *, mode: str = "adapt", donor: EncodedSeq | None = None
-    ) -> np.ndarray:
+    # ---- person-level state (harness-owned modes, core.adaptation.AdaptiveBase) ----------------------
+    def init_state(self) -> Any:
+        return self.log_pi.copy()
+
+    def update_state(self, state: Any, history: EncodedSeq) -> Any:
+        """Posterior log-weights from the history's scored choices: log π + τ Σ log p_θ(a_s)."""
         tau = float(self.config.get("tau", 1.0))
-        lp = run_particles(seq, self.theta, self.spec)  # [T, P, K]
-        T = seq.T
-        if mode == "frozen":
-            logw = np.repeat(self.log_pi[None, :], T, axis=0)
-        elif donor is not None:
-            ld = chosen_loglik(donor, run_particles(donor, self.theta, self.spec)).sum(axis=0)
-            logw = np.repeat((self.log_pi + tau * ld)[None, :], T, axis=0)
-        else:
-            ll = chosen_loglik(seq, lp)
-            cum = np.concatenate(
-                [np.zeros((1, ll.shape[1])), np.cumsum(ll, axis=0)[:-1]], axis=0
-            )  # steps < t
-            logw = self.log_pi[None, :] + tau * cum
-        logw = logw - _logsumexp(logw, axis=1)[:, None]
-        out = _logsumexp(logw[:, :, None] + lp, axis=1)  # [T, K]
+        ll = chosen_loglik(history, run_particles(history, self.theta, self.spec)).sum(axis=0)
+        return self.log_pi + tau * ll
+
+    def predict_with_states(self, seq: EncodedSeq, states: list[tuple[int, Any]]) -> np.ndarray:
+        lp = run_particles(seq, self.theta, self.spec)  # [T, P, K]; each particle learns in context (causal)
+        out = np.full((seq.T, seq.k_max), -np.inf)
+        starts = [st for st, _ in states] + [seq.T]
+        for (s, logw), e in zip(states, starts[1:], strict=False):
+            if e <= s:
+                continue
+            lw = logw - _logsumexp(logw[None, :], axis=1)[0]
+            out[s:e] = _logsumexp(lw[None, :, None] + lp[s:e], axis=1)
         return np.where(seq.avail, out, -np.inf)
 
     def param_count(self) -> int:

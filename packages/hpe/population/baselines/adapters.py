@@ -1,28 +1,39 @@
-"""Conventional individual-adaptation comparators on a population GRU backbone (thesis §4, pool items 4–7).
+"""Conventional individual-adaptation comparators on a population GRU backbone (thesis §4, pool items 4–7, and
+the Gate B2 adapter set of ``docs/phase3/ADAPTATION_BENCHMARKS.md`` §3).
 
-Every adapter predicts step ``t`` with parameters fitted only on the participant's steps ``< u(t)``, where
-``u(t)`` is the last update point ``<= t`` (update every ``m`` steps; ``backbone.update_points``), and with the
-recurrent state running over ``x[:t+1]``. Hence row ``t`` depends on ``x[:t+1]`` and ``actions[:t]`` only.
-Each refit starts from the population (or meta-learned) parameters, so no state drifts between updates.
+Every adapter is a ``core.adaptation.AdaptiveBase``: the **harness** owns the adaptation modes (critic finding
+G-1). The model only defines
 
-* ``ft_head``      — online fine-tuning of the output layer: ``n`` Adam steps (``lr``) on the mean NLL of the
-                     participant's past scored steps (+ optional L2 pull ``l2`` to the population head).
-* ``ft_full``      — the same on all weights, with an L2 pull ``l2/2 · ||θ − θ_pop||²``.
-* ``bayes_head``   — Gaussian prior ``N(W_pop, σ² I)`` on the head ``W = [weights | bias]``; MAP by Newton's method
-                     (warm-started) on the past scored steps; ``predictive="laplace"`` uses the Laplace posterior
-                     and the mean-field softmax correction ``μ_k / sqrt(1 + π v_k / 8)``. ``prior_var="eb"``:
-                     σ² chosen by type-II maximum likelihood (Laplace evidence) on the backbone's held-out
-                     validation participants (dev), i.e. an empirical-Bayes population prior.
-* ``exemplar_mix`` — ``p = (1 − w) p_pop + w p_kern``; ``p_kern(a) ∝ Σ_{s<t, scored} k(h_s, h_t) γ^{t−1−s} 1[a_s = a]
-                     + 1/K`` with a Gaussian kernel on backbone hidden states (bandwidth ``bw`` × the median
-                     squared within-person distance measured on dev).
-* ``reptile_gru``  — first-order meta-learning (Reptile; Nichol, Achiam & Schulman, 2018) of the GRU weights,
-                     starting from the population backbone: a task is one dev participant; the inner loop takes
-                     ``n`` Adam steps on growing prefixes of their sequence (the online-adaptation regime);
-                     ``θ ← θ + ε (φ − θ)``. At test time, online full fine-tuning from the meta-learned weights.
+* ``update_every`` (= config ``m``): the harness refits the person-level state at rows ``m, 2m, …``;
+* ``init_state()``: the population prior (``None`` = population parameters unchanged);
+* ``update_state(state, history)``: the new person-level state from ``history`` — a truncated, re-keyed copy of
+  the first ``j·m`` trials (own trials in ``adapt``; the donor's, length-matched, in the A2 control);
+* ``predict_with_states(seq, states)``: rows ``[start_i, start_{i+1})`` predicted with ``states[i]`` while the
+  recurrent state runs over ``x[:t+1]`` (in-context dynamics, causal).
 
-``mode="frozen"`` returns the (meta-learned) population predictions; ``donor=`` fits the individual parameters
-on the donor's whole sequence, then holds them fixed while predicting ``seq`` (Gate A2 control).
+Each refit starts from the population (or meta-learned) parameters, so no state drifts between updates
+(``bayes_head`` warm-starts Newton's method from the previous MAP, which does not change the optimum).
+
+* ``ft_head``      — output layer fine-tuned by ``n`` Adam steps (``lr``) on the mean NLL of the history's scored
+                     trials (+ optional L2 pull ``l2`` to the population head).
+* ``ft_full``      — all weights, BPTT over the history, gradient clip 1, L2 pull ``l2/2·‖θ − θ_pop‖²``
+                     (dynamic evaluation).
+* ``bayes_head``   — Gaussian prior ``N(W_pop, σ² I)`` on ``W = [weights | bias]``; MAP by damped Newton;
+                     ``predictive="laplace"`` uses the Laplace posterior and the mean-field softmax correction
+                     ``μ_k / sqrt(1 + π v_k / 8)``. ``prior_var="eb"``: σ² chosen by type-II maximum likelihood
+                     (Laplace evidence) on the backbone's held-out validation participants (dev).
+* ``exemplar_mix`` — ``p = (1 − w) p_pop + w p_kern``; the state is the person's memory of (hidden state, choice,
+                     position) pairs; ``p_kern(a) ∝ Σ_s k(h_s, h_t) γ^{t−1−s} 1[a_s = a] + 1/K`` with a Gaussian
+                     kernel (bandwidth ``bw`` × the median squared within-person distance on dev).
+* ``reptile_gru``  — first-order meta-learning (Reptile; Nichol, Achiam & Schulman, 2018) of the GRU weights from
+                     the population backbone: task = one dev participant; inner loop = ``n`` Adam steps on growing
+                     prefixes of the sequence; ``θ ← θ + ε (φ̄ − θ)``. Test: ``ft_full`` from the meta-learned
+                     weights (no L2).
+* ``cavia_gru``    — CAVIA (Zintgraf et al., 2019): a per-person context vector ``c ∈ R^d`` (``c_dim``) fed to the
+                     GRU input at every step and to the head; shared weights initialised from the backbone with the
+                     context weights at 0 (so ``c = 0`` reproduces ``pop_gru``) and meta-trained through the inner
+                     loop (second order; ``c ← c − α ∇_c NLL(prefix)``, ``n_inner`` steps, fixed ``α``) to predict
+                     the suffix. Test: the same inner loop on the history, from ``c = 0``.
 """
 
 from __future__ import annotations
@@ -33,6 +44,7 @@ from typing import Any
 
 import numpy as np
 import torch
+from torch import nn
 
 from hpe.core.rng import stream
 from hpe.population.baselines.backbone import (
@@ -40,21 +52,28 @@ from hpe.population.baselines.backbone import (
     hidden_states,
     masked_logsoftmax_np,
     train_backbone,
-    update_points,
 )
 from hpe.population.core import nets
+from hpe.population.core.adaptation import AdaptiveBase
 from hpe.population.core.encoding import EncodedSeq
 from hpe.population.core.interface import ModelSpec, register_model
 
+States = list[tuple[int, Any]]
 
-class _BackboneAdapter:
+
+def _segments(states: States, T: int) -> list[tuple[int, int, Any]]:
+    starts = [s for s, _ in states] + [T]
+    return [(s, e, st) for (s, st), e in zip(states, starts[1:], strict=False) if e > s]
+
+
+class _BackboneAdapter(AdaptiveBase):
     adaptive = True
     name = "adapter"
 
     def __init__(self, config: dict[str, Any], k_max: int, d_in: int) -> None:
         self.config = dict(config)
         self.k_max, self.d_in = k_max, d_in
-        self.m = int(config.get("m", 25))
+        self.update_every = max(1, int(config.get("m", 25)))
         self.net: nets.PopRNN | None = None
         self.fit_info: dict[str, Any] = {}
 
@@ -66,7 +85,6 @@ class _BackboneAdapter:
         self.net, log = train_backbone(
             train, bb, bseed, d_in=self.d_in, k_max=self.k_max, threads=threads, budget_s=budget_s
         )
-        self.threads = threads
         extra = self._fit_extra(train, seed=seed, budget_s=max(1.0, budget_s - (time.process_time() - t0)))
         self.fit_info = {**log, **extra}
         return self.fit_info
@@ -79,22 +97,11 @@ class _BackboneAdapter:
             raise RuntimeError(f"{self.name}: predict before fit")
         return self.net
 
-    # ------------------------------------------------------------------ prediction
-    def predict_logprobs(
-        self, seq: EncodedSeq, *, mode: str = "adapt", donor: EncodedSeq | None = None
-    ) -> np.ndarray:
-        net = self._require_net()
-        if mode == "frozen":
-            return hidden_states(net, seq)[1]
-        if donor is not None:
-            return self._predict_donor(seq, donor)
-        return self._predict_online(seq)
+    def init_state(self) -> Any:
+        return None
 
-    def _predict_online(self, seq: EncodedSeq) -> np.ndarray:
-        raise NotImplementedError
-
-    def _predict_donor(self, seq: EncodedSeq, donor: EncodedSeq) -> np.ndarray:
-        raise NotImplementedError
+    def twin_config(self) -> dict[str, Any] | None:
+        return backbone_config(self.config)
 
     def param_count(self) -> int:
         return nets.n_params(self._require_net())
@@ -106,22 +113,26 @@ class _BackboneAdapter:
         return {
             "population_params": self.param_count(),
             "per_person_params": self.per_person_params(),
-            "update_every_m_steps": self.m,
+            "update_every": self.update_every,
             "config": self.config,
             "backbone_cpu_s": self.fit_info.get("backbone_cpu_s"),
             "backbone_cached": self.fit_info.get("backbone_cached"),
         }
 
 
-# ============================================================================ head fine-tuning
 def _tensor(a: np.ndarray) -> torch.Tensor:
     return torch.from_numpy(np.ascontiguousarray(a))
 
 
+# ============================================================================ head fine-tuning
 class FTHead(_BackboneAdapter):
     name = "ft_head"
 
-    def _fit_head(self, H: np.ndarray, a: np.ndarray, avail: np.ndarray) -> tuple[torch.Tensor, torch.Tensor]:
+    def update_state(self, state: Any, history: EncodedSeq) -> Any:
+        idx = np.flatnonzero(history.scored)
+        if idx.size == 0:
+            return state
+        H, _ = hidden_states(self._require_net(), history)
         net = self._require_net()
         W0 = net.head.weight.detach().double()
         b0 = net.head.bias.detach().double()
@@ -133,7 +144,7 @@ class FTHead(_BackboneAdapter):
             float(self.config.get("l2", 0.0)),
         )
         opt = torch.optim.Adam([W, b], lr=lr)
-        Ht, at, avt = _tensor(H), _tensor(a), _tensor(avail)
+        Ht, at, avt = _tensor(H[idx]), _tensor(history.actions[idx]), _tensor(history.avail[idx])
         for _ in range(n):
             logp = nets.masked_log_softmax(Ht @ W.T + b, avt)
             loss = -logp.gather(1, at.unsqueeze(1)).mean()
@@ -142,33 +153,15 @@ class FTHead(_BackboneAdapter):
             opt.zero_grad()
             loss.backward()  # type: ignore[no-untyped-call]
             opt.step()
-        return W.detach(), b.detach()
+        return (W.detach().numpy().copy(), b.detach().numpy().copy())
 
-    @staticmethod
-    def _apply(H: np.ndarray, W: torch.Tensor, b: torch.Tensor, avail: np.ndarray) -> np.ndarray:
-        logits = (_tensor(H) @ W.T + b).numpy()
-        return masked_logsoftmax_np(logits, avail)
-
-    def _predict_online(self, seq: EncodedSeq) -> np.ndarray:
+    def predict_with_states(self, seq: EncodedSeq, states: States) -> np.ndarray:
         H, out = hidden_states(self._require_net(), seq)
-        for u in update_points(seq.T, self.m):
-            idx = np.flatnonzero(seq.scored[:u])
-            if idx.size == 0:
-                continue
-            W, b = self._fit_head(H[idx], seq.actions[idx], seq.avail[idx])
-            end = min(seq.T, u + self.m)
-            out[u:end] = self._apply(H[u:end], W, b, seq.avail[u:end])
+        for s, e, st in _segments(states, seq.T):
+            if st is not None:
+                W, b = st
+                out[s:e] = masked_logsoftmax_np(H[s:e] @ W.T + b, seq.avail[s:e])
         return out
-
-    def _predict_donor(self, seq: EncodedSeq, donor: EncodedSeq) -> np.ndarray:
-        net = self._require_net()
-        Hd, _ = hidden_states(net, donor)
-        idx = np.flatnonzero(donor.scored)
-        H, out = hidden_states(net, seq)
-        if idx.size == 0:
-            return out
-        W, b = self._fit_head(Hd[idx], donor.actions[idx], donor.avail[idx])
-        return self._apply(H, W, b, seq.avail)
 
     def per_person_params(self) -> int:
         net = self._require_net()
@@ -176,24 +169,26 @@ class FTHead(_BackboneAdapter):
 
 
 # ============================================================================ full fine-tuning
+def nn_clip(net: torch.nn.Module, clip: float = 1.0) -> None:
+    torch.nn.utils.clip_grad_norm_(net.parameters(), clip)
+
+
 def _finetune_full(
-    net0: nets.PopRNN, seq: EncodedSeq, u: int, *, n: int, lr: float, l2: float
-) -> nets.PopRNN:
-    """Copy of ``net0`` after ``n`` Adam steps on the mean NLL of ``seq``'s scored steps ``< u``."""
+    net0: nn.Module, seq: EncodedSeq, *, n: int, lr: float, l2: float
+) -> dict[str, torch.Tensor] | None:
+    """State dict of ``net0`` after ``n`` Adam steps on the mean NLL of all scored steps of ``seq``."""
+    b = nets.Batch([seq])
+    k = int(b.mask.sum())
+    if k == 0 or n <= 0:
+        return None
     net = copy.deepcopy(net0)
     net.eval()
     p0 = [p.detach().clone() for p in net.parameters()]
     opt = torch.optim.Adam(net.parameters(), lr=lr)
-    b = nets.Batch([seq])
-    x, av, a = b.x[:, :u], b.avail[:, :u], b.a[:, :u]
-    mask = b.mask[:, :u]
-    k = int(mask.sum())
-    if k == 0 or n <= 0:
-        return net
     for _ in range(n):
-        logp, _ = net(x, av)
-        lp = logp.gather(-1, a.unsqueeze(-1)).squeeze(-1)
-        loss = -torch.where(mask, lp, torch.zeros_like(lp)).sum() / k
+        logp, _ = net(b.x, b.avail)
+        lp = logp.gather(-1, b.a.unsqueeze(-1)).squeeze(-1)
+        loss = -torch.where(b.mask, lp, torch.zeros_like(lp)).sum() / k
         if l2:
             loss = loss + 0.5 * l2 * sum(
                 ((p - q) ** 2).sum() for p, q in zip(net.parameters(), p0, strict=True)
@@ -202,17 +197,13 @@ def _finetune_full(
         loss.backward()  # type: ignore[no-untyped-call]
         nn_clip(net)
         opt.step()
-    return net
-
-
-def nn_clip(net: torch.nn.Module, clip: float = 1.0) -> None:
-    torch.nn.utils.clip_grad_norm_(net.parameters(), clip)
+    return {kk: v.detach().clone() for kk, v in net.state_dict().items()}
 
 
 @torch.no_grad()
-def _logp_rows(net: nets.PopRNN, seq: EncodedSeq, start: int, end: int) -> np.ndarray:
+def _logp_rows(net: nn.Module, seq: EncodedSeq, start: int, end: int, **kw: Any) -> np.ndarray:
     b = nets.Batch([seq])
-    logp, _ = net(b.x[:, :end], b.avail[:, :end])
+    logp, _ = net(b.x[:, :end], b.avail[:, :end], **kw)
     out = logp[0, start:end].double().numpy()
     return np.where(seq.avail[start:end], out, -np.inf)
 
@@ -230,31 +221,21 @@ class FTFull(_BackboneAdapter):
     def _base(self) -> nets.PopRNN:
         return self._require_net()
 
-    def _predict_online(self, seq: EncodedSeq) -> np.ndarray:
+    def update_state(self, state: Any, history: EncodedSeq) -> Any:
+        n, lr, l2 = self._hp()
+        new = _finetune_full(self._base(), history, n=n, lr=lr, l2=l2)
+        return state if new is None else new
+
+    def predict_with_states(self, seq: EncodedSeq, states: States) -> np.ndarray:
         base = self._base()
-        n, lr, l2 = self._hp()
         out = hidden_states(base, seq)[1]
-        for u in update_points(seq.T, self.m):
-            if not seq.scored[:u].any():
-                continue
-            net_u = _finetune_full(base, seq, u, n=n, lr=lr, l2=l2)
-            end = min(seq.T, u + self.m)
-            out[u:end] = _logp_rows(net_u, seq, u, end)
+        work = copy.deepcopy(base)
+        work.eval()
+        for s, e, st in _segments(states, seq.T):
+            if st is not None:
+                work.load_state_dict(st)
+                out[s:e] = _logp_rows(work, seq, s, e)
         return out
-
-    def _predict_donor(self, seq: EncodedSeq, donor: EncodedSeq) -> np.ndarray:
-        n, lr, l2 = self._hp()
-        net_d = _finetune_full(self._base(), donor, donor.T, n=n, lr=lr, l2=l2)
-        return _logp_rows(net_d, seq, 0, seq.T)
-
-    def predict_logprobs(
-        self, seq: EncodedSeq, *, mode: str = "adapt", donor: EncodedSeq | None = None
-    ) -> np.ndarray:
-        if mode == "frozen":
-            return hidden_states(self._base(), seq)[1]
-        if donor is not None:
-            return self._predict_donor(seq, donor)
-        return self._predict_online(seq)
 
     def per_person_params(self) -> int:
         return self.param_count()
@@ -325,6 +306,9 @@ def map_head(
         W, f = Wn, fn
         if done:
             break
+    P = _probs(Phi, W, avail)
+    A = P[:, :, None] * np.eye(K)[None] - P[:, :, None] * P[:, None, :]
+    Hs = _hessian(A, Phi) + np.eye(K * D) * prec
     return W, Hs, f
 
 
@@ -343,7 +327,6 @@ class BayesHead(_BackboneAdapter):
         if pv != "eb":
             self.var = float(pv)
             return {"prior_var": self.var}
-        # empirical Bayes: Laplace evidence summed over the backbone's validation participants (dev)
         bseed = int(self.config.get("backbone_seed", seed))
         _, val = nets.split_train_val(train, bseed, "pop_gru")
         net = self._require_net()
@@ -358,44 +341,36 @@ class BayesHead(_BackboneAdapter):
             Phi = _phi(H[idx])
             for var in EB_GRID:
                 _W, Hs, f = map_head(Phi, s.actions[idx], s.avail[idx], W0, var)
-                logdet = np.linalg.slogdet(Hs)[1]
-                ev[var] += -f - 0.5 * K * D * np.log(var) - 0.5 * logdet
+                ev[var] += -f - 0.5 * K * D * np.log(var) - 0.5 * np.linalg.slogdet(Hs)[1]
         self.var = max(EB_GRID, key=lambda v: (ev[v], -v))
         return {"prior_var": self.var, "eb_log_evidence": {str(k): round(v, 3) for k, v in ev.items()}}
 
-    def _predict_rows(self, Phi: np.ndarray, W: np.ndarray, Hs: np.ndarray, avail: np.ndarray) -> np.ndarray:
-        mu = Phi @ W.T
-        if self.config.get("predictive", "map") == "laplace":
-            K, D = W.shape
-            S = np.linalg.inv(Hs).reshape(K, D, K, D)
-            Skk = np.stack([S[k, :, k, :] for k in range(K)])  # [K, D, D]
-            v = np.stack([((Phi @ Skk[k]) * Phi).sum(axis=1) for k in range(K)], axis=1)
-            mu = mu / np.sqrt(1.0 + np.pi * np.maximum(v, 0.0) / 8.0)
-        return masked_logsoftmax_np(mu, avail)
+    def update_state(self, state: Any, history: EncodedSeq) -> Any:
+        idx = np.flatnonzero(history.scored)
+        if idx.size == 0:
+            return state
+        H, _ = hidden_states(self._require_net(), history)
+        W_init = None if state is None else state[0]
+        W, Hs, _ = map_head(
+            _phi(H[idx]), history.actions[idx], history.avail[idx], self._W0(), self.var, W_init
+        )
+        return (W, Hs)
 
-    def _predict_online(self, seq: EncodedSeq) -> np.ndarray:
+    def predict_with_states(self, seq: EncodedSeq, states: States) -> np.ndarray:
         H, out = hidden_states(self._require_net(), seq)
         Phi = _phi(H)
-        W0 = self._W0()
-        W = W0
-        for u in update_points(seq.T, self.m):
-            idx = np.flatnonzero(seq.scored[:u])
-            if idx.size == 0:
+        for s, e, st in _segments(states, seq.T):
+            if st is None:
                 continue
-            W, Hs, _ = map_head(Phi[idx], seq.actions[idx], seq.avail[idx], W0, self.var, W_init=W)
-            end = min(seq.T, u + self.m)
-            out[u:end] = self._predict_rows(Phi[u:end], W, Hs, seq.avail[u:end])
+            W, Hs = st
+            mu = Phi[s:e] @ W.T
+            if self.config.get("predictive", "map") == "laplace":
+                K, D = W.shape
+                S = np.linalg.inv(Hs).reshape(K, D, K, D)
+                v = np.stack([((Phi[s:e] @ S[k, :, k, :]) * Phi[s:e]).sum(axis=1) for k in range(K)], axis=1)
+                mu = mu / np.sqrt(1.0 + np.pi * np.maximum(v, 0.0) / 8.0)
+            out[s:e] = masked_logsoftmax_np(mu, seq.avail[s:e])
         return out
-
-    def _predict_donor(self, seq: EncodedSeq, donor: EncodedSeq) -> np.ndarray:
-        net = self._require_net()
-        Hd, _ = hidden_states(net, donor)
-        idx = np.flatnonzero(donor.scored)
-        H, out = hidden_states(net, seq)
-        if idx.size == 0:
-            return out
-        W, Hs, _ = map_head(_phi(Hd)[idx], donor.actions[idx], donor.avail[idx], self._W0(), self.var)
-        return self._predict_rows(_phi(H), W, Hs, seq.avail)
 
     def per_person_params(self) -> int:
         net = self._require_net()
@@ -429,50 +404,35 @@ class ExemplarMix(_BackboneAdapter):
         self.ell2 = max(1e-6, float(self.config.get("bw", 1.0)) * med)
         return {"median_sq_dist": med, "ell2": self.ell2}
 
-    def _mix(self, out_pop: np.ndarray, p_kern: np.ndarray, avail: np.ndarray) -> np.ndarray:
-        wmix = float(self.config.get("w", 0.2))
-        p = (1.0 - wmix) * np.exp(out_pop) + wmix * p_kern
-        with np.errstate(divide="ignore"):
-            return np.where(avail, np.log(p), -np.inf)
-
-    def _predict_online(self, seq: EncodedSeq) -> np.ndarray:
-        H, out = hidden_states(self._require_net(), seq)
-        return self._mix(out, self._kernel_probs(H, seq), seq.avail)
-
-    def _kernel_probs(self, H: np.ndarray, seq: EncodedSeq) -> np.ndarray:
-        """Row t: kernel-weighted frequencies of the person's scored choices at steps s < t (+ 1/K prior)."""
-        gamma = float(self.config.get("decay", 1.0))
-        T, K = H.shape[0], seq.avail.shape[1]
-        d2 = _sqdist(H, H)
-        w = np.exp(-d2 / (2.0 * self.ell2))
-        t = np.arange(T)[:, None]
-        s = np.arange(T)[None, :]
-        w = np.where((s < t) & seq.scored[None, :], w * gamma ** np.maximum(t - 1 - s, 0), 0.0)
-        Y = np.zeros((T, K))
-        Y[np.arange(T), seq.actions] = 1.0
-        counts = (w @ Y) * seq.avail
-        kav = seq.avail.sum(axis=1, keepdims=True)
-        return np.where(seq.avail, (counts + 1.0 / kav) / (counts.sum(axis=1, keepdims=True) + 1.0), 0.0)
-
-    def _predict_donor(self, seq: EncodedSeq, donor: EncodedSeq) -> np.ndarray:
-        net = self._require_net()
-        Hd, _ = hidden_states(net, donor)
-        idx = np.flatnonzero(donor.scored)
-        H, out = hidden_states(net, seq)
+    def update_state(self, state: Any, history: EncodedSeq) -> Any:
+        idx = np.flatnonzero(history.scored)
         if idx.size == 0:
-            return out
-        d2 = _sqdist(H, Hd[idx])
-        w = np.exp(-d2 / (2.0 * self.ell2))
-        K = seq.avail.shape[1]
-        Y = np.zeros((idx.size, K))
-        Y[np.arange(idx.size), donor.actions[idx]] = 1.0
-        counts = (w @ Y) * seq.avail
-        kav = seq.avail.sum(axis=1, keepdims=True)
-        p = np.where(seq.avail, (counts + 1.0 / kav) / (counts.sum(axis=1, keepdims=True) + 1.0), 0.0)
-        return self._mix(out, p, seq.avail)
+            return state
+        H, _ = hidden_states(self._require_net(), history)
+        return (H[idx].copy(), history.actions[idx].copy(), idx.copy())
 
-    def per_person_params(self) -> int:
-        return 0  # non-parametric memory of the person's (hidden state, choice) pairs
+    def predict_with_states(self, seq: EncodedSeq, states: States) -> np.ndarray:
+        H, out = hidden_states(self._require_net(), seq)
+        wmix = float(self.config.get("w", 0.2))
+        gamma = float(self.config.get("decay", 1.0))
+        K = seq.k_max
+        for s, e, st in _segments(states, seq.T):
+            if st is None:
+                continue
+            Hk, ak, pos = st
+            w = np.exp(-_sqdist(H[s:e], Hk) / (2.0 * self.ell2))
+            t = np.arange(s, e)[:, None]
+            w = w * gamma ** np.maximum(t - 1 - pos[None, :], 0)
+            Y = np.zeros((ak.size, K))
+            Y[np.arange(ak.size), ak] = 1.0
+            av = seq.avail[s:e]
+            counts = (w @ Y) * av
+            kav = av.sum(axis=1, keepdims=True)
+            pk = np.where(av, (counts + 1.0 / kav) / (counts.sum(axis=1, keepdims=True) + 1.0), 0.0)
+            p = (1.0 - wmix) * np.exp(out[s:e]) + wmix * pk
+            with np.errstate(divide="ignore"):
+                out[s:e] = np.where(av, np.log(p), -np.inf)
+        return out
 
 
 # ============================================================================ Reptile
@@ -480,8 +440,7 @@ class ReptileGRU(FTFull):
     name = "reptile_gru"
 
     def _fit_extra(self, train: list[EncodedSeq], *, seed: int, budget_s: float) -> dict[str, Any]:
-        base = self._require_net()
-        meta = copy.deepcopy(base)
+        meta = copy.deepcopy(self._require_net())
         meta.eval()
         n, lr, _ = self._hp()
         iters = int(self.config.get("meta_iters", 300))
@@ -524,10 +483,149 @@ class ReptileGRU(FTFull):
         self.meta_net = meta
         return {"meta_iters_done": done, "meta_cpu_s": round(time.process_time() - t0, 2)}
 
+    def _hp(self) -> tuple[int, float, float]:
+        n, lr, _ = super()._hp()
+        return n, lr, 0.0
+
     def _base(self) -> nets.PopRNN:
         if not hasattr(self, "meta_net"):
             raise RuntimeError("reptile_gru: predict before fit")
         return self.meta_net
+
+
+# ============================================================================ CAVIA
+class CaviaNet(nn.Module):
+    """GRU over ``[x, c]`` and head over ``[h, c]``; ``c`` is a per-sequence context vector."""
+
+    def __init__(self, d_in: int, hidden: int, k: int, c_dim: int) -> None:
+        super().__init__()
+        self.c_dim = c_dim
+        self.rnn = nn.GRU(d_in + c_dim, hidden, batch_first=True)
+        self.head = nn.Linear(hidden + c_dim, k)
+
+    @classmethod
+    def from_backbone(cls, bb: nets.PopRNN, d_in: int, k: int, c_dim: int, seed: int) -> CaviaNet:
+        """Backbone weights copied; context weights drawn N(0, 0.1²) (exact zeros would be a saddle: ∇_c = 0).
+        With ``c = 0`` the network reproduces the backbone exactly."""
+        hidden = bb.rnn.hidden_size
+        net = cls(d_in, hidden, k, c_dim)
+        g = torch.Generator().manual_seed(int(seed) % (2**31 - 1))
+        with torch.no_grad():
+            net.rnn.weight_ih_l0[:, :d_in] = bb.rnn.weight_ih_l0
+            net.rnn.weight_ih_l0[:, d_in:] = 0.1 * torch.randn(3 * hidden, c_dim, generator=g)
+            net.rnn.weight_hh_l0.copy_(bb.rnn.weight_hh_l0)
+            net.rnn.bias_ih_l0.copy_(bb.rnn.bias_ih_l0)
+            net.rnn.bias_hh_l0.copy_(bb.rnn.bias_hh_l0)
+            net.head.weight[:, :hidden] = bb.head.weight
+            net.head.weight[:, hidden:] = 0.1 * torch.randn(k, c_dim, generator=g)
+            net.head.bias.copy_(bb.head.bias)
+        return net
+
+    def forward(
+        self, x: torch.Tensor, avail: torch.Tensor, c: torch.Tensor | None = None
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        B, T, _ = x.shape
+        if c is None:
+            c = torch.zeros(B, self.c_dim, dtype=x.dtype)
+        cc = c.unsqueeze(1).expand(B, T, self.c_dim)
+        h, _ = self.rnn(torch.cat([x, cc], dim=-1))
+        return nets.masked_log_softmax(self.head(torch.cat([h, cc], dim=-1)), avail), h
+
+
+def _masked_mean_nll(logp: torch.Tensor, b: nets.Batch, rows: torch.Tensor) -> torch.Tensor:
+    """Per-sequence mean NLL over scored rows selected by ``rows`` ([B, T] bool); 0 where none."""
+    lp = logp.gather(-1, b.a.unsqueeze(-1)).squeeze(-1)
+    m = b.mask & rows
+    n = m.sum(dim=1).clamp(min=1)
+    return -(torch.where(m, lp, torch.zeros_like(lp)).sum(dim=1) / n)
+
+
+class CaviaGRU(_BackboneAdapter):
+    name = "cavia_gru"
+
+    def _inner(self, net: CaviaNet, b: nets.Batch, rows: torch.Tensor, create_graph: bool) -> torch.Tensor:
+        alpha = float(self.config.get("inner_lr", 1.0))
+        c = torch.zeros(b.B, net.c_dim, requires_grad=True)
+        for _ in range(int(self.config.get("n_inner", 2))):
+            logp, _ = net(b.x, b.avail, c)
+            loss = _masked_mean_nll(logp, b, rows).sum()
+            (g,) = torch.autograd.grad(loss, c, create_graph=create_graph)
+            c = c - alpha * g
+        return c
+
+    def _fit_extra(self, train: list[EncodedSeq], *, seed: int, budget_s: float) -> dict[str, Any]:
+        c_dim = int(self.config.get("c_dim", 4))
+        net = CaviaNet.from_backbone(self._require_net(), self.d_in, self.k_max, c_dim, seed)
+        rng = stream(seed, "cavia_splits")
+
+        def split_rows(b: nets.Batch, fixed: bool) -> torch.Tensor:
+            lengths = b.mask.cumsum(dim=1).argmax(dim=1) + 1  # one past the last scored row
+            rows = torch.zeros(b.B, b.T, dtype=torch.bool)
+            for i in range(b.B):
+                Ti = int(lengths[i])
+                u = Ti // 2 if fixed else int(rng.integers(1, max(2, Ti)))
+                rows[i, :u] = True
+            return rows
+
+        def loss_fn(m: torch.nn.Module, b: nets.Batch, fixed: bool = False) -> tuple[torch.Tensor, int]:
+            assert isinstance(m, CaviaNet)
+            pre = split_rows(b, fixed)
+            c = self._inner(m, b, pre, create_graph=m.training)
+            logp, _ = m(b.x, b.avail, c)
+            lp = logp.gather(-1, b.a.unsqueeze(-1)).squeeze(-1)
+            post = b.mask & ~pre
+            return -torch.where(post, lp, torch.zeros_like(lp)).sum(), int(post.sum())
+
+        def val_fn(m: torch.nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
+            with torch.enable_grad():
+                s, k = loss_fn(m, b, fixed=True)
+            return s.detach(), k
+
+        log = nets.train(
+            net,
+            loss_fn,
+            train,
+            seed=int(self.config.get("backbone_seed", seed)),
+            key="pop_gru",
+            lr=float(self.config.get("meta_lr", 0.003)),
+            max_epochs=int(self.config.get("max_epochs", 40)),
+            patience=int(self.config.get("patience", 5)),
+            batch_size=int(self.config.get("batch_size", 8)),
+            budget_s=budget_s,
+            val_loss_fn=val_fn,
+        )
+        self.cnet = net
+        return {"cavia_train": log}
+
+    def _cnet(self) -> CaviaNet:
+        if not hasattr(self, "cnet"):
+            raise RuntimeError("cavia_gru: predict before fit")
+        return self.cnet
+
+    def init_state(self) -> Any:
+        return np.zeros(int(self.config.get("c_dim", 4)), dtype=np.float32)
+
+    def update_state(self, state: Any, history: EncodedSeq) -> Any:
+        if not history.scored.any():
+            return state
+        b = nets.Batch([history])
+        with torch.enable_grad():
+            c = self._inner(self._cnet(), b, torch.ones(1, b.T, dtype=torch.bool), create_graph=False)
+        return c.detach().numpy()[0].copy()
+
+    def predict_with_states(self, seq: EncodedSeq, states: States) -> np.ndarray:
+        net = self._cnet()
+        out = np.full((seq.T, seq.k_max), -np.inf)
+        for s, e, st in _segments(states, seq.T):
+            c = torch.from_numpy(np.asarray(st, dtype=np.float32))[None, :]
+            out[s:e] = _logp_rows(net, seq, s, e, c=c)
+        return out
+
+    def param_count(self) -> int:
+        return nets.n_params(self._cnet())
+
+    def per_person_params(self) -> int:
+        return int(self.config.get("c_dim", 4))
 
 
 # ============================================================================ registration
@@ -540,11 +638,7 @@ def _factory(cls: type[_BackboneAdapter]):  # type: ignore[no-untyped-def]
 
 _POOL: tuple[tuple[type[_BackboneAdapter], dict[str, list[Any]], str], ...] = (
     (FTHead, {"m": [10, 25], "n": [5, 20], "lr": [0.003, 0.01, 0.03]}, "pop_gru + online head fine-tuning"),
-    (
-        FTFull,
-        {"n": [3, 10], "lr": [0.0003, 0.001, 0.003], "l2": [0.0, 1.0]},
-        "pop_gru + online full fine-tuning",
-    ),
+    (FTFull, {"n": [3, 10], "lr": [0.001, 0.003], "l2": [0.0, 1.0]}, "pop_gru + online full fine-tuning"),
     (
         BayesHead,
         {"prior_var": ["eb", 0.01, 0.03, 0.1, 0.3, 1.0], "m": [10, 25], "predictive": ["map", "laplace"]},
@@ -555,10 +649,11 @@ _POOL: tuple[tuple[type[_BackboneAdapter], dict[str, list[Any]], str], ...] = (
         {"w": [0.05, 0.1, 0.2, 0.4], "bw": [0.25, 1.0, 4.0], "decay": [1.0, 0.98]},
         "pop_gru + exemplar-memory mixture",
     ),
+    (ReptileGRU, {"lr": [0.001, 0.003], "n": [3, 10]}, "Reptile-meta-learned GRU + online fine-tuning"),
     (
-        ReptileGRU,
-        {"lr": [0.001, 0.003], "n": [3, 10], "meta_lr": [0.1, 0.5]},
-        "Reptile-meta-learned GRU + online fine-tuning",
+        CaviaGRU,
+        {"c_dim": [4, 8], "inner_lr": [0.3, 1.0]},
+        "CAVIA context-latent GRU (gradient-adapted latent)",
     ),
 )
 for _cls, _grid, _note in _POOL:

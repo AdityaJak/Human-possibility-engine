@@ -10,6 +10,7 @@ import pytest
 
 from hpe.evaluation.human.psych101 import Participant
 from hpe.evaluation.human.psych101_v2 import N_FEATURES, GenericTrial
+from hpe.population.core.adaptation import AdaptiveBase, overrides_harness
 from hpe.population.core.conformance import check_causal
 from hpe.population.core.encoding import EncodedSeq, encode, input_dim
 from hpe.population.core.interface import get_model
@@ -60,8 +61,15 @@ def _check(name: str, cfg: dict[str, Any], seqs: list[EncodedSeq]) -> None:
     assert fr.shape == dn.shape == a.shape and np.isfinite(fr[:, :3]).all() and np.isfinite(dn[:, :3]).all()
     d = m1.describe()
     assert d["population_params"] == m1.param_count() >= 1
+    assert np.array_equal(m1.predict_logprobs(s), a), f"{name}: predicting mutated the model"
     if getattr(m1, "adaptive", False):
         assert not np.array_equal(a, fr), f"{name}: adaptation had no effect"
+        assert isinstance(m1, AdaptiveBase) and not overrides_harness(m1), (
+            f"{name}: must use the core harness"
+        )
+        # rows before the first update use the prior state in every mode
+        m = m1.update_every
+        assert np.array_equal(a[:m], fr[:m]) and np.array_equal(dn[:m], fr[:m])
 
 
 torch = pytest.importorskip("torch")
@@ -79,7 +87,19 @@ BB = {"hidden": 6, "lr": 0.01, "dropout": 0.0, "max_epochs": 3, "patience": 10, 
             {"backbone": BB, "backbone_seed": 3, "m": 5, "prior_var": 1.0, "predictive": "laplace"},
         ),
         ("bayes_head", {"backbone": BB, "backbone_seed": 3, "m": 5, "prior_var": "eb", "predictive": "map"}),
-        ("exemplar_mix", {"backbone": BB, "backbone_seed": 3, "w": 0.3, "bw": 1.0, "decay": 0.98}),
+        ("exemplar_mix", {"backbone": BB, "backbone_seed": 3, "m": 3, "w": 0.3, "bw": 1.0, "decay": 0.98}),
+        (
+            "cavia_gru",
+            {
+                "backbone": BB,
+                "backbone_seed": 3,
+                "m": 10,
+                "c_dim": 2,
+                "inner_lr": 1.0,
+                "n_inner": 2,
+                "max_epochs": 2,
+            },
+        ),
         (
             "reptile_gru",
             {
