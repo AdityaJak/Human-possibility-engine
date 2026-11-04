@@ -76,7 +76,7 @@ Diagnostics:
 * post-switch normalized return: IRA 0.504, meta-RL 0.112, `ira_nochange` 0.141;
 * steps to the first reaction (iid): IRA 1.57, meta-RL 1.07;
 * library agreement with the true roles (adjusted Rand index): 0.268, 0.302, 0.260;
-* IRA probes: **0 in 36,000 confirmatory steps**.
+* IRA probes: **0 in 56,000 confirmatory steps**.
 
 ### 1.4 What attempt 1 does and does not show
 
@@ -88,9 +88,9 @@ Diagnostics:
     M4 compared Thompson sampling with greedy selection (F4); it did not test active identification.
   * Concepts were never created for the unseen role (M2 = 0.000; K constant).
   * The library only partly recovers the roles (ARI ≈ 0.27).
-* **The generic meta-learner transfers well.** It was trained without any shift, yet it lost little under cue
-  reversal (0.937 → 0.870), lost nothing under recombination (0.940), and handled the unseen role (0.865) better
-  than IRA. The critique's expectation that it "learned incidental correlations" is not borne out, except under the
+* **In attempt 1 the generic meta-learner transferred well.** It was trained without any shift, yet it lost little
+  under cue reversal (0.937 → 0.870), lost nothing under recombination (0.940), and handled the unseen role (0.865)
+  better than IRA. Attempt 2 differs under cue reversal (§2.4). The critique's expectation that it "learned incidental correlations" is not borne out, except under the
   role switch.
 
 ## 2. Attempt 2 — revision R1 (confirmatory universes 4–8, 100 worlds per condition per universe)
@@ -109,8 +109,10 @@ Diagnostics:
 **Deviation R1-X1 (analysis code).**
 * What happened: the stage-1 summary refused to run. The frozen check "was this stage-2 comparator run?" applied
   `any()` to generator objects, which are always truthy, so the skip was never recognised.
-* The loud stage gate added after the critic's review stopped the run instead of deciding. No result was printed or
-  read.
+* The loud stage gate added after the critic's review stopped the run instead of deciding. Per-cell means had been
+  printed in the evaluation logs during the run (and 22 such lines are in the partial snapshot 1ea845b). No contrast
+  or test had been computed. The critic reproduced the committed summary byte for byte with the fixed code, so the
+  fix cannot change any number.
 * The line was fixed (`u1/stats.py`, commented) and the preregistered analysis then run unchanged. Because the code
   changed after the freeze, the freeze hash no longer matches `stats.py`. No evaluation code changed.
 
@@ -170,15 +172,18 @@ p = 0.35. **Fails.**
 
 * **Fixing the information gain changed behaviour but did not help.**
   * IRA now probes, most under novelty (0.94 per world on `novel_role`).
-  * Yet removing information-gain-driven action selection entirely does not hurt; it helps slightly (M4 −0.016;
-    `ira_noactive` beats `ira` on `novel_role`, 0.806 vs 0.747).
-  * More information seeking is worse still (`ira_beta1`, every condition).
-  * Within a 20-step episode, greedy exploitation of the posterior beats paying for experiments in this
-    environment family.
+  * Yet removing information-gain-driven action selection entirely does not hurt. β = 0 is at least as good
+    (M4 −0.016, not significant; `ira_noactive` vs `ira` on `novel_role` 0.806 vs 0.747).
+  * More information seeking is worse (`ira_beta1`, every condition).
+  * Within a 20-step episode in this environment family, paying for experiments is no better than greedy
+    exploitation of the posterior.
 * **Concepts are not formed for novelty.**
-  * The open concept set is inert (M2), and a new concept was opened in 1 of 500 unseen-role worlds.
-  * The learned library makes the unseen role *harder*: `ira` 0.747 vs `ira_nolibrary` 0.780. Well-learned concepts
-    absorb the novel entity, so knowledge entrenches.
+  * The open concept set is inert (M2), and a new concept was opened in 2 of 500 unseen-role worlds (both in
+    universe 4).
+  * Pooled, the learned library did slightly worse than no library on the unseen role (`ira` 0.747 vs
+    `ira_nolibrary` 0.780). Per universe it was mixed (−0.083, −0.206, +0.027, −0.036, +0.132), and in attempt 1
+    the library helped in all three universes. This was not preregistered and is **not a finding** ("entrenchment"
+    is a hypothesis only).
 * **The cross-world library is the one learned component that clearly helps** (M5 +0.135 in-distribution). This is
   ordinary hierarchical-Bayesian transfer, not a new mechanism.
 * **The only robust advantage over the meta-trained agent is the role switch.**
@@ -186,10 +191,11 @@ p = 0.35. **Fails.**
   * Meta-learners trained with mid-episode switches matched or exceeded IRA there on dev (`gru_broad` 0.673,
     `rel_broad` 0.770 vs IRA 0.682). This is not a held-out comparison: the dev models were trained before t = 10
     was excluded from their training switch times.
-* **Cue reversal hurts the narrow GRU strongly in two universes** (u4 and u8; IRA − GRU +0.18 and +0.37), while
-  IRA's cue tracking protects it there (M1 +0.45 in u8). The effect is not consistent across universes (2 of 5),
-  so it does not pass. This is the closest thing to the predicted "incidental correlation" failure, and it is
-  universe-dependent: it depends on how the reversed codes map onto other roles' codes.
+* **Cue reversal hurts the narrow GRU strongly in two universes** (u4 and u8; IRA − GRU +0.18 and +0.37), and IRA
+  is behind in the other three, so the H1 contrast does not pass (2 of 5).
+  * IRA's cue tracking (M1) has the same sign in all five universes, but its size is very uneven (+0.005 to +0.450).
+  * This is the closest thing to the predicted "incidental correlation" failure. No analysis here explains why it
+    occurs in only some universes.
 
 ## 3. Both attempts together
 
@@ -197,8 +203,8 @@ p = 0.35. **Fails.**
 |---|---|---|
 | H1: IRA beats a meta-trained recurrent agent under ≥ 3 of 4 shifts | not supported (1/4) | not supported (1/4) |
 | active identification explains performance | not tested (agent never probed) | **no** (M4 −0.016) |
-| new concepts opened for the unseen concept | no (M2 0.000) | no (M2 +0.005; 1/500 worlds) |
-| cue-validity tracking separates general from incidental | no (M1 +0.019) | inconsistent (M1 +0.120, 2 universes carry it) |
+| new concepts opened for the unseen concept | no (M2 0.000) | no (M2 +0.005; 2/500 worlds) |
+| cue-validity tracking separates general from incidental | no (M1 +0.019) | not established (M1 +0.120; same sign in 5/5 universes, very uneven, not significant) |
 | re-identification after change | yes (M3 +0.180), hand-written rule | yes (M3 +0.221), hand-written rule |
 | cross-world library | yes (M5 +0.083) | yes (M5 +0.135) |
-| accumulation without retraining | no (+0.027) | no (+0.006) |
+| accumulation without retraining | not supported (+0.027, below the 0.05 margin) | not supported (+0.006) |

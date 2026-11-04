@@ -622,3 +622,173 @@ and R1 must not replace attempt 1.
 * **The principle-level claim still needs both:**
   * M4 to pass at the frozen β;
   * new concepts to actually be used in `novel_role`.
+
+## Post-results critique (both attempts)
+
+_Reviewed at `7ddfc80`: results `4ee56f1`, verdict `a35b629`, status updates `7ddfc80`. **[critic check]** means one of
+the following, all done in the scratchpad (≈ 10 CPU-s, no training or evaluation):
+* a recomputation from the raw world-level `jsonl` files with the critic's own code, not `u1.stats`;
+* a re-run of the frozen or the fixed `stats.py` on a scratch copy of `results_r1/`._
+
+**Statement.** The REJECT decision stands. **But the verdict text must change before it is final:**
+* three wrong numbers corrected (P-2);
+* three of the "claims that survive" removed or downgraded (P-3, P-4, P-5);
+* "refuted" replaced by "not supported" for new-concept creation and accumulation (P-6);
+* the integrity wording about deviation R1-X1 corrected (P-1).
+
+### P-1 — Deviation R1-X1: verified, but one sentence must be reworded
+
+**Only one code line changed after the freeze.** **[critic check]** The post-freeze changes are:
+* one line in `stats.py`, the stage-2 presence check;
+* an appended paragraph in the preregistration.
+
+Every other hashed file matches `results_r1/FREEZE.json`.
+
+**The fix cannot change any number.**
+* **[critic check]** The frozen `stats.py` (sha `1ac1ea4a…`, as in the freeze) raises `IncompleteResults` on
+  `u4/confirm/gru_broad__iid.jsonl` before it prints or writes anything.
+* The fixed `stats.py` reproduces the committed `summary_confirm.json` **byte for byte**.
+* The changed line only decides whether a comparator that was not run is skipped; it never enters a contrast.
+
+**What must be reworded.** These statements are not accurate as written:
+* "No result was printed or read" (`TRANSFER_RESULTS.md` §2);
+* "before any R1 result was read" (`SCIENTIFIC_VERDICT.md` §6 and the preregistration's R1-X1 entry).
+
+`cmd_eval` prints per-agent, per-condition means while the run is going — for example
+`u4 confirm gru_narrow cue_reversed norm 0.621` in `confirm_logs/gru_narrow_u4.log`. The partial snapshot `1ea845b`
+committed 22 such lines before the fix.
+
+The true statement is also the sufficient one: *no contrast or test was computed before the fix, and the fix cannot
+change any number.* Say that instead.
+
+**The loud stage gate worked as designed.** `confirm_run.out` reads "STAGE 1 FAILED … not deciding stage 2".
+
+### P-2 — Every preregistered R1 statistic reproduces; three factual errors
+
+**What reproduces.** **[critic check]** From the raw files, all of the following match `report_confirm.md` and
+`summary_confirm.json` to ±0.001:
+* every H1 contrast — estimate, per-universe values, t, p and Holm p;
+* M1–M5;
+* A.
+
+`gru_narrow` trained for 20,000 updates in all five universes (logs). The R1-D dev table matches `results_r1/u0/dev/`.
+
+**Three errors.** None of them changes a decision.
+
+| statement | where | correct value |
+|---|---|---|
+| "0 probes in **36,000** confirmatory steps" | VERDICT:51, TRANSFER:79 | Attempt 1 had **56,000** IRA confirmatory steps (2,800 worlds × 20), none of them a probe (**[critic check]**) |
+| "a new concept in **1 of 500** unseen-role worlds" | VERDICT:76, TRANSFER:179, NEW_INTELLIGENCE_PRINCIPLE:9 | **2 of 500**, both in u4: `diagnostics_concepts.json` gives 0.02 for u4, and TRANSFER's own table says "2%" (**[critic check]**) |
+| "K unchanged" | VERDICT:78 | True in attempt 1 (5→5, 8→8, 7→7). In attempt 2, universe 4 went **7→8** (**[critic check]**) |
+
+### P-3 — §5.1 is false for attempt 2 — **veto**
+
+The verdict says the meta-learner "transfers well to cue reversal … matched or beat the structured agent in 3 of 4
+shifts in both attempts". In attempt 2:
+
+* **Cue reversal.** `gru_narrow` fell from 0.936 (`iid`) to 0.733, and IRA was ahead pooled: +0.084, world-level CI
+  [+0.057, +0.110], with +0.18 and +0.37 in u4 and u8. The test did not pass.
+* **Overall.** The GRU matched or beat IRA in only **2 of 4** shifts (`recombined` −0.006, `novel_role` −0.044). It
+  lost `role_switch`.
+* **Unseen role.** The GRU itself dropped by 0.145 on `novel_role`.
+
+`TRANSFER_RESULTS.md` §2.4 states this correctly. VERDICT §5.1 contradicts it, and so does the "transfers well"
+wording of TRANSFER §1.4 when it is carried over to both attempts.
+
+**Rewrite as:** "In attempt 1 it matched or beat IRA under 3 of 4 shifts; in attempt 2 under 2 of 4, with a large,
+universe-dependent loss to IRA under cue reversal (u4, u8)."
+
+An overclaim *against* the proposed agent must be corrected as strictly as one in its favour.
+
+### P-4 — "Entrenchment" is not a finding — **veto §5.4** and the matching statements
+
+This comparison was not preregistered, and the evidence points both ways. **[critic check]**, `ira` − `ira_nolibrary`
+on `novel_role`:
+
+* **Attempt 2:** −0.083, −0.206, +0.027, −0.036, +0.132 per universe. The pooled −0.033 is carried by u5.
+* **Attempt 1:** +0.027, +0.068, +0.026. The library *helped* in 3 of 3 universes.
+* **Dev** (one universe, paired over 50 seeds): 0.730 vs 0.785.
+
+At most, say: "the learned library did not help on `novel_role` in attempt 2 (mixed across universes), although it
+helped in attempt 1; entrenchment is a hypothesis, not a finding."
+
+The same correction applies to:
+* VERDICT §3 (iii), "knowledge entrenches";
+* TRANSFER §2.4, "so knowledge entrenches";
+* §7's premise "the library made the unseen concept harder". Keep the research suggestion, but not as established
+  fact.
+
+### P-5 — §5.2 is not a claim that survives — **veto** (move it to dev observations)
+
+The claim rests on dev data only:
+* one design universe;
+* scratch-trained models (15,000 updates) whose training switch times included t = 10, so `role_switch` was
+  in-distribution for them.
+
+On dev `role_switch`, `gru_broad` was **not** ahead of IRA (0.673 vs 0.682); only `rel_broad` was (0.770).
+
+Move §5.2 to "dev observations (not confirmatory, not held out)". VERDICT §2's sentence "On dev, the relational
+meta-learner … exceeded IRA in four of five conditions, including the role switch" needs the same not-held-out
+qualifier.
+
+### P-6 — "Refuted" is too strong for (iii) and for accumulation; acceptable for (i) with its scope stated
+
+* **(i) Information-gain action selection.** M4 is −0.016, with all five universes ≤ 0 (**[critic check]**:
+  reverse-direction two-sided p ≈ 0.13). β = 1 is worse than β = 0.5 in every condition, pooled, by 0.047–0.091.
+  * "Refuted in this environment family" is defensible if it adds "for this implementation: a BALD-style bonus, β
+    selected on `iid`, 20-step episodes".
+  * Write "at least as good", not "beats". §5.3 and TRANSFER §2.4 say greedy exploitation "beats paying for
+    experiments", but the difference is not significant.
+* **(iii) Opening new concepts.** The mechanism almost never fired (2 of 500 worlds).
+  * With α = 1 against roughly 10³ memberships, the prior puts a fresh label 5–7 nats behind any established concept
+    (critique F2).
+  * The experiment cannot tell "opening concepts does not help" from "this implementation almost never opens them".
+  * Status should be **"not supported; not exercised as implemented"**, not "refuted".
+* **Accumulation.** A failed its margin twice. But attempt 1 showed a small positive effect (+0.027, p = 0.009,
+  positive in 3 of 3 universes), and attempt 2 a null (+0.006).
+  * "Not supported", plus "requires offline re-clustering during training" (D-2), is accurate. "Refuted" is not.
+* **(ii) Cue-validity tracking.** M1 = +0.120 was **positive in all five universes** (+0.031, +0.084, +0.031, +0.005,
+  +0.450). It exceeded the 0.05 margin in only two, and it failed Holm (p = 0.34).
+  * Replace "inconsistent" and "carried by 2 of 5" with "same sign everywhere, very uneven in size".
+  * The explanation "it helps when a reversed cue maps onto another known role's code" (VERDICT §3 (ii), TRANSFER
+    §2.4) is a post-hoc hypothesis with no analysis in the repository. Label it as such, or test it. The test: in
+    each universe, count the known roles whose complemented code equals another known role's code, and compare that
+    count with M1 in that universe.
+
+### P-7 — Minor wording
+
+* **The condition that passed.** VERDICT §1 says that in attempt 2 "the condition that passed is not attributable to
+  the principle". It *is* attributable to component (iv) of the stated principle — re-identification after
+  contradiction — implemented as a fixed-threshold surprise rule, which is a known change-detection heuristic. Say
+  exactly that.
+* **Cue-validity tracking.** VERDICT §1's list of mechanisms omits it. Include it as "positive in direction, not
+  established".
+* **Scope.** The verdict sentence should say the hypothesis is rejected "as preregistered, in the one co-designed
+  environment family tested".
+
+### P-8 — Rejecting despite the skipped stage 2 is correct
+
+* H1 needs IRA to beat *every* comparator (an intersection–union test). Failing against `gru_narrow` — 1 of 4 shifts,
+  as in attempt 1 — is therefore enough for "not supported". The skipped comparators could only have made H1 harder.
+* The skip was preregistered and carried out as written.
+* What it leaves unknown is only how the broad and relational comparators would have done on confirmatory universes.
+  Every statement about them must stay labelled as dev (see P-5).
+
+### P-9 — Claims that survive, after the corrections above
+
+1. **H1 failed in both attempts** (1 of 4 shift conditions each). REJECT, as preregistered, in this environment
+   family.
+2. **The role-switch advantage is the surprise-reset rule.** In both attempts (+0.173 / +0.214) it is explained by M3
+   (+0.180 / +0.221). That is component (iv), implemented as a designer-set change-detection heuristic.
+3. **The cross-world library helps in-distribution.** It improves `iid` return over within-world inference (M5
+   +0.083 / +0.135). This is ordinary hierarchical Bayesian transfer.
+4. **Information gain did not help.** In this environment family, at the selected β, information-gain-directed action
+   selection was no better than greedy exploitation (M4 −0.016, all five universes ≤ 0). More weight on information
+   gain (β = 1) was worse in every condition.
+5. **Two mechanisms were not demonstrated:** creating new concepts (2 of 500 worlds) and additive accumulation
+   (A +0.027 / +0.006).
+6. **The flat RL² GRU, attempt by attempt:**
+   * attempt 1: it matched or beat IRA under 3 of 4 shifts;
+   * attempt 2: under 2 of 4, and under cue reversal it lost heavily in 2 of 5 universes;
+   * both attempts: it failed under the mid-episode switch (post-switch ≈ 0.10).
+7. **Novelty:** no new principle, algorithm or empirical finding. This stands.

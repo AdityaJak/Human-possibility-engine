@@ -64,8 +64,8 @@ pretending to predict fate.
     experiments) was built as an exact Bayesian agent. It was tested twice under preregistration against
     meta-trained recurrent agents, in hidden-law worlds with four held-out shifts.
   * Both attempts failed: 1 of 4 shifts each. Its only advantage came from a hand-written change-detection rule.
-  * Its defining mechanisms — information-gain experiments, new-concept formation, accumulation — did not help or
-    hurt. Its learned concept library made an unseen concept harder to recognise.
+  * Its defining mechanisms did not measurably help: information-gain experiments, new-concept formation and
+    accumulation.
   * An independent critic found and forced fixes to two blocking defects before the second attempt.
   * See [`U1_ORIGINAL_INTELLIGENCE/SCIENTIFIC_VERDICT.md`](U1_ORIGINAL_INTELLIGENCE/SCIENTIFIC_VERDICT.md).
 

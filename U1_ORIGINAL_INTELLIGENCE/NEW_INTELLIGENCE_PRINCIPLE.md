@@ -6,7 +6,7 @@
 > Two preregistered confirmatory attempts failed the primary hypothesis, each passing 1 of 4 shift conditions. In
 > attempt 2 the components that define the principle did not help:
 > * active identification by information gain (M4 −0.016);
-> * opening new concepts (M2 +0.005; a new concept in 1 of 500 unseen-role worlds);
+> * opening new concepts (M2 +0.005; a new concept in 2 of 500 unseen-role worlds);
 > * accumulation without retraining (A +0.006).
 >
 > The text below is kept unchanged as the hypothesis that was tested.

@@ -57,7 +57,7 @@ The ledger column "experimental evidence for the difference" is filled from `TRA
 |---|---|
 | active identification | none (M4 −0.016) |
 | new concepts | none (M2 ≈ 0) |
-| cue validity | inconsistent (M1) |
+| cue validity | not established (M1 same sign in all universes, very uneven, not significant) |
 | re-identification | effective, but a fixed rule (M3) |
 | library | effective, known (M5) |
 | accumulation | none (A) |

@@ -339,7 +339,7 @@ margin 0.05.
 
 ## R1 post-freeze deviations
 
-* **R1-X1 (analysis code, after the run, before any R1 result was read).**
+* **R1-X1 (analysis code, after the run; per-cell means had been printed in the evaluation logs, but no contrast or test had been computed).**
   * The stage-2 presence check in `u1/stats.py` applied `any()` to generator objects, which are always truthy. The
     stage-1 summary therefore demanded stage-2 files and exited with an error.
   * The stage gate refused to decide, as designed.
