@@ -233,7 +233,11 @@ forgetting) applied to every policy class; it is not evidence about human ageing
   runs / 420 s. Society Exp 2: 140 runs / 4,766 s. Hardware: 4-vCPU x86_64, 15.7 GiB RAM, shared with
   other jobs (load average 3–5 during runs).
 * Scale records (`reports/scale/`): 100 agents × 2 years, developmental 5.45 s (38.7 agent-years/s,
-  100 MB); static persona 5.68 s. **No 1,000- or 10,000-agent benchmark has been run yet.**
+  100 MB); static persona 5.68 s. **1,000 agents × 10 years, developmental: 165.7 s wall, 164.2 s CPU,
+  64.2 agent-years/s, 912 MB peak RSS, 157,118 events, population 1,000 → 1,114** (load average
+  2.2–2.9 from concurrent experiment workers, disclosed in the record). Throughput per agent-year
+  improved with scale (38.7 → 64.2 agent-years/s), so per-tick overhead, not per-agent work, dominates
+  at 100 agents. **No 10,000-agent benchmark has been run yet.**
 * Cost: $0 in API calls (no language model anywhere). CPU: 114 s per 100-agent × 80-year run
   ≈ 0.014 CPU-s per agent-year; at an *assumed* $0.05 per vCPU-hour that is ≈ $0.002 per such run.
 

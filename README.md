@@ -104,7 +104,8 @@ model cards [`docs/MODEL_CARDS.md`](docs/MODEL_CARDS.md), API [`docs/openapi.jso
 |---|---|---|---|---|
 | 100 agents × 80 years, developmental | 117 s | ≈68 agent-years/s | 356 MB | `reports/runs/demo_developmental_100a_80y_s42/manifest.json` |
 | 100 agents × 2 years, developmental | 5.45 s | 38.7 agent-years/s | 100 MB | `reports/scale/developmental_100a_2y_dt30_s0.json` |
-| 1,000 / 10,000 agents | **not yet measured** | — | — | — |
+| 1,000 agents × 10 years, developmental | 165.7 s | 64.2 agent-years/s | 912 MB | `reports/scale/developmental_1000a_10y_dt30_s0_20261104T052934Z.json` |
+| 10,000 agents | **not yet measured** | — | — | — |
 
 4-vCPU x86_64, 15.7 GiB RAM, shared with other jobs during measurement. $0 in API calls.
 

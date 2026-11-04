@@ -88,6 +88,35 @@
     ]
   },
   {
+    "claim_id": "exp04_midlife_education",
+    "claim": "Developmental agents adapt to a late-life educational opportunity: the targeted cohort's held-out accuracy at year 15 exceeds the cloned control cohort, which a deterministic age script could not produce; non-learners show no effect.",
+    "status": "not_supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp04_midlife_education__main__dev_control__s0",
+      "exp04_midlife_education__main__dev_control__s1",
+      "exp04_midlife_education__main__dev_control__s2",
+      "exp04_midlife_education__main__dev_control__s3",
+      "exp04_midlife_education__main__dev_control__s4",
+      "exp04_midlife_education__main__dev_control__s5",
+      "exp04_midlife_education__main__dev_control__s6",
+      "exp04_midlife_education__main__dev_control__s7",
+      "exp04_midlife_education__main__dev_control__s8",
+      "exp04_midlife_education__main__dev_control__s9",
+      "exp04_midlife_education__main__dev_midlife__s0",
+      "exp04_midlife_education__main__dev_midlife__s1",
+      "... +28 more"
+    ],
+    "metric": "midlife_cohort_accuracy_post",
+    "value": "-0.0031 (95% CI [-0.0145, +0.0073], n=10 seeds) \u2014 primary contrast 'midlife_education_effect_developmental' (superiority): dev_midlife vs dev_control on midlife_cohort_accuracy_post: estimate -0.0031 (95% CI [-0.0145, +0.0073], n=10 seeds; relative -0.4%); threshold 0.0200 -> failed",
+    "config_ref": "reports/experiments/exp04_midlife_education/definition.json (preregistration 1b9968b99bb0f28beb5e89b64e7ff752)",
+    "limitations": [
+      "Adult plasticity is a modelling assumption of the developmental learner (plasticity schedule); results inherit it.",
+      "Depends on hpe.world semantics for midlife_education.",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
     "claim_id": "exp06_transfer",
     "claim": "A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised 'barter' family than independently trained specialists when barter shares the latent structure, and shows no benefit (or negative transfer) when it does not.",
     "status": "supported",
@@ -244,6 +273,20 @@
     ]
   },
   {
+    "claim_id": "bench:developmental_1000a_10y_dt30_s0_20261104T052934Z",
+    "claim": "1,000 agents (developmental) simulate 10 years at dt=30 d.",
+    "status": "supported",
+    "evidence_kind": "engineering",
+    "run_ids": [],
+    "metric": "wall time / throughput",
+    "value": "165.7 s; 64.2 agent-years/s; peak RSS 912 MB; completed",
+    "config_ref": "reports/scale/developmental_1000a_10y_dt30_s0_20261104T052934Z.json",
+    "limitations": [
+      "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
+      "world.run() wall time (excludes 0.03s World() construction); cpu 164.2s; 122 ticks; 10646 agent-years; population at end 1114; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 2.18/2.54/2.88, after 2.94/2.77/2.92"
+    ]
+  },
+  {
     "claim_id": "bench:developmental_100a_2y_dt30_s0",
     "claim": "100 agents (developmental) simulate 2 years at dt=30 d.",
     "status": "supported",
@@ -269,19 +312,6 @@
     "limitations": [
       "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
       "world.run() wall time (excludes 0.04s World() construction); cpu 5.6s; 25 ticks; 211 agent-years; population at end 106; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 3.56/3.56/3.55, after 3.60/3.57/3.55"
-    ]
-  },
-  {
-    "claim_id": "bench:1000_agents",
-    "claim": "The simulator runs 1,000 agents.",
-    "status": "not_tested",
-    "evidence_kind": "none",
-    "run_ids": [],
-    "metric": null,
-    "value": null,
-    "config_ref": null,
-    "limitations": [
-      "No completed benchmark record exists yet; do not claim this."
     ]
   },
   {

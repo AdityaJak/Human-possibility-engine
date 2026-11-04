@@ -41,7 +41,8 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | Human validation adapters (Psych-101, HeartSteps V1) | implemented, tested | licences verified; no raw data committed |
 | Evidence ledger / Evidence page | implemented | 18 claims; 9 supported, 6 not supported, 1 inconclusive, 2 not tested |
 | Investor assets | implemented | `docs/INVESTOR_DEMO.md`, `docs/INVESTOR_TECHNICAL_DILIGENCE.md`, screenshots, recording shot list |
-| 1,000 / 10,000-agent benchmarks | **not started** | harness ready (`make bench-1k`, `make bench-10k`); needs a quiet machine |
+| 1,000-agent benchmark | measured | 1,000 × 10 y: 165.7 s wall, 64.2 agent-years/s, 912 MB peak RSS, load avg 2.2–2.9 disclosed (`reports/scale/developmental_1000a_10y_*.json`) |
+| 10,000-agent benchmark | **not started** | `make bench-10k`; deferred until the society experiments finish (memory contention) |
 | Society experiments 3–5 | **running / not committed** | Exp 2 committed |
 | Exp 7 with all policy classes | committed | `reports/human_validation/exp07_human_heldout` (2,654 s) |
 
@@ -67,7 +68,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | §52 Gate 2 measurable learning, ablations, honest uncertainty | GO | preregistered results incl. a failed H1 |
 | §52 Gate 3 web/API integration, demo, accessibility, secrets | conditional | e2e verified; secrets scan clean; accessibility fixes open |
 | §52 Gate 4 external human evidence for the learner | **NO-GO** | primary human test (MCPL) failed; secondary (IGT) passed; causal pipeline validated on HeartSteps |
-| §52 Gate 5 performance to 10,000 agents | **NO-GO** | no benchmark record |
+| §52 Gate 5 performance to 10,000 agents | **NO-GO** (partial) | 1,000 agents measured (165.7 s for 10 years, 912 MB); no 10,000-agent record yet |
 | §42 Gate 1 `make demo` + 100-agent seeded run with replay | GO | |
 | §42 Gate 2 learned parameters change with experience; held-out skill; baselines | GO | |
 | §42 Gate 3 randomised simulated intervention reproduces, exports, flags model dependence | GO (Exp 2 committed after audit) | |
