@@ -1,0 +1,185 @@
+{
+  "kind": "learning_lab",
+  "params": {
+    "n_agents": 20,
+    "episodes_per_family": 300,
+    "block": 10,
+    "checkpoint_every": 30,
+    "feedback_mode": "bandit",
+    "full_feedback_fraction": 0.25,
+    "label_noise": 0.05,
+    "age_start": 8.0,
+    "age_end": 18.0,
+    "enable_gate": true,
+    "criterion": 0.7,
+    "retention_gap_years": 2.0,
+    "transfer_modes": [
+      "shared",
+      "orthogonal"
+    ],
+    "transfer_shots": [
+      0,
+      4,
+      8,
+      16,
+      32,
+      64
+    ]
+  },
+  "contrasts": [
+    {
+      "name": "developmental_vs_strongest_baseline",
+      "treatment": "developmental",
+      "control": {
+        "strongest_of": [
+          "static_persona",
+          "memory_only",
+          "plain_rl"
+        ]
+      },
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.1,
+      "min_effect_kind": "relative",
+      "margin": null,
+      "primary": true,
+      "description": ">=10% relative improvement over the strongest baseline (chosen post hoc as the best-scoring baseline, which is conservative), with the paired 95% CI excluding 0."
+    },
+    {
+      "name": "calibration_not_degraded",
+      "treatment": "developmental",
+      "control": {
+        "strongest_of": [
+          "static_persona",
+          "memory_only",
+          "plain_rl"
+        ]
+      },
+      "metric": "final_log_loss",
+      "kind": "non_inferiority",
+      "paired": true,
+      "direction": "less",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": 0.05,
+      "primary": false,
+      "description": "held-out log loss no more than 0.05 nats worse than the best-calibrated baseline"
+    },
+    {
+      "name": "developmental_vs_plain_rl",
+      "treatment": "developmental",
+      "control": "plain_rl",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "developmental_vs_memory_only",
+      "treatment": "developmental",
+      "control": "memory_only",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "developmental_vs_static_persona",
+      "treatment": "developmental",
+      "control": "static_persona",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "memory_only_vs_static_persona",
+      "treatment": "memory_only",
+      "control": "static_persona",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "practice_efficiency_vs_plain_rl",
+      "treatment": "developmental",
+      "control": "plain_rl",
+      "metric": "episodes_to_criterion/compare",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "less",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    }
+  ],
+  "sensitivity": [
+    {
+      "name": "high_label_noise",
+      "params": {
+        "label_noise": 0.15
+      },
+      "arms": null,
+      "contrasts": [
+        "developmental_vs_strongest_baseline"
+      ]
+    },
+    {
+      "name": "low_data_100_episodes",
+      "params": {
+        "episodes_per_family": 100,
+        "checkpoint_every": 20
+      },
+      "arms": null,
+      "contrasts": [
+        "developmental_vs_strongest_baseline"
+      ]
+    },
+    {
+      "name": "no_age_gate",
+      "params": {
+        "enable_gate": false
+      },
+      "arms": null,
+      "contrasts": [
+        "developmental_vs_strongest_baseline"
+      ]
+    },
+    {
+      "name": "bandit_only_feedback",
+      "params": {
+        "full_feedback_fraction": 0.0
+      },
+      "arms": null,
+      "contrasts": [
+        "developmental_vs_strongest_baseline"
+      ]
+    }
+  ],
+  "pipeline_validation": false
+}
