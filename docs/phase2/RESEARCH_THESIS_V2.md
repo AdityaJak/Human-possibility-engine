@@ -66,6 +66,17 @@ pilot but before any confirmatory run; the pilot's family set is therefore NOT t
 families the candidate did **not** win on dev, and (3) a new family authored by a candidate-free lane
 (human-validation or infrastructure) from a written spec the cognitive lane never sees before the
 freeze: a *compositional rule-of-rules* family. Each with its specialist-should-win control variant.
+
+**Status after implementation (X-008).** The `composition` family exists but is uninformative at the
+current budget: no architecture exceeds its linear-probe ceiling, because none learns the parity
+primitive; `conjunction` is likewise unsolved by every learner (≤ 0.68). Gate B therefore **cannot
+be evaluated yet** — not because the candidate wins, but because no current architecture, including
+Candidate A, learns non-linear compositional structure. This is the Phase II negative finding on H1
+so far; the next step is an architecture with explicit compositional/parity capacity, not a change
+of gate.
+
+**Gate A amendment (X-007).** The age-script-only null is judged on held-out log-loss as well as
+accuracy, because a scripted temperature schedule cannot change a non-learning readout's argmax.
 | E — causal decision improvement | prospective study | out of scope for this phase (needs participants and ethics review); never inferred from D | — |
 | F — cross-domain generalisation | representation trained on family set A evaluated few-shot on domain B (synthetic→human bandits, bandits→cue learning) | ≥ 0.02 nats/choice better than training from scratch, CI excl. 0 | frozen human test partitions |
 

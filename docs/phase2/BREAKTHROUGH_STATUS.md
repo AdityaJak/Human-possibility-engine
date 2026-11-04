@@ -6,7 +6,8 @@
 | Gate | Status | Basis |
 |---|---|---|
 | A — genuine learning | supported in the synthetic world (Phase I) | ablations: freezing learning −0.41 |
-| B — strong-baseline advantage | **not supported** | H1: +0.012 vs plain RL, CI includes 0 |
+| A — genuine learning (Phase II controls) | supported on dev (exploratory) | permuted-feedback gain ≈ 0 for all learners; frozen/age-script gains ≈ +0.39 (X-007); confirmatory run pending |
+| B — strong-baseline advantage | **not supported; not yet evaluable in Phase II** | Phase I: +0.012 vs plain RL. Phase II: Candidate A ≤ best exemplar baseline on 3/5 v2 families (X-004); `conjunction` and the candidate-free `composition` family are unsolved by every architecture (X-008) |
 | C — transfer | supported in the synthetic world, with negative transfer quantified | Exp 6 |
 | D — human behavioural correspondence | **not passed** | 1 of 2 families (IGT best of 8; MCPL worse than exemplar models by +0.23 nats) |
 | E — causal decision improvement | not started | requires a prospective human study. Retrospective evidence (HeartSteps test, C-002): suggestions help (+0.167 [+0.018, +0.320] vs never) but a dev-learned tailored policy adds nothing over always-send (+0.021 [−0.107, +0.156]); no reproducible heterogeneity (C-001) |

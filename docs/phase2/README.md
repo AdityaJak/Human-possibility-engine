@@ -15,6 +15,7 @@
 | `INVESTOR_TECHNICAL_BRIEF.md` | **not yet produced** | Stage 7 |
 | `BREAKTHROUGH_STATUS.md` | written (no breakthrough claimed; gate table) | updated at each stage |
 | `STATE_OF_THE_ART_BENCHMARK.md` (added requirement: Centaur, Simile, cognitive foundation models; reproduced vs published figures) | **not yet produced** | Stage 4–5 (human-validation lane) |
+| `specs/IMPLEMENTATION_NOTES_GATE_AB.md` | written (composition family, Gate A controls, dev results; exploratory) | Stage 3–4 (evaluation-v2 lane) |
 | `COGNITIVE_ARCHITECTURE_NOTES.md` | written (Candidate A mechanism, dev results, abandoned attempts; exploratory) | Stage 3–4 (cognitive-architecture lane) |
 
 Reproduction log for Stage 1: `reports/phase2/stage1_reproduction.json`.
