@@ -148,8 +148,199 @@ because the harness implements the modes); re-run `lock_checks.py` (L1, L3 and L
 Phase III key must be caught by the guard); check that `gate_verdicts` reproduces hand-computed verdicts
 on the toy summaries; read the X3-001b logs; and review each freeze record against §7 before approving it.
 
-## Results review
+## Re-verification of design findings (pass 2) — 2026-11-04, director HEAD `dcfaac6` merged
 
-_Placeholder. To be written after the first freeze record is proposed and after each confirmatory run:
-re-run of the frozen evaluation by the critic, comparison with the reported numbers, check of every §7
-condition, and the verdict on each gate claim._
+The director's re-test (registry X3-002, `reports/phase3/director/verify_*`) is not a sign-off. I re-ran my
+own attack and lock scripts against the hardened core, wrote new attacks aimed at the new mechanisms, and
+recorded each original finding as **resolved**, **partially resolved** or **open**. Instruments:
+`reports/phase3/critic/reattack_v2.py` (toy data only; output `reattack_v2.json`/`.log`).
+
+Disclosure: the first run of the throw-away-clone probe (part C) called `load_family(..., "test")` inside a
+clone of the repository with `HPE_PSYCH101_P3` unset; it stopped at `DataUnavailable`, so no record was read.
+The committed script calls only the two lock functions `load_family` calls before it opens any file.
+
+### P2.1 What the re-attack shows
+
+| Attack | Production result now | Verdict |
+|---|---|---|
+| The 7 original cheats, through the production runner (select → strict check → isolated report → `analyze`) on two toy counted families | all 7 excluded in both families. PeekAll, ProbeDodger, KeyCache and InvariantFields fail the prefix or key tests; Transductive fails the mutation test; DonorPathPeek and SabotagedAblations are refused as adaptive models outside `AdaptiveBase`. Self-peek on 2-action sequences: missed in 0 of 20 batches of 20 sequences (was 45 of 400 single sequences) | L-1 fixed for these cheats |
+| **ClassPool** (new): keeps a transductive pool of held-out participants in a *class attribute*. That survives `deepcopy` and is invisible to `state_digest(model.__dict__)`. The participant itself is excluded by a 10-row fingerprint, and the pool is used only from row 10 on | **passes** the strict check; **not excluded**. It beats the honest comparator by −0.0073 [−0.0117, −0.0028] and −0.0126 [−0.0189, −0.0061] nats/choice, entirely from other held-out participants. A history-invariance probe (predict A; predict 5 unseen others; predict A again) detects it | L-2 only partly fixed → N-1 |
+| **ArmDetector** (new, an `AdaptiveBase` subclass): the harness hands states back to the model, and the states carry the history they were built from. The model compares that history with the target's own past actions (causally), detects the donor arm, and degrades only that arm | **passes** the strict check; not excluded. A2 contrast −0.405 / −0.417 nats, `gates.gate_a2` **passes**, while candidate − comparator is exactly 0.000 | G-1 fixed for frozen mode, not for A2 → N-2 |
+| **WeakTwin** (new): an honest adaptive model whose `twin_config()` names a crippled `pop_gru` (hidden 1, 1 epoch) | B1 contrast −0.525 / −0.589, B1 margin met in both families; the same model with a reasonable twin (`FairTwin`) is +0.048 / +0.050 *worse* than its twin | B1 depends on candidate-supplied, untuned, single-seed twin → N-3 |
+| `check_encoding_leak` on a toy family where slot 0 equals the current action | flagged with 2 actions; **not flagged with 4 actions**. The function only raises its best accuracy when the family is binary (`conformance.py:163-164`), and the runner only prints and records the warning (`runner.py:395-398`) | L-4 partly fixed → N-8 |
+| Forged 4-field record in a temporary directory; tampered Psych-101 partition copy; alias family over `bahrami2020four/`; missing exposure list; Phase II helper (`runner2`) asking for garcia test | all refused | T-1(a), T-2, T-4, T-6 fixed |
+| Phase III guard key pattern on `bahrami2020four/exp.csv#…` | matches (`scripts/phase3_guard.py:35`) | T-5 fixed |
+| Freeze rules in a throw-away clone (committed record + committed approval written by an arbitrary git identity; no data path) | (a) the lock opens with `definition_hash=None` and creates no access log; (b) the lock still opens after the record's `model_digests` are edited and committed **after** the approval; (c) after `open_access_log` writes `ACCESS.json`, `git status` shows `?? reports/phase3/confirmatory/`, and the test stage's own `load_family` call is **refused** ("working tree not clean"); (d) after deleting the untracked `ACCESS.json`, a second run opens | T-1 partly fixed → N-5, N-6 |
+| GBE (non-Psych-101 family with its own loader): partition file pinned? | not pinned. A tampered copy, with one test participant moved to dev and the digest recomputed, is accepted by `gbe.load_partition` | N-9 |
+
+### P2.2 Status of every design finding
+
+| ID | Status | Evidence | What remains |
+|---|---|---|---|
+| L-1 | **resolved** | strict check (`conformance.py:83-135`) on 20 tune sequences per selected model, plus twin; violators excluded (`runner.py:541-546`); all 7 cheats excluded | — |
+| L-2 | **partially resolved** | fresh copy and opaque key per participant (`runner.py:118-124`); instance-state digest | class- and module-level state escapes (N-1) |
+| L-3 | **resolved** | opaque keys (`encoding.rekey`, `runner._token`); key-independence probe | — |
+| L-4 | **partially resolved** | two_step counting criteria in A3-1 §11.8; heuristic leak check | leak check blind for > 2 actions and not enforced (N-8); parser-level prefix test not implemented |
+| T-1 | **partially resolved** | `freeze.py` (fixed directory, committed record + approval, hash, ancestor and unchanged code, clean tree, access log); two-stage run with hashed weights (`runner.py:313-344, 439-473`) | N-5, N-6, N-7 |
+| T-2 | **resolved for Psych-101** | pinned file hashes (`partitions.py:36-41`, `data.py:36-39`); canonical prefixes (`families.py:49-78`) | loader-hook families unpinned (N-9) |
+| T-3 | **open** | lanes still hold the test-bearing subset (`data.py:27`, unchanged hash) | dev+tune-only file for lanes |
+| T-4 | **resolved** | Phase II lock now delegates to `validate_freeze` (`partitions.py:105-126`); refused in my probe | — |
+| T-5 | **resolved** | `scripts/phase3_guard.py` | — |
+| T-6 | **resolved** | `data.py:74-76` fails closed | — |
+| S-1 | **partially resolved** | `core/gates.py` with tests (counted families from the freeze record; a missing family enters Holm at p = 1) | not wired into `analyze`, whose `meets_0.02` still uses bootstrap p over the families present (`runner.py:567-577`); no Holm across two candidates (A3-1 §11.1); best adapter (B2) and pool membership left to the caller; `tune_stop_rule_b1` ignores the primary and B2 (`gates.py:140-142`) |
+| S-2 | **resolved (procedure)** | A3-1 §11.1; freeze record lists candidates | enforcement is procedural |
+| S-3 | **acknowledged** | reported in A3-1 | superseded by N-4 (seed variance) |
+| S-4 | **resolved in gates** | max(bootstrap with 20,000 resamples, t) (`gates.py:30-40`) | `analyze` still reports bootstrap-only p |
+| S-5 | **open** | margin is still a point-estimate filter, and the wording is unchanged | minor |
+| S-6 | **partially resolved** | λ = 0 NLL reported; twin gets its own λ | frozen and donor variants reuse the adapt-mode λ (`runner.py:270-282`) |
+| S-7 | **partially resolved** | `n_unpaired` reported | not asserted; ≥ 60 s per config remains (`runner.py:165`) |
+| F-1 | **partially resolved** | X3-001b: pop_gru ≤ Phase II ref_gru on bandit2, described, garcia; 24-config pools | garcia's 24-config pool pop_gru (0.4509) is worse than the v3 `ref_gru_p2` (0.4403). Its grid starts at hidden 16 and the selected config sits at that *smallest* edge, which the A3-1 extension rule (largest edge only) does not cover (N-11); no described pool |
+| F-2 | **resolved for freezes** | budget stops flagged and barred from freezing; test stage loads hashed weights | — |
+| F-3 | **open (procedural only)** | A3-1 §11.7; per-run `n_configs_evaluated` | no ledger of configurations across runs and variants |
+| F-4 | **partially resolved** | `predict_ms_per_trial` reported | no cap |
+| F-5 | **largely resolved** | `pop_gru_ens`, `cavia_gru`, `gru_hb_mix`, `hb_cog` added; matched-ensemble control X3-E01 run | pool enforcement (S-1) |
+| G-1 | **partially resolved** | harness-owned modes (`adaptation.py`); non-`AdaptiveBase` adaptive models excluded; B1 vs a separately trained twin | N-2 (A2 sabotage still possible), N-3 (twin) |
+| G-2 | **resolved** | A3-1 §11.3; B04 adapters on the candidate's backbone configuration | — |
+| G-3 | **partially resolved** | length-matched online donor schedule (`adaptation.py:64-77`) | no margin; adapt-mode λ reused |
+| G-4, G-5 | **resolved (design)** | A3-2; suite generator refuses seeds outside 0–199 (`continual/suite.py:55, 107`) | — |
+| G-6 | **partially resolved** | B2 now needs the primary | tune rule unchanged (see S-1) |
+| D-1 | **resolved, one slip** | registry corrections and D3-3 | D3-3 says "only the restless4 opening contains choices". 10 of 76 openings do; among Phase III *counted* families only restless4 does, and speekenbrink2008learning (wpt, secondary) participant 0 is in tune |
+
+### P2.3 New findings (pass 2)
+
+| ID | Severity | Finding and evidence | Required fix |
+|---|---|---|---|
+| N-1 | **blocking-for-freeze** | **Class- and module-level state escapes isolation.** `deepcopy` copies instance state only, and `state_digest` hashes `model.__dict__` only (`conformance.py:30-34`). In the test stage, every test participant is predicted in one process (`runner.py:448-457`). The ClassPool demonstration passes every check and gains from other held-out participants (P2.1) | Add a history-invariance probe to `check_causal`: predict A, then ≥ 5 unseen others, then A again; it must be identical. In the test stage, also score the report partition in two orders and require identical scores, or predict each participant in a fresh subprocess. Hash the class `__dict__` and module globals of the model's modules before and after |
+| N-2 | major (blocks A2 as evidence) | **A2 can still be sabotaged through the harness.** States returned by `update_state` are opaque and may carry the history itself. `predict_with_states` can therefore tell the donor arm from the own arm causally (ArmDetector, P2.1). A2 also still has no margin | Treat A2 as a sanity control unless (i) states are restricted to a fixed-size float vector of the declared per-person parameter count, and (ii) the A3 code audit checks that no state contains or fingerprints raw history. Add a margin (≥ 0.01) if A2 stays gate-bearing |
+| N-3 | **blocking for a Gate B freeze** | **The B1 twin is candidate-specified, untuned and single-seed.** `select_model_family` fits one config, the one returned by `twin_config()`, with one seed (`runner.py:205-228`); WeakTwin shows that config controls B1 completely. On real tune data the twin is honest in configuration (`candidates/common.py:37-43`) but untuned and unlucky. On restless4, F3's twin (0.7387) is the **worst** of 9 single fits of that exact configuration (mean 0.7341, SD 0.0026). On garcia, the twin copies F3's dropout 0, while a tuned single GRU (itself one seed) reaches 0.4415 (X3-001b): about 0.013 of F3's −0.0193 "B1" gain is the gap between the twin and a tuned GRU | Core builds the twin: candidate's hidden size, its own tune-selected lr/dropout grid under the same caps, ≥ 5 seeds as an ensemble (B1 then ensemble vs ensemble, as in X3-E01) |
+| N-4 | **blocking-for-freeze** | **Seed-to-seed variation of a single fit is as large as the margins, and the gate statistics ignore it.** Identical configs, different seeds only (tune): restless4 hidden 32: 9 fits (5 committed + 4 of mine), SD 0.0026, range 0.0082. garcia hidden 32 dropout 0: 14 fits (4 committed + 10 of mine), SD 0.0089, range 0.0306, which is more than the 0.02 Gate C margin. Two 5-seed ensembles of one config still differ by 0.0025 (X3-B03 vs X3-E01, restless4). The participant bootstrap and t-test (`gates.py`) treat each fitted model as fixed, so a single-seed contrast near the B1 (0.01) or B2 (0.005) margin can pass on seed luck | Every gate-bearing arm (candidate, best comparator, twin, best adapter) is a k-seed ensemble with matched k ≥ 5. Alternatively, the contrast is repeated over ≥ 5 independent seed pairs and tested with a two-level (seed × participant) bootstrap. State the seed SD in the freeze record |
+| N-5 | **blocking (the confirmatory run cannot complete)** | **The test stage refuses itself.** `open_access_log` writes an untracked `reports/phase3/confirmatory/<id>/ACCESS.json` (`freeze.py:103-122`). `git status --porcelain` then reports the untracked parent `?? reports/phase3/confirmatory/`, which does not contain the `<id>` path that `validate_freeze` exempts (`freeze.py:95-99`). The subsequent `load_family(..., "test")` in `_run_test_stage` (`runner.py:443-449`) raises. No test covers the test stage end to end | Commit the access log, and refuse to open data until it is committed (this also makes run-once durable, N-6). Use `--untracked-files=all` and prefix matching. Add an end-to-end test of `stage="test"` in a temporary repository |
+| N-6 | major | **The freeze is not bound tightly enough.** (a) The approval names only the preregistration hash (`freeze.py:82-86`), so the record's model digests, counted families and pool can change after approval (demonstrated). (b) Any git identity can author the approval (all lanes commit as the same user). (c) `validate_freeze(..., definition_hash=None)` skips the hash check, and `load_family` opens test without any access log (demonstrated), so test can be read repeatedly outside the runner once a freeze exists. (d) Deleting the untracked access log allows a second run (demonstrated) | The approval names the SHA-256 of the freeze record. `definition_hash` is mandatory. Test data open only after a committed access log naming this process. `validate_freeze` refuses if any commit in history ever added that `ACCESS.json`. The approval commit carries a critic-lane trailer, and the director records which commit it was |
+| N-7 | major | **Lane code runs while test is unlocked.** In the test stage, models are unpickled with `torch.load(..., weights_only=False)` and their prediction code runs after the freeze has opened test (`runner.py:332-344, 455-456`). Nothing stops that code from calling `load_family("test", …)` itself, for example to pool test participants | Load all test sequences first. Then seal the loader (a process-wide flag that makes `load_family` refuse) and unset `HPE_PSYCH101_P3` before any model is unpickled. Add a static audit that lane packages never import `core.data` or `psych101` |
+| N-8 | minor | `check_encoding_leak` cannot fire on families with more than 2 actions (restless4) and only warns (P2.1) | Score multi-class rules (e.g., best slot-value → action map) and refuse a run whose fit partition is flagged |
+| N-9 | minor (major before any external confirmatory use) | Loader-hook families (`FamilySpec.loader`) choose their own partition file; GBE's is not pinned and a tampered copy is accepted (P2.1) | Pin loader partition files and data hashes in core before any confirmatory use |
+| N-10 | minor | The summary `analyze` writes still prints `meets 0.02` from the old logic. The verdicts in `gates.py` are unit-tested but computed nowhere in the pipeline | Have `analyze` call `gates.*` with the counted list and primary from the definition or freeze record |
+| N-11 | minor | garcia comparator adequacy (F-1 row above); the A3-1 grid-extension rule covers only the largest edge | Extend at either edge |
+| N-12 | minor | Registry rows X3-009 (garcia adapters) and X3-010 (GBE) cite artifact directories that are **not committed** at `dcfaac6` (`git ls-files` returns nothing), so I cannot review them | Commit the artifacts, or mark the rows "pending artifacts" |
+| N-13 | major (for any mechanism claim) | **The candidates' own positive-control tests fail on `dcfaac6` in my run.** `pytest -q tests/population`: 105 passed, 3 failed, all in `test_toy_adaptation_helps_only_when_individuals_differ` (`tests/population/candidates/test_candidates.py:101-109`; the tests ask torch for 2 threads, and my environment sets `OMP_NUM_THREADS=1`). When synthetic individuals truly differ, adapt − frozen is +0.0014 for F1, −0.0061 for F3 (the threshold is −0.01) and −0.0124 ± 0.0068 for F2 (not beyond 3 SE). Either the controls are fragile to the thread count or numerics, or the adaptation pathways do not recover a planted individual difference | The director re-runs these tests on the branch. If they fail, no mechanism claim (PIVOT rationale included) may rest on F1/F2/F3 adaptation until the positive control passes reliably (e.g., over 5 seeds) |
+
+**Sign-off.** I sign off as resolved: L-1, L-3, T-2 (Psych-101 files), T-4, T-5, T-6, S-2, G-2, G-4, G-5.
+Partially resolved: L-2, L-4, T-1, S-1, S-4, S-6, S-7, F-1, F-2, F-4, F-5, G-1, G-3, G-6. Open: T-3, S-5, F-3.
+**Before any future confirmatory freeze**, N-1, N-4, N-5 and N-6/N-7 must be fixed. N-3 must also be fixed
+for a Gate B freeze, N-2 for A2 to count as evidence, and N-13 before any claim about an adaptation
+mechanism. No freeze is proposed now (see below), so none of these items delays anything today.
+
+## Results review (exploratory, tune partitions) — pass 2, 2026-11-04
+
+Scope: registry rows X3-001 to X3-012 and the committed result directories. Instruments:
+`reports/phase3/critic/results_review_v2.py` recomputes every central contrast from the committed
+per-participant tune scores (participants matched by key; production bootstrap with 20,000 resamples and a
+paired t-test). `reports/phase3/critic/seed_refit.py` refits one pop_gru configuration with new seeds
+(dev/tune only, 1 thread; fitting took 106 CPU-s for 10 garcia seeds and 109 CPU-s for 4 restless4
+seeds). Outputs:
+`results_review_v2.json`, `seed_refit_{garcia,restless4}.json`.
+
+### R.1 Reproduction (all numbers are tune NLL in nats/choice; negative favours the first model)
+
+| Contrast | Recomputed estimate [95 % CI] | n | Registry / director | Match |
+|---|---|---|---|---|
+| restless4: F3 − pop_gru_ens (best comparator, X3-B03) | **+0.0135 [+0.0082, +0.0183]** | 174 | 0.7237 vs 0.7102 | yes |
+| restless4: F3 − pop_gru (24 configs) | −0.0088 [−0.0156, −0.0024] | 174 | 0.7237 vs 0.7325 | yes |
+| restless4: F3 − pop_tf / pop_lstm | −0.0027 [−0.0092, +0.0036] / −0.0031 [−0.0099, +0.0032] | 174 | — | — |
+| restless4: F3 − twin (B1-type) | −0.0150 [−0.0209, −0.0093] | 174 | 0.7387 | yes |
+| restless4: F3 − gru_hb_mix / bayes_head (B2-type) | −0.0034 [−0.0095, +0.0024] / −0.0038 [−0.0094, +0.0018] | 174 | 0.7270 / 0.7275 | yes |
+| restless4: F3-ens − pop_gru_ens (X3-E01, matched) | **−0.0014 [−0.0048, +0.0019]** | 174 | −0.0014 [−0.0048, +0.0018] | yes |
+| restless4: F3-ens − bayes_head-ens | +0.0017 [−0.0015, +0.0051] | 174 | 0.7113 vs 0.7096 | yes |
+| restless4: bayes_head-ens − pop_gru_ens | −0.0031 [−0.0067, +0.0003] | 174 | — | — |
+| restless4: pop_gru_ens (X3-E01) − pop_gru_ens (X3-B03), same config, other seeds | +0.0025 [−0.0001, +0.0051] | 174 | — | — |
+| garcia: F3 − pop_tf (best comparator) | +0.0009 [−0.0064, +0.0084] | 68 | 0.4348 vs 0.4339 | yes |
+| garcia: F3 − pop_gru_ens / ref_gru_p2 | −0.0055 / −0.0055 | 68 | 0.4403 | yes |
+| garcia: F3 − twin (B1-type) | −0.0193 [−0.0267, −0.0124] | 68 | 0.4541 | yes |
+| garcia: F3 − pop_gru (X3-001b, 8 configs) | −0.0067 [−0.0139, +0.0002] | 68 | 0.4415 | — |
+| described: F3 − pop_gru / F1 − pop_gru | +0.0022 [−0.0005, +0.0047] / +0.0019 [−0.0007, +0.0043] | 41 | 0.3571 / 0.3568 vs 0.3550 | yes |
+| Gate E development (X3-011): F4 savings | −0.024 [−0.050, +0.002] vs replay +0.033, fine-tuning −0.003, EWC −0.003 | 40 seeds | as reported | yes (committed report) |
+| X3-009 garcia adapters; X3-010 GBE | — | — | numbers in the registry | **not verifiable**: artifacts not committed (N-12) |
+
+The participant sets are identical across runs (0 unpaired keys in every contrast).
+
+### R.2 Is any comparison unfair?
+
+- **To the candidates.** Candidates had 4–8 configurations and comparators had 24 (pop_gru, pop_lstm).
+  Every candidate's selected config sits on a grid edge, and every candidate is a single seed. These
+  disadvantages are real but cannot reverse the Gate C decision. The matched comparison, a 5-seed F3
+  ensemble against a 5-seed pop_gru ensemble with the same configuration (X3-E01), gives
+  −0.0014 [−0.0048, +0.0019]. Its CI lies wholly 0.015 or more above the −0.02 margin. Even single-model
+  F3 against the 24-config pop_gru is −0.0088 [−0.0156, −0.0024], and that CI also excludes −0.02.
+- **To the comparators.**
+  - The B1 twin favours the candidates (N-3).
+  - garcia's 24-config pop_gru is under-searched (no hidden ≤ 12; 0.4509 against 0.4415 for X3-001b's
+    8-config search). This favours the candidates but does not decide anything: pop_tf is garcia's best
+    comparator.
+  - X3-B03's restless4 pop_gru_ens is the best of 7 ensemble configs, so it is selection-optimistic by
+    about 0.0025 against X3-E01's fixed config. This slightly favours the comparator.
+- **Single-seed noise (N-4).** Single fits of one configuration differ by up to 0.008 (restless4) and 0.031
+  (garcia). Any single-model contrast below about 0.01 on restless4, or about 0.025 on garcia, is not
+  interpretable: a difference between two single fits has SD of about √2 × the single-fit SD, i.e. 0.004
+  and 0.013. This includes F3's −0.0088 against pop_gru and every B1/B2-type number. The ensemble
+  contrasts are the meaningful ones.
+- **Capacity.** pop_gru_ens has 40,020 parameters against F3's 8,010. The thesis put the ensemble in the
+  pool (A3-1 §11.6), and X3-E01 supplies the capacity-matched comparison, which F3 does not win.
+
+### R.3 Is the stop decision correct under the thesis?
+
+- **Gate C.** The stop rule fails for every candidate. On the primary family: F3 +0.0135, F1 +0.0178, F2
+  +0.1204 against the best comparator. On garcia and described, F3 is +0.0009 and +0.0022. This holds
+  under `gates.tune_stop_rule_c` with the best comparator taken over every committed pool run. **No Gate C
+  freeze: correct.**
+- **Gate B.** The director's sentence "no candidate meets any tune stop rule" is **not accurate**. F3
+  *meets the B1 tune rule as written* (thesis §7; `gates.tune_stop_rule_b1`): −0.0150 on restless4 and
+  −0.0193 on garcia against its twin, including the primary. Not freezing is still the right call:
+  - the twin is unlucky and untuned (N-3). Against tuned single GRUs, F3's B1-type gain is −0.0088
+    (restless4) and −0.0067 (garcia), below the 0.01 margin and within seed noise. Against the mean of
+    the 9 same-config restless4 fits it is −0.0104, and the F3 fit is itself a single seed;
+  - the B2-type estimate on the primary is −0.0034 [−0.0095, +0.0024], short of the 0.005 margin that
+    A3-1 now requires (on garcia, the registry's uncommitted X3-009 numbers imply about −0.003);
+  - at matched ensembling, F3 − its frozen self is −0.0009 [−0.0056, +0.0025] (X3-007).
+
+  Required: record in the registry that the B1 tune rule was nominally met, and why no freeze followed.
+  Amend the Gate B tune rule (tuned multi-seed twin, primary required, B2 included) before it is used
+  again.
+- **Gate E.** F4 shows no savings on return (−0.024; replay +0.033), so the A3-2 criterion fails on
+  development seeds. **No freeze: correct.** A minor point: F4's reward fraction (0.829) exceeds the Bayes
+  filter's (0.814). The "reference solution" is therefore an inference reference, not a reward-optimal
+  policy; only the oracle bounds reward.
+- **Gate F.** The X3-012 result (+0.0010 [+0.0005, +0.0015], affect slightly hurts) is consistent with no
+  freeze. I did not re-analyse it.
+
+### R.4 PIVOT or NO-GO? (thesis §8)
+
+The thesis defines PIVOT as "dev/tune evidence identifies a specific mechanism with a measured,
+ablation-supported effect worth a new preregistration". It defines NO-GO as "every candidate fails the
+tune stop rule and no ablation shows a supported mechanism after the budget is spent". On the evidence:
+
+1. **No individual-adaptation mechanism has an effect near any preregistered margin once seed variance is
+   controlled.** Effects measured with matched ensembles or against conventional adapters are
+   −0.0014 (F3-ens vs pop_gru_ens), −0.0031 (Bayesian head, ensembles), −0.0009 (F3-ens vs its frozen
+   self), and −0.0004 to −0.0020 on GBE (registry, not verifiable). All are ≤ 0.005 and within seed
+   variation. The one ablation-supported internal effect, learned arbitration beating F3's own fixed-mixture
+   variants (−0.005 restless4, −0.0105 garcia, 0 described), is measured against weaker variants of the
+   same model, not against the strongest baseline. The single-model F3 gain largely disappears under
+   matched ensembling, which is what variance reduction would produce and not what personalisation would.
+   In my run, the candidates' own synthetic positive controls fail as well (N-13).
+2. The largest effect in the programme is **model averaging** (5-seed ensembles gain about 0.02 over single
+   fits on restless4). That is a well-known population-level effect, not the H3 mechanism.
+3. **Budget**: run logs record about 7 CPU-hours (the `run_info.json` total; other lanes log separately)
+   of the 60 available. Formally, NO-GO's budget clause is unmet, and F3 nominally met the B1 tune rule
+   (R.3).
+
+**My assessment.** The evidence supports **NO-GO for H3 as preregistered**, on these Psych-101 families
+(and on the external GBE data, if the registry's uncommitted X3-010 numbers hold). Explicit individual adaptation does not add a meaningful improvement over strong
+population sequence models. A PIVOT that keeps H3's framing is not supported, because no
+individual-adaptation mechanism with a worthwhile effect has been identified. If the director calls this
+PIVOT, the decision must name a *different* question (for example population ensembles as the predictive
+core, or the session-reset setting probed by X3-013, where in-context state cannot carry the person)
+together with a new preregistration. It must not describe F3 or adaptation as a promising mechanism. If the
+director calls NO-GO before spending the budget, an amendment must state the futility argument (the
+matched-ensemble CI excludes the Gate C margin by more than 0.015) and record the nominal B1 tune pass with
+its explanation. Either way, the scope is these tasks and teacher-forced next-choice NLL on sequences of
+tens to several hundred trials. It is not a general result about personalisation.

@@ -1,0 +1,109 @@
+{
+ "family": "garcia",
+ "config": {
+  "hidden": 32,
+  "dropout": 0.0,
+  "lr": 0.01,
+  "max_epochs": 150,
+  "patience": 10,
+  "batch_size": 8
+ },
+ "n_dev": 138,
+ "n_tune": 68,
+ "fits": [
+  {
+   "seed": 1320608298,
+   "select_nll": 0.449195239965286,
+   "lapse": 0.02,
+   "nll_lapse0": 0.45050135628907906,
+   "fit_cpu_s": 10.2,
+   "epochs": 23,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 1699651130,
+   "select_nll": 0.4739940757744595,
+   "lapse": 0.01,
+   "nll_lapse0": 0.4741314538636733,
+   "fit_cpu_s": 7.6,
+   "epochs": 18,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 1618768904,
+   "select_nll": 0.4568465965165143,
+   "lapse": 0.05,
+   "nll_lapse0": 0.4589600175884263,
+   "fit_cpu_s": 11.7,
+   "epochs": 27,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 28822479,
+   "select_nll": 0.4476817793080131,
+   "lapse": 0.02,
+   "nll_lapse0": 0.4491103822573665,
+   "fit_cpu_s": 9.5,
+   "epochs": 23,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 1873608269,
+   "select_nll": 0.4673017433014774,
+   "lapse": 0.05,
+   "nll_lapse0": 0.4708308260196848,
+   "fit_cpu_s": 10.4,
+   "epochs": 25,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 653969175,
+   "select_nll": 0.44335693380364627,
+   "lapse": 0.01,
+   "nll_lapse0": 0.4437313681411289,
+   "fit_cpu_s": 10.1,
+   "epochs": 24,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 262193889,
+   "select_nll": 0.46402456397388775,
+   "lapse": 0.02,
+   "nll_lapse0": 0.4648796472607878,
+   "fit_cpu_s": 9.9,
+   "epochs": 24,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 632071697,
+   "select_nll": 0.45297168653091524,
+   "lapse": 0.02,
+   "nll_lapse0": 0.45450325018796583,
+   "fit_cpu_s": 12.9,
+   "epochs": 31,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 1970401238,
+   "select_nll": 0.46411092853113844,
+   "lapse": 0.05,
+   "nll_lapse0": 0.4659219410023905,
+   "fit_cpu_s": 12.0,
+   "epochs": 28,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 139717766,
+   "select_nll": 0.4642433748818815,
+   "lapse": 0.05,
+   "nll_lapse0": 0.46818025831116333,
+   "fit_cpu_s": 11.7,
+   "epochs": 26,
+   "stopped": "early_stop"
+  }
+ ],
+ "mean": 0.45837269225872196,
+ "sd": 0.009880314787606792,
+ "range": 0.030637141970813242,
+ "threads": 1
+}

@@ -1,0 +1,387 @@
+{
+ "part_a": {
+  "families": {
+   "critic2a_a": "counted_primary",
+   "critic2a_b": "counted"
+  },
+  "records": {
+   "critic2a_a": {
+    "c2_honest": {
+     "violations": [],
+     "select_nll": 0.689927188331609,
+     "twin_select_nll": null
+    },
+    "c2_peek_all": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+     ],
+     "select_nll": 0.2876820724517811,
+     "twin_select_nll": null
+    },
+    "c2_probe_dodger": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+     ],
+     "select_nll": 0.29925948776566347,
+     "twin_select_nll": null
+    },
+    "c2_keycache": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0",
+      "seq0: predict_logprobs mutated model state"
+     ],
+     "select_nll": 0.2876820724517811,
+     "twin_select_nll": null
+    },
+    "c2_transductive": {
+     "violations": [
+      "seq0: predict_logprobs mutated model state"
+     ],
+     "select_nll": 0.6899271883316089,
+     "twin_select_nll": null
+    },
+    "c2_invariant": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0",
+      "seq0: predictions depend on seq.key"
+     ],
+     "select_nll": 0.7016618606985868,
+     "twin_select_nll": null
+    },
+    "c2_donor_peek": {
+     "violations": [
+      "adaptive model does not use the harness-owned adaptation modes (AdaptiveBase)",
+      "seq0 donor: rows <= 0 depend on the target's data at or after row 0"
+     ],
+     "select_nll": 0.689927188331609,
+     "twin_select_nll": null
+    },
+    "c2_sabotaged": {
+     "violations": [
+      "adaptive model does not use the harness-owned adaptation modes (AdaptiveBase)"
+     ],
+     "select_nll": 0.689927188331609,
+     "twin_select_nll": null
+    }
+   },
+   "critic2a_b": {
+    "c2_honest": {
+     "violations": [],
+     "select_nll": 0.7044332432091651,
+     "twin_select_nll": null
+    },
+    "c2_peek_all": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+     ],
+     "select_nll": 0.2876820724517811,
+     "twin_select_nll": null
+    },
+    "c2_probe_dodger": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+     ],
+     "select_nll": 0.3009466767363871,
+     "twin_select_nll": null
+    },
+    "c2_keycache": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0",
+      "seq0: predict_logprobs mutated model state"
+     ],
+     "select_nll": 0.2876820724517811,
+     "twin_select_nll": null
+    },
+    "c2_transductive": {
+     "violations": [
+      "seq0: predict_logprobs mutated model state"
+     ],
+     "select_nll": 0.7044332432091651,
+     "twin_select_nll": null
+    },
+    "c2_invariant": {
+     "violations": [
+      "seq0 mode=adapt: rows <= 0 depend on data at or after row 0",
+      "seq0: predictions depend on seq.key"
+     ],
+     "select_nll": 0.708980789432773,
+     "twin_select_nll": null
+    },
+    "c2_donor_peek": {
+     "violations": [
+      "adaptive model does not use the harness-owned adaptation modes (AdaptiveBase)",
+      "seq0 donor: rows <= 0 depend on the target's data at or after row 0"
+     ],
+     "select_nll": 0.7044332432091651,
+     "twin_select_nll": null
+    },
+    "c2_sabotaged": {
+     "violations": [
+      "adaptive model does not use the harness-owned adaptation modes (AdaptiveBase)"
+     ],
+     "select_nll": 0.7044332432091651,
+     "twin_select_nll": null
+    }
+   }
+  },
+  "excluded": {
+   "critic2a_a": [
+    "c2_donor_peek",
+    "c2_invariant",
+    "c2_keycache",
+    "c2_peek_all",
+    "c2_probe_dodger",
+    "c2_sabotaged",
+    "c2_transductive"
+   ],
+   "critic2a_b": [
+    "c2_donor_peek",
+    "c2_invariant",
+    "c2_keycache",
+    "c2_peek_all",
+    "c2_probe_dodger",
+    "c2_sabotaged",
+    "c2_transductive"
+   ]
+  },
+  "best_comparator": {
+   "critic2a_a": "c2_honest",
+   "critic2a_b": "c2_honest"
+  },
+  "contrasts": {},
+  "peek_all_k2_missed_batches_of_20": {
+   "batches": 20,
+   "missed": 0
+  }
+ },
+ "part_b": {
+  "B1_classpool_strict_check": [],
+  "B1_classpool_runner": {
+   "excluded": {
+    "critic2b_a": [],
+    "critic2b_b": []
+   },
+   "vs_best_comparator": {
+    "critic2b_a": {
+     "second": "c2_honest_b",
+     "estimate": -0.007303515614063043,
+     "ci_low": -0.011716080004468873,
+     "ci_high": -0.002777098328160874,
+     "p_one_sided": 0.0005,
+     "n": 40
+    },
+    "critic2b_b": {
+     "second": "c2_honest_b",
+     "estimate": -0.012567483938878585,
+     "ci_low": -0.018918565351641447,
+     "ci_high": -0.006093354093274168,
+     "p_one_sided": 0.0005,
+     "n": 40
+    }
+   }
+  },
+  "B1_history_invariance_probe_detects": true,
+  "B2_armdetector": {
+   "excluded": {
+    "critic2c_a": [],
+    "critic2c_b": []
+   },
+   "vs_mismatched": {
+    "critic2c_a": {
+     "second": "c2_armdetector[mismatched]",
+     "estimate": -0.40462121614723756,
+     "ci_low": -0.48073505861877264,
+     "ci_high": -0.32271120294881356,
+     "p_one_sided": 0.0005,
+     "n": 40
+    },
+    "critic2c_b": {
+     "second": "c2_armdetector[mismatched]",
+     "estimate": -0.4167573428202635,
+     "ci_low": -0.4828912609481455,
+     "ci_high": -0.345656500699815,
+     "p_one_sided": 0.0005,
+     "n": 40
+    }
+   },
+   "vs_best_comparator": {
+    "critic2c_a": {
+     "second": "c2_honest_c",
+     "estimate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0,
+     "p_one_sided": 1.0,
+     "n": 40
+    },
+    "critic2c_b": {
+     "second": "c2_honest_c",
+     "estimate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0,
+     "p_one_sided": 1.0,
+     "n": 40
+    }
+   },
+   "gate_a2_passed": true
+  },
+  "B3_c2_weaktwin": {
+   "excluded": {
+    "critic2c_a": [],
+    "critic2c_b": []
+   },
+   "twin_select_nll": {
+    "critic2c_a": 1.2954679649859475,
+    "critic2c_b": 1.4519093409979913
+   },
+   "vs_twin": {
+    "critic2c_a": {
+     "second": "c2_weaktwin[twin]",
+     "estimate": -0.5248300202302972,
+     "ci_low": -0.6344555661448211,
+     "ci_high": -0.42137434878946944,
+     "p_one_sided": 0.0005,
+     "n": 40
+    },
+    "critic2c_b": {
+     "second": "c2_weaktwin[twin]",
+     "estimate": -0.5885743484958218,
+     "ci_low": -0.7173901410186487,
+     "ci_high": -0.4621107997355968,
+     "p_one_sided": 0.0005,
+     "n": 40
+    }
+   },
+   "vs_best_comparator": {
+    "critic2c_a": {
+     "second": "c2_honest_c",
+     "estimate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0,
+     "p_one_sided": 1.0,
+     "n": 40
+    },
+    "critic2c_b": {
+     "second": "c2_honest_c",
+     "estimate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0,
+     "p_one_sided": 1.0,
+     "n": 40
+    }
+   },
+   "b1_families_meeting_margin": [
+    "critic2c_a",
+    "critic2c_b"
+   ],
+   "primary": "critic2c_a"
+  },
+  "B3_c2_fairtwin": {
+   "excluded": {
+    "critic2c_a": [],
+    "critic2c_b": []
+   },
+   "twin_select_nll": {
+    "critic2c_a": 0.7229654386232142,
+    "critic2c_b": 0.813459415575174
+   },
+   "vs_twin": {
+    "critic2c_a": {
+     "second": "c2_fairtwin[twin]",
+     "estimate": 0.0476725061324362,
+     "ci_low": 0.033569118703167124,
+     "ci_high": 0.06417870772959532,
+     "p_one_sided": 1.0,
+     "n": 40
+    },
+    "critic2c_b": {
+     "second": "c2_fairtwin[twin]",
+     "estimate": 0.04987557692699545,
+     "ci_low": 0.03164898641322448,
+     "ci_high": 0.06623073114043294,
+     "p_one_sided": 1.0,
+     "n": 40
+    }
+   },
+   "vs_best_comparator": {
+    "critic2c_a": {
+     "second": "c2_honest_c",
+     "estimate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0,
+     "p_one_sided": 1.0,
+     "n": 40
+    },
+    "critic2c_b": {
+     "second": "c2_honest_c",
+     "estimate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0,
+     "p_one_sided": 1.0,
+     "n": 40
+    }
+   },
+   "b1_families_meeting_margin": [],
+   "primary": "critic2c_a"
+  },
+  "B4_encoding_leak_k2": [
+   "slot 0: a single threshold predicts the current action with accuracy 1.000"
+  ],
+  "B4_encoding_leak_k4": []
+ },
+ "part_c": {
+  "L1_forged_freeze_record": {
+   "returned": {
+    "without_record": "locked (expected)",
+    "forged_record_outside_repo": "locked",
+    "fields_checked": "presence of experiment_id, preregistration_hash, code_version, frozen_at only",
+    "record_accepted": {
+     "experiment_id": "anything",
+     "preregistration_hash": "not-a-hash",
+     "code_version": "none",
+     "frozen_at": "never"
+    },
+    "experiment_id_in_record_matches_file_name": false,
+    "load_family_accepts_freeze_dir_argument": false
+   }
+  },
+  "L3_tampered_partitions_and_alias": {
+   "returned": {
+    "tampered_file_accepted_by_Partitions.load": false,
+    "a_test_participant_now_assigned_to": "/tmp/tmpkv8p29_7/psych101_p3_tampered.json: not one of the pinned partition files (modified or foreign)",
+    "expected_digests_pinned_in_code": false,
+    "alias_family_registration": "refused: family 'critic_restless4_alias' overlaps the studies of 'restless4'"
+   }
+  },
+  "L4_missing_exposure_list": {
+   "refused": "DataUnavailable",
+   "message": "/home/user/Human-possibility-engine/.claude/worktrees/agent-a39a0d7db58b53bb0/reports/phase3/partitions/does_not_exist.json is missing; refusing to load data without the exposure list"
+  },
+  "L7_phase2_guard_regex": {
+   "returned": {
+    "KEY_RE": "([A-Za-z0-9_.\\-\u00c0-\u024f]+/exp\\d+\\.csv)#([A-Za-z0-9_\\-]+)",
+    "matches": {
+     "bahrami2020four/exp.csv#99999": false,
+     "kool2016when/exp1.csv#99999": true,
+     "garcia2023experiential/exp1.csv#99999": true
+    },
+    "default_partitions_file": "reports/phase2/partitions/psych101.json",
+    "phase3_guard_scripts": [
+     "phase3_guard.py"
+    ]
+   }
+  },
+  "phase3_guard_matches_restless4_key": true,
+  "phase2_helper_test": "refused: TestPartitionLocked",
+  "gbe_partition_file_pinned": false,
+  "gbe_tampered_partition": "accepted (a test participant is now 'dev')",
+  "clone_freeze_rules": {
+   "approval_author": "anyone <anyone@example.invalid> (not the critic lane)",
+   "lock_without_definition_hash": "passed the lock",
+   "access_log_exists_after_lock_passed": false,
+   "lock_after_record_edited_post_approval": "passed the lock",
+   "git_status_after_access_log": "?? reports/phase3/confirmatory/",
+   "test_stage_lock_after_its_own_access_log": "refused: test partition locked for 'critic_probe': working tree not clean (1 paths)",
+   "second_run_after_deleting_untracked_access_log": "passed the lock"
+  }
+ }
+}

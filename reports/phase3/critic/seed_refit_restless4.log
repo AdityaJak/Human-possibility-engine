@@ -1,0 +1,59 @@
+{"seed": 1250835377, "select_nll": 0.7331683609628356, "lapse": 0.01, "nll_lapse0": 0.7336204594214394, "fit_cpu_s": 27.9, "epochs": 35, "stopped": "early_stop"}
+{"seed": 30820260, "select_nll": 0.7344034268683999, "lapse": 0.01, "nll_lapse0": 0.734642476044245, "fit_cpu_s": 24.9, "epochs": 32, "stopped": "early_stop"}
+{"seed": 1673319353, "select_nll": 0.7366113216527485, "lapse": 0.02, "nll_lapse0": 0.738179827795095, "fit_cpu_s": 28.6, "epochs": 38, "stopped": "early_stop"}
+{"seed": 1467249435, "select_nll": 0.7323845964616101, "lapse": 0.01, "nll_lapse0": 0.7330925432535981, "fit_cpu_s": 27.9, "epochs": 36, "stopped": "early_stop"}
+{
+ "family": "restless4",
+ "config": {
+  "hidden": 32,
+  "dropout": 0.0,
+  "lr": 0.01,
+  "max_epochs": 150,
+  "patience": 10,
+  "batch_size": 8
+ },
+ "n_dev": 348,
+ "n_tune": 174,
+ "fits": [
+  {
+   "seed": 1250835377,
+   "select_nll": 0.7331683609628356,
+   "lapse": 0.01,
+   "nll_lapse0": 0.7336204594214394,
+   "fit_cpu_s": 27.9,
+   "epochs": 35,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 30820260,
+   "select_nll": 0.7344034268683999,
+   "lapse": 0.01,
+   "nll_lapse0": 0.734642476044245,
+   "fit_cpu_s": 24.9,
+   "epochs": 32,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 1673319353,
+   "select_nll": 0.7366113216527485,
+   "lapse": 0.02,
+   "nll_lapse0": 0.738179827795095,
+   "fit_cpu_s": 28.6,
+   "epochs": 38,
+   "stopped": "early_stop"
+  },
+  {
+   "seed": 1467249435,
+   "select_nll": 0.7323845964616101,
+   "lapse": 0.01,
+   "nll_lapse0": 0.7330925432535981,
+   "fit_cpu_s": 27.9,
+   "epochs": 36,
+   "stopped": "early_stop"
+  }
+ ],
+ "mean": 0.7341419264863984,
+ "sd": 0.0018441198064905685,
+ "range": 0.004226725191138314,
+ "threads": 1
+}
