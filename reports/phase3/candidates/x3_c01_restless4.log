@@ -1,0 +1,11 @@
+[restless4] pop_gru: 4 config(s), 348 dev participants
+[restless4] pop_gru: select NLL 0.7322 config {'lr': 0.01, 'dropout': 0.0, 'hidden': 32} lapse 0.01 causal=ok
+[restless4] f3_arbiter: 8 config(s), 348 dev participants
+[restless4] f3_arbiter: select NLL 0.7237 config {'lr': 0.01, 'bandwidth': 0.3, 'dropout': 0.0, 'hidden': 32} lapse 0.0 causal=ok
+[restless4] f3_fixedmix: 4 config(s), 348 dev participants
+[restless4] f3_fixedmix: select NLL 0.7285 config {'lr': 0.01, 'bandwidth': 0.5, 'mix': 'learn', 'dropout': 0.0, 'hidden': 32} lapse 0.0 causal=ok
+[restless4] f3_fixedshare: 4 config(s), 348 dev participants
+[restless4] f3_fixedshare: select NLL 0.7368 config {'lr': 0.01, 'bandwidth': 0.5, 'share': 0.05, 'dropout': 0.0, 'hidden': 32} lapse 0.0 causal=ok
+[restless4] f3_gruepi: 4 config(s), 348 dev participants
+[restless4] f3_gruepi: select NLL 0.7293 config {'lr': 0.01, 'bandwidth': 0.5, 'dropout': 0.0, 'hidden': 32} lapse 0.02 causal=ok
+[restless4] f2_world_policy: 8 config(s), 348 dev participants

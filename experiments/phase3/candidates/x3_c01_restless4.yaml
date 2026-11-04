@@ -1,0 +1,67 @@
+# x3_c01_restless4 (exploratory, research/adaptation): design-team candidates F3/F2/F1 and their ablations vs a
+# same-size core pop_gru on restless4 (primary counted family); fit dev, select and report on tune.
+# Equal treatment: every population network (pop_gru, F1/F3 backbone, F2 world model, F3 GRU challenger,
+# the B1 twin) is trained by core.nets.train with the core defaults (batch 8, <=150 epochs, patience 10,
+# plateau halving). pop_gru and every candidate backbone search the same grid: hidden x dropout at lr 0.01.
+# F1/F3 variants share one cached backbone per config (paired ablations). Candidates subclass
+# core.adaptation.AdaptiveBase: the harness owns the adapt / frozen / length-matched donor schedules; the
+# runner trains the pop_gru twin from twin_config() (Gate B1 comparator, thesis amendment A3-1).
+# Equal search (critic F-3): tune-evaluated configurations per architecture in this run — F3 family 20
+# (arbiter 8, fixedmix 4, fixedshare 4, gruepi 4), F2 family 11 (8 + 3), F1 family 8 (latent 4, bolt 4);
+# F1 ablations add 4 in x3_c02_restless4_f1abl. All <= 24 per family.
+# Run with OPENBLAS_NUM_THREADS=1 (small-matrix BLAS threading is pathological on the shared machine).
+experiment_id: x3_c01_restless4
+title: Design-team candidates (F3 episodic arbiter, F2 world model + policy, F1 individual latent) vs same-size pop_gru, restless4
+lane: research/adaptation
+hypothesis: >-
+  (Exploratory.) Explicit individual adaptation (F3 episodic memory + learned gate, F2 individual policy
+  posterior, F1 online latent) improves tune NLL over a same-size pop_gru twin and over the same population
+  network with its recurrent state running.
+families: [restless4]
+report_partition: tune
+seed: 20261108
+threads: 2
+models:
+  pop_gru:
+    role: comparator
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01}
+  f3_arbiter:
+    role: candidate
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2], bandwidth: [0.3, 1.0]}
+    fixed: {lr: 0.01}
+    variants: [twin, frozen, mismatched]
+  f3_fixedmix:
+    role: reference
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01, bandwidth: 0.5, mix: learn}
+    variants: [frozen]
+  f3_fixedshare:
+    role: reference
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01, bandwidth: 0.5, share: 0.05}
+    variants: [frozen]
+  f3_gruepi:
+    role: reference
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01, bandwidth: 0.5}
+  f2_world_policy:
+    role: candidate
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2], prior_scale: [0.5, 1.0]}
+    fixed: {lr: 0.01}
+    variants: [twin, frozen, mismatched]
+  f2_delta:
+    role: reference
+    grid: {delta_alpha: [0.1, 0.3, 0.6]}
+    fixed: {prior_scale: 1.0}
+    variants: [frozen]
+  f1_latent:
+    role: candidate
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01, m: 10}
+    variants: [twin, frozen, mismatched]
+  f1_bolt:
+    role: reference
+    grid: {hidden: [12, 32], dropout: [0.0, 0.2]}
+    fixed: {lr: 0.01, m: 10}
+    variants: [frozen]
