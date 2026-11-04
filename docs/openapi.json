@@ -3920,6 +3920,30 @@
         ]
       }
     },
+    "/deployment": {
+      "get": {
+        "description": "Deployment posture (additive to /health, whose contract is frozen). No secrets, no hostnames.",
+        "operationId": "deployment_deployment_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Deployment Deployment Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Deployment",
+        "tags": [
+          "health"
+        ]
+      }
+    },
     "/evidence": {
       "get": {
         "description": "The static evidence/assumption library (namespace: evidence). User-specific records are not listed.",

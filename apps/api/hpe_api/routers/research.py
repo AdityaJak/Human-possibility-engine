@@ -11,7 +11,7 @@ from hpe import __version__
 from hpe.contracts.api import BenchmarkRecord, ClaimRecord, ExperimentCreate, ExperimentInfo, Health
 from hpe.contracts.runtime import CONTRACT_VERSION
 from hpe_api.context import AppContext, get_ctx
-from hpe_api.deps import rate_limited
+from hpe_api.deps import rate_limited, writes_allowed
 from hpe_api.experiment_service import read_json_records
 from hpe_api.run_service import world_engine_available
 
@@ -30,8 +30,42 @@ def health(ctx: AppContext = Depends(get_ctx)) -> Health:
     )
 
 
+@router.get("/deployment", tags=["health"])
+def deployment(ctx: AppContext = Depends(get_ctx)) -> dict[str, Any]:
+    """Deployment posture (additive to /health, whose contract is frozen). No secrets, no hostnames."""
+    s = ctx.settings
+    return {
+        "read_only": s.read_only,
+        "mode": "stored_real_outputs_only" if s.read_only else "full",
+        "unavailable_when_read_only": [
+            "POST /runs",
+            "POST /runs/{id}/step",
+            "POST /runs/{id}/control",
+            "POST /worlds",
+            "POST /worlds/{id}/run",
+            "POST /experiments",
+            "POST /experiments/{id}/run",
+        ],
+        "future_self_available": True,
+        "rate_limit_per_minute": s.rate_limit_per_minute,
+        "rate_limit_burst": s.rate_limit_burst,
+        "llm_provider": s.llm_provider,
+        "cors_origins_configured": len(s.cors_origins),
+        "offline_demo_runs": ctx.loader.count_demo_runs(),
+        "version": __version__,
+        "contract_version": CONTRACT_VERSION,
+        "note": "Synthetic research prototype; not validated for predicting human futures.",
+    }
+
+
 # ------------------------------------------------------------------ experiments
-@router.post("/experiments", response_model=ExperimentInfo, status_code=201, tags=["experiments"])
+@router.post(
+    "/experiments",
+    response_model=ExperimentInfo,
+    status_code=201,
+    tags=["experiments"],
+    dependencies=[Depends(writes_allowed)],
+)
 def create_experiment(body: ExperimentCreate, ctx: AppContext = Depends(get_ctx)) -> ExperimentInfo:
     """Register (preregister) an experiment. The definition hash is frozen before any run."""
     return ctx.experiments.create(body.definition)
@@ -46,7 +80,7 @@ def list_experiments(ctx: AppContext = Depends(get_ctx)) -> list[ExperimentInfo]
     "/experiments/{experiment_id}/run",
     response_model=ExperimentInfo,
     tags=["experiments"],
-    dependencies=[Depends(rate_limited("experiments"))],
+    dependencies=[Depends(writes_allowed), Depends(rate_limited("experiments"))],
 )
 def run_experiment(experiment_id: str, ctx: AppContext = Depends(get_ctx)) -> ExperimentInfo:
     """Execute a registered experiment as a job (501 if the evaluation runner is not part of this build)."""
@@ -115,5 +149,6 @@ def research_metrics(ctx: AppContext = Depends(get_ctx)) -> dict[str, Any]:
         },
         "benchmarks": len(_benchmarks(ctx)),
         "claims": len(_claims(ctx)),
+        "read_only": ctx.settings.read_only,
         "note": "Synthetic research prototype; not validated for predicting human futures.",
     }

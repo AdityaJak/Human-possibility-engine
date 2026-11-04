@@ -21,6 +21,13 @@ def _float(name: str, default: float) -> float:
         return default
 
 
+def _bool(name: str, default: bool) -> bool:
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in ("1", "true", "yes", "on")
+
+
 @dataclass(slots=True)
 class Settings:
     data_dir: Path = field(default_factory=lambda: Path(os.environ.get("HPE_DATA_DIR", "./data")))
@@ -51,6 +58,10 @@ class Settings:
     save_checkpoints: bool = field(
         default_factory=lambda: os.environ.get("HPE_SAVE_CHECKPOINTS", "1") not in ("0", "false")
     )
+    # Public deployments (HPE_READ_ONLY=1): endpoints that start simulations or experiments answer
+    # 405; the research lab serves the committed stored real outputs only. Future Self (consent,
+    # scenarios, reflections, privacy export/delete) stays available under the rate limits above.
+    read_only: bool = field(default_factory=lambda: _bool("HPE_READ_ONLY", False))
 
     @property
     def db_path(self) -> Path:

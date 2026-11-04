@@ -35,6 +35,13 @@ Status (2026-11-04): `docker compose config` validates; the images have **not** 
 development container (no Docker daemon there). The API image's dependency step
 (`uv sync --frozen --no-dev --no-editable` on Python 3.12) was verified outside Docker.
 
+## Public hosting
+
+See `docs/DEPLOYMENT.md`: GitHub Pages (static, automatic), Render Blueprint (`render.yaml`, API in
+read-only mode, `HPE_READ_ONLY=1`), Vercel (`apps/web/vercel.json`). The API image honours `$PORT`,
+trusts the platform proxy's forwarded headers, and creates `/data` for a persistent disk
+(`HPE_DATA_DIR=/data`). No deployment exists until the founder connects the accounts.
+
 ## Benchmarks
 
 `scripts/bench_scale.py` → `reports/scale/<id>.json` (see `reports/scale/README.md`).
