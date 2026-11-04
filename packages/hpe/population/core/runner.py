@@ -24,7 +24,7 @@ from pydantic import BaseModel, Field
 from hpe.core.rng import derive_seed, stream
 from hpe.population.core import evaluate
 from hpe.population.core.adaptation import overrides_harness
-from hpe.population.core.conformance import check_causal, state_digest
+from hpe.population.core.conformance import check_causal, check_encoding_leak, state_digest
 from hpe.population.core.data import load_family
 from hpe.population.core.encoding import EncodedSeq, input_dim, rekey
 from hpe.population.core.families import get_family
@@ -144,9 +144,10 @@ def _fit_one(
     return model, log, time.process_time() - t0, time.time() - w0
 
 
-def run_model_family(
+def select_model_family(
     defn: P3Definition, family: str, name: str, run: ModelRun, data: dict[str, list[EncodedSeq]]
 ) -> dict[str, Any]:
+    """Fit every configuration on dev, select (config, lapse) on tune, run the strict checks, fit the twin."""
     spec = get_model(name)
     configs = grid_configs(run, defn.max_configs)
     fits: list[dict[str, Any]] = []
@@ -195,30 +196,8 @@ def run_model_family(
     t_check = time.process_time()
     violations += check_causal(model, sel_seqs[:20], seed=defn.seed)
     check_cpu = time.process_time() - t_check
-    digest_before = state_digest(model)
-    rep = data[defn.report_partition]
-    t0 = time.process_time()
-    variants: dict[str, list[dict[str, Any]]] = {}
-    lapse0: dict[str, float] = {}
-    main, zero = score_variant(model, rep, lam, defn.seed, f"report-{name}")
-    variants["main"] = _scores_json(main)
-    lapse0["main"] = evaluate.mean_nll(zero)
-    report_cpu = time.process_time() - t0
     adaptive = bool(spec.adaptive or getattr(model, "adaptive", False))
-    if adaptive and "frozen" in run.variants:
-        sc, zero = score_variant(model, rep, lam, defn.seed, f"frozen-{name}", mode="frozen")
-        variants["frozen"], lapse0["frozen"] = _scores_json(sc), evaluate.mean_nll(zero)
-    if adaptive and "mismatched" in run.variants:
-        donors = donors_for(rep, defn.seed, family)
-        sc = []
-        for s in rep:
-            if s.key in donors:
-                lp = predict_isolated(
-                    model, s, _token(defn.seed, f"donor-{name}", s.key), donor=donors[s.key]
-                )
-                sc.append(evaluate.score(s, lp, lam))
-        variants["mismatched"] = _scores_json(sc)
-    twin_info: dict[str, Any] | None = None
+    twin, twin_info = None, None
     tcfg = model.twin_config() if hasattr(model, "twin_config") else None
     if adaptive and "twin" in run.variants and tcfg:
         tspec = get_model("pop_gru")
@@ -234,8 +213,6 @@ def run_model_family(
             for lam_ in defn.lapse_grid
         }
         tlam = min(defn.lapse_grid, key=lambda v: (tby[str(v)], v))
-        sc, zero = score_variant(twin, rep, tlam, defn.seed, f"twin-{name}")
-        variants["twin"], lapse0["twin"] = _scores_json(sc), evaluate.mean_nll(zero)
         twin_info = {
             "config": tcfg,
             "lapse": tlam,
@@ -245,11 +222,8 @@ def run_model_family(
             "params": twin.param_count(),
             "causality_violations": check_causal(twin, sel_seqs[:5], seed=defn.seed),
         }
-    if state_digest(model) != digest_before:
-        violations.append("model state changed while predicting the report partition")
     edges = [k for k, vals in run.grid.items() if len(vals) > 1 and configs[ci].get(k) in (vals[0], vals[-1])]
-    n_trials = sum(s.T for s in rep)
-    return {
+    record = {
         "family": family,
         "model": name,
         "role": run.role,
@@ -268,21 +242,125 @@ def run_model_family(
         "fits": fits,
         "causality_violations": violations,
         "causality_check_cpu_s": round(check_cpu, 2),
-        "report_partition": defn.report_partition,
-        "report_cpu_s": round(report_cpu, 2),
-        "predict_ms_per_trial": round(1000.0 * report_cpu / max(1, n_trials), 4),
-        "lapse0_nll": lapse0,
         "twin": twin_info,
-        "variants": variants,
     }
+    return {"record": record, "model": model, "twin": twin}
+
+
+def report_model_family(
+    defn: P3Definition, family: str, name: str, run: ModelRun, sel: dict[str, Any], rep: list[EncodedSeq]
+) -> dict[str, Any]:
+    """Score the selected model (and its twin / harness variants) on the report partition."""
+    record = dict(sel["record"])
+    model, twin = sel["model"], sel["twin"]
+    lam = record["selected"]["lapse"]
+    violations = list(record["causality_violations"])
+    digest_before = state_digest(model)
+    t0 = time.process_time()
+    variants: dict[str, list[dict[str, Any]]] = {}
+    lapse0: dict[str, float] = {}
+    main, zero = score_variant(model, rep, lam, defn.seed, f"report-{name}")
+    variants["main"] = _scores_json(main)
+    lapse0["main"] = evaluate.mean_nll(zero)
+    report_cpu = time.process_time() - t0
+    if record["adaptive"] and "frozen" in run.variants:
+        sc, zero = score_variant(model, rep, lam, defn.seed, f"frozen-{name}", mode="frozen")
+        variants["frozen"], lapse0["frozen"] = _scores_json(sc), evaluate.mean_nll(zero)
+    if record["adaptive"] and "mismatched" in run.variants:
+        donors = donors_for(rep, defn.seed, family)
+        sc = []
+        for s in rep:
+            if s.key in donors:
+                lp = predict_isolated(
+                    model, s, _token(defn.seed, f"donor-{name}", s.key), donor=donors[s.key]
+                )
+                sc.append(evaluate.score(s, lp, lam))
+        variants["mismatched"] = _scores_json(sc)
+    if twin is not None and record.get("twin"):
+        sc, zero = score_variant(twin, rep, record["twin"]["lapse"], defn.seed, f"twin-{name}")
+        variants["twin"], lapse0["twin"] = _scores_json(sc), evaluate.mean_nll(zero)
+    if state_digest(model) != digest_before:
+        violations.append("model state changed while predicting the report partition")
+    n_trials = sum(s.T for s in rep)
+    record.update(
+        {
+            "causality_violations": violations,
+            "report_partition": defn.report_partition,
+            "report_cpu_s": round(report_cpu, 2),
+            "predict_ms_per_trial": round(1000.0 * report_cpu / max(1, n_trials), 4),
+            "lapse0_nll": lapse0,
+            "variants": variants,
+        }
+    )
+    return record
+
+
+def run_model_family(
+    defn: P3Definition, family: str, name: str, run: ModelRun, data: dict[str, list[EncodedSeq]]
+) -> dict[str, Any]:
+    sel = select_model_family(defn, family, name, run, data)
+    return report_model_family(defn, family, name, run, sel, data[defn.report_partition])
+
+
+def _sha256_file(p: Path) -> str:
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def save_selection(outdir: Path, family: str, name: str, sel: dict[str, Any]) -> dict[str, str]:
+    """Stage 'fit' of a confirmatory run: persist the selected model (and twin) and their SHA-256 digests."""
+    import torch  # research extra; confirmatory runs need it anyway
+
+    mdir = outdir / "models"
+    mdir.mkdir(parents=True, exist_ok=True)
+    digests = {}
+    for tag, obj in (("model", sel["model"]), ("twin", sel["twin"])):
+        if obj is None:
+            continue
+        path = mdir / f"{family}__{name}__{tag}.pt"
+        torch.save(obj, path)
+        digests[f"{family}__{name}__{tag}"] = _sha256_file(path)
+    (outdir / "parts" / f"{family}__{name}.selection.json").write_text(json.dumps(sel["record"]) + "\n")
+    return digests
+
+
+def load_selection(outdir: Path, family: str, name: str, expected: dict[str, str]) -> dict[str, Any]:
+    """Stage 'test': load the frozen models, refusing any whose digest differs from the freeze record."""
+    import torch
+
+    record = json.loads((outdir / "parts" / f"{family}__{name}.selection.json").read_text())
+    objs: dict[str, Any] = {"model": None, "twin": None}
+    for tag in ("model", "twin"):
+        key = f"{family}__{name}__{tag}"
+        path = outdir / "models" / f"{key}.pt"
+        if not path.exists():
+            continue
+        if expected.get(key) != _sha256_file(path):
+            raise RuntimeError(f"{key}: model file digest differs from the freeze record")
+        objs[tag] = torch.load(path, weights_only=False)
+    return {"record": record, **objs}
 
 
 def run(
-    defn: P3Definition, out: Path, *, resume: bool = False, only_families: list[str] | None = None
+    defn: P3Definition,
+    out: Path,
+    *,
+    resume: bool = False,
+    only_families: list[str] | None = None,
+    stage: Literal["all", "fit", "test"] = "all",
 ) -> Path:
+    """Exploratory runs use ``stage='all'`` (report on tune). A confirmatory definition (report on test) runs
+    in two processes: ``stage='fit'`` (dev/tune only; persists the selected models and their digests, to be
+    committed and named in the freeze record) and later ``stage='test'`` (validates the freeze, opens the
+    single-run access log, loads the frozen models by digest, scores test). Critic finding T-1."""
+    if defn.report_partition == "test" and stage == "all":
+        raise ValueError("a confirmatory definition must run as stage 'fit' and then stage 'test'")
+    if stage != "all" and defn.report_partition != "test":
+        raise ValueError("stages are only for confirmatory (test) definitions")
     outdir = Path(out) / defn.experiment_id
     parts_dir = outdir / "parts"
     parts_dir.mkdir(parents=True, exist_ok=True)
+    if stage == "test":
+        return _run_test_stage(defn, outdir)
     (outdir / "definition.json").write_text(
         json.dumps({**defn.model_dump(), "preregistration_hash": defn.preregistration_hash()}, indent=1)
         + "\n"
@@ -303,15 +381,31 @@ def run(
             print(f"[{family}] all models checkpointed; skipping", flush=True)
             continue
         data: dict[str, list[EncodedSeq]] = {}
-        for part in sorted({defn.fit_partition, defn.select_partition, defn.report_partition}):
+        parts_needed = {defn.fit_partition, defn.select_partition}
+        if stage == "all":
+            parts_needed.add(defn.report_partition)
+        for part in sorted(parts_needed):
             seqs, excl = load_family(family, part, experiment_id=defn.experiment_id, k_max=defn.k_max)
             data[part] = seqs
             exclusions.setdefault(family, {})[part] = excl
+        leak = check_encoding_leak(data[defn.fit_partition])
+        if leak:
+            print(f"[{family}] ENCODING LEAK SUSPECTED: {leak}", flush=True)
+        exclusions.setdefault(family, {})["encoding_leak_check"] = leak
         for name, mrun in todo:
             n_cfg = len(grid_configs(mrun, defn.max_configs))
             print(f"[{family}] {name}: {n_cfg} config(s), {len(data['dev'])} dev participants", flush=True)
-            res = run_model_family(defn, family, name, mrun, data)
-            (parts_dir / f"{family}__{name}.json").write_text(json.dumps(res) + "\n")
+            if stage == "fit":
+                sel = select_model_family(defn, family, name, mrun, data)
+                digests = save_selection(outdir, family, name, sel)
+                dpath = outdir / "models" / "digests.json"
+                alld = json.loads(dpath.read_text()) if dpath.exists() else {}
+                alld.update(digests)
+                dpath.write_text(json.dumps(alld, indent=1, sort_keys=True) + "\n")
+                res = sel["record"]
+            else:
+                res = run_model_family(defn, family, name, mrun, data)
+                (parts_dir / f"{family}__{name}.json").write_text(json.dumps(res) + "\n")
             print(
                 f"[{family}] {name}: select NLL {res['selected']['select_nll']:.4f} "
                 f"config {res['selected']['config']} lapse {res['selected']['lapse']} "
@@ -333,6 +427,44 @@ def run(
         }
     )
     info_path.write_text(json.dumps({"invocations": history}, indent=1) + "\n")
+    if stage == "all":
+        analyze(outdir)
+    return outdir
+
+
+def _run_test_stage(defn: P3Definition, outdir: Path) -> Path:
+    from hpe.population.core.freeze import open_access_log, validate_freeze
+
+    h = defn.preregistration_hash()
+    rec = validate_freeze(defn.experiment_id, definition_hash=h)
+    open_access_log(defn.experiment_id, rec, "confirmatory test-stage run")
+    t_wall, t_cpu = time.time(), time.process_time()
+    exclusions: dict[str, list[str]] = {}
+    for family in defn.families:
+        rep, excl = load_family(
+            family, "test", experiment_id=defn.experiment_id, k_max=defn.k_max, definition_hash=h
+        )
+        exclusions[family] = excl
+        for name, mrun in defn.models.items():
+            if mrun.families is not None and family not in mrun.families:
+                continue
+            sel = load_selection(outdir, family, name, rec["model_digests"])
+            res = report_model_family(defn, family, name, mrun, sel, rep)
+            (outdir / "parts" / f"{family}__{name}.json").write_text(json.dumps(res) + "\n")
+            print(f"[{family}] {name}: test scored ({len(rep)} participants)", flush=True)
+    (outdir / "test_run_info.json").write_text(
+        json.dumps(
+            {
+                "code_version": code_version(),
+                "wall_s": round(time.time() - t_wall, 1),
+                "cpu_s": round(time.process_time() - t_cpu, 1),
+                "exclusions": exclusions,
+                "llm_calls": 0,
+            },
+            indent=1,
+        )
+        + "\n"
+    )
     analyze(outdir)
     return outdir
 

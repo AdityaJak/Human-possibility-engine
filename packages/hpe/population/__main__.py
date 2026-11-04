@@ -15,6 +15,7 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--out", type=Path, required=True)
     r.add_argument("--resume", action="store_true")
     r.add_argument("--families", default=None)
+    r.add_argument("--stage", choices=["all", "fit", "test"], default="all")
     a = sub.add_parser("analyze")
     a.add_argument("outdir", type=Path)
     args = ap.parse_args(argv)
@@ -23,7 +24,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "run":
         fams = args.families.split(",") if args.families else None
         out = runner.run(
-            runner.load_definition(args.definition), args.out, resume=args.resume, only_families=fams
+            runner.load_definition(args.definition),
+            args.out,
+            resume=args.resume,
+            only_families=fams,
+            stage=args.stage,
         )
         print(f"wrote {out}")
     else:

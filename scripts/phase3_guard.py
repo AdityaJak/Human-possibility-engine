@@ -62,6 +62,27 @@ def main(argv: list[str] | None = None) -> int:
         if hits:
             rec = {"file": rel, "distinct_test_keys": len(hits), "sample": sorted(hits)[:3]}
             (disclosed if rel.startswith(ALLOWED) else violations).append(rec)
+    # Critic finding T-3: lane code must not read raw Psych-101 records (only hpe.population.core.data may).
+    raw_patterns = ("iter_records(", "prompts_training", "psych101_phase3_subset", "psych101_learning_subset")
+    allowed_code = (
+        "packages/hpe/population/core/data.py",
+        "packages/hpe/evaluation/human/",
+        "scripts/phase2_",
+        "scripts/phase3_partitions.py",
+        "scripts/phase3_guard.py",
+        "datasets/",
+    )
+    raw_access = []
+    for base in ("packages/hpe/population", "scripts", "experiments/phase3"):
+        for f in sorted((ROOT / base).rglob("*.py")):
+            rel = str(f.relative_to(ROOT))
+            if rel.startswith(allowed_code):
+                continue
+            text = f.read_text(encoding="utf-8", errors="replace")
+            hits = [pat for pat in raw_patterns if pat in text]
+            if hits:
+                raw_access.append({"file": rel, "patterns": hits})
+    violations += [{"kind": "raw_record_access", **r} for r in raw_access]
     out = {
         "check": "phase3 check-test-access",
         "n_test_keys": len(keys),

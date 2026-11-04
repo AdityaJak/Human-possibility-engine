@@ -69,8 +69,15 @@ def perturb_future(seq: EncodedSeq, t: int, seed: int) -> EncodedSeq:
     )
 
 
-def _differ(a: np.ndarray, b: np.ndarray) -> bool:
-    return not np.array_equal(a, b)
+ATOL = 1e-5  # log-prob tolerance: batched GEMMs change summation order with sequence length (~1e-7);
+# any leak below 1e-5 nats per row cannot move a per-choice NLL by more than 1e-5.
+
+
+def _differ(a: np.ndarray, b: np.ndarray, atol: float = ATOL) -> bool:
+    fa, fb = np.isfinite(a), np.isfinite(b)
+    if a.shape != b.shape or (fa != fb).any():
+        return True
+    return bool(np.abs(a[fa] - b[fa]).max(initial=0.0) > atol)
 
 
 def check_causal(
