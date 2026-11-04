@@ -272,6 +272,19 @@ def _probs(Phi: np.ndarray, W: np.ndarray, avail: np.ndarray) -> np.ndarray:
     return np.exp(masked_logsoftmax_np(Phi @ W.T, avail))
 
 
+def _hessian(A: np.ndarray, Phi: np.ndarray) -> np.ndarray:
+    """``Σ_t A_t ⊗ φ_t φ_tᵀ`` as a ``(K·D) × (K·D)`` matrix, block (i, j) = ``Φᵀ diag(A[:, i, j]) Φ`` (BLAS)."""
+    K, D = A.shape[1], Phi.shape[1]
+    Hs = np.zeros((K * D, K * D))
+    for i in range(K):
+        for j in range(i, K):
+            blk = (Phi * A[:, i, j][:, None]).T @ Phi
+            Hs[i * D : (i + 1) * D, j * D : (j + 1) * D] = blk
+            if j != i:
+                Hs[j * D : (j + 1) * D, i * D : (i + 1) * D] = blk.T
+    return Hs
+
+
 def map_head(
     Phi: np.ndarray,
     a: np.ndarray,
@@ -299,7 +312,7 @@ def map_head(
         P = _probs(Phi, W, avail)
         G = (P - Y).T @ Phi + prec * (W - W0)
         A = P[:, :, None] * np.eye(K)[None] - P[:, :, None] * P[:, None, :]
-        Hs = np.einsum("tij,tk,tl->ikjl", A, Phi, Phi).reshape(K * D, K * D) + np.eye(K * D) * prec
+        Hs = _hessian(A, Phi) + np.eye(K * D) * prec
         step = np.linalg.solve(Hs, G.reshape(-1)).reshape(K, D)
         t = 1.0
         while True:
@@ -356,7 +369,7 @@ class BayesHead(_BackboneAdapter):
             K, D = W.shape
             S = np.linalg.inv(Hs).reshape(K, D, K, D)
             Skk = np.stack([S[k, :, k, :] for k in range(K)])  # [K, D, D]
-            v = np.einsum("td,kde,te->tk", Phi, Skk, Phi)
+            v = np.stack([((Phi @ Skk[k]) * Phi).sum(axis=1) for k in range(K)], axis=1)
             mu = mu / np.sqrt(1.0 + np.pi * np.maximum(v, 0.0) / 8.0)
         return masked_logsoftmax_np(mu, avail)
 
