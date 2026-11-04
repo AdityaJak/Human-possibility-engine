@@ -30,6 +30,8 @@ dev = [
   "types-PyYAML>=6.0",
 ]
 parquet = ["pyarrow>=17,<23"]
+# Phase III research models (ADR-0009). CPU wheels: --index-url https://download.pytorch.org/whl/cpu
+research = ["torch>=2.5,<2.6"]
 
 [project.scripts]
 hpe = "hpe.cli:main"
