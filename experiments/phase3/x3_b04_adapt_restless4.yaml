@@ -1,0 +1,45 @@
+# X3-B04 restless4 (exploratory, written by the director for the evaluation team while its lane is blocked by the
+# account's API spend limit): conventional adaptive comparators for Gate B2 on the SAME backbone as the selected
+# pop_gru of X3-B03 (hidden 32, lr 0.01, dropout 0, trainer v2; runner seed 273911918 = derive_seed(20261108,
+# restless4, pop_gru, 3)), so every adapter's frozen variant equals that pop_gru. Grids are the evaluation lane's
+# registered defaults (packages/hpe/population/baselines). hb_cog / gru_hb_mix use their own population prior.
+experiment_id: x3_b04_adapt_restless4
+title: Adaptive comparators on the selected pop_gru backbone (fine-tuning, Bayesian head, exemplar mixture, Reptile, CAVIA, hierarchical Bayesian cognitive model), restless4 tune
+lane: science/validation-v3
+hypothesis: (Exploratory.) Tune NLL of conventional individual-adaptation methods on the strongest population backbone; defines the Gate B2 comparator per family.
+families: [restless4]
+report_partition: tune
+seed: 20261108
+threads: 1
+models:
+  ft_head:
+    grid: {m: [10, 25], n: [5, 20], lr: [0.003, 0.01, 0.03]}
+    fixed: &bb {backbone: {hidden: 32, lr: 0.01, dropout: 0.0, max_epochs: 150, patience: 10, batch_size: 8}, backbone_seed: 273911918}
+    variants: [frozen, mismatched]
+  ft_full:
+    grid: {n: [3, 10], lr: [0.001, 0.003], l2: [0.0, 1.0]}
+    fixed: *bb
+    variants: [frozen, mismatched]
+  bayes_head:
+    grid: {prior_var: [eb, 0.03, 0.3], m: [10, 25], predictive: [map, laplace]}
+    fixed: *bb
+    variants: [frozen, mismatched]
+  exemplar_mix:
+    grid: {w: [0.05, 0.1, 0.2, 0.4], bw: [0.25, 1.0, 4.0]}
+    fixed: {backbone: {hidden: 32, lr: 0.01, dropout: 0.0, max_epochs: 150, patience: 10, batch_size: 8}, backbone_seed: 273911918, decay: 0.98}
+    variants: [frozen, mismatched]
+  reptile_gru:
+    grid: {lr: [0.001, 0.003], n: [3, 10]}
+    fixed: *bb
+    variants: [frozen, mismatched]
+  cavia_gru:
+    grid: {c_dim: [4, 8], inner_lr: [0.3, 1.0]}
+    fixed: *bb
+    variants: [frozen, mismatched]
+  hb_cog:
+    grid: {c: [0.01, 0.1, 1.0], tau: [0.5, 1.0]}
+    variants: [frozen, mismatched]
+  gru_hb_mix:
+    grid: {w: [0.05, 0.1, 0.2, 0.3], c: [0.1, 1.0]}
+    fixed: *bb
+    variants: [frozen, mismatched]
