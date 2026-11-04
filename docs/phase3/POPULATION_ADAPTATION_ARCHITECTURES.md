@@ -160,4 +160,72 @@ limit: the world model predicts the *objective* outcome process, so individual d
 **(5) Implementation.** `packages/hpe/population/candidates/f2_world_policy.py` (`F2WorldPolicy`,
 `WorldGRU`, `world_loss`, `pooled_fit`, `laplace_step`).
 
-RESULTS_PLACEHOLDER
+**(6–8) Results, cost and verdicts for F1, F2 and F3** are in §4 below.
+
+## 4. Results, ablations, cost and verdicts (exploratory, tune partitions; filled by the director)
+
+The design lane stopped on the account's API spend limit after its restless4 run was partly done; the
+director resumed the lane's own definitions unchanged (`experiments/phase3/candidates/*.yaml`) and committed the
+results. All numbers are tune NLL per free choice (nats), lower is better; every candidate passed the strict
+causality check. "twin" = a separately trained `pop_gru` of the candidate's backbone configuration (one config,
+one seed — biased in the candidates' favour, critic N-3); "frozen" = the harness's prior-state mode; "donor" =
+the harness's length-matched mismatched-person control.
+
+### 4.1 Toy verification (does adaptation help only when individuals differ?)
+
+From the lane's scratch run (`toy_verification.py`; synthetic populations, 80 people × 60 trials): on the
+heterogeneous cue toy, F1 adapt 0.655 vs frozen 0.682 vs donor 0.706, and the **trait-only ablation 0.620**
+(better than the full trait/context split); on homogeneous toys every F1 variant ≈ frozen (correct null). The
+committed slow-tier test `test_toy_adaptation_helps_only_when_individuals_differ` **fails for F1, F2 and F3**
+in the director's and the critic's environments (adapt − frozen: F1 +0.0014, F3 −0.0061, F2 −0.0124 ± 0.0068
+against a −0.01 threshold; critic N-13). **No mechanism claim is made while the positive control is unreliable.**
+
+### 4.2 Human families
+
+| family (tune n) | F3 arbiter | F1 latent | F2 world+policy | same-size `pop_gru` | strongest comparator |
+|---|---|---|---|---|---|
+| restless4 (174) | **0.7237** (frozen 0.7302, donor 0.7314, twin 0.7387) | 0.7280 (= bolt-on 0.7280) | 0.8306 | 0.7322 | `pop_gru_ens` 0.7102 |
+| garcia (68) | **0.4348** (frozen 0.4457, donor 0.4525, twin 0.4541) | 0.4426 (= bolt-on 0.4426) | 0.5793 | 0.4438 | `pop_tf` 0.4339 |
+| described (41) | 0.3571 (frozen 0.3571 — gate ≈ off) | 0.3568 | 0.3811 | **0.3550** | `pop_gru` 0.3550 |
+| GBE external (1,000) | 0.4934 (frozen 0.4940) | bolt-on 0.4936 (frozen 0.4940) | — | 0.4892 | `pop_gru_ens` 0.4826 |
+
+Matched ensembles on restless4 (X3-007): F3 ×5 0.7113 vs `pop_gru` ×5 0.7127 (−0.0014 [−0.0048, +0.0019]);
+F3 ×5 vs its own frozen −0.0009.
+
+### 4.3 Ablations of F3's learned arbitration
+
+| family | F3 learned gate | fixed mixture | fixed-share BMA | GRU fed the episodic prediction (matched complexity) |
+|---|---|---|---|---|
+| restless4 | 0.7237 | 0.7285 | 0.7368 | 0.7293 |
+| garcia | 0.4348 | 0.4453 | 0.4419 | 0.4367 |
+| described | 0.3571 | 0.3572 | 0.3674 | 0.3571 |
+
+### 4.4 Cost
+
+| model | params (restless4) | fit CPU-s (selected config, restless4) | prediction ms / trial |
+|---|---|---|---|
+| `pop_gru` | 8,004 | 59 | 0.05 |
+| F3 arbiter | 8,010 | 239 | 0.36 |
+| F1 latent | 8,724 | 71 | 2.10 |
+| F2 world + policy | 8,171 | 3.5 | 0.37 |
+| `pop_gru_ens` (5) | 40,020 | 117 | 0.11 |
+
+### 4.5 Verdicts (dev/tune only; none is a confirmatory finding)
+
+* **F3 learned arbitration — not supported as an advance.** It beats its own ablations (fixed mixture by 0.005 /
+  0.011, fixed-share by 0.013 / 0.007 on restless4 / garcia) and own history beats a donor's, so the gate does
+  learn something person-specific; but it is 0.0135 nats/choice behind the population seed ensemble on the primary
+  family (critic CI [+0.0082, +0.0183]), level with the transformer on garcia, slightly behind on described and
+  the external GBE data, and its single-model gain shrinks to −0.0014 once both arms are ensembled. At 4–7× the
+  fitting cost of `pop_gru`, it does not pay for itself.
+* **F1 individual latent with the trait/context split (proposed novel mechanism) — not supported.**
+  Meta-training adds nothing over bolting the latent onto the plain backbone (identical means on restless4 and
+  garcia), adaptation gains are ≤ 0.003, and on the toy the trait-only ablation beat the full split. Prediction
+  costs 40× `pop_gru`.
+* **F2 world model + individual policy — rejected.** 0.03–0.14 nats/choice worse than the same-size `pop_gru` on every family (restless4 +0.098, garcia +0.136, described +0.026):
+  predicting the objective outcome process and fitting a few policy weights loses the behavioural regularities a
+  sequence model learns directly.
+* **General reading.** In these single-session tasks a population recurrent model already infers the person in
+  context; explicit person-level adaptation adds ≤ 0.009 nats/choice to a single model and ≈ 0.001–0.003 to a seed
+  ensemble — within the seed noise of single fits (critic N-4).
+

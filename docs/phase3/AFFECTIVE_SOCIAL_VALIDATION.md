@@ -163,13 +163,37 @@ flipped independently per pair, so a borrowed action is uninformative). Models: 
 | DA-2 | Human data are loaded by lane adapters, not `core.data.load_family` (AGENTS.md §5 rule 1), because the core loader is hard-wired to the Psych-101 subset. The adapters apply the same `check_partition_access` lock before encoding. | core change request (§9) |
 | DA-3 | Abandoned attempts (no result of the abandoned run was produced or seen): (a) a 3-epoch timing pilot on 2,000 dev / 500 tune participants for `affect_gru_obs` and `affect_gru_aux` (hidden 32), scratchpad only — tune NLL 0.508 and 0.509 were displayed; (b) `gbe_explore_01a` with ≤ 10 plays per participant, stopped after 13 CPU-min inside the first configuration because padding every batch to ≤ 300 steps made each model cost ≈ 40 CPU-min; relaunched as `gbe_explore_01` with ≤ 4 plays (≤ 120 trials) from commit `703d567`. | the ≤ 4-plays cap drops the later plays of the 5.8 % of dev participants with more than 4 plays (81.6 % of dev plays are kept) |
 
-## 6. Results (exploratory)
+## 6. Results (exploratory; filled by the director from `reports/phase3/affect/gbe_explore_01/summary.json`)
 
-_Pending — filled from `reports/phase3/affect/gbe_explore_01/summary.json` and the Najar run._
+GBE, all 18,827 dev participants fitted, all 9,413 tune participants scored, ≤ 4 plays (120 choices) each.
+Two configurations per model (hidden 16/32, lr 0.01, batch 64), lapse selected on tune.
+
+| model | tune NLL | top-1 | params |
+|---|---|---|---|
+| `affect_gru_base` (no affect input) | **0.4737** | 0.7735 | 6,978 |
+| `affect_gru_shuf` (causal past-shuffle control) | 0.4740 | 0.7732 | 7,266 |
+| `affect_gru_aux_shuf` (mood readout, permuted targets) | 0.4749 | 0.7728 | 7,011 |
+| `affect_gru_obs` (observed ratings as input) | 0.4750 | 0.7727 | 2,866 |
+| `affect_gru_aux` (latent-mood readout trained on observed ratings) | 0.4756 | 0.7721 | 7,011 |
+
+| contrast (first − second; negative favours first) | estimate [95 % CI], n = 9,413 |
+|---|---|
+| **Gate F contrast: observed − matched-complexity control** | **+0.0010 [+0.0005, +0.0015]** |
+| observed − no affect | +0.0013 [+0.0009, +0.0018] |
+| control − no affect | +0.0004 [−0.0001, +0.0008] |
+| latent-mood readout: observed − permuted targets | +0.0007 [+0.0002, +0.0012] |
+| latent-mood readout − plain GRU | +0.0019 [+0.0015, +0.0024] |
+
+Reported happiness, given as an input or as an auxiliary target, makes held-out risky-choice prediction slightly
+**worse**, not better. The `affect_gru_shuf` run used the key-seeded shuffle (before the director's
+key-independent fix, commit f9bacc3); its conclusion does not depend on that detail. The Najar 2020 social
+models were implemented and tested but **not run** (the lane stopped on the account's API spend limit).
 
 ## 7. Gate F status
 
-_Pending results._
+**Not met on tune; no freeze.** The Gate F tune contrast is +0.0010 (wrong sign) at n = 9,413, so the effect, if
+any, is far below the 0.02 margin. Gate F remains testable on GBE (a licensed external dataset); social data
+(Najar 2020) remain untested.
 
 ## 8. Limits
 
@@ -182,6 +206,6 @@ _Pending results._
   nothing about whether a model "has" affect, and no such claim is made.
 * Najar: 68 participants, computer-generated demonstrations, MIT software licence; test n = 26 after DA-1.
 
-## 9. Proposed registry rows and core change requests
+## 9. Registry rows
 
-_Pending results._
+Recorded as X3-012 in `EXPERIMENT_REGISTRY_V3.md`. Core change requests: none outstanding.
