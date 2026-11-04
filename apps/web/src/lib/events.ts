@@ -68,7 +68,8 @@ function str(v: unknown): string | undefined {
 /** Human-readable one-line description of an event, using only fields present in its payload. */
 export function describeEvent(e: ExperienceEvent): string {
   const p = (e.payload ?? {}) as Record<string, unknown>;
-  const base = LABEL[e.type] ?? e.type;
+  const initialPopulation = e.type === "birth" && e.provenance?.mechanism === "world.init.population" && !e.other_ids?.length;
+  const base = initialPopulation ? "Entered simulation (initial population)" : (LABEL[e.type] ?? e.type);
   const parts: string[] = [];
   const fam = str(p.family);
   switch (e.type) {

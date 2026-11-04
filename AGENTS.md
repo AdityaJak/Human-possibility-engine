@@ -24,7 +24,7 @@ reads this file first. The orchestrator (Chief Architect) owns this file.
 | `science/evaluation` | Experimental Science Engineer | `packages/hpe/evaluation/`, `experiments/`, `tests/evaluation/`, `reports/experiments/` | contracts, the developmental learner |
 | `platform/backend` | Backend / Data Engineer | `apps/api/`, `packages/hpe/storage/`, `packages/hpe/futures/`, `tests/api/`, `tests/storage/`, `tests/futures/` | contracts, world, learners |
 | `product/frontend` | Frontend / Product Engineer | `apps/web/` (except `apps/web/src/types/contracts.ts`, which is generated) | python packages |
-| `infra/release` | Infrastructure / Release | `.github/`, `infra/`, `Makefile`, `docker-compose.yml`, `scripts/` (except `export_contracts.py`), `reports/scale/` | package internals |
+| `infra/release` | Infrastructure / Release | `.github/`, `infra/`, `Makefile`, `docker-compose.yml`, `scripts/` (except `export_contracts.py`), `reports/scale/`, `tests/infra/` | package internals |
 | `science/human-validation` | Experimental Science (specialist) | `packages/hpe/evaluation/human/`, `datasets/adapters/`, `tests/evaluation/human/`, `reports/human_validation/` | learners |
 | `audit/review` | Independent Critic / QA | `reports/audit/`, may open fix requests in `tasks/board.yaml` comments | production code it reviews |
 

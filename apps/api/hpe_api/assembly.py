@@ -12,7 +12,7 @@ from typing import Any
 from hpe.contracts.api import AgentDetail, AgentSummary, ParameterPoint, SkillPoint
 from hpe.contracts.schemas import AgentState, EventType, ExperienceEvent
 from hpe.storage import EventRepository
-from hpe.tasks import TRAINING_FAMILIES, TRANSFER_FAMILIES
+from hpe.tasks import TRAINING_FAMILIES, TRANSFER_FAMILIES, TaskWorldConfig
 from hpe_api.run_service import RunView
 
 MILESTONE_TYPES: tuple[str, ...] = tuple(
@@ -66,6 +66,10 @@ def _age_at(tick: int, state: AgentState, dt_days: int) -> float:
     return max(0.0, (tick - state.birth_tick) * dt_days / 365.0)
 
 
+# World assessments use the fixed held-out set of TaskWorldConfig.eval_items_per_family items.
+DEFAULT_EVAL_ITEMS = TaskWorldConfig().eval_items_per_family
+
+
 def _assessment_items(payload: dict[str, Any]) -> list[dict[str, Any]]:
     """Accept the shapes a world may emit: one result, a list of results, or {family: result}."""
     for key in ("results", "assessments", "families"):
@@ -98,7 +102,7 @@ def skill_points(events: list[ExperienceEvent], state: AgentState, dt_days: int)
                     ci_low=float(item.get("ci_low", acc)),
                     ci_high=float(item.get("ci_high", acc)),
                     log_loss=float(ll) if ll is not None else None,
-                    n_items=int(item.get("n_items", 0)),
+                    n_items=int(item.get("n_items", payload.get("n_items", DEFAULT_EVAL_ITEMS))),
                     split=split,  # type: ignore[arg-type]
                 )
             )

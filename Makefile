@@ -62,8 +62,12 @@ openapi-check: ## Fail if docs/openapi.json is stale
 smoke: ## Seeded 25-agent x 3-year simulation, run twice, replay hashes must match (CI)
 	$(PY) -m hpe.cli smoke --out data/smoke
 
-experiments: ## Run every preregistered experiment and regenerate reports (long: hours on 4 CPUs)
-	$(PY) -m hpe.evaluation run experiments/*.yaml --workers $(WORKERS)
+experiments: ## Run every preregistered simulation experiment and regenerate reports (long: hours on 4 CPUs)
+	$(PY) -m hpe.evaluation run $$($(PY) -c "from hpe.evaluation.spec import simulation_spec_files as f; print(' '.join(map(str, f())))") --workers $(WORKERS)
+
+human-experiments: ## Human-data experiments (downloads Psych-101 + HeartSteps V1, or set HPE_PSYCH101_SUBSET)
+	$(PY) -m hpe.evaluation.human run experiments/exp07b_causal_grounding.yaml
+	$(PY) -m hpe.evaluation.human run experiments/exp07_human_heldout.yaml
 
 demo-data: ## Produce the stored 100-agent x 80-year demo run used by offline demo mode
 	$(PY) -m hpe.cli demo-run
