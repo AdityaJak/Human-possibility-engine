@@ -43,3 +43,6 @@ apps/web/.vite/
 # Large scratch outputs (committed results live in reports/ with manifests)
 reports/**/scratch/
 reports/scale/raw/
+
+# Claude Code local state (agent worktrees, settings)
+.claude/
