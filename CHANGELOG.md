@@ -3,6 +3,9 @@
 All notable changes are recorded here. Dates are UTC.
 
 ## [Unreleased]
+### Phase III (2026-11-04)
+- `hpe.population`: encoding v3, locked data access, harness-owned adaptation, strict causality checks, gate rules in code, two-stage confirmatory runner, seed-ensemble wrappers; comparator pool (GRU/LSTM/transformer/ensemble, fine-tuning, Bayesian head, exemplar mixture, Reptile, CAVIA, hierarchical Bayesian cognitive model); candidates F1–F4; Gate E synthetic suite; Gate D transfer harness; affect/social adapters (GBE CC0, Najar 2020 MIT); Phase III dashboard page; CI research job.
+- Result: no candidate met a preregistered stop rule; NO-GO for H3 as preregistered; pivot to cross-session person representation and population-model strength.
 ### Phase II (2026-11-04)
 - Static backend-free deployment (pre-rendered API + in-browser Future Self engine) with GitHub Pages workflow and post-deploy browser verification; read-only public API mode; Render/Vercel configs.
 - Phase II research: thesis v2 with fixed gates, frozen participant partitions, Candidate A hybrid exemplar learner, v2 and composition task families, Gate A controls, nine-family human validation with GRU/PVL/Bayes/GCM references, social mechanism v2, causal validity (simulation, HTE, OPE), independent design review + leakage guard, state-of-the-art benchmark; all results exploratory except two causal confirmations; no breakthrough claimed.

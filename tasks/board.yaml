@@ -1,7 +1,7 @@
 # Machine-readable task board (spec §47C). Status: todo | in_progress | review | done | blocked
 # Owner = lane branch. "done" requires the acceptance test to pass in the integrated branch.
 version: 1
-updated: "2026-11-04 Phase II closed: X-010 recorded, stop rule applied (no freeze), Stage 8 decision PIVOT; affective not executed"
+updated: "2026-11-04 Phase III closed: NO-GO for H3 as preregistered; pivot items P3-04"
 tasks:
   - id: T00-contracts
     title: Freeze v0.1 contracts (schemas, Policy protocol, World/Sink protocols, registry, TS/JSON export)
@@ -188,3 +188,27 @@ tasks:
     depends_on: [P2-07-pilot-b]
     acceptance: "BREAKTHROUGH_STATUS.md decision with evidence; INVESTOR_TECHNICAL_BRIEF updated"
     status: done
+  - id: P3-01-core
+    title: Phase III core (encoding v3, locked data, harness, strict checks, gates, runner) and critic-driven hardening
+    owner: director
+    depends_on: [P2-08-decision]
+    acceptance: "critic re-verification; tests/population green in CI research job"
+    status: done
+  - id: P3-02-experiments
+    title: Comparator pool and candidates F1-F4 on restless4, garcia, described, GBE; Gates D/E/F exploratory
+    owner: director
+    depends_on: [P3-01-core]
+    acceptance: "registry rows X3-001..X3-014 with committed artifacts"
+    status: done
+  - id: P3-03-verdict
+    title: Stage 8 verdict and continuation plan
+    owner: director
+    depends_on: [P3-02-experiments]
+    acceptance: "BREAKTHROUGH_VERDICT.md; critic results review"
+    status: done
+  - id: P3-04-pivot-h4
+    title: Preregister and test cross-session person representation (H4) on external data
+    owner: director
+    depends_on: [P3-03-verdict]
+    acceptance: "new thesis amendment or Phase IV charter before any fit; critic N-1/N-3/N-4/N-5/N-6/N-7 fixed before any freeze"
+    status: todo

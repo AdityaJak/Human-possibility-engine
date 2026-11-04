@@ -51,6 +51,20 @@ Phase II compute ≈ 3 CPU-h, 0 GPU, 0 paid API calls. All lanes ran as parallel
 runs were terminated by the account's API usage-credit limit (two salvaged by the orchestrator from
 their worktrees, two never started).
 
+## Phase III — Population-trained models and individual adaptation (2026-11-04)
+
+| Item | Status | Evidence |
+|---|---|---|
+| Thesis, gates A–G, partitions, stop rules | fixed before any fit; amendments A3-1/A3-2 after the critic's design review | `docs/phase3/PHASE3_RESEARCH_THESIS.md`, `EXPERIMENT_REGISTRY_V3.md` |
+| Leakage-hardened core (`hpe.population`) | built; critic's 7 attacks excluded and lock attacks refused; critic pass 2: 10 findings resolved, 14 partial, 3 open, 13 new (5 block any future freeze) | `docs/phase3/INDEPENDENT_SCIENTIFIC_AUDIT.md`, X3-002 |
+| Comparator pool (GRU/LSTM/transformer/ensemble, 6 adapters, hierarchical Bayes) | run on restless4 and garcia (tune) | X3-003, X3-004, X3-009 |
+| Candidates F1–F3 (+ F4 synthetic, affect) | run on restless4, garcia, described, external GBE (tune) | X3-005…X3-012 |
+| Stop rules (Gates B, C, D, E, F) | **not met** | `docs/phase3/PHASE3_RESEARCH_RESULTS.md` |
+| Confirmatory evaluation | **none** (no test partition opened) | — |
+| Stage 8 | **NO-GO for H3 as preregistered; pivot to new preregistered questions** | `docs/phase3/BREAKTHROUGH_VERDICT.md` |
+| Lanes | 4 of 5 research lanes stopped by the account's API spend limit; director resumed their definitions unchanged | registry |
+| Compute | ≈ 10 CPU-h of 60; no GPU; no language-model calls | `PHASE3_RESEARCH_RESULTS.md` §6 |
+
 ## Components
 
 | Component | Status | Notes |

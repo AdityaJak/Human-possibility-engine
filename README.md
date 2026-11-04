@@ -47,6 +47,18 @@ pretending to predict fate.
   predict" → reversible experiments → journey. No probabilities, ever; crisis and high-stakes routing
   independently audited.
 
+* **Phase II (PIVOT).** A 666-parameter GRU fitted on other people beat every per-person learner on human
+  data; the Phase II candidate was closed ([`docs/phase2/BREAKTHROUGH_STATUS.md`](docs/phase2/BREAKTHROUGH_STATUS.md)).
+* **Phase III — population models with individual adaptation: no breakthrough (NO-GO for the hypothesis as
+  preregistered).** Four personalisation architectures and six conventional adaptation methods were tested against
+  strong population models on three Psych-101 learning tasks and an external CC0 dataset (47,067 people). On the
+  primary task a 5-seed population GRU ensemble beat the best candidate by 0.0135 nats/choice [+0.0082, +0.0183];
+  with matched ensembles the candidate's gain was −0.0014 [−0.0048, +0.0019]. Personalisation added at most 0.009
+  to a single model, within seed noise. Observed happiness ratings did not improve choice prediction (n = 9,413).
+  The measured opportunity: earlier sessions are worth 0.015–0.02 nats/choice when a model cannot keep them in
+  context — the next, separately preregistered question. All exploratory; no test partition opened
+  ([`docs/phase3/BREAKTHROUGH_VERDICT.md`](docs/phase3/BREAKTHROUGH_VERDICT.md)).
+
 Full numbers with intervals and artifacts: [`RESEARCH_RESULTS.md`](RESEARCH_RESULTS.md). Generated claims
 ledger: [`docs/EVIDENCE.md`](docs/EVIDENCE.md). Limits: [`docs/CLAIMS_AND_LIMITATIONS.md`](docs/CLAIMS_AND_LIMITATIONS.md).
 Independent audit: [`reports/audit/AUDIT.md`](reports/audit/AUDIT.md).
