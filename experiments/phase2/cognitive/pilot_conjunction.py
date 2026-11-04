@@ -30,4 +30,6 @@ for seed in (1004, 1011):
         for n in (400, 400, 400):
             practice(pol, w, "conjunction", n, rng, agent_id="a", tick=0, age_years=20.0, mode="full")
             accs.append(round(assess(pol, w, "conjunction", 20.0).accuracy, 3))
-        print(f"seed {seed} {name:18s} acc@400/800/1200 = {accs}  ({time.perf_counter() - t:.1f}s)", flush=True)
+        print(
+            f"seed {seed} {name:18s} acc@400/800/1200 = {accs}  ({time.perf_counter() - t:.1f}s)", flush=True
+        )
