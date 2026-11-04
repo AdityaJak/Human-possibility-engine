@@ -5,7 +5,7 @@
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 3054
+      "chars": 3039
     },
     "light /lab/society?run=demo_developmental_100a_80y_s42": {
       "violations": [],
@@ -17,35 +17,25 @@
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 15768
+      "chars": 15772
     },
     "light /lab/learning": {
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 14329
+      "chars": 15477
     },
     "light /lab/experiment": {
-      "violations": [
-        {
-          "id": "heading-order",
-          "impact": "moderate",
-          "help": "Heading levels should only increase by one",
-          "nodes": 1,
-          "sample": [
-            "h3"
-          ]
-        }
-      ],
+      "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 1238
+      "chars": 12621
     },
     "light /lab/evidence": {
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 13515
+      "chars": 13671
     },
     "light /lab/benchmarks": {
       "violations": [],
@@ -63,13 +53,13 @@
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 2077
+      "chars": 2063
     },
     "dark /": {
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 3054
+      "chars": 3039
     },
     "dark /lab/society?run=demo_developmental_100a_80y_s42": {
       "violations": [],
@@ -81,35 +71,25 @@
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 15768
+      "chars": 15772
     },
     "dark /lab/learning": {
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 14329
+      "chars": 15477
     },
     "dark /lab/experiment": {
-      "violations": [
-        {
-          "id": "heading-order",
-          "impact": "moderate",
-          "help": "Heading levels should only increase by one",
-          "nodes": 1,
-          "sample": [
-            "h3"
-          ]
-        }
-      ],
+      "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 1238
+      "chars": 12621
     },
     "dark /lab/evidence": {
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 13515
+      "chars": 13671
     },
     "dark /lab/benchmarks": {
       "violations": [],
@@ -127,7 +107,7 @@
       "violations": [],
       "problems": [],
       "mockBanner": false,
-      "chars": 2077
+      "chars": 2063
     }
   },
   "mobile_overflow": {

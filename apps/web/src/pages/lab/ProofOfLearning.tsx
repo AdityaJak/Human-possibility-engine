@@ -11,7 +11,7 @@ import { IntervalPlot } from "../../components/charts/IntervalPlot";
 import { FAMILY_META, chanceFor, policyLabel } from "../../lib/families";
 import { curvesFromOutcomes, metricsIn, perSeedValues, summarize } from "../../lib/stats";
 import { ArmsTable, EffectsView, ExperimentHeader, ExperimentPicker, LimitationsPanel, RecordsTable, RunDownloads } from "./ExperimentParts";
-import { armColor, isBaselineComparison } from "../../lib/experiments";
+import { armColor, isIntervention } from "../../lib/experiments";
 
 function chanceForMetric(metric: string): number | undefined {
   if (!/acc/i.test(metric)) return undefined;
@@ -22,7 +22,7 @@ function chanceForMetric(metric: string): number | undefined {
 export default function ProofOfLearning() {
   const [params, setParams] = useSearchParams();
   const list = useApi((s) => api.listExperiments(s), []);
-  const candidates = useMemo(() => (list.data ?? []).filter((x) => isBaselineComparison(x.definition)), [list.data]);
+  const candidates = useMemo(() => (list.data ?? []).filter((x) => !isIntervention(x.definition)), [list.data]);
   const id = params.get("id");
   useEffect(() => {
     if (!id && candidates[0]) setParams({ id: candidates[0].experiment_id }, { replace: true });

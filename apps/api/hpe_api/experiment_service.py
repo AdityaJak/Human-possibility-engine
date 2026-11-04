@@ -61,24 +61,65 @@ def default_runner_resolver() -> ExperimentRunner:
     return _run
 
 
-def _read_outcomes(exp_dir: Path, limit: int = 200) -> list[OutcomeObservation]:
+def _outcome_files(exp_dir: Path) -> list[Path]:
+    """Outcome logs of an experiment: a legacy top-level file, or one per run under ``runs/``.
+
+    Sensitivity variants reuse arm names and seeds, so when ``__main__`` runs exist only those are
+    served; the page would otherwise see duplicate (arm, seed) pairs.
+    """
+    top = [exp_dir / n for n in ("outcomes.jsonl.gz", "outcomes.jsonl") if (exp_dir / n).exists()]
+    if top:
+        return top[:1]
+    runs = sorted(p for p in exp_dir.glob("runs/*/outcomes.jsonl*") if p.is_file())
+    main = [p for p in runs if "__main__" in p.parent.name]
+    return main or runs
+
+
+def _read_rows(p: Path) -> list[OutcomeObservation]:
+    opener = gzip.open if p.name.endswith(".gz") else open
+    rows: list[OutcomeObservation] = []
+    with opener(p, "rt", encoding="utf-8") as f:  # type: ignore[operator]
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rows.append(OutcomeObservation.model_validate_json(line))
+            except ValueError:
+                continue
+    return rows
+
+
+def _is_curve(o: OutcomeObservation) -> bool:
+    return o.metric.startswith(("curve/", "transfer_curve/"))
+
+
+def _read_outcomes(exp_dir: Path, limit: int = 4000) -> list[OutcomeObservation]:
+    """A bounded, representative sample of an experiment's outcome rows for the web pages.
+
+    Run-level rows only (per-agent rows are regenerable from the raw logs and too many to ship),
+    leakage counters dropped; scalar metrics are kept in full and curve rows are thinned by a fixed
+    stride so every run fits the same per-run budget. Nothing is aggregated or altered.
+    """
+    files = _outcome_files(exp_dir)
+    if not files:
+        return []
+    per_run = max(60, limit // len(files))
     out: list[OutcomeObservation] = []
-    for name in ("outcomes.jsonl.gz", "outcomes.jsonl"):
-        p = exp_dir / name
-        if not p.exists():
-            continue
-        opener = gzip.open if name.endswith(".gz") else open
-        with opener(p, "rt", encoding="utf-8") as f:  # type: ignore[operator]
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    out.append(OutcomeObservation.model_validate_json(line))
-                except ValueError:
-                    continue
-                if len(out) >= limit:
-                    return out
+    for p in files:
+        rows = [o for o in _read_rows(p) if not o.metric.startswith("leakage/")]
+        run_level = [o for o in rows if o.agent_id is None]
+        rows = run_level or rows
+        scalars = [o for o in rows if not _is_curve(o)]
+        curves = [o for o in rows if _is_curve(o)]
+        room = max(0, per_run - len(scalars))
+        if curves and room < len(curves):
+            stride = -(-len(curves) // room) if room else 0
+            curves = curves[::stride] if stride else []
+        out.extend(scalars[:per_run])
+        out.extend(curves)
+        if len(out) >= limit * 2:
+            break
     return out
 
 

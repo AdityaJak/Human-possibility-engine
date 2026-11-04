@@ -15,7 +15,7 @@ export function ErrorState({ error, onRetry, title = "Something went wrong" }: {
   const network = isApi && error.isNetwork;
   return (
     <div className="state state--error" role="alert">
-      <h3>{network ? "Cannot reach the API" : title}</h3>
+      <h2 className="empty-title">{network ? "Cannot reach the API" : title}</h2>
       <p>{error.message}</p>
       {network && (
         <p className="muted">
@@ -39,7 +39,7 @@ export function ErrorState({ error, onRetry, title = "Something went wrong" }: {
 export function EmptyState({ title, children }: { title: string; children?: ReactNode }) {
   return (
     <div className="state">
-      <h3>{title}</h3>
+      <h2 className="empty-title">{title}</h2>
       {children && <div className="muted">{children}</div>}
     </div>
   );

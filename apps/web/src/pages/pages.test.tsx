@@ -37,7 +37,7 @@ describe("routes", () => {
       throw new ApiError("Cannot reach the API at http://127.0.0.1:8000. Is the backend running?", 0, path);
     });
     at("/lab/learning");
-    expect(await screen.findByText("Cannot reach the API", { selector: "h3" })).toBeInTheDocument();
+    expect(await screen.findByText("Cannot reach the API", { selector: "h2" })).toBeInTheDocument();
   });
 
   it("evidence page renders claims from the API", async () => {
