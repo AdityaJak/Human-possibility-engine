@@ -1,0 +1,29 @@
+# Gate D exploratory run on the TUNE partition (thesis §12, amendment A3-2): leave-one-family-out transfer with
+# history-only inputs. Dev partitions are used for pretraining (sources) and for the k target participants;
+# tune is used for selection and report (selection-optimistic). The test partition is never requested.
+experiment_id: x3_gate_d_tune
+title: Gate D leave-one-family-out transfer (history-only inputs), k in {0, 16, 64}, tune partition
+hypothesis: >-
+  (Exploratory.) A GRU pretrained on other task families and refined by family-level first-order
+  meta-learning (F4-style), then fine-tuned on k = 16 target participants, predicts held-out target
+  participants better than a specialist trained on those 16 and than a pooled-pretrained pop_gru fine-tuned
+  on them.
+seed: 20261109
+threads: 1
+k_max: 4
+targets: [restless4, garcia, described]
+sources: [bandit2, srl3, horizon, casino, wpt, garcia, described, restless4]
+ks: [0, 16, 64]
+draws: 5
+finetune_lr: [0.003, 0.01]
+finetune_epochs: [5, 20, 60]
+batch_size: 8
+pretrain: {hidden: 32, lr: 0.003, max_epochs: 40, patience: 6, batch_size: 16, chunk: 300, budget_s: 1500}
+meta: {outer_steps: 300, inner_steps: 5, inner_lr: 0.003, outer_lr: 0.5, batch_size: 8, budget_s: 600}
+models: [pretrained_pop_gru, specialist, meta_reptile]
+budget_s_per_model_target: 2700
+n_boot: 2000
+notes:
+  - "two_step is not registered in core at this commit, so it is neither a target nor a source."
+  - "One pretraining configuration (hidden 32) is shared by pretrained_pop_gru and meta_reptile; the specialist uses the same class and size."
+  - "hb_cog is pending (the evaluation lane's implementation is not merged into the director branch)."
