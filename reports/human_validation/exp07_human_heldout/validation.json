@@ -1,0 +1,81 @@
+{
+  "dataset": {
+    "citation": "Binz, M. et al. (2024). Centaur: a foundation model of human cognition. arXiv:2410.20268",
+    "hash_verified": true,
+    "licence": "Apache-2.0 (inherited from Psych-101)",
+    "licence_evidence": "derived from PSYCH101_FULL",
+    "local_path": null,
+    "name": "psych101_learning_subset",
+    "observed_sha256": "9b085cfbd5506162ae4925b5ca05b3fcb76a69b885395b126d8aa78cf2330297",
+    "retrieved": "2026-11-04",
+    "sha256": "9b085cfbd5506162ae4925b5ca05b3fcb76a69b885395b126d8aa78cf2330297",
+    "size_bytes": 57296364,
+    "url": "derived: filter_jsonl(PSYCH101_FULL, LEARNING_EXPERIMENT_PREFIXES)"
+  },
+  "igt": {
+    "choice_share_by_deck_position": {
+      "0": 0.14645981780463607,
+      "1": 0.3144583746730405,
+      "2": 0.23730495174528726,
+      "3": 0.30177685577703617
+    },
+    "experiments": {
+      "steingroever2015data/exp1.csv": {
+        "mean_total_net": -343.6829268292683,
+        "participants": 410,
+        "trials_per_participant": [
+          100
+        ]
+      },
+      "steingroever2015data/exp2.csv": {
+        "mean_total_net": 169.23076923076923,
+        "participants": 13,
+        "trials_per_participant": [
+          95
+        ]
+      },
+      "steingroever2015data/exp3.csv": {
+        "mean_total_net": 407.95454545454544,
+        "participants": 88,
+        "trials_per_participant": [
+          150
+        ]
+      }
+    },
+    "median_win_by_deck_position": {
+      "0": 100.0,
+      "1": 100.0,
+      "2": 50.0,
+      "3": 50.0
+    }
+  },
+  "mcpl": {
+    "collsi\u00f6\u00f62023MCPL/exp1.csv": {
+      "accuracy_on_feedback_trials": 0.6394409937888199,
+      "feedback_trials": 16100,
+      "no_feedback_trials": 3500,
+      "participants": 70,
+      "trials_per_participant": [
+        280
+      ]
+    },
+    "collsi\u00f6\u00f62023MCPL/exp2.csv": {
+      "accuracy_on_feedback_trials": 0.6614571092831962,
+      "feedback_trials": 17020,
+      "no_feedback_trials": 3700,
+      "participants": 74,
+      "trials_per_participant": [
+        280
+      ]
+    },
+    "collsi\u00f6\u00f62023MCPL/exp3.csv": {
+      "accuracy_on_feedback_trials": 0.3978096179183136,
+      "feedback_trials": 12144,
+      "no_feedback_trials": 0,
+      "participants": 88,
+      "trials_per_participant": [
+        138
+      ]
+    }
+  }
+}
