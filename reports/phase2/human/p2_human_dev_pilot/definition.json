@@ -1,0 +1,1231 @@
+{
+  "analysis": {
+    "alpha": 0.05,
+    "contrasts": [
+      "developmental - best reference (chosen on the report partition; exploratory)",
+      "developmental - best non-developmental model",
+      "best reference - ref_bias"
+    ],
+    "minimum_effect_of_interest": 0.02,
+    "n_bootstrap": 2000,
+    "primary_metric": "report_nll_per_choice",
+    "primary_metric_definition": "Mean over report-partition participants of each participant's mean negative log-likelihood (nats) of their actual free choices under teacher forcing, after lapse mixing. Instructed trials are learned from but not scored. Lower is better.",
+    "status_rule": "exploratory \u2014 no verdict is issued from a dev pilot"
+  },
+  "dataset": "psych101_learning_subset",
+  "experiment_id": "p2_human_dev_pilot",
+  "falsification_criterion": "Not applicable to a dev pilot. The confirmatory preregistration (Gate D) will require the candidate to beat the best reference by >= 0.02 nats/choice (paired 95% CI excluding 0) on the frozen test partition in >= 2 of 3 preregistered families and not be worse by > 0.02 in any.",
+  "fit_partition": "dev",
+  "grids": {
+    "developmental": {
+      "bandit2": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "casino": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "described": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "garcia": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "horizon": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "igt": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "mcpl": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "srl3": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "wpt": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      }
+    },
+    "hybrid_exemplar": {
+      "bandit2": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "casino": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "described": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "garcia": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "horizon": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "igt": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "mcpl": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "srl3": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      },
+      "wpt": {
+        "exploration_base": [
+          0.1,
+          0.3
+        ],
+        "lr_encoder": [
+          0.0,
+          0.06
+        ],
+        "lr_head": [
+          0.1,
+          0.35,
+          1.0
+        ]
+      }
+    },
+    "memory_only": {
+      "bandit2": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "casino": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "described": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "garcia": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "horizon": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "igt": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "mcpl": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "srl3": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      },
+      "wpt": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0
+        ],
+        "memory_capacity": [
+          64.0,
+          256.0,
+          1024.0
+        ]
+      }
+    },
+    "plain_rl": {
+      "bandit2": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "casino": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "described": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "garcia": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "horizon": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "igt": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "mcpl": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "srl3": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      },
+      "wpt": {
+        "lr": [
+          0.01,
+          0.05,
+          0.2,
+          0.5
+        ]
+      }
+    },
+    "ref_bayes_rule": {
+      "described": {
+        "sigma": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "tau2": [
+          0.3,
+          1.0,
+          3.0
+        ]
+      },
+      "garcia": {
+        "sigma": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "tau2": [
+          0.3,
+          1.0,
+          3.0
+        ]
+      },
+      "mcpl": {
+        "sigma": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "tau2": [
+          0.3,
+          1.0,
+          3.0
+        ]
+      },
+      "wpt": {
+        "sigma": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "tau2": [
+          0.3,
+          1.0,
+          3.0
+        ]
+      }
+    },
+    "ref_bias": {
+      "mcpl": {
+        "smoothing": [
+          1.0
+        ]
+      }
+    },
+    "ref_delta_rule": {
+      "igt": {
+        "alpha": [
+          0.05,
+          0.1,
+          0.4
+        ],
+        "beta": [
+          1.0,
+          3.0,
+          6.0,
+          12.0
+        ]
+      },
+      "mcpl": {
+        "alpha": [
+          0.01,
+          0.03,
+          0.1,
+          0.3
+        ],
+        "sigma": [
+          0.75,
+          1.0,
+          1.5,
+          2.0,
+          3.0
+        ]
+      }
+    },
+    "ref_exemplar": {
+      "bandit2": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.9,
+          0.98
+        ],
+        "lr_att": [
+          0.0
+        ]
+      },
+      "casino": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.9,
+          0.98
+        ],
+        "lr_att": [
+          0.0
+        ]
+      },
+      "described": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.98,
+          1.0
+        ],
+        "lr_att": [
+          0.0,
+          0.05
+        ]
+      },
+      "garcia": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.98,
+          1.0
+        ],
+        "lr_att": [
+          0.0,
+          0.05
+        ]
+      },
+      "horizon": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.9,
+          0.98
+        ],
+        "lr_att": [
+          0.0
+        ]
+      },
+      "igt": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.9,
+          0.98
+        ],
+        "lr_att": [
+          0.0
+        ]
+      },
+      "mcpl": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.98,
+          1.0
+        ],
+        "lr_att": [
+          0.0,
+          0.05
+        ]
+      },
+      "srl3": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.9,
+          0.98
+        ],
+        "lr_att": [
+          0.0
+        ]
+      },
+      "wpt": {
+        "beta": [
+          2.0,
+          6.0
+        ],
+        "c": [
+          0.5,
+          2.0
+        ],
+        "decay": [
+          0.98,
+          1.0
+        ],
+        "lr_att": [
+          0.0,
+          0.05
+        ]
+      }
+    },
+    "ref_gru": {
+      "bandit2": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "casino": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "described": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          10.0
+        ],
+        "max_steps_per_epoch": [
+          60000.0
+        ],
+        "patience": [
+          3.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "garcia": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "horizon": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          8.0
+        ],
+        "max_steps_per_epoch": [
+          60000.0
+        ],
+        "patience": [
+          3.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "igt": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "mcpl": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "srl3": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      },
+      "wpt": {
+        "hidden": [
+          8.0,
+          12.0
+        ],
+        "lr": [
+          0.003,
+          0.01
+        ],
+        "max_epochs": [
+          15.0
+        ],
+        "patience": [
+          4.0
+        ],
+        "window": [
+          64.0
+        ]
+      }
+    },
+    "ref_instance_based": {
+      "igt": {
+        "beta": [
+          1.0,
+          3.0,
+          6.0,
+          12.0
+        ],
+        "decay": [
+          0.5,
+          0.8,
+          0.95
+        ]
+      },
+      "mcpl": {
+        "h": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "kappa": [
+          0.05
+        ],
+        "s": [
+          0.5,
+          1.0,
+          1.5
+        ]
+      }
+    },
+    "ref_population_static": {
+      "mcpl": {
+        "smoothing": [
+          0.5,
+          1.0,
+          2.0
+        ]
+      }
+    },
+    "ref_pvl_delta": {
+      "bandit2": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "casino": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "described": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "garcia": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "horizon": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "igt": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          2.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "mcpl": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "srl3": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      },
+      "wpt": {
+        "A": [
+          0.1,
+          0.4
+        ],
+        "alpha": [
+          0.5,
+          0.9
+        ],
+        "c": [
+          1.0,
+          3.0
+        ],
+        "lam": [
+          1.0,
+          2.5
+        ]
+      }
+    }
+  },
+  "hypothesis": "(Exploratory, dev/tune only.) Establishes the equal-tuning protocol and the strongest reference models for Gate D. No confirmatory claim follows from this run.",
+  "igt_reward_scale_grid": [
+    250.0,
+    500.0
+  ],
+  "lapse_grid": [
+    0.0,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "max_grid_configurations": 24,
+  "models": [
+    "random",
+    "static_persona",
+    "memory_only",
+    "plain_rl",
+    "developmental",
+    "hybrid_exemplar"
+  ],
+  "paradigms": [
+    {
+      "experiments": [
+        "collsi\u00f6\u00f62023MCPL/exp1.csv",
+        "collsi\u00f6\u00f62023MCPL/exp2.csv",
+        "collsi\u00f6\u00f62023MCPL/exp3.csv"
+      ],
+      "paradigm": "mcpl",
+      "role": "primary"
+    },
+    {
+      "experiments": [
+        "steingroever2015data/exp1.csv",
+        "steingroever2015data/exp2.csv",
+        "steingroever2015data/exp3.csv"
+      ],
+      "paradigm": "igt",
+      "role": "secondary"
+    },
+    {
+      "experiments": [
+        "gershman2018deconstructing/exp1.csv",
+        "gershman2018deconstructing/exp2.csv"
+      ],
+      "paradigm": "bandit2",
+      "role": "exploratory"
+    },
+    {
+      "experiments": [
+        "gershman2020reward/exp1.csv"
+      ],
+      "paradigm": "srl3",
+      "role": "exploratory"
+    },
+    {
+      "experiments": [
+        "wilson2014humans/exp1.csv",
+        "wilson2014humans/exp2.csv",
+        "wilson2014humans/exp3.csv",
+        "wilson2014humans/exp4.csv",
+        "wilson2014humans/exp5.csv",
+        "waltz2020differential/exp1.csv"
+      ],
+      "paradigm": "horizon",
+      "role": "exploratory"
+    },
+    {
+      "experiments": [
+        "lefebvre2017behavioural/exp1.csv",
+        "lefebvre2017behavioural/exp2.csv"
+      ],
+      "paradigm": "casino",
+      "role": "exploratory"
+    },
+    {
+      "experiments": [
+        "speekenbrink2008learning/exp1.csv"
+      ],
+      "paradigm": "wpt",
+      "role": "exploratory"
+    },
+    {
+      "experiments": [
+        "garcia2023experiential/exp1.csv",
+        "garcia2023experiential/exp2.csv",
+        "garcia2023experiential/exp3.csv",
+        "garcia2023experiential/exp4.csv"
+      ],
+      "paradigm": "garcia",
+      "role": "exploratory"
+    },
+    {
+      "experiments": [
+        "plonsky2018when/exp1.csv"
+      ],
+      "paradigm": "described",
+      "role": "exploratory"
+    }
+  ],
+  "partitions_file": "reports/phase2/partitions/psych101.json",
+  "preregistration_hash": "ee15cd6f2150f602",
+  "reference_models": [
+    "ref_bias",
+    "ref_population_static",
+    "ref_delta_rule",
+    "ref_instance_based",
+    "ref_exemplar",
+    "ref_pvl_delta",
+    "ref_bayes_rule",
+    "ref_gru"
+  ],
+  "report_partition": "tune",
+  "seed": 20261105,
+  "select_partition": "tune",
+  "title": "Phase II dev pilot \u2014 all registered policy classes and stronger references on seven Psych-101 learning families",
+  "validity_notes": [
+    "Report partition = tune, on which hyper-parameters were also selected; numbers are selection-optimistic and exploratory.",
+    "Every Psych-101 MCPL/IGT participant was fitted on or scored in Phase I; the other seven families are pristine.",
+    "Registry policy classes and reference models get grids of equal size caps (<= 24) and the same lapse grid; fits at grid edges are flagged.",
+    "Encodings (12 context features, reward normalisation to [0, 1]) are modelling choices shared by all models; block resets are visible only via obs.meta, which registry classes do not read.",
+    "Teacher-forced one-step-ahead likelihood measures predictive fit to choice sequences, not generative realism."
+  ]
+}

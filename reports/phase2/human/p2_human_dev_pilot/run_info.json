@@ -1,0 +1,20 @@
+{
+  "code_version": "a7f9558727fa14f8b10d01755301d65b8f7753de+dirty",
+  "cpu_time_s": 3743.7,
+  "created_at": "2026-11-04T08:21:18.456989+00:00",
+  "hardware": "x86_64 x86_64 python 3.13.18",
+  "llm_calls": 0,
+  "partitions": {
+    "fit": "dev",
+    "report": "tune",
+    "select": "tune"
+  },
+  "registered_policy_classes": [
+    "developmental",
+    "memory_only",
+    "plain_rl",
+    "random",
+    "static_persona"
+  ],
+  "wall_time_s": 3796.1
+}

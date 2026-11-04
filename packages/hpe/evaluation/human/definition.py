@@ -96,17 +96,68 @@ class CausalGroundingDefinition(_M):
     preregistration_hash: str | None = None
 
 
+class V2Paradigm(_M):
+    paradigm: Literal["mcpl", "igt", "bandit2", "srl3", "horizon", "casino", "wpt", "garcia", "described"]
+    experiments: list[str] = Field(..., description="experiment files (must appear in the partitions file)")
+    role: Literal["primary", "secondary", "exploratory"] = "exploratory"
+
+
+class V2AnalysisPlan(_M):
+    primary_metric: str = "report_nll_per_choice"
+    primary_metric_definition: str
+    n_bootstrap: int = 2000
+    alpha: float = 0.05
+    minimum_effect_of_interest: float = 0.02
+    contrasts: list[str] = Field(default_factory=list)
+    status_rule: str
+
+
+class HumanV2Definition(_M):
+    """Phase II human-validation protocol (partition-aware, equal tuning)."""
+
+    experiment_id: str
+    title: str
+    hypothesis: str
+    falsification_criterion: str
+    dataset: str
+    partitions_file: str = "reports/phase2/partitions/psych101.json"
+    fit_partition: Literal["dev", "tune"] = "dev"
+    select_partition: Literal["dev", "tune"] = "tune"
+    report_partition: Literal["dev", "tune", "test"] = "tune"
+    paradigms: list[V2Paradigm]
+    models: list[str]
+    reference_models: list[str]
+    grids: dict[str, dict[str, dict[str, list[float]]]] = Field(
+        default_factory=dict, description="model -> paradigm -> param -> values (<= 24 configurations each)"
+    )
+    max_grid_configurations: int = 24
+    lapse_grid: list[float]
+    igt_reward_scale_grid: list[float] = Field(default_factory=lambda: [250.0, 500.0])
+    seed: int = 20261105
+    analysis: V2AnalysisPlan
+    validity_notes: list[str] = Field(default_factory=list)
+    preregistration_hash: str | None = None
+
+
 def preregistration_hash(defn: BaseModel) -> str:
     d: dict[str, Any] = defn.model_dump(mode="json")
     d.pop("preregistration_hash", None)
     return stable_hash(d)
 
 
-def load_definition(path: Path) -> HumanHeldoutDefinition | CausalGroundingDefinition:
+AnyDefinition = HumanHeldoutDefinition | CausalGroundingDefinition | HumanV2Definition
+
+
+def load_definition(path: Path) -> AnyDefinition:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     kind = raw.pop("kind")
-    model: type[HumanHeldoutDefinition] | type[CausalGroundingDefinition]
-    model = HumanHeldoutDefinition if kind == "human_heldout" else CausalGroundingDefinition
+    model: type[HumanHeldoutDefinition] | type[CausalGroundingDefinition] | type[HumanV2Definition]
+    if kind == "human_heldout":
+        model = HumanHeldoutDefinition
+    elif kind == "human_v2":
+        model = HumanV2Definition
+    else:
+        model = CausalGroundingDefinition
     defn = model.model_validate(raw)
     defn.preregistration_hash = preregistration_hash(defn)
     return defn

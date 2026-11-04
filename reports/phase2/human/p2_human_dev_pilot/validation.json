@@ -1,0 +1,843 @@
+{
+  "dataset": {
+    "citation": "Binz, M. et al. (2024). Centaur: a foundation model of human cognition. arXiv:2410.20268",
+    "licence": "Apache-2.0 (inherited from Psych-101)",
+    "licence_evidence": "derived from PSYCH101_FULL",
+    "local_path": null,
+    "name": "psych101_learning_subset",
+    "observed_sha256": "9b085cfbd5506162ae4925b5ca05b3fcb76a69b885395b126d8aa78cf2330297",
+    "retrieved": "2026-11-04",
+    "sha256": "9b085cfbd5506162ae4925b5ca05b3fcb76a69b885395b126d8aa78cf2330297",
+    "size_bytes": 57296364,
+    "url": "derived: filter_jsonl(PSYCH101_FULL, LEARNING_EXPERIMENT_PREFIXES)"
+  },
+  "paradigms": {
+    "bandit2": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "gershman2018deconstructing/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 3200
+            },
+            "free_trials_per_participant": [
+              200,
+              200
+            ],
+            "mean_normalised_reward": 0.528125,
+            "n_blocks": 20,
+            "participants": 16,
+            "trials_per_participant": [
+              200,
+              200
+            ]
+          },
+          "gershman2018deconstructing/exp2.csv": {
+            "feedback_modes": {
+              "bandit": 3200
+            },
+            "free_trials_per_participant": [
+              200,
+              200
+            ],
+            "mean_normalised_reward": 0.6980208333333333,
+            "n_blocks": 20,
+            "participants": 16,
+            "trials_per_participant": [
+              200,
+              200
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 32
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "gershman2018deconstructing/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 1600
+            },
+            "free_trials_per_participant": [
+              200,
+              200
+            ],
+            "mean_normalised_reward": 0.5248958333333333,
+            "n_blocks": 20,
+            "participants": 8,
+            "trials_per_participant": [
+              200,
+              200
+            ]
+          },
+          "gershman2018deconstructing/exp2.csv": {
+            "feedback_modes": {
+              "bandit": 1600
+            },
+            "free_trials_per_participant": [
+              200,
+              200
+            ],
+            "mean_normalised_reward": 0.6832291666666666,
+            "n_blocks": 20,
+            "participants": 8,
+            "trials_per_participant": [
+              200,
+              200
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 16
+      }
+    },
+    "casino": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "lefebvre2017behavioural/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 1728
+            },
+            "free_trials_per_participant": [
+              96,
+              96
+            ],
+            "mean_normalised_reward": 0.5758101851851852,
+            "n_blocks": 1,
+            "participants": 18,
+            "trials_per_participant": [
+              96,
+              96
+            ]
+          },
+          "lefebvre2017behavioural/exp2.csv": {
+            "feedback_modes": {
+              "bandit": 1248
+            },
+            "free_trials_per_participant": [
+              96,
+              96
+            ],
+            "mean_normalised_reward": 0.5665064102564102,
+            "n_blocks": 1,
+            "participants": 13,
+            "trials_per_participant": [
+              96,
+              96
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 31
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "lefebvre2017behavioural/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 864
+            },
+            "free_trials_per_participant": [
+              96,
+              96
+            ],
+            "mean_normalised_reward": 0.5428240740740741,
+            "n_blocks": 1,
+            "participants": 9,
+            "trials_per_participant": [
+              96,
+              96
+            ]
+          },
+          "lefebvre2017behavioural/exp2.csv": {
+            "feedback_modes": {
+              "bandit": 672
+            },
+            "free_trials_per_participant": [
+              96,
+              96
+            ],
+            "mean_normalised_reward": 0.5252976190476191,
+            "n_blocks": 1,
+            "participants": 7,
+            "trials_per_participant": [
+              96,
+              96
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 16
+      }
+    },
+    "described": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "plonsky2018when/exp1.csv": {
+            "feedback_modes": {
+              "full": 51000,
+              "none": 12750
+            },
+            "free_trials_per_participant": [
+              750,
+              750
+            ],
+            "mean_normalised_reward": 0.5464025490196078,
+            "n_blocks": 30,
+            "participants": 85,
+            "trials_per_participant": [
+              750,
+              750
+            ]
+          }
+        },
+        "excluded": [
+          "plonsky2018when/exp1.csv#94: no scorable trials"
+        ],
+        "participants": 85
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "plonsky2018when/exp1.csv": {
+            "feedback_modes": {
+              "full": 24600,
+              "none": 6150
+            },
+            "free_trials_per_participant": [
+              750,
+              750
+            ],
+            "mean_normalised_reward": 0.5465103658536585,
+            "n_blocks": 30,
+            "participants": 41,
+            "trials_per_participant": [
+              750,
+              750
+            ]
+          }
+        },
+        "excluded": [
+          "plonsky2018when/exp1.csv#86: no scorable trials",
+          "plonsky2018when/exp1.csv#89: no scorable trials"
+        ],
+        "participants": 41
+      }
+    },
+    "garcia": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "garcia2023experiential/exp1.csv": {
+            "feedback_modes": {
+              "full": 4200,
+              "none": 3080
+            },
+            "free_trials_per_participant": [
+              208,
+              208
+            ],
+            "mean_normalised_reward": 0.5959523809523809,
+            "n_blocks": 2,
+            "participants": 35,
+            "trials_per_participant": [
+              208,
+              208
+            ]
+          },
+          "garcia2023experiential/exp2.csv": {
+            "feedback_modes": {
+              "full": 4200,
+              "none": 3080
+            },
+            "free_trials_per_participant": [
+              208,
+              208
+            ],
+            "mean_normalised_reward": 0.6288095238095238,
+            "n_blocks": 2,
+            "participants": 35,
+            "trials_per_participant": [
+              208,
+              208
+            ]
+          },
+          "garcia2023experiential/exp3.csv": {
+            "feedback_modes": {
+              "full": 4080,
+              "none": 2992
+            },
+            "free_trials_per_participant": [
+              208,
+              208
+            ],
+            "mean_normalised_reward": 0.6762254901960785,
+            "n_blocks": 2,
+            "participants": 34,
+            "trials_per_participant": [
+              208,
+              208
+            ]
+          },
+          "garcia2023experiential/exp4.csv": {
+            "feedback_modes": {
+              "full": 4080,
+              "none": 1496
+            },
+            "free_trials_per_participant": [
+              164,
+              164
+            ],
+            "mean_normalised_reward": 0.6727941176470589,
+            "n_blocks": 2,
+            "participants": 34,
+            "trials_per_participant": [
+              164,
+              164
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 138
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "garcia2023experiential/exp1.csv": {
+            "feedback_modes": {
+              "full": 2040,
+              "none": 1496
+            },
+            "free_trials_per_participant": [
+              208,
+              208
+            ],
+            "mean_normalised_reward": 0.6137254901960785,
+            "n_blocks": 2,
+            "participants": 17,
+            "trials_per_participant": [
+              208,
+              208
+            ]
+          },
+          "garcia2023experiential/exp2.csv": {
+            "feedback_modes": {
+              "full": 2040,
+              "none": 1496
+            },
+            "free_trials_per_participant": [
+              208,
+              208
+            ],
+            "mean_normalised_reward": 0.6186274509803922,
+            "n_blocks": 2,
+            "participants": 17,
+            "trials_per_participant": [
+              208,
+              208
+            ]
+          },
+          "garcia2023experiential/exp3.csv": {
+            "feedback_modes": {
+              "full": 2040,
+              "none": 1496
+            },
+            "free_trials_per_participant": [
+              208,
+              208
+            ],
+            "mean_normalised_reward": 0.6583333333333333,
+            "n_blocks": 2,
+            "participants": 17,
+            "trials_per_participant": [
+              208,
+              208
+            ]
+          },
+          "garcia2023experiential/exp4.csv": {
+            "feedback_modes": {
+              "full": 2040,
+              "none": 748
+            },
+            "free_trials_per_participant": [
+              164,
+              164
+            ],
+            "mean_normalised_reward": 0.6509803921568628,
+            "n_blocks": 2,
+            "participants": 17,
+            "trials_per_participant": [
+              164,
+              164
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 68
+      }
+    },
+    "horizon": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "waltz2020differential/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 12670
+            },
+            "free_trials_per_participant": [
+              425,
+              425
+            ],
+            "mean_normalised_reward": 0.5281870560378847,
+            "n_blocks": 120,
+            "participants": 14,
+            "trials_per_participant": [
+              905,
+              905
+            ]
+          },
+          "wilson2014humans/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 26400
+            },
+            "free_trials_per_participant": [
+              1120,
+              1120
+            ],
+            "mean_normalised_reward": 0.5226075757575758,
+            "n_blocks": 320,
+            "participants": 11,
+            "trials_per_participant": [
+              2400,
+              2400
+            ]
+          },
+          "wilson2014humans/exp2.csv": {
+            "feedback_modes": {
+              "bandit": 3600
+            },
+            "free_trials_per_participant": [
+              560,
+              560
+            ],
+            "mean_normalised_reward": 0.5206638888888888,
+            "n_blocks": 160,
+            "participants": 3,
+            "trials_per_participant": [
+              1200,
+              1200
+            ]
+          },
+          "wilson2014humans/exp3.csv": {
+            "feedback_modes": {
+              "bandit": 31510
+            },
+            "free_trials_per_participant": [
+              282,
+              677
+            ],
+            "mean_normalised_reward": 0.5129923833703586,
+            "n_blocks": 192,
+            "participants": 27,
+            "trials_per_participant": [
+              610,
+              1445
+            ]
+          },
+          "wilson2014humans/exp4.csv": {
+            "feedback_modes": {
+              "bandit": 38400
+            },
+            "free_trials_per_participant": [
+              560,
+              560
+            ],
+            "mean_normalised_reward": 0.5135976562500001,
+            "n_blocks": 160,
+            "participants": 32,
+            "trials_per_participant": [
+              1200,
+              1200
+            ]
+          },
+          "wilson2014humans/exp5.csv": {
+            "feedback_modes": {
+              "bandit": 19200
+            },
+            "free_trials_per_participant": [
+              560,
+              560
+            ],
+            "mean_normalised_reward": 0.5137411458333333,
+            "n_blocks": 160,
+            "participants": 16,
+            "trials_per_participant": [
+              1200,
+              1200
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 103
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "waltz2020differential/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 6325
+            },
+            "free_trials_per_participant": [
+              415,
+              425
+            ],
+            "mean_normalised_reward": 0.5293739130434783,
+            "n_blocks": 120,
+            "participants": 7,
+            "trials_per_participant": [
+              895,
+              905
+            ]
+          },
+          "wilson2014humans/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 12000
+            },
+            "free_trials_per_participant": [
+              1120,
+              1120
+            ],
+            "mean_normalised_reward": 0.5236991666666667,
+            "n_blocks": 320,
+            "participants": 5,
+            "trials_per_participant": [
+              2400,
+              2400
+            ]
+          },
+          "wilson2014humans/exp2.csv": {
+            "feedback_modes": {
+              "bandit": 1200
+            },
+            "free_trials_per_participant": [
+              560,
+              560
+            ],
+            "mean_normalised_reward": 0.5286666666666666,
+            "n_blocks": 160,
+            "participants": 1,
+            "trials_per_participant": [
+              1200,
+              1200
+            ]
+          },
+          "wilson2014humans/exp3.csv": {
+            "feedback_modes": {
+              "bandit": 16365
+            },
+            "free_trials_per_participant": [
+              345,
+              774
+            ],
+            "mean_normalised_reward": 0.5149587534372135,
+            "n_blocks": 224,
+            "participants": 14,
+            "trials_per_participant": [
+              745,
+              1670
+            ]
+          },
+          "wilson2014humans/exp4.csv": {
+            "feedback_modes": {
+              "bandit": 19200
+            },
+            "free_trials_per_participant": [
+              560,
+              560
+            ],
+            "mean_normalised_reward": 0.5134291666666667,
+            "n_blocks": 160,
+            "participants": 16,
+            "trials_per_participant": [
+              1200,
+              1200
+            ]
+          },
+          "wilson2014humans/exp5.csv": {
+            "feedback_modes": {
+              "bandit": 9600
+            },
+            "free_trials_per_participant": [
+              560,
+              560
+            ],
+            "mean_normalised_reward": 0.519734375,
+            "n_blocks": 160,
+            "participants": 8,
+            "trials_per_participant": [
+              1200,
+              1200
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 51
+      }
+    },
+    "igt": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "choice_share_by_deck_position": {
+            "0": 0.13821468926553673,
+            "1": 0.30666666666666664,
+            "2": 0.2384180790960452,
+            "3": 0.3167005649717514
+          },
+          "experiments": {
+            "steingroever2015data/exp1.csv": {
+              "mean_total_net": -203.29268292682926,
+              "participants": 164,
+              "trials_per_participant": [
+                100
+              ]
+            },
+            "steingroever2015data/exp2.csv": {
+              "mean_total_net": 125.0,
+              "participants": 5,
+              "trials_per_participant": [
+                95
+              ]
+            },
+            "steingroever2015data/exp3.csv": {
+              "mean_total_net": 710.0,
+              "participants": 35,
+              "trials_per_participant": [
+                150
+              ]
+            }
+          },
+          "median_win_by_deck_position": {
+            "0": 100.0,
+            "1": 100.0,
+            "2": 50.0,
+            "3": 50.0
+          }
+        },
+        "excluded": [],
+        "participants": 204
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "choice_share_by_deck_position": {
+            "0": 0.16084041126508716,
+            "1": 0.28994188645507374,
+            "2": 0.24506034868126955,
+            "3": 0.3041573535985695
+          },
+          "experiments": {
+            "steingroever2015data/exp1.csv": {
+              "mean_total_net": -348.9024390243902,
+              "participants": 82,
+              "trials_per_participant": [
+                100
+              ]
+            },
+            "steingroever2015data/exp2.csv": {
+              "mean_total_net": -208.33333333333334,
+              "participants": 3,
+              "trials_per_participant": [
+                95
+              ]
+            },
+            "steingroever2015data/exp3.csv": {
+              "mean_total_net": 427.77777777777777,
+              "participants": 18,
+              "trials_per_participant": [
+                150
+              ]
+            }
+          },
+          "median_win_by_deck_position": {
+            "0": 100.0,
+            "1": 100.0,
+            "2": 50.0,
+            "3": 50.0
+          }
+        },
+        "excluded": [],
+        "participants": 103
+      }
+    },
+    "mcpl": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "collsi\u00f6\u00f62023MCPL/exp1.csv": {
+            "accuracy_on_feedback_trials": 0.6979813664596274,
+            "feedback_trials": 6440,
+            "no_feedback_trials": 1400,
+            "participants": 28,
+            "trials_per_participant": [
+              280
+            ]
+          },
+          "collsi\u00f6\u00f62023MCPL/exp2.csv": {
+            "accuracy_on_feedback_trials": 0.6439130434782608,
+            "feedback_trials": 6900,
+            "no_feedback_trials": 1500,
+            "participants": 30,
+            "trials_per_participant": [
+              280
+            ]
+          },
+          "collsi\u00f6\u00f62023MCPL/exp3.csv": {
+            "accuracy_on_feedback_trials": 0.4012422360248447,
+            "feedback_trials": 4830,
+            "no_feedback_trials": 0,
+            "participants": 35,
+            "trials_per_participant": [
+              138
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 93
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "collsi\u00f6\u00f62023MCPL/exp1.csv": {
+            "accuracy_on_feedback_trials": 0.6574534161490683,
+            "feedback_trials": 3220,
+            "no_feedback_trials": 700,
+            "participants": 14,
+            "trials_per_participant": [
+              280
+            ]
+          },
+          "collsi\u00f6\u00f62023MCPL/exp2.csv": {
+            "accuracy_on_feedback_trials": 0.6820289855072463,
+            "feedback_trials": 3450,
+            "no_feedback_trials": 750,
+            "participants": 15,
+            "trials_per_participant": [
+              280
+            ]
+          },
+          "collsi\u00f6\u00f62023MCPL/exp3.csv": {
+            "accuracy_on_feedback_trials": 0.47342995169082125,
+            "feedback_trials": 2484,
+            "no_feedback_trials": 0,
+            "participants": 18,
+            "trials_per_participant": [
+              138
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 47
+      }
+    },
+    "srl3": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "gershman2020reward/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 16393
+            },
+            "free_trials_per_participant": [
+              444,
+              735
+            ],
+            "mean_normalised_reward": 0.8743976087354358,
+            "n_blocks": 13,
+            "participants": 30,
+            "trials_per_participant": [
+              444,
+              735
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 30
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "gershman2020reward/exp1.csv": {
+            "feedback_modes": {
+              "bandit": 8128
+            },
+            "free_trials_per_participant": [
+              441,
+              680
+            ],
+            "mean_normalised_reward": 0.8770300196850394,
+            "n_blocks": 13,
+            "participants": 15,
+            "trials_per_participant": [
+              441,
+              680
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 15
+      }
+    },
+    "wpt": {
+      "dev": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "speekenbrink2008learning/exp1.csv": {
+            "feedback_modes": {
+              "full": 1800
+            },
+            "free_trials_per_participant": [
+              200,
+              200
+            ],
+            "mean_normalised_reward": 0.6322222222222222,
+            "n_blocks": 1,
+            "participants": 9,
+            "trials_per_participant": [
+              200,
+              200
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 9
+      },
+      "tune": {
+        "ambiguous_choices_skipped": 0,
+        "descriptives": {
+          "speekenbrink2008learning/exp1.csv": {
+            "feedback_modes": {
+              "full": 1000
+            },
+            "free_trials_per_participant": [
+              200,
+              200
+            ],
+            "mean_normalised_reward": 0.659,
+            "n_blocks": 1,
+            "participants": 5,
+            "trials_per_participant": [
+              200,
+              200
+            ]
+          }
+        },
+        "excluded": [],
+        "participants": 5
+      }
+    }
+  }
+}

@@ -1,0 +1,4368 @@
+{
+  "experiment_id": "p2_human_dev_pilot",
+  "paradigms": {
+    "bandit2": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 0.6931471805599453,
+      "contrasts": [
+        {
+          "ci_high": 0.22629079500428623,
+          "ci_low": 0.11522619507980653,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 1.5658571834817303,
+          "estimate": 0.1723490586397829,
+          "first": "developmental",
+          "n": 16,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.22278565419584925,
+          "ci_low": 0.11776973114531121,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 1.5658571834817303,
+          "estimate": 0.1723490586397829,
+          "first": "developmental",
+          "n": 16,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.22528387199619723,
+          "ci_low": -0.3446875655351885,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -2.269863545341903,
+          "estimate": -0.2912295822522316,
+          "first": "ref_gru",
+          "n": 16,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "gershman2018deconstructing/exp1.csv",
+        "gershman2018deconstructing/exp2.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.5770513866112386,
+            "gershman2018deconstructing/exp2.csv": 0.546522930267159
+          },
+          "cpu_seconds": 7.41,
+          "ece_mean": 0.08438803339098962,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder",
+            "lr_head"
+          ],
+          "lapse": 0.2,
+          "minus_chance": -0.1313600221207466,
+          "n_grid": 84,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6044911419296239,
+            0.5567795713258159,
+            0.5093823510340998,
+            0.5764955694672552
+          ],
+          "nll_ci_high": 0.6090324558659679,
+          "nll_ci_low": 0.5187651658005978,
+          "nll_mean": 0.5617871584391987,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "lr_encoder": 0.06,
+            "lr_head": 1.0
+          },
+          "select_objective": 0.5617871584391987,
+          "status": "ok",
+          "top1_mean": 0.729375
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.75997306779691,
+            "gershman2018deconstructing/exp2.csv": 0.7903456478010893
+          },
+          "cpu_seconds": 8.47,
+          "ece_mean": 0.19659709621029586,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": 0.0820121772390543,
+          "n_grid": 63,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.7873680228965376,
+            0.7859001803044536,
+            0.672357799573092,
+            0.855011428421915
+          ],
+          "nll_ci_high": 0.8599349923704249,
+          "nll_ci_low": 0.6940523174897787,
+          "nll_mean": 0.7751593577989996,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 0.7751593577989996,
+          "status": "ok",
+          "top1_mean": 0.59890625
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.6819646574894828,
+            "gershman2018deconstructing/exp2.csv": 0.6826561846913798
+          },
+          "cpu_seconds": 2.83,
+          "ece_mean": 0.1229844682696784,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": -0.010836759469514012,
+          "n_grid": 28,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6841812516375592,
+            0.6900833536748366,
+            0.658859852249071,
+            0.6961172268002584
+          ],
+          "nll_ci_high": 0.7018176288088288,
+          "nll_ci_low": 0.6612209858036184,
+          "nll_mean": 0.6823104210904313,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.05
+          },
+          "select_objective": 0.6823104210904313,
+          "status": "ok",
+          "top1_mean": 0.569375
+        },
+        "random": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.6931471805599452,
+            "gershman2018deconstructing/exp2.csv": 0.6931471805599452
+          },
+          "cpu_seconds": 0.81,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -1.1102230246251565e-16,
+          "n_grid": 7,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6931471805599453,
+            0.6931471805599453,
+            0.6931471805599453,
+            0.6931471805599453
+          ],
+          "nll_ci_high": 0.6931471805599452,
+          "nll_ci_low": 0.6931471805599452,
+          "nll_mean": 0.6931471805599452,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.6931471805599452,
+          "status": "ok",
+          "top1_mean": 0.5
+        },
+        "ref_bayes_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.6504024430614078,
+            "gershman2018deconstructing/exp2.csv": 0.7109329210418871
+          },
+          "cpu_seconds": 0.66,
+          "ece_mean": 0.17585715401437052,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.012479498508297882,
+          "n_grid": 7,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6868063861864602,
+            0.6790973158776255,
+            0.6808104426129221,
+            0.6759565835295818
+          ],
+          "nll_ci_high": 0.7025849972213482,
+          "nll_ci_low": 0.6583952499857759,
+          "nll_mean": 0.6806676820516474,
+          "note": "",
+          "param_count": 1,
+          "params": {},
+          "select_objective": 0.6806676820516474,
+          "status": "ok",
+          "top1_mean": 0.583125
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.637229933036479,
+            "gershman2018deconstructing/exp2.csv": 0.5834086708277213
+          },
+          "cpu_seconds": 8.82,
+          "ece_mean": 0.09898282361173857,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.08282787862784513,
+          "n_grid": 56,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6408717569436795,
+            0.6110421092989509,
+            0.5570447426055706,
+            0.6323185988801999
+          ],
+          "nll_ci_high": 0.6471744186924114,
+          "nll_ci_low": 0.5747224788382224,
+          "nll_mean": 0.6103193019321002,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 0.5,
+            "decay": 0.9,
+            "lr_att": 0.0
+          },
+          "select_objective": 0.6103193019321002,
+          "status": "ok",
+          "top1_mean": 0.6621874999999999
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.40726883826058907,
+            "gershman2018deconstructing/exp2.csv": 0.3716073613382426
+          },
+          "cpu_seconds": 35.04,
+          "ece_mean": 0.06328885687648789,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.3037090807605295,
+          "n_grid": 28,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.4619054153905044,
+            0.356021957492103,
+            0.35100753187735406,
+            0.38881749443770186
+          ],
+          "nll_ci_high": 0.46350229969862716,
+          "nll_ci_low": 0.3304269666937425,
+          "nll_mean": 0.3894380997994158,
+          "note": "",
+          "param_count": 666,
+          "params": {
+            "hidden": 12.0,
+            "lr": 0.01,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 0.3894380997994158,
+          "status": "ok",
+          "top1_mean": 0.8253125
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.6325488628261404,
+            "gershman2018deconstructing/exp2.csv": 0.4351904393846653
+          },
+          "cpu_seconds": 6.4,
+          "ece_mean": 0.10484666223871447,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.15927752945454243,
+          "n_grid": 112,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.5528199761513506,
+            0.5393951107112397,
+            0.5042508153777929,
+            0.5390127021812285
+          ],
+          "nll_ci_high": 0.5909088261665824,
+          "nll_ci_low": 0.47397595878495896,
+          "nll_mean": 0.5338696511054029,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.4,
+            "alpha": 0.9,
+            "c": 1.0,
+            "lam": 1.0
+          },
+          "select_objective": 0.5338696511054029,
+          "status": "ok",
+          "top1_mean": 0.6989062500000001
+        },
+        "static_persona": {
+          "by_experiment": {
+            "gershman2018deconstructing/exp1.csv": 0.827954935792651,
+            "gershman2018deconstructing/exp2.csv": 0.8192810553911132
+          },
+          "cpu_seconds": 0.85,
+          "ece_mean": 0.23585498980614178,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.1304708150319368,
+          "n_grid": 7,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.8546423652237705,
+            0.8639207318485957,
+            0.7608337768090445,
+            0.8150751084861174
+          ],
+          "nll_ci_high": 0.9716154126708443,
+          "nll_ci_low": 0.7114909456243192,
+          "nll_mean": 0.8236179955918821,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.8236179955918821,
+          "status": "ok",
+          "top1_mean": 0.541875
+        }
+      },
+      "n": {
+        "dev": 32,
+        "tune": 16
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.6003034070933178,
+          "middle": 0.5521345655862391,
+          "most_predictable": 0.5377341119382327
+        },
+        "memory_only": {
+          "least_predictable": 0.7717378095611107,
+          "middle": 0.7797840270182053,
+          "most_predictable": 0.7741567569812359
+        },
+        "plain_rl": {
+          "least_predictable": 0.6673840920701198,
+          "middle": 0.7009305370977046,
+          "most_predictable": 0.679232265267963
+        },
+        "random": {
+          "least_predictable": 0.6931471805599452,
+          "middle": 0.6931471805599452,
+          "most_predictable": 0.6931471805599453
+        },
+        "ref_bias": {
+          "least_predictable": 0.7304911179365232,
+          "middle": 0.6937159973521563,
+          "most_predictable": 0.6282745560638269
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.6341715050400412,
+          "middle": 0.5808348952085212,
+          "most_predictable": 0.6150128049451319
+        },
+        "ref_gru": {
+          "least_predictable": 0.532790395401436,
+          "middle": 0.3502456103760017,
+          "most_predictable": 0.3026382613172441
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 0.5634933344678639,
+          "middle": 0.4288620534171633,
+          "most_predictable": 0.5966895797102184
+        },
+        "static_persona": {
+          "least_predictable": 0.7805107256618902,
+          "middle": 0.8383851647699307,
+          "most_predictable": 0.8472347462185014
+        }
+      }
+    },
+    "casino": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 0.6931471805599453,
+      "contrasts": [
+        {
+          "ci_high": 0.12349255342197807,
+          "ci_low": 0.00549914619292956,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 0.538621874239959,
+          "estimate": 0.06647741004010221,
+          "first": "developmental",
+          "n": 16,
+          "p_value": 0.032,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.1249601764034602,
+          "ci_low": 0.006036292290158031,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 0.538621874239959,
+          "estimate": 0.06647741004010221,
+          "first": "developmental",
+          "n": 16,
+          "p_value": 0.03,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.0631407075909394,
+          "ci_low": -0.20619584191457588,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -0.9088625459321982,
+          "estimate": -0.138855184112107,
+          "first": "ref_gru",
+          "n": 16,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "lefebvre2017behavioural/exp1.csv",
+        "lefebvre2017behavioural/exp2.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.6135409716757926,
+            "lefebvre2017behavioural/exp2.csv": 0.6343386708012251
+          },
+          "cpu_seconds": 4.51,
+          "ece_mean": 0.12359643670682881,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder",
+            "lr_head"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.07050721551677597,
+          "n_grid": 84,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6700780116608684,
+            0.63409999258196,
+            0.5965358162253411,
+            0.5898460397045076
+          ],
+          "nll_ci_high": 0.6513051869079282,
+          "nll_ci_low": 0.5979076023381921,
+          "nll_mean": 0.6226399650431693,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.1,
+            "lr_encoder": 0.06,
+            "lr_head": 0.1
+          },
+          "select_objective": 0.6226399650431693,
+          "status": "ok",
+          "top1_mean": 0.6510416666666667
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.629289313569743,
+            "lefebvre2017behavioural/exp2.csv": 0.6466934682186596
+          },
+          "cpu_seconds": 5.3,
+          "ece_mean": 0.14273642516950572,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": -0.05624354933130116,
+          "n_grid": 63,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6198723338438862,
+            0.6282368898905275,
+            0.6494368178500174,
+            0.6500684833301453
+          ],
+          "nll_ci_high": 0.7401269004327973,
+          "nll_ci_low": 0.53966788409452,
+          "nll_mean": 0.6369036312286441,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 3.0,
+            "memory_capacity": 256.0
+          },
+          "select_objective": 0.6369036312286441,
+          "status": "ok",
+          "top1_mean": 0.693359375
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.6281137469171222,
+            "lefebvre2017behavioural/exp2.csv": 0.6171768625195501
+          },
+          "cpu_seconds": 1.88,
+          "ece_mean": 0.13918705556774977,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.06981832056676085,
+          "n_grid": 28,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6565705538722366,
+            0.6247770128147861,
+            0.605621065445324,
+            0.606346807840391
+          ],
+          "nll_ci_high": 0.6589872680047061,
+          "nll_ci_low": 0.589450988196823,
+          "nll_mean": 0.6233288599931844,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.05
+          },
+          "select_objective": 0.6233288599931844,
+          "status": "ok",
+          "top1_mean": 0.6907552083333333
+        },
+        "random": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.6931471805599453,
+            "lefebvre2017behavioural/exp2.csv": 0.6931471805599453
+          },
+          "cpu_seconds": 0.44,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": 0.0,
+          "n_grid": 7,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6931471805599453,
+            0.6931471805599453,
+            0.6931471805599453,
+            0.6931471805599453
+          ],
+          "nll_ci_high": 0.6931471805599453,
+          "nll_ci_low": 0.6931471805599453,
+          "nll_mean": 0.6931471805599453,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.6931471805599453,
+          "status": "ok",
+          "top1_mean": 0.5
+        },
+        "ref_bayes_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.6940699590412728,
+            "lefebvre2017behavioural/exp2.csv": 0.6962363134959045
+          },
+          "cpu_seconds": 0.34,
+          "ece_mean": 0.12510362449630624,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.001870558555228885,
+          "n_grid": 7,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6942033150315704,
+            0.6957464343478722,
+            0.6950606035406269,
+            0.695060603540627
+          ],
+          "nll_ci_high": 0.7008473009767586,
+          "nll_ci_low": 0.6901311946135518,
+          "nll_mean": 0.6950177391151742,
+          "note": "",
+          "param_count": 1,
+          "params": {},
+          "select_objective": 0.6950177391151742,
+          "status": "ok",
+          "top1_mean": 0.47981770833333337
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.6539581161097612,
+            "lefebvre2017behavioural/exp2.csv": 0.6559148856719473
+          },
+          "cpu_seconds": 3.49,
+          "ece_mean": 0.14902567119093715,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.03833297776672773,
+          "n_grid": 56,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.7028424200655856,
+            0.6417337935657136,
+            0.6394693966922447,
+            0.6352112008493265
+          ],
+          "nll_ci_high": 0.6896062320980288,
+          "nll_ci_low": 0.6278027719030665,
+          "nll_mean": 0.6548142027932176,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 2.0,
+            "decay": 0.98,
+            "lr_att": 0.0
+          },
+          "select_objective": 0.6548142027932176,
+          "status": "ok",
+          "top1_mean": 0.6438802083333334
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.5747658074433557,
+            "lefebvre2017behavioural/exp2.csv": 0.532244087579839
+          },
+          "cpu_seconds": 22.2,
+          "ece_mean": 0.11115550080379005,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.13698462555687818,
+          "n_grid": 28,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6959208801299299,
+            0.5500970150077173,
+            0.5021497848313818,
+            0.47648254004323903
+          ],
+          "nll_ci_high": 0.6308166209546034,
+          "nll_ci_low": 0.4848749196346041,
+          "nll_mean": 0.5561625550030671,
+          "note": "",
+          "param_count": 666,
+          "params": {
+            "hidden": 8.0,
+            "lr": 0.01,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 0.5561625550030671,
+          "status": "ok",
+          "top1_mean": 0.7018229166666667
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.6977648076866436,
+            "lefebvre2017behavioural/exp2.csv": 0.6550839912252894
+          },
+          "cpu_seconds": 4.79,
+          "ece_mean": 0.09598480997767622,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.014055230075144087,
+          "n_grid": 112,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.6777050979335211,
+            0.6739859107693524,
+            0.6796475279487262,
+            0.6850292652876051
+          ],
+          "nll_ci_high": 0.7002796882482403,
+          "nll_ci_low": 0.6540838161067009,
+          "nll_mean": 0.6790919504848012,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.1,
+            "alpha": 0.5,
+            "c": 1.0,
+            "lam": 1.0
+          },
+          "select_objective": 0.6790919504848012,
+          "status": "ok",
+          "top1_mean": 0.5843098958333334
+        },
+        "static_persona": {
+          "by_experiment": {
+            "lefebvre2017behavioural/exp1.csv": 0.7919939945566072,
+            "lefebvre2017behavioural/exp2.csv": 1.1548550425568938
+          },
+          "cpu_seconds": 0.68,
+          "ece_mean": 0.35818672812868735,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.2575985224967874,
+          "n_grid": 7,
+          "n_participants": 16,
+          "nll_by_quarter": [
+            0.882434969890056,
+            0.9454491709138377,
+            0.9603565993873298,
+            1.0147420720357072
+          ],
+          "nll_ci_high": 1.0867431575180806,
+          "nll_ci_low": 0.8095346487023426,
+          "nll_mean": 0.9507457030567327,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.9507457030567327,
+          "status": "ok",
+          "top1_mean": 0.45507812500000006
+        }
+      },
+      "n": {
+        "dev": 31,
+        "tune": 16
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.6324712282789696,
+          "middle": 0.6261606278142376,
+          "most_predictable": 0.6115133600374455
+        },
+        "memory_only": {
+          "least_predictable": 0.647060153088561,
+          "middle": 0.6837370353471699,
+          "most_predictable": 0.5894120262466085
+        },
+        "plain_rl": {
+          "least_predictable": 0.6208414592833449,
+          "middle": 0.6613852324481829,
+          "most_predictable": 0.5936880502055518
+        },
+        "random": {
+          "least_predictable": 0.6931471805599453,
+          "middle": 0.6931471805599453,
+          "most_predictable": 0.6931471805599453
+        },
+        "ref_bias": {
+          "least_predictable": 0.7074055580710412,
+          "middle": 0.694786271217729,
+          "most_predictable": 0.6848874465664893
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.6616055812893894,
+          "middle": 0.6748368939449468,
+          "most_predictable": 0.6324691447533001
+        },
+        "ref_gru": {
+          "least_predictable": 0.5160687135631744,
+          "middle": 0.6184964655269604,
+          "most_predictable": 0.5376291640997334
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 0.6563822407416511,
+          "middle": 0.7112506620428598,
+          "most_predictable": 0.6712177823057107
+        },
+        "static_persona": {
+          "least_predictable": 1.0994884955371833,
+          "middle": 0.6952246244525563,
+          "most_predictable": 1.0397276081598372
+        }
+      }
+    },
+    "described": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 0.6931471805599453,
+      "contrasts": [
+        {
+          "ci_high": 0.32845460378515956,
+          "ci_low": 0.23673446334671397,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 1.8581744511170741,
+          "estimate": 0.2832436646654222,
+          "first": "developmental",
+          "n": 41,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.33101616363816544,
+          "ci_low": 0.23647249474471307,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 1.8581744511170741,
+          "estimate": 0.2832436646654222,
+          "first": "developmental",
+          "n": 41,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.2628931524187171,
+          "ci_low": -0.34667009825782874,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -2.1613580286923972,
+          "estimate": -0.3061487762161087,
+          "first": "ref_gru",
+          "n": 41,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "plonsky2018when/exp1.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.655202648096225
+          },
+          "cpu_seconds": 50.1,
+          "ece_mean": 0.06153518937313993,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.037944532463720315,
+          "n_grid": 84,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6605418268813884,
+            0.641930531860263,
+            0.6655861188926726,
+            0.6527945368759808
+          ],
+          "nll_ci_high": 0.6700682429550915,
+          "nll_ci_low": 0.6406157145720547,
+          "nll_mean": 0.655202648096225,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "lr_encoder": 0.06,
+            "lr_head": 0.35
+          },
+          "select_objective": 0.655202648096225,
+          "status": "ok",
+          "top1_mean": 0.62269918699187
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.775737961989879
+          },
+          "cpu_seconds": 110.49,
+          "ece_mean": 0.20013365224798918,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": 0.0825907814299337,
+          "n_grid": 63,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.7490926885344967,
+            0.791508009675251,
+            0.7964356186744628,
+            0.7659736873628455
+          ],
+          "nll_ci_high": 0.8053200127492248,
+          "nll_ci_low": 0.7447444035583047,
+          "nll_mean": 0.775737961989879,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 0.775737961989879,
+          "status": "ok",
+          "top1_mean": 0.613349593495935
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.6636232810889107
+          },
+          "cpu_seconds": 22.13,
+          "ece_mean": 0.06956429209150797,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": -0.02952389947103462,
+          "n_grid": 28,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6561425433051037,
+            0.6605343467262738,
+            0.6743564912232605,
+            0.6635162654119484
+          ],
+          "nll_ci_high": 0.6790422698911096,
+          "nll_ci_low": 0.6493338796571722,
+          "nll_mean": 0.6636232810889107,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.05
+          },
+          "select_objective": 0.6636232810889107,
+          "status": "ok",
+          "top1_mean": 0.6107317073170733
+        },
+        "random": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.6931471805599454
+          },
+          "cpu_seconds": 4.49,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": 1.1102230246251565e-16,
+          "n_grid": 7,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6931471805599454,
+            0.6931471805599454,
+            0.6931471805599454,
+            0.6931471805599454
+          ],
+          "nll_ci_high": 0.6931471805599454,
+          "nll_ci_low": 0.6931471805599454,
+          "nll_mean": 0.6931471805599454,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.6931471805599454,
+          "status": "ok",
+          "top1_mean": 0.5
+        },
+        "ref_bayes_rule": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.6689626373024602
+          },
+          "cpu_seconds": 62.25,
+          "ece_mean": 0.07739012135118997,
+          "grid_edges": [
+            "sigma",
+            "tau2"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.02418454325748509,
+          "n_grid": 63,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6413903391317355,
+            0.6753662482514851,
+            0.6672169652104033,
+            0.6919901981521619
+          ],
+          "nll_ci_high": 0.6824823097440453,
+          "nll_ci_low": 0.6563110797080912,
+          "nll_mean": 0.6689626373024602,
+          "note": "",
+          "param_count": 15,
+          "params": {
+            "sigma": 0.5,
+            "tau2": 3.0
+          },
+          "select_objective": 0.6689626373024602,
+          "status": "ok",
+          "top1_mean": 0.6009918699186992
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.6781077596469114
+          },
+          "cpu_seconds": 4.53,
+          "ece_mean": 0.045751141363841806,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.015039420913033896,
+          "n_grid": 7,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6756099075410165,
+            0.6769768316941964,
+            0.6779882929125084,
+            0.6818754116808794
+          ],
+          "nll_ci_high": 0.6833849408803242,
+          "nll_ci_low": 0.6728310679025287,
+          "nll_mean": 0.6781077596469114,
+          "note": "",
+          "param_count": 1,
+          "params": {},
+          "select_objective": 0.6781077596469114,
+          "status": "ok",
+          "top1_mean": 0.5874471544715446
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.6799311857233521
+          },
+          "cpu_seconds": 304.53,
+          "ece_mean": 0.07770143092097985,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay",
+            "lr_att"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.013215994836593192,
+          "n_grid": 112,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6796134535234994,
+            0.6768865877385407,
+            0.6828815987473452,
+            0.680361083259342
+          ],
+          "nll_ci_high": 0.6833891887048679,
+          "nll_ci_low": 0.6765802659105322,
+          "nll_mean": 0.6799311857233521,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 2.0,
+            "decay": 0.98,
+            "lr_att": 0.05
+          },
+          "select_objective": 0.6799311857233521,
+          "status": "ok",
+          "top1_mean": 0.5982439024390245
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.3719589834308027
+          },
+          "cpu_seconds": 224.0,
+          "ece_mean": 0.04108041694496875,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.3211881971291426,
+          "n_grid": 28,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.4008592626848456,
+            0.38046371563570386,
+            0.37472925823493075,
+            0.3315836703684849
+          ],
+          "nll_ci_high": 0.4116413073715284,
+          "nll_ci_low": 0.3314192427175525,
+          "nll_mean": 0.3719589834308027,
+          "note": "",
+          "param_count": 666,
+          "params": {
+            "hidden": 12.0,
+            "lr": 0.003,
+            "max_epochs": 10.0,
+            "max_steps_per_epoch": 60000.0,
+            "patience": 3.0,
+            "window": 64.0
+          },
+          "select_objective": 0.3719589834308027,
+          "status": "ok",
+          "top1_mean": 0.8355772357723578
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.6504585415315925
+          },
+          "cpu_seconds": 42.23,
+          "ece_mean": 0.07261157595369278,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.04268863902835274,
+          "n_grid": 112,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.6468166796903565,
+            0.6420655362663834,
+            0.6579818947480703,
+            0.6550344129996695
+          ],
+          "nll_ci_high": 0.6655449087572759,
+          "nll_ci_low": 0.636274540465692,
+          "nll_mean": 0.6504585415315925,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.1,
+            "alpha": 0.9,
+            "c": 3.0,
+            "lam": 1.0
+          },
+          "select_objective": 0.6504585415315925,
+          "status": "ok",
+          "top1_mean": 0.6153170731707317
+        },
+        "static_persona": {
+          "by_experiment": {
+            "plonsky2018when/exp1.csv": 0.8840780828158272
+          },
+          "cpu_seconds": 7.03,
+          "ece_mean": 0.275793170001904,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.19093090225588194,
+          "n_grid": 7,
+          "n_participants": 41,
+          "nll_by_quarter": [
+            0.884653156401908,
+            0.8951002319171897,
+            0.9097215732533076,
+            0.8467753524572816
+          ],
+          "nll_ci_high": 0.9293925799523933,
+          "nll_ci_low": 0.837743322630107,
+          "nll_mean": 0.8840780828158272,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.8840780828158272,
+          "status": "ok",
+          "top1_mean": 0.5061788617886178
+        }
+      },
+      "n": {
+        "dev": 85,
+        "tune": 41
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.6799954762336784,
+          "middle": 0.6565786699052083,
+          "most_predictable": 0.6291320854218581
+        },
+        "memory_only": {
+          "least_predictable": 0.7995785324210692,
+          "middle": 0.8097497011799162,
+          "most_predictable": 0.7203150623107971
+        },
+        "plain_rl": {
+          "least_predictable": 0.6838270980529855,
+          "middle": 0.6670691640611108,
+          "most_predictable": 0.6402197156506502
+        },
+        "random": {
+          "least_predictable": 0.6931471805599454,
+          "middle": 0.6931471805599454,
+          "most_predictable": 0.6931471805599454
+        },
+        "ref_bayes_rule": {
+          "least_predictable": 0.6892767035989268,
+          "middle": 0.665041522598457,
+          "most_predictable": 0.6522896060882825
+        },
+        "ref_bias": {
+          "least_predictable": 0.6964048595917193,
+          "middle": 0.6782500879956609,
+          "most_predictable": 0.6596784976639788
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.6821828765710485,
+          "middle": 0.6827426937283084,
+          "most_predictable": 0.6750688088710535
+        },
+        "ref_gru": {
+          "least_predictable": 0.3726969050759378,
+          "middle": 0.38562897147323455,
+          "most_predictable": 0.3585275014605521
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 0.6556173266430211,
+          "middle": 0.6483071830117513,
+          "most_predictable": 0.6472974464743025
+        },
+        "static_persona": {
+          "least_predictable": 0.8630248783893594,
+          "middle": 0.9209336652789316,
+          "most_predictable": 0.8709082463836989
+        }
+      }
+    },
+    "garcia": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 0.6931471805599453,
+      "contrasts": [
+        {
+          "ci_high": 0.21916440842789087,
+          "ci_low": 0.16657053401463814,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 1.7152484391586809,
+          "estimate": 0.19373376317223098,
+          "first": "developmental",
+          "n": 68,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.21921858049622425,
+          "ci_low": 0.16653070767340908,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 1.7152484391586809,
+          "estimate": 0.19373376317223098,
+          "first": "developmental",
+          "n": 68,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.17698618874668645,
+          "ci_low": -0.23329674732995972,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -1.7033568604412992,
+          "estimate": -0.20478006814425853,
+          "first": "ref_gru",
+          "n": 68,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "garcia2023experiential/exp1.csv",
+        "garcia2023experiential/exp2.csv",
+        "garcia2023experiential/exp3.csv",
+        "garcia2023experiential/exp4.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6758632184349672,
+            "garcia2023experiential/exp2.csv": 0.6773402431578314,
+            "garcia2023experiential/exp3.csv": 0.62219357238475,
+            "garcia2023experiential/exp4.csv": 0.586414444197668
+          },
+          "cpu_seconds": 24.64,
+          "ece_mean": 0.1354859431730675,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder",
+            "lr_head"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.05269431101614119,
+          "n_grid": 84,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.588083569205506,
+            0.5640196878136927,
+            0.6445973172905921,
+            0.7651109038654262
+          ],
+          "nll_ci_high": 0.66868313873039,
+          "nll_ci_low": 0.6124018590357075,
+          "nll_mean": 0.6404528695438041,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "lr_encoder": 0.06,
+            "lr_head": 0.1
+          },
+          "select_objective": 0.6404528695438041,
+          "status": "ok",
+          "top1_mean": 0.6463147348526652
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.7071047477166175,
+            "garcia2023experiential/exp2.csv": 0.6910980286020241,
+            "garcia2023experiential/exp3.csv": 0.6011159403525876,
+            "garcia2023experiential/exp4.csv": 0.6051390899617315
+          },
+          "cpu_seconds": 36.44,
+          "ece_mean": 0.13831877286145736,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.042032728901705174,
+          "n_grid": 63,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.6412917639499982,
+            0.6176295598616708,
+            0.6374121107110021,
+            0.7081243721102897
+          ],
+          "nll_ci_high": 0.6889781969871835,
+          "nll_ci_low": 0.6132630583290548,
+          "nll_mean": 0.6511144516582401,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 0.6511144516582401,
+          "status": "ok",
+          "top1_mean": 0.6449291606886657
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6611415698525331,
+            "garcia2023experiential/exp2.csv": 0.6536053381106116,
+            "garcia2023experiential/exp3.csv": 0.6076380412291931,
+            "garcia2023experiential/exp4.csv": 0.580995957117534
+          },
+          "cpu_seconds": 10.08,
+          "ece_mean": 0.10710804932925587,
+          "grid_edges": [
+            "lr"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.06730195398247729,
+          "n_grid": 28,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.6002187069718882,
+            0.5761657078217144,
+            0.621861845796005,
+            0.705134645720264
+          ],
+          "nll_ci_high": 0.6484075389321963,
+          "nll_ci_low": 0.6049261661041986,
+          "nll_mean": 0.625845226577468,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.01
+          },
+          "select_objective": 0.625845226577468,
+          "status": "ok",
+          "top1_mean": 0.6440359093918993
+        },
+        "random": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6931471805599453,
+            "garcia2023experiential/exp2.csv": 0.6931471805599453,
+            "garcia2023experiential/exp3.csv": 0.6931471805599453,
+            "garcia2023experiential/exp4.csv": 0.6931471805599454
+          },
+          "cpu_seconds": 3.16,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": 1.1102230246251565e-16,
+          "n_grid": 7,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.6931471805599455,
+            0.6931471805599455,
+            0.6931471805599455,
+            0.6931471805599455
+          ],
+          "nll_ci_high": 0.6931471805599455,
+          "nll_ci_low": 0.6931471805599455,
+          "nll_mean": 0.6931471805599454,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.6931471805599454,
+          "status": "ok",
+          "top1_mean": 0.5
+        },
+        "ref_bayes_rule": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6559673109558837,
+            "garcia2023experiential/exp2.csv": 0.6447362844519147,
+            "garcia2023experiential/exp3.csv": 0.586761933794491,
+            "garcia2023experiential/exp4.csv": 0.5606915761222573
+          },
+          "cpu_seconds": 38.6,
+          "ece_mean": 0.11476069586475358,
+          "grid_edges": [
+            "sigma",
+            "tau2"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.08110790422880854,
+          "n_grid": 63,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.5869355757464777,
+            0.559156605957285,
+            0.6104755462838807,
+            0.6915893773369032
+          ],
+          "nll_ci_high": 0.639680657181683,
+          "nll_ci_low": 0.5869296503492698,
+          "nll_mean": 0.6120392763311368,
+          "note": "",
+          "param_count": 15,
+          "params": {
+            "sigma": 0.5,
+            "tau2": 0.3
+          },
+          "select_objective": 0.6120392763311368,
+          "status": "ok",
+          "top1_mean": 0.6504499020527534
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6732700070714894,
+            "garcia2023experiential/exp2.csv": 0.6621088113396009,
+            "garcia2023experiential/exp3.csv": 0.6416188549959847,
+            "garcia2023experiential/exp4.csv": 0.628999024656252
+          },
+          "cpu_seconds": 2.67,
+          "ece_mean": 0.08759466482148172,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.04164800604411345,
+          "n_grid": 7,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.615590962801417,
+            0.6003789071697494,
+            0.6576069529956139,
+            0.732419875096547
+          ],
+          "nll_ci_high": 0.6673024799659958,
+          "nll_ci_low": 0.6364877065367995,
+          "nll_mean": 0.6514991745158318,
+          "note": "",
+          "param_count": 1,
+          "params": {},
+          "select_objective": 0.6514991745158318,
+          "status": "ok",
+          "top1_mean": 0.6432944073501821
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6690489819429263,
+            "garcia2023experiential/exp2.csv": 0.6599750995158249,
+            "garcia2023experiential/exp3.csv": 0.6420837549365517,
+            "garcia2023experiential/exp4.csv": 0.5995431027384347
+          },
+          "cpu_seconds": 73.31,
+          "ece_mean": 0.11523700394000476,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay",
+            "lr_att"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.05048444577651101,
+          "n_grid": 112,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.5868572643563932,
+            0.5794106891634389,
+            0.6576108350519949,
+            0.7467721505619108
+          ],
+          "nll_ci_high": 0.6618481911818737,
+          "nll_ci_low": 0.6257468065722303,
+          "nll_mean": 0.6426627347834343,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 2.0,
+            "c": 2.0,
+            "decay": 0.98,
+            "lr_att": 0.0
+          },
+          "select_objective": 0.6426627347834343,
+          "status": "ok",
+          "top1_mean": 0.64539475499393
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.5529168294379436,
+            "garcia2023experiential/exp2.csv": 0.44855572735781396,
+            "garcia2023experiential/exp3.csv": 0.39563764413227065,
+            "garcia2023experiential/exp4.csv": 0.3897662245582647
+          },
+          "cpu_seconds": 178.57,
+          "ece_mean": 0.06465746644707848,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.2464280741883721,
+          "n_grid": 28,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.546233645130506,
+            0.5051951431959986,
+            0.39699441810850855,
+            0.3384532190512799
+          ],
+          "nll_ci_high": 0.4824156833399848,
+          "nll_ci_low": 0.4109320746114309,
+          "nll_mean": 0.4467191063715732,
+          "note": "",
+          "param_count": 666,
+          "params": {
+            "hidden": 12.0,
+            "lr": 0.003,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 0.4467191063715732,
+          "status": "ok",
+          "top1_mean": 0.7712276514733474
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.6733869085346511,
+            "garcia2023experiential/exp2.csv": 0.6247499825651924,
+            "garcia2023experiential/exp3.csv": 0.5999636582404924,
+            "garcia2023experiential/exp4.csv": 0.5718660329663682
+          },
+          "cpu_seconds": 32.25,
+          "ece_mean": 0.0857169707053085,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.07565553498326927,
+          "n_grid": 112,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.6027063471337225,
+            0.5629106786715617,
+            0.6112023759414748,
+            0.6931471805599455
+          ],
+          "nll_ci_high": 0.6435134713078704,
+          "nll_ci_low": 0.5915611477705491,
+          "nll_mean": 0.617491645576676,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.4,
+            "alpha": 0.5,
+            "c": 1.0,
+            "lam": 1.0
+          },
+          "select_objective": 0.617491645576676,
+          "status": "ok",
+          "top1_mean": 0.6367657405363646
+        },
+        "static_persona": {
+          "by_experiment": {
+            "garcia2023experiential/exp1.csv": 0.8980119900371478,
+            "garcia2023experiential/exp2.csv": 0.9316786875228786,
+            "garcia2023experiential/exp3.csv": 0.8452007701816057,
+            "garcia2023experiential/exp4.csv": 0.9318476001791235
+          },
+          "cpu_seconds": 4.02,
+          "ece_mean": 0.2956582549909199,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.2085375814202438,
+          "n_grid": 7,
+          "n_participants": 68,
+          "nll_by_quarter": [
+            0.8855638524019761,
+            0.8670651322027888,
+            0.9250618840152506,
+            0.9290481793007399
+          ],
+          "nll_ci_high": 0.9565261991341271,
+          "nll_ci_low": 0.8449307279846965,
+          "nll_mean": 0.9016847619801891,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.9016847619801891,
+          "status": "ok",
+          "top1_mean": 0.5156318976934112
+        }
+      },
+      "n": {
+        "dev": 138,
+        "tune": 68
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.7667901578859287,
+          "middle": 0.6393029933264643,
+          "most_predictable": 0.5152154628008738
+        },
+        "memory_only": {
+          "least_predictable": 0.8173253785604289,
+          "middle": 0.6577939843358581,
+          "most_predictable": 0.4785144065426778
+        },
+        "plain_rl": {
+          "least_predictable": 0.7157107970289391,
+          "middle": 0.6247206056202604,
+          "most_predictable": 0.5370553805198472
+        },
+        "random": {
+          "least_predictable": 0.6931471805599453,
+          "middle": 0.6931471805599453,
+          "most_predictable": 0.6931471805599454
+        },
+        "ref_bayes_rule": {
+          "least_predictable": 0.7214599336366916,
+          "middle": 0.610611389715892,
+          "most_predictable": 0.5039844236140768
+        },
+        "ref_bias": {
+          "least_predictable": 0.7218753795482583,
+          "middle": 0.6526555736797994,
+          "most_predictable": 0.5800168485439581
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.7278762139744871,
+          "middle": 0.6380909294517357,
+          "most_predictable": 0.5618222867792241
+        },
+        "ref_gru": {
+          "least_predictable": 0.5401635703376642,
+          "middle": 0.4474490919334811,
+          "most_predictable": 0.3525763953462659
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 0.7278179462845543,
+          "middle": 0.6013565220165924,
+          "most_predictable": 0.5225989413175735
+        },
+        "static_persona": {
+          "least_predictable": 0.9513308699423497,
+          "middle": 0.9179204334311156,
+          "most_predictable": 0.836508881325837
+        }
+      }
+    },
+    "horizon": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 0.6931471805599453,
+      "contrasts": [
+        {
+          "ci_high": 0.20538744399273257,
+          "ci_low": 0.1337658882038698,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 1.2854086580992214,
+          "estimate": 0.16871810468140597,
+          "first": "developmental",
+          "n": 51,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.20070631919778564,
+          "ci_low": 0.13338277652933977,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 1.2854086580992214,
+          "estimate": 0.16871810468140597,
+          "first": "developmental",
+          "n": 51,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.1887176146155577,
+          "ci_low": -0.2758311682694314,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -1.46473547976805,
+          "estimate": -0.2322571050239428,
+          "first": "ref_gru",
+          "n": 51,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "wilson2014humans/exp1.csv",
+        "wilson2014humans/exp2.csv",
+        "wilson2014humans/exp3.csv",
+        "wilson2014humans/exp4.csv",
+        "wilson2014humans/exp5.csv",
+        "waltz2020differential/exp1.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.6309879853396124,
+            "wilson2014humans/exp1.csv": 0.6137023177616252,
+            "wilson2014humans/exp2.csv": 0.5860750109696263,
+            "wilson2014humans/exp3.csv": 0.6256826023204631,
+            "wilson2014humans/exp4.csv": 0.6521502544261324,
+            "wilson2014humans/exp5.csv": 0.5929876780302683
+          },
+          "cpu_seconds": 101.67,
+          "ece_mean": 0.05613823169095466,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder",
+            "lr_head"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.0655125839971652,
+          "n_grid": 84,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.6624379612640441,
+            0.6179944863132755,
+            0.6178085134411678,
+            0.6120535419806252
+          ],
+          "nll_ci_high": 0.641279377635098,
+          "nll_ci_low": 0.614617317290058,
+          "nll_mean": 0.6276345965627801,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "lr_encoder": 0.06,
+            "lr_head": 1.0
+          },
+          "select_objective": 0.6276345965627801,
+          "status": "ok",
+          "top1_mean": 0.6523667239173989
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.7996492306188104,
+            "wilson2014humans/exp1.csv": 0.8190207819222499,
+            "wilson2014humans/exp2.csv": 0.8534585997271801,
+            "wilson2014humans/exp3.csv": 0.8004719300975704,
+            "wilson2014humans/exp4.csv": 0.7794070205723125,
+            "wilson2014humans/exp5.csv": 0.7273522095558549
+          },
+          "cpu_seconds": 279.98,
+          "ece_mean": 0.18930815252997796,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": 0.09199094004083752,
+          "n_grid": 63,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.7915097434449018,
+            0.7553174948418152,
+            0.7736895029164645,
+            0.8200712295601233
+          ],
+          "nll_ci_high": 0.8025419179684585,
+          "nll_ci_low": 0.7685084825014916,
+          "nll_mean": 0.7851381206007828,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 0.7851381206007828,
+          "status": "ok",
+          "top1_mean": 0.5740563405571503
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.6889260706391703,
+            "wilson2014humans/exp1.csv": 0.6949038940082508,
+            "wilson2014humans/exp2.csv": 0.694949117332309,
+            "wilson2014humans/exp3.csv": 0.6906650632535177,
+            "wilson2014humans/exp4.csv": 0.6867827416335767,
+            "wilson2014humans/exp5.csv": 0.6790486090631642
+          },
+          "cpu_seconds": 52.28,
+          "ece_mean": 0.038332424841887765,
+          "grid_edges": [
+            "lr"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.005261402010150462,
+          "n_grid": 28,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.6894397738925535,
+            0.6826331416774281,
+            0.6847435665832973,
+            0.6947311706955999
+          ],
+          "nll_ci_high": 0.690263915987231,
+          "nll_ci_low": 0.685487759315654,
+          "nll_mean": 0.6878857785497948,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.01
+          },
+          "select_objective": 0.6878857785497948,
+          "status": "ok",
+          "top1_mean": 0.5574744845000972
+        },
+        "random": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.6931471805599453,
+            "wilson2014humans/exp1.csv": 0.6931471805599454,
+            "wilson2014humans/exp2.csv": 0.6931471805599454,
+            "wilson2014humans/exp3.csv": 0.6931471805599454,
+            "wilson2014humans/exp4.csv": 0.6931471805599454,
+            "wilson2014humans/exp5.csv": 0.6931471805599454
+          },
+          "cpu_seconds": 7.76,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": 2.220446049250313e-16,
+          "n_grid": 7,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.6931471805599455,
+            0.6931471805599455,
+            0.6931471805599455,
+            0.6931471805599455
+          ],
+          "nll_ci_high": 0.6931471805599455,
+          "nll_ci_low": 0.6931471805599455,
+          "nll_mean": 0.6931471805599455,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.6931471805599455,
+          "status": "ok",
+          "top1_mean": 0.5
+        },
+        "ref_bayes_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.6892681533957729,
+            "wilson2014humans/exp1.csv": 0.6946203826587655,
+            "wilson2014humans/exp2.csv": 0.6939358595748946,
+            "wilson2014humans/exp3.csv": 0.6924043689766508,
+            "wilson2014humans/exp4.csv": 0.6903366806616846,
+            "wilson2014humans/exp5.csv": 0.6898613174089965
+          },
+          "cpu_seconds": 7.64,
+          "ece_mean": 0.04247374685282812,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.001973583654628297,
+          "n_grid": 7,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.6924357192481518,
+            0.6892203942750655,
+            0.6899117265168278,
+            0.6931262693626501
+          ],
+          "nll_ci_high": 0.6919092242791426,
+          "nll_ci_low": 0.6904533296584571,
+          "nll_mean": 0.691173596905317,
+          "note": "",
+          "param_count": 1,
+          "params": {},
+          "select_objective": 0.691173596905317,
+          "status": "ok",
+          "top1_mean": 0.5400400917503745
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.6209577602547096,
+            "wilson2014humans/exp1.csv": 0.6159162502288384,
+            "wilson2014humans/exp2.csv": 0.6204826471191817,
+            "wilson2014humans/exp3.csv": 0.6400590975227638,
+            "wilson2014humans/exp4.csv": 0.6462574547224875,
+            "wilson2014humans/exp5.csv": 0.6092650459278606
+          },
+          "cpu_seconds": 447.1,
+          "ece_mean": 0.11415587382017826,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.06134648980802915,
+          "n_grid": 56,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.6360592826955639,
+            0.6324466746799664,
+            0.6290398033256128,
+            0.6296102893978676
+          ],
+          "nll_ci_high": 0.6400650367253996,
+          "nll_ci_low": 0.624324410137543,
+          "nll_mean": 0.6318006907519161,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 2.0,
+            "decay": 0.9,
+            "lr_att": 0.0
+          },
+          "select_objective": 0.6318006907519161,
+          "status": "ok",
+          "top1_mean": 0.6804859972254615
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.26678575650073266,
+            "wilson2014humans/exp1.csv": 0.4095595119174494,
+            "wilson2014humans/exp2.csv": 0.34770027767506073,
+            "wilson2014humans/exp3.csv": 0.45886438482383085,
+            "wilson2014humans/exp4.csv": 0.584249618793329,
+            "wilson2014humans/exp5.csv": 0.4212059581194688
+          },
+          "cpu_seconds": 296.72,
+          "ece_mean": 0.057254921256847606,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.23423068867857105,
+          "n_grid": 28,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.4797402439845051,
+            0.46729216588874833,
+            0.4412277442661987,
+            0.44735356491785844
+          ],
+          "nll_ci_high": 0.5004844723595966,
+          "nll_ci_low": 0.4151638072259333,
+          "nll_mean": 0.45891649188137423,
+          "note": "",
+          "param_count": 666,
+          "params": {
+            "hidden": 12.0,
+            "lr": 0.003,
+            "max_epochs": 8.0,
+            "max_steps_per_epoch": 60000.0,
+            "patience": 3.0,
+            "window": 64.0
+          },
+          "select_objective": 0.45891649188137423,
+          "status": "ok",
+          "top1_mean": 0.7828078954824873
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.4063370663508382,
+            "wilson2014humans/exp1.csv": 0.46587804459101695,
+            "wilson2014humans/exp2.csv": 0.38715930859514985,
+            "wilson2014humans/exp3.csv": 0.5130358392512958,
+            "wilson2014humans/exp4.csv": 0.6523559854718237,
+            "wilson2014humans/exp5.csv": 0.4772471528995163
+          },
+          "cpu_seconds": 92.22,
+          "ece_mean": 0.10275791183787099,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.16375338180956178,
+          "n_grid": 112,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.5484850051395364,
+            0.5307642740338496,
+            0.511830243947134,
+            0.5264267233642898
+          ],
+          "nll_ci_high": 0.5762128520040734,
+          "nll_ci_low": 0.48526075872485736,
+          "nll_mean": 0.5293937987503835,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.4,
+            "alpha": 0.9,
+            "c": 3.0,
+            "lam": 1.0
+          },
+          "select_objective": 0.5293937987503835,
+          "status": "ok",
+          "top1_mean": 0.7646251052025006
+        },
+        "static_persona": {
+          "by_experiment": {
+            "waltz2020differential/exp1.csv": 0.860789923872358,
+            "wilson2014humans/exp1.csv": 0.8507018019773971,
+            "wilson2014humans/exp2.csv": 0.761856845742771,
+            "wilson2014humans/exp3.csv": 0.8569282074883952,
+            "wilson2014humans/exp4.csv": 0.816508098385877,
+            "wilson2014humans/exp5.csv": 0.9258205731851747
+          },
+          "cpu_seconds": 9.9,
+          "ece_mean": 0.22190003669309363,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.15996231722886312,
+          "n_grid": 7,
+          "n_participants": 51,
+          "nll_by_quarter": [
+            0.8337783287221916,
+            0.8662965426797956,
+            0.8679289275543931,
+            0.844567199290953
+          ],
+          "nll_ci_high": 0.8946180060200776,
+          "nll_ci_low": 0.8116844448870141,
+          "nll_mean": 0.8531094977888084,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.8531094977888084,
+          "status": "ok",
+          "top1_mean": 0.5038852417983917
+        }
+      },
+      "n": {
+        "dev": 103,
+        "tune": 51
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.6244105751343318,
+          "middle": 0.6559344899855727,
+          "most_predictable": 0.602558724568436
+        },
+        "memory_only": {
+          "least_predictable": 0.8176589284097239,
+          "middle": 0.790243973842886,
+          "most_predictable": 0.747511459549739
+        },
+        "plain_rl": {
+          "least_predictable": 0.6945094129126177,
+          "middle": 0.6904385092261781,
+          "most_predictable": 0.6787094135105891
+        },
+        "random": {
+          "least_predictable": 0.6931471805599454,
+          "middle": 0.6931471805599454,
+          "most_predictable": 0.6931471805599454
+        },
+        "ref_bias": {
+          "least_predictable": 0.6942946595673608,
+          "middle": 0.6910805084780717,
+          "most_predictable": 0.6881456226705186
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.6332417091684751,
+          "middle": 0.6470066020417058,
+          "most_predictable": 0.6151537610455673
+        },
+        "ref_gru": {
+          "least_predictable": 0.44700348243560506,
+          "middle": 0.5575184541446818,
+          "most_predictable": 0.37222753906383577
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 0.5002300569372435,
+          "middle": 0.6339414708924253,
+          "most_predictable": 0.45400986842148155
+        },
+        "static_persona": {
+          "least_predictable": 0.8409191589238638,
+          "middle": 0.8273403383422695,
+          "most_predictable": 0.8910689961002918
+        }
+      }
+    },
+    "igt": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 1.3862943611198906,
+      "contrasts": [
+        {
+          "ci_high": 0.1020837166776206,
+          "ci_low": 0.064433206640348,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 0.8412600403721038,
+          "estimate": 0.0829717763751737,
+          "first": "developmental",
+          "n": 103,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.10231147383645964,
+          "ci_low": 0.06445364801832856,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 0.8412600403721038,
+          "estimate": 0.0829717763751737,
+          "first": "developmental",
+          "n": 103,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.1993155320152858,
+          "ci_low": -0.3195657583408214,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -0.8324438864848941,
+          "estimate": -0.2594145077782911,
+          "first": "ref_gru",
+          "n": 103,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "steingroever2015data/exp1.csv",
+        "steingroever2015data/exp2.csv",
+        "steingroever2015data/exp3.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.2009824014166153,
+            "steingroever2015data/exp2.csv": 1.27531745010641,
+            "steingroever2015data/exp3.csv": 1.0860858821686035
+          },
+          "cpu_seconds": 60.62,
+          "ece_mean": 0.11115705268179504,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.20322586456147773,
+          "n_grid": 168,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.2631942630271094,
+            1.2093305607136258,
+            1.1663065724146986,
+            1.0929068932263475
+          ],
+          "nll_ci_high": 1.2377178011607775,
+          "nll_ci_low": 1.1280039474866228,
+          "nll_mean": 1.1830684965584128,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "igt_reward_scale": 250.0,
+            "lr_encoder": 0.06,
+            "lr_head": 0.35
+          },
+          "select_objective": 1.1830684965584128,
+          "status": "ok",
+          "top1_mean": 0.45476068812808723
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.2998823914075819,
+            "steingroever2015data/exp2.csv": 1.269527337222632,
+            "steingroever2015data/exp3.csv": 1.213875659055503
+          },
+          "cpu_seconds": 59.8,
+          "ece_mean": 0.15142455518491674,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.10232640024524331,
+          "n_grid": 126,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.2965326984264813,
+            1.2873767020119415,
+            1.296231496923972,
+            1.2557042888478183
+          ],
+          "nll_ci_high": 1.3215008029306394,
+          "nll_ci_low": 1.2410109550253026,
+          "nll_mean": 1.2839679608746473,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "igt_reward_scale": 500.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 1.2839679608746473,
+          "status": "ok",
+          "top1_mean": 0.43107960029523645
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.3452828982358107,
+            "steingroever2015data/exp2.csv": 1.3386580963132024,
+            "steingroever2015data/exp3.csv": 1.2985975444835465
+          },
+          "cpu_seconds": 23.84,
+          "ece_mean": 0.14091004063811388,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.04936302378998869,
+          "n_grid": 56,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.350189987170478,
+            1.3354381217317997,
+            1.330624197090938,
+            1.3313651327526619
+          ],
+          "nll_ci_high": 1.3516407463960025,
+          "nll_ci_low": 1.3203755059869045,
+          "nll_mean": 1.3369313373299019,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "igt_reward_scale": 500.0,
+            "lr": 0.05
+          },
+          "select_objective": 1.3369313373299019,
+          "status": "ok",
+          "top1_mean": 0.3952157497303128
+        },
+        "random": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.3862943611198908,
+            "steingroever2015data/exp2.csv": 1.3862943611198908,
+            "steingroever2015data/exp3.csv": 1.3862943611198908
+          },
+          "cpu_seconds": 4.6,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": 4.440892098500626e-16,
+          "n_grid": 14,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.3862943611198908,
+            1.3862943611198908,
+            1.3862943611198908,
+            1.3862943611198908
+          ],
+          "nll_ci_high": 1.386294361119891,
+          "nll_ci_low": 1.386294361119891,
+          "nll_mean": 1.386294361119891,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "select_objective": 1.386294361119891,
+          "status": "ok",
+          "top1_mean": 0.25
+        },
+        "ref_bayes_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.360827259973156,
+            "steingroever2015data/exp2.csv": 1.3209971355274595,
+            "steingroever2015data/exp3.csv": 1.359934986425361
+          },
+          "cpu_seconds": 4.97,
+          "ece_mean": 0.11864535707877072,
+          "grid_edges": [],
+          "lapse": 0.2,
+          "minus_chance": -0.026783133158359895,
+          "n_grid": 14,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.3761312591324293,
+            1.3578463767003472,
+            1.3558551175092795,
+            1.3481256906709191
+          ],
+          "nll_ci_high": 1.3694253936075578,
+          "nll_ci_low": 1.3496913921585074,
+          "nll_mean": 1.3595112279615307,
+          "note": "",
+          "param_count": 3,
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "select_objective": 1.3595112279615307,
+          "status": "ok",
+          "top1_mean": 0.3060074944643162
+        },
+        "ref_delta_rule": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.3219483987379157,
+            "steingroever2015data/exp2.csv": 1.328212477325616,
+            "steingroever2015data/exp3.csv": 1.2766566438621982
+          },
+          "cpu_seconds": 45.69,
+          "ece_mean": 0.14858421126863955,
+          "grid_edges": [
+            "alpha"
+          ],
+          "lapse": 0.2,
+          "minus_chance": -0.07207857744993418,
+          "n_grid": 168,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.297554100409106,
+            1.3131438125974126,
+            1.3319555134424865,
+            1.3142739237744874
+          ],
+          "nll_ci_high": 1.3369085671023535,
+          "nll_ci_low": 1.288259795228354,
+          "nll_mean": 1.3142157836699564,
+          "note": "",
+          "param_count": 2,
+          "params": {
+            "alpha": 0.4,
+            "beta": 6.0,
+            "igt_reward_scale": 250.0
+          },
+          "select_objective": 1.3142157836699564,
+          "status": "ok",
+          "top1_mean": 0.3810060750581955
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.312564867254254,
+            "steingroever2015data/exp2.csv": 1.3274823720730735,
+            "steingroever2015data/exp3.csv": 1.3009766823928504
+          },
+          "cpu_seconds": 50.47,
+          "ece_mean": 0.1769485779250482,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.07532012311853764,
+          "n_grid": 112,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.3107716219470176,
+            1.3165747243065435,
+            1.3174693754783884,
+            1.2990874064798466
+          ],
+          "nll_ci_high": 1.3237676247023409,
+          "nll_ci_low": 1.2979158961676591,
+          "nll_mean": 1.310974238001353,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 0.5,
+            "decay": 0.9,
+            "igt_reward_scale": 250.0,
+            "lr_att": 0.0
+          },
+          "select_objective": 1.310974238001353,
+          "status": "ok",
+          "top1_mean": 0.4612786010333277
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.1131485296174835,
+            "steingroever2015data/exp2.csv": 1.2545411226580725,
+            "steingroever2015data/exp3.csv": 1.0148977434592115
+          },
+          "cpu_seconds": 140.68,
+          "ece_mean": 0.09904651085407608,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.28619764093665134,
+          "n_grid": 56,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.1974272206642311,
+            1.1187070385211575,
+            1.085885358773124,
+            0.9977905856147408
+          ],
+          "nll_ci_high": 1.1636302812604715,
+          "nll_ci_low": 1.0372073088593825,
+          "nll_mean": 1.1000967201832392,
+          "note": "",
+          "param_count": 780,
+          "params": {
+            "hidden": 12.0,
+            "igt_reward_scale": 250.0,
+            "lr": 0.003,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 1.1000967201832392,
+          "status": "ok",
+          "top1_mean": 0.5198586271504003
+        },
+        "ref_instance_based": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.2965925107836882,
+            "steingroever2015data/exp2.csv": 1.3533993765791754,
+            "steingroever2015data/exp3.csv": 1.2436928000317897
+          },
+          "cpu_seconds": 49.52,
+          "ece_mean": 0.13681904840927284,
+          "grid_edges": [
+            "decay"
+          ],
+          "lapse": 0.2,
+          "minus_chance": -0.09729189107550074,
+          "n_grid": 168,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.3196563569666921,
+            1.3138410397231657,
+            1.3007444024363364,
+            1.2214688183819957
+          ],
+          "nll_ci_high": 1.3156689426973585,
+          "nll_ci_low": 1.2571541899843355,
+          "nll_mean": 1.2890024700443898,
+          "note": "",
+          "param_count": 3,
+          "params": {
+            "beta": 6.0,
+            "decay": 0.5,
+            "igt_reward_scale": 500.0
+          },
+          "select_objective": 1.2890024700443898,
+          "status": "ok",
+          "top1_mean": 0.39558791801510257
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.3109678769105033,
+            "steingroever2015data/exp2.csv": 1.2855816415964971,
+            "steingroever2015data/exp3.csv": 1.2370577310757003
+          },
+          "cpu_seconds": 28.05,
+          "ece_mean": 0.14281558323172452,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.08898222528675137,
+          "n_grid": 112,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.2850848706615445,
+            1.285790885287465,
+            1.3106826182373696,
+            1.3078956449519572
+          ],
+          "nll_ci_high": 1.3244615731007945,
+          "nll_ci_low": 1.2671765197469358,
+          "nll_mean": 1.2973121358331392,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.1,
+            "alpha": 0.5,
+            "c": 2.0,
+            "igt_reward_scale": 500.0,
+            "lam": 1.0
+          },
+          "select_objective": 1.2973121358331392,
+          "status": "ok",
+          "top1_mean": 0.40042440243002325
+        },
+        "static_persona": {
+          "by_experiment": {
+            "steingroever2015data/exp1.csv": 1.8030426151155585,
+            "steingroever2015data/exp2.csv": 2.1792862479988098,
+            "steingroever2015data/exp3.csv": 1.9154257431362294
+          },
+          "cpu_seconds": 5.86,
+          "ece_mean": 0.4129692306108763,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.44734657635510366,
+          "n_grid": 14,
+          "n_participants": 103,
+          "nll_by_quarter": [
+            1.820856316624629,
+            1.829922494133622,
+            1.8368107511645702,
+            1.8469326145454776
+          ],
+          "nll_ci_high": 1.8976176813388541,
+          "nll_ci_low": 1.7629157614871003,
+          "nll_mean": 1.8336409374749942,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "select_objective": 1.8336409374749942,
+          "status": "ok",
+          "top1_mean": 0.24825753704649975
+        }
+      },
+      "n": {
+        "dev": 204,
+        "tune": 103
+      },
+      "role": "secondary",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 1.2489891742130514,
+          "middle": 1.2348040049945346,
+          "most_predictable": 1.0687739157845322
+        },
+        "memory_only": {
+          "least_predictable": 1.347381374067668,
+          "middle": 1.318007432193494,
+          "most_predictable": 1.1892994444916904
+        },
+        "plain_rl": {
+          "least_predictable": 1.373578220613432,
+          "middle": 1.3397272470754915,
+          "most_predictable": 1.298615481244472
+        },
+        "random": {
+          "least_predictable": 1.3862943611198906,
+          "middle": 1.3862943611198906,
+          "most_predictable": 1.3862943611198908
+        },
+        "ref_bias": {
+          "least_predictable": 1.4132985125564836,
+          "middle": 1.364999245837321,
+          "most_predictable": 1.3019295055613798
+        },
+        "ref_delta_rule": {
+          "least_predictable": 1.3791621494578425,
+          "middle": 1.311520778957204,
+          "most_predictable": 1.2537430329112549
+        },
+        "ref_exemplar": {
+          "least_predictable": 1.3454674924582664,
+          "middle": 1.3132700120486276,
+          "most_predictable": 1.275236324597284
+        },
+        "ref_gru": {
+          "least_predictable": 1.1562154958716688,
+          "middle": 1.1552144219764369,
+          "most_predictable": 0.9920384277725158
+        },
+        "ref_instance_based": {
+          "least_predictable": 1.3253209192057127,
+          "middle": 1.3004541317958866,
+          "most_predictable": 1.2425972194433657
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 1.3819224327830477,
+          "middle": 1.3188276666246963,
+          "most_predictable": 1.194218474598573
+        },
+        "static_persona": {
+          "least_predictable": 1.7963593112605571,
+          "middle": 1.8197397725233706,
+          "most_predictable": 1.8833613631791666
+        }
+      }
+    },
+    "mcpl": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 2.1972245773362196,
+      "contrasts": [
+        {
+          "ci_high": 0.5361267740871705,
+          "ci_low": 0.35499670633964286,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 1.43754324166271,
+          "estimate": 0.4445879523982947,
+          "first": "developmental",
+          "n": 47,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.5306914687657178,
+          "ci_low": 0.3617885159266777,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 1.43754324166271,
+          "estimate": 0.4445879523982947,
+          "first": "developmental",
+          "n": 47,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.5463327991077961,
+          "ci_low": -0.8522918930320156,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -1.2912722380807498,
+          "estimate": -0.7025326645454625,
+          "first": "ref_gru",
+          "n": 47,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "collsi\u00f6\u00f62023MCPL/exp1.csv",
+        "collsi\u00f6\u00f62023MCPL/exp2.csv",
+        "collsi\u00f6\u00f62023MCPL/exp3.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.6009568660865157,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.581188516119864,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.8569403322346487
+          },
+          "cpu_seconds": 20.4,
+          "ece_mean": 0.1459127602612235,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder"
+          ],
+          "lapse": 0.2,
+          "minus_chance": -0.5045405380333932,
+          "n_grid": 84,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            2.074628037262391,
+            1.776595824798932,
+            1.5165207096638003,
+            1.3992203899486868
+          ],
+          "nll_ci_high": 1.7870332334869612,
+          "nll_ci_low": 1.6060303146523642,
+          "nll_mean": 1.6926840393028264,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "lr_encoder": 0.06,
+            "lr_head": 0.35
+          },
+          "select_objective": 1.6926840393028264,
+          "status": "ok",
+          "top1_mean": 0.39270785480396303
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.2652834165968585,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.1991291478995771,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.7398685957697513
+          },
+          "cpu_seconds": 32.8,
+          "ece_mean": 0.22452973875434262,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.7712981991510028,
+          "n_grid": 63,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.8987792733961784,
+            1.4903709900427178,
+            1.2200192245603658,
+            1.0900775093705508
+          ],
+          "nll_ci_high": 1.587382204394656,
+          "nll_ci_low": 1.2684192611242053,
+          "nll_mean": 1.4259263781852167,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 1.4259263781852167,
+          "status": "ok",
+          "top1_mean": 0.5973264760730069
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.7460979050219276,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.7003334102173833,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.822902882253609
+          },
+          "cpu_seconds": 9.08,
+          "ece_mean": 0.1110374758105859,
+          "grid_edges": [],
+          "lapse": 0.02,
+          "minus_chance": -0.4363176900142467,
+          "n_grid": 28,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            2.043957130810362,
+            1.8373591924293178,
+            1.6143883950694617,
+            1.5444829650633347
+          ],
+          "nll_ci_high": 1.8268610239109022,
+          "nll_ci_low": 1.7044220126738545,
+          "nll_mean": 1.7609068873219729,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.05
+          },
+          "select_objective": 1.7609068873219729,
+          "status": "ok",
+          "top1_mean": 0.32085407397618315
+        },
+        "random": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 2.197224577336219,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 2.197224577336219,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 2.19722457733622
+          },
+          "cpu_seconds": 1.96,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -4.440892098500626e-16,
+          "n_grid": 7,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            2.1972245773362182,
+            2.1972245773362182,
+            2.1972245773362182,
+            2.1972245773362182
+          ],
+          "nll_ci_high": 2.197224577336219,
+          "nll_ci_low": 2.197224577336219,
+          "nll_mean": 2.197224577336219,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 2.197224577336219,
+          "status": "ok",
+          "top1_mean": 0.11111111111111108
+        },
+        "ref_bayes_rule": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.4675357534853408,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.4031867427481244,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 2.208012473429596
+          },
+          "cpu_seconds": 26.37,
+          "ece_mean": 0.25267029412874376,
+          "grid_edges": [
+            "sigma",
+            "tau2"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.46663891325644613,
+          "n_grid": 63,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.9551832092786248,
+            1.7406619396452976,
+            1.6234053799175923,
+            1.601108645544672
+          ],
+          "nll_ci_high": 1.9049155473608346,
+          "nll_ci_low": 1.553634362411033,
+          "nll_mean": 1.7305856640797734,
+          "note": "",
+          "param_count": 15,
+          "params": {
+            "sigma": 0.5,
+            "tau2": 0.3
+          },
+          "select_objective": 1.7305856640797734,
+          "status": "ok",
+          "top1_mean": 0.48822959340998184
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.983539982273205,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.958029957087259,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.9188634561119982
+          },
+          "cpu_seconds": 1.73,
+          "ece_mean": 0.0774661826132223,
+          "grid_edges": [],
+          "lapse": 0.02,
+          "minus_chance": -0.2465958258862253,
+          "n_grid": 7,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.9870638832298118,
+            1.953119301460893,
+            1.9067057528058333,
+            1.9547130367153767
+          ],
+          "nll_ci_high": 1.9869240067273515,
+          "nll_ci_low": 1.9167272675080844,
+          "nll_mean": 1.9506287514499943,
+          "note": "",
+          "param_count": 8,
+          "params": {
+            "smoothing": 1.0
+          },
+          "select_objective": 1.9506287514499943,
+          "status": "ok",
+          "top1_mean": 0.2875137659133959
+        },
+        "ref_delta_rule": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.534912522244277,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.4821508413965547,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 2.103512879167137
+          },
+          "cpu_seconds": 27.57,
+          "ece_mean": 0.22325777458544588,
+          "grid_edges": [
+            "sigma"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.4613890505835241,
+          "n_grid": 140,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.9316071935347081,
+            1.74337881819201,
+            1.643690041747323,
+            1.623007433731052
+          ],
+          "nll_ci_high": 1.8832494989656234,
+          "nll_ci_low": 1.5863720009702844,
+          "nll_mean": 1.7358355267526955,
+          "note": "",
+          "param_count": 2,
+          "params": {
+            "alpha": 0.03,
+            "sigma": 0.75
+          },
+          "select_objective": 1.7358355267526955,
+          "status": "ok",
+          "top1_mean": 0.4901160741817541
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.8365525686591684,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.8057988469519115,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.8630221825434568
+          },
+          "cpu_seconds": 73.93,
+          "ece_mean": 0.16842243870056015,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay",
+            "lr_att"
+          ],
+          "lapse": 0.05,
+          "minus_chance": -0.360349727308789,
+          "n_grid": 112,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            2.1410685803039593,
+            1.8483354015641476,
+            1.6917356310647573,
+            1.6622832534759853
+          ],
+          "nll_ci_high": 1.8987485432772322,
+          "nll_ci_low": 1.7770664315087883,
+          "nll_mean": 1.8368748500274306,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 2.0,
+            "decay": 1.0,
+            "lr_att": 0.05
+          },
+          "select_objective": 1.8368748500274306,
+          "status": "ok",
+          "top1_mean": 0.387553778835
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.1005078325089461,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.0208222010320698,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.5522818563281502
+          },
+          "cpu_seconds": 128.86,
+          "ece_mean": 0.12401459715831518,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.9491284904316877,
+          "n_grid": 28,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.6863951543259614,
+            1.2790599491760861,
+            1.0674827716994642,
+            0.9549105881405916
+          ],
+          "nll_ci_high": 1.39704882595876,
+          "nll_ci_low": 1.0959727512299817,
+          "nll_mean": 1.2480960869045319,
+          "note": "",
+          "param_count": 1065,
+          "params": {
+            "hidden": 12.0,
+            "lr": 0.003,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 1.2480960869045319,
+          "status": "ok",
+          "top1_mean": 0.5985055724417426
+        },
+        "ref_instance_based": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.2952995939195853,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.268805523232646,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.6987350865863613
+          },
+          "cpu_seconds": 13.1,
+          "ece_mean": 0.2386872334072136,
+          "grid_edges": [
+            "h",
+            "s"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.7558733279337004,
+          "n_grid": 63,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.8517750207655506,
+            1.4685397371444915,
+            1.25384841934018,
+            1.1872012839768304
+          ],
+          "nll_ci_high": 1.5731389112172602,
+          "nll_ci_low": 1.3174889336753561,
+          "nll_mean": 1.4413512494025191,
+          "note": "",
+          "param_count": 3,
+          "params": {
+            "h": 0.5,
+            "kappa": 0.05,
+            "s": 0.5
+          },
+          "select_objective": 1.4413512494025191,
+          "status": "ok",
+          "top1_mean": 0.5981687664273233
+        },
+        "ref_population_static": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 1.4569126466142441,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 1.3898211081601868,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 1.8038920746264344
+          },
+          "cpu_seconds": 3.89,
+          "ece_mean": 0.14658886423848552,
+          "grid_edges": [],
+          "lapse": 0.02,
+          "minus_chance": -0.6288383854579633,
+          "n_grid": 21,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            1.8755671531678209,
+            1.605061511852992,
+            1.422459790558373,
+            1.3666783920329093
+          ],
+          "nll_ci_high": 1.6834831763399047,
+          "nll_ci_low": 1.4690913204793843,
+          "nll_mean": 1.5683861918782562,
+          "note": "",
+          "param_count": 200,
+          "params": {
+            "smoothing": 1.0
+          },
+          "select_objective": 1.5683861918782562,
+          "status": "ok",
+          "top1_mean": 0.39807497467071934
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 2.1394729657973914,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 2.136116270436229,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 2.1187708835339514
+          },
+          "cpu_seconds": 19.96,
+          "ece_mean": 0.06819816655205509,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.0667513543294529,
+          "n_grid": 112,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            2.2086312088122826,
+            2.158442784368007,
+            2.080693379383829,
+            2.0728963496622175
+          ],
+          "nll_ci_high": 2.1628429232141526,
+          "nll_ci_low": 2.0976637908225695,
+          "nll_mean": 2.1304732230067667,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.1,
+            "alpha": 0.5,
+            "c": 1.0,
+            "lam": 1.0
+          },
+          "select_objective": 2.1304732230067667,
+          "status": "ok",
+          "top1_mean": 0.22205172286305833
+        },
+        "static_persona": {
+          "by_experiment": {
+            "collsi\u00f6\u00f62023MCPL/exp1.csv": 2.8826142069363407,
+            "collsi\u00f6\u00f62023MCPL/exp2.csv": 2.8398101791483588,
+            "collsi\u00f6\u00f62023MCPL/exp3.csv": 2.8654442187571183
+          },
+          "cpu_seconds": 2.75,
+          "ece_mean": 0.46478610283342364,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.665153029514042,
+          "n_grid": 7,
+          "n_participants": 47,
+          "nll_by_quarter": [
+            2.837480089251159,
+            2.8558230663185045,
+            2.892638168686912,
+            2.8640318684258883
+          ],
+          "nll_ci_high": 2.9058797617692433,
+          "nll_ci_low": 2.8192504323045804,
+          "nll_mean": 2.8623776068502615,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 2.8623776068502615,
+          "status": "ok",
+          "top1_mean": 0.10460882780494249
+        }
+      },
+      "n": {
+        "dev": 93,
+        "tune": 47
+      },
+      "role": "primary",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 1.7137470649735171,
+          "middle": 1.579904729160076,
+          "most_predictable": 1.7773516168909644
+        },
+        "memory_only": {
+          "least_predictable": 1.2767226636503364,
+          "middle": 1.2742958155613946,
+          "most_predictable": 1.7172837451799314
+        },
+        "plain_rl": {
+          "least_predictable": 1.8787374259562708,
+          "middle": 1.6764273472418616,
+          "most_predictable": 1.7222759175127784
+        },
+        "random": {
+          "least_predictable": 2.1972245773362196,
+          "middle": 2.197224577336219,
+          "most_predictable": 2.1972245773362196
+        },
+        "ref_bayes_rule": {
+          "least_predictable": 1.4746081284018904,
+          "middle": 1.6662986603680847,
+          "most_predictable": 2.0468322657373657
+        },
+        "ref_bias": {
+          "least_predictable": 2.0682794285659334,
+          "middle": 1.9568309226344358,
+          "most_predictable": 1.827163538848641
+        },
+        "ref_delta_rule": {
+          "least_predictable": 1.5707119697902683,
+          "middle": 1.6899758450924216,
+          "most_predictable": 1.9439525352716285
+        },
+        "ref_exemplar": {
+          "least_predictable": 1.9693155292226108,
+          "middle": 1.7647478672993622,
+          "most_predictable": 1.7720532171398156
+        },
+        "ref_gru": {
+          "least_predictable": 1.1157386556499294,
+          "middle": 1.1330740503453256,
+          "most_predictable": 1.4882866774333903
+        },
+        "ref_instance_based": {
+          "least_predictable": 1.3553123742156825,
+          "middle": 1.347951031939161,
+          "most_predictable": 1.6149528284612533
+        },
+        "ref_population_static": {
+          "least_predictable": 1.5478195541318174,
+          "middle": 1.4935434072526428,
+          "most_predictable": 1.659117940211207
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 2.1242286251613502,
+          "middle": 2.0843138028782353,
+          "most_predictable": 2.179992277222682
+        },
+        "static_persona": {
+          "least_predictable": 2.8847336539815456,
+          "middle": 2.889290477479034,
+          "most_predictable": 2.8147907435045028
+        }
+      }
+    },
+    "srl3": {
+      "best_non_developmental": "ref_gru",
+      "best_reference": "ref_gru",
+      "chance_nll": 1.0986122886681098,
+      "contrasts": [
+        {
+          "ci_high": 0.14037367037002807,
+          "ci_low": 0.08377973910057745,
+          "contrast": "developmental_vs_best_reference",
+          "dz": 1.9455598204355962,
+          "estimate": 0.1133135610829763,
+          "first": "developmental",
+          "n": 15,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": 0.13992248822381342,
+          "ci_low": 0.08283499278472707,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": 1.9455598204355962,
+          "estimate": 0.1133135610829763,
+          "first": "developmental",
+          "n": 15,
+          "p_value": 0.0005,
+          "second": "ref_gru"
+        },
+        {
+          "ci_high": -0.31243103957787854,
+          "ci_low": -0.40036216458904444,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -4.0373065460145225,
+          "estimate": -0.35747801687593095,
+          "first": "ref_gru",
+          "n": 15,
+          "p_value": 0.0005,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "gershman2020reward/exp1.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 0.8544019383358883
+          },
+          "cpu_seconds": 13.75,
+          "ece_mean": 0.04845519206493704,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.2442103503322215,
+          "n_grid": 84,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            0.8906154405985831,
+            0.8601735456232406,
+            0.8047629672229352,
+            0.8617376639927834
+          ],
+          "nll_ci_high": 0.8892731548555055,
+          "nll_ci_low": 0.8216577916095859,
+          "nll_mean": 0.8544019383358883,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.1,
+            "lr_encoder": 0.06,
+            "lr_head": 0.35
+          },
+          "select_objective": 0.8544019383358883,
+          "status": "ok",
+          "top1_mean": 0.6358007926645283
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 1.0016738347086414
+          },
+          "cpu_seconds": 29.14,
+          "ece_mean": 0.1597403407655985,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.09693845395946843,
+          "n_grid": 63,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            0.9989841082966205,
+            1.0253380779566519,
+            0.927503327000837,
+            1.0549336522492703
+          ],
+          "nll_ci_high": 1.0390909781600721,
+          "nll_ci_low": 0.9675041347424796,
+          "nll_mean": 1.0016738347086414,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 1.0016738347086414,
+          "status": "ok",
+          "top1_mean": 0.5963640118787461
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 1.0779690684272645
+          },
+          "cpu_seconds": 7.02,
+          "ece_mean": 0.10018245306644061,
+          "grid_edges": [
+            "lr"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.020643220240845306,
+          "n_grid": 28,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            1.0725458230127094,
+            1.0829544701175893,
+            1.069135118040825,
+            1.0872196688769373
+          ],
+          "nll_ci_high": 1.0915598839040312,
+          "nll_ci_low": 1.0653109140159271,
+          "nll_mean": 1.0779690684272645,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.01
+          },
+          "select_objective": 1.0779690684272645,
+          "status": "ok",
+          "top1_mean": 0.43730527848603
+        },
+        "random": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 1.0986122886681096
+          },
+          "cpu_seconds": 1.19,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -2.220446049250313e-16,
+          "n_grid": 7,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            1.0986122886681096,
+            1.0986122886681096,
+            1.0986122886681096,
+            1.0986122886681096
+          ],
+          "nll_ci_high": 1.0986122886681096,
+          "nll_ci_low": 1.0986122886681096,
+          "nll_mean": 1.0986122886681096,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 1.0986122886681096,
+          "status": "ok",
+          "top1_mean": 0.3333333333333332
+        },
+        "ref_bayes_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 1.0985663941288428
+          },
+          "cpu_seconds": 0.98,
+          "ece_mean": 0.029101225598163763,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": -4.589453926695519e-05,
+          "n_grid": 7,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            1.0982954157431613,
+            1.0991162694124237,
+            1.099503504957227,
+            1.0973497599423017
+          ],
+          "nll_ci_high": 1.0992601978018905,
+          "nll_ci_low": 1.0978455711195727,
+          "nll_mean": 1.0985663941288428,
+          "note": "",
+          "param_count": 2,
+          "params": {},
+          "select_objective": 1.0985663941288428,
+          "status": "ok",
+          "top1_mean": 0.3251590081312452
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 0.9479879637209678
+          },
+          "cpu_seconds": 33.87,
+          "ece_mean": 0.08263073557430392,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.15062432494714195,
+          "n_grid": 56,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            0.9531581730816633,
+            0.9517221501923412,
+            0.9779431823127018,
+            0.9088854313312555
+          ],
+          "nll_ci_high": 0.9613081113824072,
+          "nll_ci_low": 0.9357069166180205,
+          "nll_mean": 0.9479879637209678,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 6.0,
+            "c": 2.0,
+            "decay": 0.9,
+            "lr_att": 0.0
+          },
+          "select_objective": 0.9479879637209678,
+          "status": "ok",
+          "top1_mean": 0.5636798945124024
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 0.7410883772529122
+          },
+          "cpu_seconds": 104.51,
+          "ece_mean": 0.05608796005558392,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.1,
+          "minus_chance": -0.35752391141519757,
+          "n_grid": 28,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            0.7539976535316245,
+            0.7480514550315489,
+            0.7258117578447334,
+            0.7362871199779772
+          ],
+          "nll_ci_high": 0.7852741210424389,
+          "nll_ci_low": 0.6979699889940821,
+          "nll_mean": 0.7410883772529122,
+          "note": "",
+          "param_count": 723,
+          "params": {
+            "hidden": 12.0,
+            "lr": 0.01,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 0.7410883772529122,
+          "status": "ok",
+          "top1_mean": 0.7161243996296676
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 1.0395835489945284
+          },
+          "cpu_seconds": 13.06,
+          "ece_mean": 0.03874389865161027,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.059028739673581354,
+          "n_grid": 112,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            1.0408892933424736,
+            1.0528837975822498,
+            1.061922584507813,
+            1.0024797461462096
+          ],
+          "nll_ci_high": 1.0513048869975816,
+          "nll_ci_low": 1.0284868103719813,
+          "nll_mean": 1.0395835489945284,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.1,
+            "alpha": 0.5,
+            "c": 1.0,
+            "lam": 1.0
+          },
+          "select_objective": 1.0395835489945284,
+          "status": "ok",
+          "top1_mean": 0.4061622749038294
+        },
+        "static_persona": {
+          "by_experiment": {
+            "gershman2020reward/exp1.csv": 1.4763397028057625
+          },
+          "cpu_seconds": 1.43,
+          "ece_mean": 0.3853645374791299,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.37772741413765276,
+          "n_grid": 7,
+          "n_participants": 15,
+          "nll_by_quarter": [
+            1.4742608183670094,
+            1.500355746370134,
+            1.4636917481022875,
+            1.4668364166242351
+          ],
+          "nll_ci_high": 1.5552790318529441,
+          "nll_ci_low": 1.3951717071830303,
+          "nll_mean": 1.4763397028057625,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 1.4763397028057625,
+          "status": "ok",
+          "top1_mean": 0.3267887347309956
+        }
+      },
+      "n": {
+        "dev": 30,
+        "tune": 15
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.8824338670501923,
+          "middle": 0.8145047431071368,
+          "most_predictable": 0.8662672048503364
+        },
+        "memory_only": {
+          "least_predictable": 1.0067642448968936,
+          "middle": 0.9497695400663442,
+          "most_predictable": 1.0484877191626865
+        },
+        "plain_rl": {
+          "least_predictable": 1.0942103280682944,
+          "middle": 1.0750028456700862,
+          "most_predictable": 1.0646940315434121
+        },
+        "random": {
+          "least_predictable": 1.0986122886681096,
+          "middle": 1.0986122886681096,
+          "most_predictable": 1.0986122886681096
+        },
+        "ref_bias": {
+          "least_predictable": 1.1000611455914948,
+          "middle": 1.0987054005368606,
+          "most_predictable": 1.096932636258174
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.9613083472610084,
+          "middle": 0.9306524662613367,
+          "most_predictable": 0.9520030776405587
+        },
+        "ref_gru": {
+          "least_predictable": 0.7778344180242354,
+          "middle": 0.6901149905008586,
+          "most_predictable": 0.7553157232336426
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 1.0427633441375916,
+          "middle": 1.0356673512234018,
+          "most_predictable": 1.0403199516225918
+        },
+        "static_persona": {
+          "least_predictable": 1.5086724857904295,
+          "middle": 1.5689638041068945,
+          "most_predictable": 1.3513828185199643
+        }
+      }
+    },
+    "wpt": {
+      "best_non_developmental": "plain_rl",
+      "best_reference": "ref_bayes_rule",
+      "chance_nll": 0.6931471805599453,
+      "contrasts": [
+        {
+          "ci_high": -0.0014664076228732559,
+          "ci_low": -0.011786744513116787,
+          "contrast": "developmental_vs_best_reference",
+          "dz": -1.081610505960179,
+          "estimate": -0.007398993325222381,
+          "first": "developmental",
+          "n": 5,
+          "p_value": 0.014,
+          "second": "ref_bayes_rule"
+        },
+        {
+          "ci_high": 0.011296531787778442,
+          "ci_low": -0.02348178753300174,
+          "contrast": "developmental_vs_best_non_developmental",
+          "dz": -0.13729807081965728,
+          "estimate": -0.0032218471754809743,
+          "first": "developmental",
+          "n": 5,
+          "p_value": 0.768,
+          "second": "plain_rl"
+        },
+        {
+          "ci_high": 0.0007049187179279159,
+          "ci_low": -0.21035452488939657,
+          "contrast": "best_reference_vs_ref_bias",
+          "dz": -0.8612050958979933,
+          "estimate": -0.1195086888407199,
+          "first": "ref_bayes_rule",
+          "n": 5,
+          "p_value": 0.056,
+          "second": "ref_bias"
+        }
+      ],
+      "experiments": [
+        "speekenbrink2008learning/exp1.csv"
+      ],
+      "models": {
+        "developmental": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.5658704726694295
+          },
+          "cpu_seconds": 2.1,
+          "ece_mean": 0.08378334157698415,
+          "grid_edges": [
+            "exploration_base",
+            "lr_encoder"
+          ],
+          "lapse": 0.2,
+          "minus_chance": -0.12727670789051582,
+          "n_grid": 84,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.5642492631898157,
+            0.6182131321424593,
+            0.5148918074966732,
+            0.5661276878487694
+          ],
+          "nll_ci_high": 0.6995201165682852,
+          "nll_ci_low": 0.47166097187639056,
+          "nll_mean": 0.5658704726694295,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "exploration_base": 0.3,
+            "lr_encoder": 0.06,
+            "lr_head": 0.35
+          },
+          "select_objective": 0.5658704726694295,
+          "status": "ok",
+          "top1_mean": 0.7135
+        },
+        "hybrid_exemplar": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "memory_only": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.5945800865329602
+          },
+          "cpu_seconds": 3.09,
+          "ece_mean": 0.09493925940641548,
+          "grid_edges": [
+            "beta",
+            "memory_capacity"
+          ],
+          "lapse": 0.3,
+          "minus_chance": -0.09856709402698505,
+          "n_grid": 63,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.5691219789328572,
+            0.7146401732956602,
+            0.5377993958497264,
+            0.5567587980535965
+          ],
+          "nll_ci_high": 0.7710275139678091,
+          "nll_ci_low": 0.4567582535388845,
+          "nll_mean": 0.5945800865329602,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "beta": 6.0,
+            "memory_capacity": 64.0
+          },
+          "select_objective": 0.5945800865329602,
+          "status": "ok",
+          "top1_mean": 0.7185
+        },
+        "plain_rl": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.5690923198449103
+          },
+          "cpu_seconds": 0.87,
+          "ece_mean": 0.10685544306012548,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": -0.12405486071503502,
+          "n_grid": 28,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.5673971555728828,
+            0.6421800384187667,
+            0.5115444839539156,
+            0.5552476014340766
+          ],
+          "nll_ci_high": 0.6990538931943057,
+          "nll_ci_low": 0.4677676856281615,
+          "nll_mean": 0.5690923198449103,
+          "note": "",
+          "param_count": null,
+          "params": {
+            "lr": 0.2
+          },
+          "select_objective": 0.5690923198449103,
+          "status": "ok",
+          "top1_mean": 0.7225
+        },
+        "random": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.6931471805599452
+          },
+          "cpu_seconds": 0.2,
+          "ece_mean": 0.0,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -1.1102230246251565e-16,
+          "n_grid": 7,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.6931471805599453,
+            0.6931471805599453,
+            0.6931471805599453,
+            0.6931471805599453
+          ],
+          "nll_ci_high": 0.6931471805599452,
+          "nll_ci_low": 0.6931471805599452,
+          "nll_mean": 0.6931471805599452,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 0.6931471805599452,
+          "status": "ok",
+          "top1_mean": 0.5
+        },
+        "ref_bayes_rule": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.5732694659946519
+          },
+          "cpu_seconds": 2.43,
+          "ece_mean": 0.12773894330177393,
+          "grid_edges": [
+            "sigma",
+            "tau2"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.11987771456529339,
+          "n_grid": 63,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.5525646659965071,
+            0.6658000702931886,
+            0.5234035170627578,
+            0.5513096106261537
+          ],
+          "nll_ci_high": 0.6932699713936878,
+          "nll_ci_low": 0.48184732560044835,
+          "nll_mean": 0.5732694659946519,
+          "note": "",
+          "param_count": 15,
+          "params": {
+            "sigma": 0.5,
+            "tau2": 3.0
+          },
+          "select_objective": 0.5732694659946519,
+          "status": "ok",
+          "top1_mean": 0.72
+        },
+        "ref_bias": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.6927781548353718
+          },
+          "cpu_seconds": 0.15,
+          "ece_mean": 0.03611209766925638,
+          "grid_edges": [],
+          "lapse": 0.0,
+          "minus_chance": -0.0003690257245735351,
+          "n_grid": 7,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.694394179545761,
+            0.6919790217368276,
+            0.6918369536304197,
+            0.6929024644284786
+          ],
+          "nll_ci_high": 0.693346427261003,
+          "nll_ci_low": 0.6922098824097405,
+          "nll_mean": 0.6927781548353718,
+          "note": "",
+          "param_count": 1,
+          "params": {},
+          "select_objective": 0.6927781548353718,
+          "status": "ok",
+          "top1_mean": 0.5229999999999999
+        },
+        "ref_delta_rule": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_exemplar": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.5754455261468239
+          },
+          "cpu_seconds": 6.78,
+          "ece_mean": 0.10653330014846693,
+          "grid_edges": [
+            "beta",
+            "c",
+            "decay",
+            "lr_att"
+          ],
+          "lapse": 0.02,
+          "minus_chance": -0.11770165441312141,
+          "n_grid": 112,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.5881006108635283,
+            0.6373831286439342,
+            0.5258453480800406,
+            0.5504530169997925
+          ],
+          "nll_ci_high": 0.7048928018235272,
+          "nll_ci_low": 0.48888002913491624,
+          "nll_mean": 0.5754455261468239,
+          "note": "",
+          "param_count": 16,
+          "params": {
+            "beta": 2.0,
+            "c": 2.0,
+            "decay": 0.98,
+            "lr_att": 0.05
+          },
+          "select_objective": 0.5754455261468239,
+          "status": "ok",
+          "top1_mean": 0.7265
+        },
+        "ref_gru": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.5994919753779725
+          },
+          "cpu_seconds": 9.13,
+          "ece_mean": 0.12767280661476538,
+          "grid_edges": [
+            "hidden",
+            "lr"
+          ],
+          "lapse": 0.0,
+          "minus_chance": -0.09365520518197279,
+          "n_grid": 28,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.6210635824291744,
+            0.6498408102454603,
+            0.5622565459927327,
+            0.5648069628445226
+          ],
+          "nll_ci_high": 0.7099529397895371,
+          "nll_ci_low": 0.5230275375261962,
+          "nll_mean": 0.5994919753779725,
+          "note": "",
+          "param_count": 666,
+          "params": {
+            "hidden": 8.0,
+            "lr": 0.01,
+            "max_epochs": 15.0,
+            "patience": 4.0,
+            "window": 64.0
+          },
+          "select_objective": 0.5994919753779725,
+          "status": "ok",
+          "top1_mean": 0.6990000000000001
+        },
+        "ref_instance_based": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_population_static": {
+          "cpu_seconds": 0.0,
+          "grid_edges": [],
+          "lapse": null,
+          "n_grid": 0,
+          "note": "ValueError: ref_population_static is defined for MCPL only",
+          "param_count": null,
+          "params": {},
+          "select_objective": null,
+          "status": "unavailable"
+        },
+        "ref_pvl_delta": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 0.7059094558894482
+          },
+          "cpu_seconds": 2.08,
+          "ece_mean": 0.07534786625629375,
+          "grid_edges": [
+            "A",
+            "alpha",
+            "c",
+            "lam"
+          ],
+          "lapse": 0.3,
+          "minus_chance": 0.012762275329502915,
+          "n_grid": 112,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            0.68891811713316,
+            0.7000598382465857,
+            0.7228068133493104,
+            0.7118530548287365
+          ],
+          "nll_ci_high": 0.7193758576295585,
+          "nll_ci_low": 0.6935690582616518,
+          "nll_mean": 0.7059094558894482,
+          "note": "",
+          "param_count": 4,
+          "params": {
+            "A": 0.1,
+            "alpha": 0.5,
+            "c": 1.0,
+            "lam": 1.0
+          },
+          "select_objective": 0.7059094558894482,
+          "status": "ok",
+          "top1_mean": 0.5189999999999999
+        },
+        "static_persona": {
+          "by_experiment": {
+            "speekenbrink2008learning/exp1.csv": 1.0480049639287956
+          },
+          "cpu_seconds": 0.23,
+          "ece_mean": 0.3821363179036257,
+          "grid_edges": [],
+          "lapse": 0.3,
+          "minus_chance": 0.3548577833688503,
+          "n_grid": 7,
+          "n_participants": 5,
+          "nll_by_quarter": [
+            1.076405983163277,
+            1.0377083624862158,
+            1.0528266580536532,
+            1.0250788520120357
+          ],
+          "nll_ci_high": 1.217014426614115,
+          "nll_ci_low": 0.893391593992473,
+          "nll_mean": 1.0480049639287956,
+          "note": "",
+          "param_count": null,
+          "params": {},
+          "select_objective": 1.0480049639287956,
+          "status": "ok",
+          "top1_mean": 0.404
+        }
+      },
+      "n": {
+        "dev": 9,
+        "tune": 5
+      },
+      "role": "exploratory",
+      "terciles": {
+        "developmental": {
+          "least_predictable": 0.5456107974344767,
+          "middle": 0.44423654446980165,
+          "most_predictable": 0.6469471120041961
+        },
+        "memory_only": {
+          "least_predictable": 0.5756182652908511,
+          "middle": 0.40698332465487724,
+          "most_predictable": 0.7073402887141105
+        },
+        "plain_rl": {
+          "least_predictable": 0.5377515994000306,
+          "middle": 0.4484388428150085,
+          "most_predictable": 0.6607597788047412
+        },
+        "random": {
+          "least_predictable": 0.6931471805599452,
+          "middle": 0.6931471805599452,
+          "most_predictable": 0.6931471805599452
+        },
+        "ref_bayes_rule": {
+          "least_predictable": 0.5555720537293422,
+          "middle": 0.4578539434432925,
+          "most_predictable": 0.6486746395356411
+        },
+        "ref_bias": {
+          "least_predictable": 0.6934973746240614,
+          "middle": 0.6927426378087698,
+          "most_predictable": 0.692076693559983
+        },
+        "ref_exemplar": {
+          "least_predictable": 0.5431631539169874,
+          "middle": 0.4855082189048507,
+          "most_predictable": 0.6526965519976469
+        },
+        "ref_gru": {
+          "least_predictable": 0.5747093225383457,
+          "middle": 0.5113987266471881,
+          "most_predictable": 0.6683212525829915
+        },
+        "ref_pvl_delta": {
+          "least_predictable": 0.6989839051716316,
+          "middle": 0.7032556327808811,
+          "most_predictable": 0.7141619181615482
+        },
+        "static_persona": {
+          "least_predictable": 0.8580613834428856,
+          "middle": 1.3528796636518239,
+          "most_predictable": 1.0855111945531908
+        }
+      }
+    }
+  },
+  "report_partition": "tune"
+}

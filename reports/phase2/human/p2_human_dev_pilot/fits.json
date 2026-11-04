@@ -1,0 +1,2135 @@
+{
+  "bandit2": {
+    "experiments": [
+      "gershman2018deconstructing/exp1.csv",
+      "gershman2018deconstructing/exp2.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 7.41,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder",
+          "lr_head"
+        ],
+        "lapse": 0.2,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 1.0
+        },
+        "select_objective": 0.5617871584391987,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 8.47,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.7751593577989996,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 2.83,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.05
+        },
+        "select_objective": 0.6823104210904313,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 0.81,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.6931471805599452,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_bias": {
+        "cpu_seconds": 0.66,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6806676820516474,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 8.82,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay"
+        ],
+        "lapse": 0.1,
+        "n_grid": 56,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 0.5,
+          "decay": 0.9,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.6103193019321002,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 35.04,
+        "fit_log": {
+          "best_val_nll": 0.3495615193882862,
+          "epochs": 15,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.01,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.3894380997994158,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 6.4,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.0,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.4,
+          "alpha": 0.9,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.5338696511054029,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 0.85,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.8236179955918821,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 32,
+      "tune": 16
+    },
+    "role": "exploratory"
+  },
+  "casino": {
+    "experiments": [
+      "lefebvre2017behavioural/exp1.csv",
+      "lefebvre2017behavioural/exp2.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 4.51,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder",
+          "lr_head"
+        ],
+        "lapse": 0.0,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.1,
+          "lr_encoder": 0.06,
+          "lr_head": 0.1
+        },
+        "select_objective": 0.6226399650431693,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 5.3,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 3.0,
+          "memory_capacity": 256.0
+        },
+        "select_objective": 0.6369036312286441,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 1.88,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.05
+        },
+        "select_objective": 0.6233288599931844,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 0.44,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.6931471805599453,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_bias": {
+        "cpu_seconds": 0.34,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6950177391151742,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 3.49,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay"
+        ],
+        "lapse": 0.1,
+        "n_grid": 56,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 2.0,
+          "decay": 0.98,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.6548142027932176,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 22.2,
+        "fit_log": {
+          "best_val_nll": 0.5395960952569655,
+          "epochs": 15,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.1,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 8.0,
+          "lr": 0.01,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.5561625550030671,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 4.79,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.5,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.6790919504848012,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 0.68,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.9507457030567327,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 31,
+      "tune": 16
+    },
+    "role": "exploratory"
+  },
+  "described": {
+    "experiments": [
+      "plonsky2018when/exp1.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 50.1,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder"
+        ],
+        "lapse": 0.3,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 0.35
+        },
+        "select_objective": 0.655202648096225,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 110.49,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.775737961989879,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 22.13,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.05
+        },
+        "select_objective": 0.6636232810889107,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 4.49,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.6931471805599454,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 62.25,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma",
+          "tau2"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 15,
+        "params": {
+          "sigma": 0.5,
+          "tau2": 3.0
+        },
+        "select_objective": 0.6689626373024602,
+        "status": "ok"
+      },
+      "ref_bias": {
+        "cpu_seconds": 4.53,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6781077596469114,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 304.53,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay",
+          "lr_att"
+        ],
+        "lapse": 0.0,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 2.0,
+          "decay": 0.98,
+          "lr_att": 0.05
+        },
+        "select_objective": 0.6799311857233521,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 224.0,
+        "fit_log": {
+          "best_val_nll": 0.32650186395457864,
+          "epochs": 10,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.003,
+          "max_epochs": 10.0,
+          "max_steps_per_epoch": 60000.0,
+          "patience": 3.0,
+          "window": 64.0
+        },
+        "select_objective": 0.3719589834308027,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 42.23,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.9,
+          "c": 3.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.6504585415315925,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 7.03,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.8840780828158272,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 85,
+      "tune": 41
+    },
+    "role": "exploratory"
+  },
+  "garcia": {
+    "experiments": [
+      "garcia2023experiential/exp1.csv",
+      "garcia2023experiential/exp2.csv",
+      "garcia2023experiential/exp3.csv",
+      "garcia2023experiential/exp4.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 24.64,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder",
+          "lr_head"
+        ],
+        "lapse": 0.3,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 0.1
+        },
+        "select_objective": 0.6404528695438041,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 36.44,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.6511144516582401,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 10.08,
+        "fit_log": null,
+        "grid_edges": [
+          "lr"
+        ],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.01
+        },
+        "select_objective": 0.625845226577468,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 3.16,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.6931471805599454,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 38.6,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma",
+          "tau2"
+        ],
+        "lapse": 0.1,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 15,
+        "params": {
+          "sigma": 0.5,
+          "tau2": 0.3
+        },
+        "select_objective": 0.6120392763311368,
+        "status": "ok"
+      },
+      "ref_bias": {
+        "cpu_seconds": 2.67,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6514991745158318,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 73.31,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay",
+          "lr_att"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 2.0,
+          "c": 2.0,
+          "decay": 0.98,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.6426627347834343,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 178.57,
+        "fit_log": {
+          "best_val_nll": 0.4535219733762314,
+          "epochs": 15,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.003,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.4467191063715732,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 32.25,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.4,
+          "alpha": 0.5,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.617491645576676,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 4.02,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.9016847619801891,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 138,
+      "tune": 68
+    },
+    "role": "exploratory"
+  },
+  "horizon": {
+    "experiments": [
+      "wilson2014humans/exp1.csv",
+      "wilson2014humans/exp2.csv",
+      "wilson2014humans/exp3.csv",
+      "wilson2014humans/exp4.csv",
+      "wilson2014humans/exp5.csv",
+      "waltz2020differential/exp1.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 101.67,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder",
+          "lr_head"
+        ],
+        "lapse": 0.1,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 1.0
+        },
+        "select_objective": 0.6276345965627801,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 279.98,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.7851381206007828,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 52.28,
+        "fit_log": null,
+        "grid_edges": [
+          "lr"
+        ],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.01
+        },
+        "select_objective": 0.6878857785497948,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 7.76,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.6931471805599455,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_bias": {
+        "cpu_seconds": 7.64,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.691173596905317,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 447.1,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay"
+        ],
+        "lapse": 0.0,
+        "n_grid": 56,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 2.0,
+          "decay": 0.9,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.6318006907519161,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 296.72,
+        "fit_log": {
+          "best_val_nll": 0.4881033461779385,
+          "epochs": 8,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.003,
+          "max_epochs": 8.0,
+          "max_steps_per_epoch": 60000.0,
+          "patience": 3.0,
+          "window": 64.0
+        },
+        "select_objective": 0.45891649188137423,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 92.22,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.4,
+          "alpha": 0.9,
+          "c": 3.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.5293937987503835,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 9.9,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.8531094977888084,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 103,
+      "tune": 51
+    },
+    "role": "exploratory"
+  },
+  "igt": {
+    "experiments": [
+      "steingroever2015data/exp1.csv",
+      "steingroever2015data/exp2.csv",
+      "steingroever2015data/exp3.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 60.62,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder"
+        ],
+        "lapse": 0.0,
+        "n_grid": 168,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "igt_reward_scale": 250.0,
+          "lr_encoder": 0.06,
+          "lr_head": 0.35
+        },
+        "select_objective": 1.1830684965584128,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 59.8,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 126,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "igt_reward_scale": 500.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 1.2839679608746473,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 23.84,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 56,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "igt_reward_scale": 500.0,
+          "lr": 0.05
+        },
+        "select_objective": 1.3369313373299019,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 4.6,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 14,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "igt_reward_scale": 250.0
+        },
+        "select_objective": 1.386294361119891,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_bias": {
+        "cpu_seconds": 4.97,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.2,
+        "n_grid": 14,
+        "note": "",
+        "param_count": 3,
+        "params": {
+          "igt_reward_scale": 250.0
+        },
+        "select_objective": 1.3595112279615307,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 45.69,
+        "fit_log": null,
+        "grid_edges": [
+          "alpha"
+        ],
+        "lapse": 0.2,
+        "n_grid": 168,
+        "note": "",
+        "param_count": 2,
+        "params": {
+          "alpha": 0.4,
+          "beta": 6.0,
+          "igt_reward_scale": 250.0
+        },
+        "select_objective": 1.3142157836699564,
+        "status": "ok"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 50.47,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay"
+        ],
+        "lapse": 0.0,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 0.5,
+          "decay": 0.9,
+          "igt_reward_scale": 250.0,
+          "lr_att": 0.0
+        },
+        "select_objective": 1.310974238001353,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 140.68,
+        "fit_log": {
+          "best_val_nll": 1.0868178228181695,
+          "epochs": 15,
+          "param_count": 780
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.0,
+        "n_grid": 56,
+        "note": "",
+        "param_count": 780,
+        "params": {
+          "hidden": 12.0,
+          "igt_reward_scale": 250.0,
+          "lr": 0.003,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 1.1000967201832392,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 49.52,
+        "fit_log": null,
+        "grid_edges": [
+          "decay"
+        ],
+        "lapse": 0.2,
+        "n_grid": 168,
+        "note": "",
+        "param_count": 3,
+        "params": {
+          "beta": 6.0,
+          "decay": 0.5,
+          "igt_reward_scale": 500.0
+        },
+        "select_objective": 1.2890024700443898,
+        "status": "ok"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 28.05,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.5,
+          "c": 2.0,
+          "igt_reward_scale": 500.0,
+          "lam": 1.0
+        },
+        "select_objective": 1.2973121358331392,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 5.86,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 14,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "igt_reward_scale": 250.0
+        },
+        "select_objective": 1.8336409374749942,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 204,
+      "tune": 103
+    },
+    "role": "secondary"
+  },
+  "mcpl": {
+    "experiments": [
+      "collsi\u00f6\u00f62023MCPL/exp1.csv",
+      "collsi\u00f6\u00f62023MCPL/exp2.csv",
+      "collsi\u00f6\u00f62023MCPL/exp3.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 20.4,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder"
+        ],
+        "lapse": 0.2,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 0.35
+        },
+        "select_objective": 1.6926840393028264,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 32.8,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.1,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 1.4259263781852167,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 9.08,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.05
+        },
+        "select_objective": 1.7609068873219729,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 1.96,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 2.197224577336219,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 26.37,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma",
+          "tau2"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 15,
+        "params": {
+          "sigma": 0.5,
+          "tau2": 0.3
+        },
+        "select_objective": 1.7305856640797734,
+        "status": "ok"
+      },
+      "ref_bias": {
+        "cpu_seconds": 1.73,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.02,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 8,
+        "params": {
+          "smoothing": 1.0
+        },
+        "select_objective": 1.9506287514499943,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 27.57,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma"
+        ],
+        "lapse": 0.3,
+        "n_grid": 140,
+        "note": "",
+        "param_count": 2,
+        "params": {
+          "alpha": 0.03,
+          "sigma": 0.75
+        },
+        "select_objective": 1.7358355267526955,
+        "status": "ok"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 73.93,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay",
+          "lr_att"
+        ],
+        "lapse": 0.05,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 2.0,
+          "decay": 1.0,
+          "lr_att": 0.05
+        },
+        "select_objective": 1.8368748500274306,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 128.86,
+        "fit_log": {
+          "best_val_nll": 1.4977336513109851,
+          "epochs": 15,
+          "param_count": 1065
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 1065,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.003,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 1.2480960869045319,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 13.1,
+        "fit_log": null,
+        "grid_edges": [
+          "h",
+          "s"
+        ],
+        "lapse": 0.1,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 3,
+        "params": {
+          "h": 0.5,
+          "kappa": 0.05,
+          "s": 0.5
+        },
+        "select_objective": 1.4413512494025191,
+        "status": "ok"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 3.89,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.02,
+        "n_grid": 21,
+        "note": "",
+        "param_count": 200,
+        "params": {
+          "smoothing": 1.0
+        },
+        "select_objective": 1.5683861918782562,
+        "status": "ok"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 19.96,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.5,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 2.1304732230067667,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 2.75,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 2.8623776068502615,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 93,
+      "tune": 47
+    },
+    "role": "primary"
+  },
+  "srl3": {
+    "experiments": [
+      "gershman2020reward/exp1.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 13.75,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder"
+        ],
+        "lapse": 0.1,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.1,
+          "lr_encoder": 0.06,
+          "lr_head": 0.35
+        },
+        "select_objective": 0.8544019383358883,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 29.14,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 1.0016738347086414,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 7.02,
+        "fit_log": null,
+        "grid_edges": [
+          "lr"
+        ],
+        "lapse": 0.0,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.01
+        },
+        "select_objective": 1.0779690684272645,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 1.19,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 1.0986122886681096,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_bias": {
+        "cpu_seconds": 0.98,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 2,
+        "params": {},
+        "select_objective": 1.0985663941288428,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 33.87,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay"
+        ],
+        "lapse": 0.0,
+        "n_grid": 56,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 2.0,
+          "decay": 0.9,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.9479879637209678,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 104.51,
+        "fit_log": {
+          "best_val_nll": 0.6902009339757575,
+          "epochs": 15,
+          "param_count": 723
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.1,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 723,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.01,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.7410883772529122,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 13.06,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.0,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.5,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 1.0395835489945284,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 1.43,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 1.4763397028057625,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 30,
+      "tune": 15
+    },
+    "role": "exploratory"
+  },
+  "wpt": {
+    "experiments": [
+      "speekenbrink2008learning/exp1.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 2.1,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder"
+        ],
+        "lapse": 0.2,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 0.35
+        },
+        "select_objective": 0.5658704726694295,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "policy class 'hybrid_exemplar' not registered in this build (KeyError: \"no policy registered for 'hybrid_exemplar'; known: ['developmental', 'memory_only', 'plain_rl', 'random', 'static_persona']\")",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "memory_only": {
+        "cpu_seconds": 3.09,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.5945800865329602,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 0.87,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.2
+        },
+        "select_objective": 0.5690923198449103,
+        "status": "ok"
+      },
+      "random": {
+        "cpu_seconds": 0.2,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 0.6931471805599452,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 2.43,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma",
+          "tau2"
+        ],
+        "lapse": 0.02,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 15,
+        "params": {
+          "sigma": 0.5,
+          "tau2": 3.0
+        },
+        "select_objective": 0.5732694659946519,
+        "status": "ok"
+      },
+      "ref_bias": {
+        "cpu_seconds": 0.15,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6927781548353718,
+        "status": "ok"
+      },
+      "ref_delta_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 6.78,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay",
+          "lr_att"
+        ],
+        "lapse": 0.02,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 2.0,
+          "c": 2.0,
+          "decay": 0.98,
+          "lr_att": 0.05
+        },
+        "select_objective": 0.5754455261468239,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 9.13,
+        "fit_log": {
+          "best_val_nll": 0.5182585322492744,
+          "epochs": 12,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.0,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 8.0,
+          "lr": 0.01,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.5994919753779725,
+        "status": "ok"
+      },
+      "ref_instance_based": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_population_static": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_population_static is defined for MCPL only",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 2.08,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.5,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.7059094558894482,
+        "status": "ok"
+      },
+      "static_persona": {
+        "cpu_seconds": 0.23,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 7,
+        "note": "",
+        "param_count": null,
+        "params": {},
+        "select_objective": 1.0480049639287956,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 9,
+      "tune": 5
+    },
+    "role": "exploratory"
+  }
+}
