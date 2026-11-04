@@ -1,0 +1,306 @@
+[
+  {
+    "claim_id": "exp01_acquired_learning",
+    "claim": "Identical initial agents acquire held-out skill as a function of the feedback they receive: instructional (full) feedback > outcome-only (bandit) feedback > no feedback, and a non-learning persona shows no effect.",
+    "status": "supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp01_acquired_learning__main__dev_bandit__s0",
+      "exp01_acquired_learning__main__dev_bandit__s1",
+      "exp01_acquired_learning__main__dev_bandit__s2",
+      "exp01_acquired_learning__main__dev_bandit__s3",
+      "exp01_acquired_learning__main__dev_bandit__s4",
+      "exp01_acquired_learning__main__dev_bandit__s5",
+      "exp01_acquired_learning__main__dev_bandit__s6",
+      "exp01_acquired_learning__main__dev_bandit__s7",
+      "exp01_acquired_learning__main__dev_bandit__s8",
+      "exp01_acquired_learning__main__dev_bandit__s9",
+      "exp01_acquired_learning__main__dev_full__s0",
+      "exp01_acquired_learning__main__dev_full__s1",
+      "... +78 more"
+    ],
+    "metric": "final_heldout_accuracy",
+    "value": "+0.3908 (95% CI [+0.3742, +0.4102], n=10 seeds) \u2014 primary contrast 'instruction_vs_no_feedback_developmental' (superiority): dev_full vs dev_none on final_heldout_accuracy: estimate +0.3908 (95% CI [+0.3742, +0.4102], n=10 seeds; relative +87.9%); threshold 0.0500 -> passed",
+    "config_ref": "reports/experiments/exp01_acquired_learning/definition.json (preregistration a103ffb31b3d872999c6c2367a278da7)",
+    "limitations": [
+      "Feedback conditions are properties of the synthetic environment; 'instruction' here means revealing the correct answer, not human teaching.",
+      "Retention measures forgetting dynamics built into each policy class (baselines do not forget by construction).",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
+    "claim_id": "exp06_transfer",
+    "claim": "A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised 'barter' family than independently trained specialists when barter shares the latent structure, and shows no benefit (or negative transfer) when it does not.",
+    "status": "supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp06_transfer__main__developmental__s0",
+      "exp06_transfer__main__developmental__s1",
+      "exp06_transfer__main__developmental__s2",
+      "exp06_transfer__main__developmental__s3",
+      "exp06_transfer__main__developmental__s4",
+      "exp06_transfer__main__developmental__s5",
+      "exp06_transfer__main__developmental__s6",
+      "exp06_transfer__main__developmental__s7",
+      "exp06_transfer__main__developmental__s8",
+      "exp06_transfer__main__developmental__s9",
+      "exp06_transfer__main__developmental_specialists__s0",
+      "exp06_transfer__main__developmental_specialists__s1",
+      "... +28 more"
+    ],
+    "metric": "transfer_auc/shared/trained",
+    "value": "+0.0895 (95% CI [+0.0503, +0.1228], n=10 seeds) \u2014 primary contrast 'shared_representation_vs_specialists' (superiority): developmental vs developmental_specialists on transfer_auc/shared/trained: estimate +0.0895 (95% CI [+0.0503, +0.1228], n=10 seeds; relative +13.7%); threshold 0.0300 -> passed",
+    "config_ref": "reports/experiments/exp06_transfer/definition.json (preregistration 8ea8b2d414bfb432cf8734232d644bb5)",
+    "limitations": [
+      "Barter is never practised during development; leakage/holdout_symbols_in_practice must be 0.",
+      "Because all rules are linear in the raw features, a shared representation can only help through sample efficiency.",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
+    "claim_id": "exp_ablations",
+    "claim": "Held-out skill comes from experience-driven parameter learning, not from scripted age gates: freezing policy learning or withholding feedback removes the gain; other components contribute measurably or not at all.",
+    "status": "supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp_ablations__main__ablate_curriculum__s0",
+      "exp_ablations__main__ablate_curriculum__s1",
+      "exp_ablations__main__ablate_curriculum__s2",
+      "exp_ablations__main__ablate_curriculum__s3",
+      "exp_ablations__main__ablate_curriculum__s4",
+      "exp_ablations__main__ablate_curriculum__s5",
+      "exp_ablations__main__ablate_curriculum__s6",
+      "exp_ablations__main__ablate_curriculum__s7",
+      "exp_ablations__main__ablate_curriculum__s8",
+      "exp_ablations__main__ablate_curriculum__s9",
+      "exp_ablations__main__ablate_feedback__s0",
+      "exp_ablations__main__ablate_feedback__s1",
+      "... +78 more"
+    ],
+    "metric": "final_heldout_accuracy",
+    "value": "+0.4086 (95% CI [+0.3947, +0.4255], n=10 seeds) \u2014 primary contrast 'learning_is_necessary' (superiority): developmental vs ablate_learning on final_heldout_accuracy: estimate +0.4086 (95% CI [+0.3947, +0.4255], n=10 seeds; relative +91.9%); threshold 0.1000 -> passed",
+    "config_ref": "reports/experiments/exp_ablations/definition.json (preregistration 35deebb2c439534ae1b859edf09687e3)",
+    "limitations": [
+      "Curriculum only affects self-directed practice choice; in this fixed-schedule lab it may have no effect by design.",
+      "Ablation flags are implemented by the research/development lane; this experiment only toggles them.",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
+    "claim_id": "exp_baselines_heldout",
+    "claim": "Agents whose policy develops from experience (developmental learner) reach higher accuracy on held-out symbols (never seen in practice) than equally-resourced static-persona, memory-only, or plain-RL agents given an identical item and feedback stream.",
+    "status": "not_supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s0",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s1",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s2",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s3",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s4",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s5",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s6",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s7",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s8",
+      "exp_baselines_heldout__bandit_only_feedback__developmental__s9",
+      "exp_baselines_heldout__bandit_only_feedback__memory_only__s0",
+      "exp_baselines_heldout__bandit_only_feedback__memory_only__s1",
+      "... +188 more"
+    ],
+    "metric": "final_heldout_accuracy",
+    "value": "+0.0121 (95% CI [-0.0080, +0.0306], n=10 seeds) \u2014 primary contrast 'developmental_vs_strongest_baseline' (superiority): developmental vs plain_rl on final_heldout_accuracy: estimate +0.0121 (95% CI [-0.0080, +0.0306], n=10 seeds; relative +1.4%); threshold 0.0837 -> failed; control = strongest of memory_only=0.7727, plain_rl=0.8369, static_persona=0.4381 -> plain_rl",
+    "config_ref": "reports/experiments/exp_baselines_heldout/definition.json (preregistration a2c3efe591fa8df730ccba91c97485f1)",
+    "limitations": [
+      "Synthetic task world; held-out = unseen symbols under the same hidden rules, not unseen humans.",
+      "Baseline hyperparameters (plain_rl lr=0.05) were tuned on task seeds 1001-1003, never on evaluation seeds 0-9.",
+      "The developmental learner's hyperparameters are owned by the research/development lane; if they were tuned on evaluation seeds this result is optimistic.",
+      "Age gate (perceptual feature access) is a scripted assumption applied identically to all arms; the no_age_gate sensitivity variant removes it.",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
+    "claim_id": "exp07_human_heldout",
+    "claim": "A developmental learner (Tier-2 policy, hpe.development) predicts held-out human choices in multiple-cue probability learning better than the strongest non-developmental model, including static models fitted to other participants and the memory-only / plain-RL baselines.",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [
+      "split1",
+      "split2",
+      "split20261104"
+    ],
+    "metric": "heldout_nll_per_choice_igt",
+    "value": "-0.0696 (95% CI [-0.0949, -0.0455], n=153 participants) \u2014 Primary contrast not evaluated: the 'developmental' policy class is not available in this build (see per-model notes). Reference and baseline models were evaluated; see secondary contrasts.",
+    "config_ref": "reports/human_validation/exp07_human_heldout/definition.json (preregistration f30610430c3b847f)",
+    "limitations": [
+      "Teacher-forced one-step-ahead likelihood measures predictive fit to human choice sequences, not generative realism.",
+      "Registry classes are not tuned beyond lapse/reward scale; reference cognitive models get small grids. This favours the reference models.",
+      "Participants are adults in short laboratory tasks; this says nothing about life-course development or the simulator's world.",
+      "Psych-101 transcripts were used to train the Centaur language model; irrelevant here because no language model is used, noted for context.",
+      "MCPL cue encoding (one-hot + scalar, 12 features) is a modelling choice shared by all models."
+    ]
+  },
+  {
+    "claim_id": "exp07b_causal_grounding",
+    "claim": "A centred least-squares estimate of the causal excursion effect of delivering an activity suggestion (vs none) on log 30-minute step count, computed from the public HeartSteps V1 data, is consistent with the effect published by Klasnja et al. (2019).",
+    "status": "supported",
+    "evidence_kind": "human_dataset",
+    "run_ids": [
+      "heartsteps_v1_suggestions"
+    ],
+    "metric": "log(jbsteps30.zero + 0.5)",
+    "value": "+0.1154 (95% CI [-0.0046, +0.2423], n=37 participants) \u2014 any_suggestion: estimate +12.2% (95% cluster bootstrap CI [-0.5%, +27.4%]); published +14% (p = .06) lies inside the CI. Rule: consistent if log(1 + published_percent/100) lies inside our 95% cluster-bootstrap CI for the corresponding term; the primary comparison is any_suggestion.",
+    "config_ref": "reports/human_validation/exp07b_causal_grounding/definition.json (preregistration db680486f77f864f)",
+    "limitations": [
+      "The public dataset contains 37 participants; the paper reports a 6-week MRT with 44 adults. The analysed samples may differ.",
+      "The paper's exact control covariates and outcome transform are not verified from its full text in this session (only the abstract was accessible).",
+      "This is the only real causal estimate in the repository. It is not mixed with, and does not validate, any simulation result."
+    ]
+  },
+  {
+    "claim_id": "run:demo_developmental_100a_80y_s42",
+    "claim": "A 100-agent society (developmental policy) runs 80 simulated years with births, schooling, work, social ties and deaths, and replays bit-identically from its seed and from a mid-run checkpoint.",
+    "status": "supported",
+    "evidence_kind": "engineering",
+    "run_ids": [
+      "demo_developmental_100a_80y_s42"
+    ],
+    "metric": "event_stream_sha256_chain / final_state_hash",
+    "value": "138,607 events; wall 109.8 s; peak RSS 356 MB; LLM calls 0; replay from seed identical=True; resume from checkpoint tick 487 identical=True",
+    "config_ref": "reports/runs/demo_developmental_100a_80y_s42/manifest.json (config 82e80e1e51b22b7a, code 21cd6ed)",
+    "limitations": [
+      "Engineering property of the simulator; says nothing about human realism.",
+      "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz; 4 logical CPUs; Linux x86_64; Python 3.13.18"
+    ]
+  },
+  {
+    "claim_id": "contamination_audit",
+    "claim": "No held-out symbol is ever used in practice, assessment never changes a policy, and eval sets are fixed.",
+    "status": "supported",
+    "evidence_kind": "engineering",
+    "run_ids": [],
+    "metric": "leakage checks",
+    "value": "{\"clean\": true, \"episodes_per_family\": 120, \"eval_sets_fixed\": true, \"policies\": {\"memory_only\": {\"assessment_mutates_policy\": false, \"distinct_practice_symbols\": 64, \"holdout_symbols_in_practice\": 0, \"practice_items\": 360}, \"plain_rl\": {\"assessment_mutates_policy\": false, \"distinct_practice_symbols\": 64, \"holdout_symbols_in_practice\": 0, \"practice_items\": 360}, \"random\": {\"assessment_mutates_poli",
+    "config_ref": "reports/experiments/contamination_audit.json",
+    "limitations": [
+      "Checks the synthetic task world only."
+    ]
+  },
+  {
+    "claim_id": "bench:developmental_100a_2y_dt30_s0",
+    "claim": "100 agents (developmental) simulate 2 years at dt=30 d.",
+    "status": "supported",
+    "evidence_kind": "engineering",
+    "run_ids": [],
+    "metric": "wall time / throughput",
+    "value": "5.5 s; 38.7 agent-years/s; peak RSS 100 MB; completed",
+    "config_ref": "reports/scale/developmental_100a_2y_dt30_s0.json",
+    "limitations": [
+      "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
+      "world.run() wall time (excludes 0.03s World() construction); cpu 5.4s; 25 ticks; 211 agent-years; population at end 106; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 3.52/3.55/3.54, after 3.56/3.56/3.55"
+    ]
+  },
+  {
+    "claim_id": "bench:static_persona_100a_2y_dt30_s0",
+    "claim": "100 agents (static_persona) simulate 2 years at dt=30 d.",
+    "status": "supported",
+    "evidence_kind": "engineering",
+    "run_ids": [],
+    "metric": "wall time / throughput",
+    "value": "5.7 s; 37.2 agent-years/s; peak RSS 54 MB; completed",
+    "config_ref": "reports/scale/static_persona_100a_2y_dt30_s0.json",
+    "limitations": [
+      "Hardware: Intel(R) Xeon(R) Processor @ 2.80GHz x4 logical CPUs, 15.7 GiB RAM; Linux 6.18.44-fc-v233; python 3.13.18",
+      "world.run() wall time (excludes 0.04s World() construction); cpu 5.6s; 25 ticks; 211 agent-years; population at end 106; events counted, not stored; frames_every_ticks=0; seed 0; LLM calls 0, cost $0; load average (1/5/15 min) before 3.56/3.56/3.55, after 3.60/3.57/3.55"
+    ]
+  },
+  {
+    "claim_id": "bench:1000_agents",
+    "claim": "The simulator runs 1,000 agents.",
+    "status": "not_tested",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No completed benchmark record exists yet; do not claim this."
+    ]
+  },
+  {
+    "claim_id": "bench:10000_agents",
+    "claim": "The simulator runs 10,000 agents.",
+    "status": "not_tested",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No completed benchmark record exists yet; do not claim this."
+    ]
+  },
+  {
+    "claim_id": "validated_human_prediction",
+    "claim": "The system is validated for predicting individual human futures.",
+    "status": "not_supported",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No evidence exists for this claim; it is prohibited by docs/CLAIMS_POLICY.md."
+    ]
+  },
+  {
+    "claim_id": "human_like_intelligence",
+    "claim": "Agents have human-like intelligence or experience emotions.",
+    "status": "not_supported",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No evidence exists for this claim; it is prohibited by docs/CLAIMS_POLICY.md."
+    ]
+  },
+  {
+    "claim_id": "real_world_causal_effects_from_simulation",
+    "claim": "Simulated intervention effects estimate real-world causal effects.",
+    "status": "not_supported",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No evidence exists for this claim; it is prohibited by docs/CLAIMS_POLICY.md."
+    ]
+  },
+  {
+    "claim_id": "future_self_outcome_probabilities",
+    "claim": "Future Self provides calibrated individual outcome probabilities.",
+    "status": "not_supported",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No evidence exists for this claim; it is prohibited by docs/CLAIMS_POLICY.md."
+    ]
+  },
+  {
+    "claim_id": "deployed",
+    "claim": "The product is deployed for public use.",
+    "status": "not_supported",
+    "evidence_kind": "none",
+    "run_ids": [],
+    "metric": null,
+    "value": null,
+    "config_ref": null,
+    "limitations": [
+      "No evidence exists for this claim; it is prohibited by docs/CLAIMS_POLICY.md."
+    ]
+  }
+]
