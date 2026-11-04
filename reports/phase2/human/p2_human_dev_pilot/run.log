@@ -1,0 +1,146 @@
+[mcpl] fit on dev (93), select on tune (47), report on tune (47)
+  random                 ok   select=2.1972 report=2.1972 params={} lapse=0.0 edges=[] cpu=2.0s
+  static_persona         ok   select=2.8624 report=2.8624 params={} lapse=0.3 edges=[] cpu=2.7s
+  memory_only            ok   select=1.4259 report=1.4259 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.1 edges=['beta', 'memory_capacity'] cpu=32.8s
+  plain_rl               ok   select=1.7609 report=1.7609 params={'lr': 0.05} lapse=0.02 edges=[] cpu=9.1s
+  developmental          ok   select=1.6927 report=1.6927 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 0.35} lapse=0.2 edges=['exploration_base', 'lr_encoder'] cpu=20.4s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=1.9506 report=1.9506 params={'smoothing': 1.0} lapse=0.02 edges=[] cpu=1.7s
+  ref_population_static  ok   select=1.5684 report=1.5684 params={'smoothing': 1.0} lapse=0.02 edges=[] cpu=3.9s
+  ref_delta_rule         ok   select=1.7358 report=1.7358 params={'alpha': 0.03, 'sigma': 0.75} lapse=0.3 edges=['sigma'] cpu=27.6s
+  ref_instance_based     ok   select=1.4414 report=1.4414 params={'h': 0.5, 'kappa': 0.05, 's': 0.5} lapse=0.1 edges=['h', 's'] cpu=13.1s
+  ref_exemplar           ok   select=1.8369 report=1.8369 params={'beta': 6.0, 'c': 2.0, 'decay': 1.0, 'lr_att': 0.05} lapse=0.05 edges=['beta', 'c', 'decay', 'lr_att'] cpu=73.9s
+  ref_pvl_delta          ok   select=2.1305 report=2.1305 params={'A': 0.1, 'alpha': 0.5, 'c': 1.0, 'lam': 1.0} lapse=0.3 edges=['A', 'alpha', 'c', 'lam'] cpu=20.0s
+  ref_bayes_rule         ok   select=1.7306 report=1.7306 params={'sigma': 0.5, 'tau2': 0.3} lapse=0.3 edges=['sigma', 'tau2'] cpu=26.4s
+  ref_gru                ok   select=1.2481 report=1.2481 params={'hidden': 12.0, 'lr': 0.003, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0} lapse=0.02 edges=['hidden', 'lr'] cpu=128.9s
+[igt] fit on dev (204), select on tune (103), report on tune (103)
+  random                 ok   select=1.3863 report=1.3863 params={'igt_reward_scale': 250.0} lapse=0.0 edges=[] cpu=4.6s
+  static_persona         ok   select=1.8336 report=1.8336 params={'igt_reward_scale': 250.0} lapse=0.3 edges=[] cpu=5.9s
+  memory_only            ok   select=1.2840 report=1.2840 params={'beta': 6.0, 'memory_capacity': 64.0, 'igt_reward_scale': 500.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=59.8s
+  plain_rl               ok   select=1.3369 report=1.3369 params={'lr': 0.05, 'igt_reward_scale': 500.0} lapse=0.0 edges=[] cpu=23.8s
+  developmental          ok   select=1.1831 report=1.1831 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 0.35, 'igt_reward_scale': 250.0} lapse=0.0 edges=['exploration_base', 'lr_encoder'] cpu=60.6s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=1.3595 report=1.3595 params={'igt_reward_scale': 250.0} lapse=0.2 edges=[] cpu=5.0s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         ok   select=1.3142 report=1.3142 params={'alpha': 0.4, 'beta': 6.0, 'igt_reward_scale': 250.0} lapse=0.2 edges=['alpha'] cpu=45.7s
+  ref_instance_based     ok   select=1.2890 report=1.2890 params={'beta': 6.0, 'decay': 0.5, 'igt_reward_scale': 500.0} lapse=0.2 edges=['decay'] cpu=49.5s
+  ref_exemplar           ok   select=1.3110 report=1.3110 params={'beta': 6.0, 'c': 0.5, 'decay': 0.9, 'lr_att': 0.0, 'igt_reward_scale': 250.0} lapse=0.0 edges=['beta', 'c', 'decay'] cpu=50.5s
+  ref_pvl_delta          ok   select=1.2973 report=1.2973 params={'A': 0.1, 'alpha': 0.5, 'c': 2.0, 'lam': 1.0, 'igt_reward_scale': 500.0} lapse=0.3 edges=['A', 'alpha', 'lam'] cpu=28.1s
+  ref_bayes_rule         unavailable ValueError: ref_bayes_rule needs full (corrective) feedback
+  ref_gru                ok   select=1.1001 report=1.1001 params={'hidden': 12.0, 'lr': 0.003, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0, 'igt_reward_scale': 250.0} lapse=0.0 edges=['hidden', 'lr'] cpu=140.7s
+[bandit2] fit on dev (32), select on tune (16), report on tune (16)
+  random                 ok   select=0.6931 report=0.6931 params={} lapse=0.0 edges=[] cpu=0.8s
+  static_persona         ok   select=0.8236 report=0.8236 params={} lapse=0.3 edges=[] cpu=0.8s
+  memory_only            ok   select=0.7752 report=0.7752 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=8.5s
+  plain_rl               ok   select=0.6823 report=0.6823 params={'lr': 0.05} lapse=0.3 edges=[] cpu=2.8s
+  developmental          ok   select=0.5618 report=0.5618 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 1.0} lapse=0.2 edges=['exploration_base', 'lr_encoder', 'lr_head'] cpu=7.4s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=0.6807 report=0.6807 params={} lapse=0.0 edges=[] cpu=0.7s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.6103 report=0.6103 params={'beta': 6.0, 'c': 0.5, 'decay': 0.9, 'lr_att': 0.0} lapse=0.1 edges=['beta', 'c', 'decay'] cpu=8.8s
+  ref_pvl_delta          ok   select=0.5339 report=0.5339 params={'A': 0.4, 'alpha': 0.9, 'c': 1.0, 'lam': 1.0} lapse=0.0 edges=['A', 'alpha', 'c', 'lam'] cpu=6.4s
+  ref_bayes_rule         unavailable ValueError: ref_bayes_rule needs full (corrective) feedback
+  ref_gru                ok   select=0.3894 report=0.3894 params={'hidden': 12.0, 'lr': 0.01, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0} lapse=0.02 edges=['hidden', 'lr'] cpu=35.0s
+[srl3] fit on dev (30), select on tune (15), report on tune (15)
+  random                 ok   select=1.0986 report=1.0986 params={} lapse=0.0 edges=[] cpu=1.2s
+  static_persona         ok   select=1.4763 report=1.4763 params={} lapse=0.3 edges=[] cpu=1.4s
+  memory_only            ok   select=1.0017 report=1.0017 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=29.1s
+  plain_rl               ok   select=1.0780 report=1.0780 params={'lr': 0.01} lapse=0.0 edges=['lr'] cpu=7.0s
+  developmental          ok   select=0.8544 report=0.8544 params={'exploration_base': 0.1, 'lr_encoder': 0.06, 'lr_head': 0.35} lapse=0.1 edges=['exploration_base', 'lr_encoder'] cpu=13.8s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=1.0986 report=1.0986 params={} lapse=0.3 edges=[] cpu=1.0s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.9480 report=0.9480 params={'beta': 6.0, 'c': 2.0, 'decay': 0.9, 'lr_att': 0.0} lapse=0.0 edges=['beta', 'c', 'decay'] cpu=33.9s
+  ref_pvl_delta          ok   select=1.0396 report=1.0396 params={'A': 0.1, 'alpha': 0.5, 'c': 1.0, 'lam': 1.0} lapse=0.0 edges=['A', 'alpha', 'c', 'lam'] cpu=13.1s
+  ref_bayes_rule         unavailable ValueError: ref_bayes_rule needs full (corrective) feedback
+  ref_gru                ok   select=0.7411 report=0.7411 params={'hidden': 12.0, 'lr': 0.01, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0} lapse=0.1 edges=['hidden', 'lr'] cpu=104.5s
+[horizon] fit on dev (103), select on tune (51), report on tune (51)
+  random                 ok   select=0.6931 report=0.6931 params={} lapse=0.0 edges=[] cpu=7.8s
+  static_persona         ok   select=0.8531 report=0.8531 params={} lapse=0.3 edges=[] cpu=9.9s
+  memory_only            ok   select=0.7851 report=0.7851 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=280.0s
+  plain_rl               ok   select=0.6879 report=0.6879 params={'lr': 0.01} lapse=0.3 edges=['lr'] cpu=52.3s
+  developmental          ok   select=0.6276 report=0.6276 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 1.0} lapse=0.1 edges=['exploration_base', 'lr_encoder', 'lr_head'] cpu=101.7s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=0.6912 report=0.6912 params={} lapse=0.0 edges=[] cpu=7.6s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.6318 report=0.6318 params={'beta': 6.0, 'c': 2.0, 'decay': 0.9, 'lr_att': 0.0} lapse=0.0 edges=['beta', 'c', 'decay'] cpu=447.1s
+  ref_pvl_delta          ok   select=0.5294 report=0.5294 params={'A': 0.4, 'alpha': 0.9, 'c': 3.0, 'lam': 1.0} lapse=0.3 edges=['A', 'alpha', 'c', 'lam'] cpu=92.2s
+  ref_bayes_rule         unavailable ValueError: ref_bayes_rule needs full (corrective) feedback
+  ref_gru                ok   select=0.4589 report=0.4589 params={'hidden': 12.0, 'lr': 0.003, 'max_epochs': 8.0, 'max_steps_per_epoch': 60000.0, 'patience': 3.0, 'window': 64.0} lapse=0.02 edges=['hidden', 'lr'] cpu=296.7s
+[casino] fit on dev (31), select on tune (16), report on tune (16)
+  random                 ok   select=0.6931 report=0.6931 params={} lapse=0.0 edges=[] cpu=0.4s
+  static_persona         ok   select=0.9507 report=0.9507 params={} lapse=0.3 edges=[] cpu=0.7s
+  memory_only            ok   select=0.6369 report=0.6369 params={'beta': 3.0, 'memory_capacity': 256.0} lapse=0.3 edges=[] cpu=5.3s
+  plain_rl               ok   select=0.6233 report=0.6233 params={'lr': 0.05} lapse=0.0 edges=[] cpu=1.9s
+  developmental          ok   select=0.6226 report=0.6226 params={'exploration_base': 0.1, 'lr_encoder': 0.06, 'lr_head': 0.1} lapse=0.0 edges=['exploration_base', 'lr_encoder', 'lr_head'] cpu=4.5s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=0.6950 report=0.6950 params={} lapse=0.3 edges=[] cpu=0.3s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.6548 report=0.6548 params={'beta': 6.0, 'c': 2.0, 'decay': 0.98, 'lr_att': 0.0} lapse=0.1 edges=['beta', 'c', 'decay'] cpu=3.5s
+  ref_pvl_delta          ok   select=0.6791 report=0.6791 params={'A': 0.1, 'alpha': 0.5, 'c': 1.0, 'lam': 1.0} lapse=0.3 edges=['A', 'alpha', 'c', 'lam'] cpu=4.8s
+  ref_bayes_rule         unavailable ValueError: ref_bayes_rule needs full (corrective) feedback
+  ref_gru                ok   select=0.5562 report=0.5562 params={'hidden': 8.0, 'lr': 0.01, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0} lapse=0.1 edges=['hidden', 'lr'] cpu=22.2s
+[wpt] fit on dev (9), select on tune (5), report on tune (5)
+  random                 ok   select=0.6931 report=0.6931 params={} lapse=0.0 edges=[] cpu=0.2s
+  static_persona         ok   select=1.0480 report=1.0480 params={} lapse=0.3 edges=[] cpu=0.2s
+  memory_only            ok   select=0.5946 report=0.5946 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=3.1s
+  plain_rl               ok   select=0.5691 report=0.5691 params={'lr': 0.2} lapse=0.3 edges=[] cpu=0.9s
+  developmental          ok   select=0.5659 report=0.5659 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 0.35} lapse=0.2 edges=['exploration_base', 'lr_encoder'] cpu=2.1s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=0.6928 report=0.6928 params={} lapse=0.0 edges=[] cpu=0.2s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.5754 report=0.5754 params={'beta': 2.0, 'c': 2.0, 'decay': 0.98, 'lr_att': 0.05} lapse=0.02 edges=['beta', 'c', 'decay', 'lr_att'] cpu=6.8s
+  ref_pvl_delta          ok   select=0.7059 report=0.7059 params={'A': 0.1, 'alpha': 0.5, 'c': 1.0, 'lam': 1.0} lapse=0.3 edges=['A', 'alpha', 'c', 'lam'] cpu=2.1s
+  ref_bayes_rule         ok   select=0.5733 report=0.5733 params={'sigma': 0.5, 'tau2': 3.0} lapse=0.02 edges=['sigma', 'tau2'] cpu=2.4s
+  ref_gru                ok   select=0.5995 report=0.5995 params={'hidden': 8.0, 'lr': 0.01, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0} lapse=0.0 edges=['hidden', 'lr'] cpu=9.1s
+[garcia] fit on dev (138), select on tune (68), report on tune (68)
+  random                 ok   select=0.6931 report=0.6931 params={} lapse=0.0 edges=[] cpu=3.2s
+  static_persona         ok   select=0.9017 report=0.9017 params={} lapse=0.3 edges=[] cpu=4.0s
+  memory_only            ok   select=0.6511 report=0.6511 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=36.4s
+  plain_rl               ok   select=0.6258 report=0.6258 params={'lr': 0.01} lapse=0.3 edges=['lr'] cpu=10.1s
+  developmental          ok   select=0.6405 report=0.6405 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 0.1} lapse=0.3 edges=['exploration_base', 'lr_encoder', 'lr_head'] cpu=24.6s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=0.6515 report=0.6515 params={} lapse=0.0 edges=[] cpu=2.7s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.6427 report=0.6427 params={'beta': 2.0, 'c': 2.0, 'decay': 0.98, 'lr_att': 0.0} lapse=0.3 edges=['beta', 'c', 'decay', 'lr_att'] cpu=73.3s
+  ref_pvl_delta          ok   select=0.6175 report=0.6175 params={'A': 0.4, 'alpha': 0.5, 'c': 1.0, 'lam': 1.0} lapse=0.3 edges=['A', 'alpha', 'c', 'lam'] cpu=32.2s
+  ref_bayes_rule         ok   select=0.6120 report=0.6120 params={'sigma': 0.5, 'tau2': 0.3} lapse=0.1 edges=['sigma', 'tau2'] cpu=38.6s
+  ref_gru                ok   select=0.4467 report=0.4467 params={'hidden': 12.0, 'lr': 0.003, 'max_epochs': 15.0, 'patience': 4.0, 'window': 64.0} lapse=0.02 edges=['hidden', 'lr'] cpu=178.6s
+[described] fit on dev (85), select on tune (41), report on tune (41)
+  random                 ok   select=0.6931 report=0.6931 params={} lapse=0.0 edges=[] cpu=4.5s
+  static_persona         ok   select=0.8841 report=0.8841 params={} lapse=0.3 edges=[] cpu=7.0s
+  memory_only            ok   select=0.7757 report=0.7757 params={'beta': 6.0, 'memory_capacity': 64.0} lapse=0.3 edges=['beta', 'memory_capacity'] cpu=110.5s
+  plain_rl               ok   select=0.6636 report=0.6636 params={'lr': 0.05} lapse=0.3 edges=[] cpu=22.1s
+  developmental          ok   select=0.6552 report=0.6552 params={'exploration_base': 0.3, 'lr_encoder': 0.06, 'lr_head': 0.35} lapse=0.3 edges=['exploration_base', 'lr_encoder'] cpu=50.1s
+  hybrid_exemplar        unavailable policy class 'hybrid_exemplar' not registered in this build (KeyError: "no policy registered for 'hybrid_exemplar'; known: ['developmental',
+  ref_bias               ok   select=0.6781 report=0.6781 params={} lapse=0.0 edges=[] cpu=4.5s
+  ref_population_static  unavailable ValueError: ref_population_static is defined for MCPL only
+  ref_delta_rule         unavailable ValueError: ref_delta_rule (Phase I) is defined for MCPL and IGT only
+  ref_instance_based     unavailable ValueError: ref_instance_based (Phase I) is defined for MCPL and IGT only
+  ref_exemplar           ok   select=0.6799 report=0.6799 params={'beta': 6.0, 'c': 2.0, 'decay': 0.98, 'lr_att': 0.05} lapse=0.0 edges=['beta', 'c', 'decay', 'lr_att'] cpu=304.5s
+  ref_pvl_delta          ok   select=0.6505 report=0.6505 params={'A': 0.1, 'alpha': 0.9, 'c': 3.0, 'lam': 1.0} lapse=0.3 edges=['A', 'alpha', 'c', 'lam'] cpu=42.2s
+  ref_bayes_rule         ok   select=0.6690 report=0.6690 params={'sigma': 0.5, 'tau2': 3.0} lapse=0.3 edges=['sigma', 'tau2'] cpu=62.2s
+  ref_gru                ok   select=0.3720 report=0.3720 params={'hidden': 12.0, 'lr': 0.003, 'max_epochs': 10.0, 'max_steps_per_epoch': 60000.0, 'patience': 3.0, 'window': 64.0} lapse=0.02 edges=['hidden', 'lr'] cpu=224.0s
+bandit2: best model on tune = ref_gru
+casino: best model on tune = ref_gru
+described: best model on tune = ref_gru
+garcia: best model on tune = ref_gru
+horizon: best model on tune = ref_gru
+igt: best model on tune = ref_gru
+mcpl: best model on tune = ref_gru
+srl3: best model on tune = ref_gru
+wpt: best model on tune = developmental
+wrote reports/phase2/human/p2_human_dev_pilot
+exit=0 wall=3799s
