@@ -18,6 +18,8 @@ from typing import Any
 from hpe.contracts import registry
 from hpe.contracts.runtime import AgentInit, Policy, PolicyFactory
 from hpe.development.config import ABLATION_FLAGS, DevConfig
+from hpe.development.hybrid import HybridExemplarLearner
+from hpe.development.hybrid_config import HYBRID_FLAGS, HybridConfig
 from hpe.development.learner import DevelopmentalLearner
 from hpe.development.schedules import forgetting_multiplier, plasticity, working_memory
 
@@ -31,13 +33,28 @@ def build_factory(params: dict[str, Any] | None = None) -> PolicyFactory:
     return factory
 
 
+def build_hybrid_factory(params: dict[str, Any] | None = None) -> PolicyFactory:
+    """Candidate A (Phase II): ``policy_class = "hybrid_exemplar"``; params are HybridConfig fields."""
+    cfg = HybridConfig.from_params(params)
+
+    def factory(init: AgentInit) -> Policy:
+        return HybridExemplarLearner(init, cfg)  # type: ignore[return-value]
+
+    return factory
+
+
 registry.register("developmental", build_factory)
+registry.register("hybrid_exemplar", build_hybrid_factory)
 
 __all__ = [
     "ABLATION_FLAGS",
+    "HYBRID_FLAGS",
     "DevConfig",
     "DevelopmentalLearner",
+    "HybridConfig",
+    "HybridExemplarLearner",
     "build_factory",
+    "build_hybrid_factory",
     "forgetting_multiplier",
     "plasticity",
     "working_memory",
