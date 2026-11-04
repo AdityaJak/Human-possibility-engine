@@ -98,6 +98,8 @@ def experiments(reports_dir: Path) -> list[dict[str, Any]]:
                 },
                 "contrasts": f.get("contrasts", []),
             }
+        if not fams:  # different summary format (e.g. Gate D/E harnesses); shown through the registry rows
+            continue
         out.append(
             {
                 "experiment_id": defn.get("experiment_id", d.name),
