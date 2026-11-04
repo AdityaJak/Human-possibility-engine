@@ -1,0 +1,52 @@
+mcpl: tune=47 dev=93 (test excluded: 92); models=['hybrid_exemplar', 'hybrid_fixed_gate', 'hybrid_exemplar_only', 'hybrid_no_ordinal', 'developmental', 'plain_rl', 'memory_only', 'ref_instance_based', 'ref_delta_rule']
+  hybrid_exemplar        dev NLL=1.4360 top1=0.573 params={'gate_lr': 0.05, 'kernel_width': 1.0, 'ordinal_spread': 0.5} lapse=0.0 cfgs=12 cpu=62s
+  hybrid_fixed_gate      dev NLL=1.4849 top1=0.573 params={'kernel_width': 1.0, 'ordinal_spread': 0.5} lapse=0.0 cfgs=6 cpu=38s
+  hybrid_exemplar_only   dev NLL=1.4490 top1=0.576 params={'kernel_width': 1.0, 'ordinal_spread': 0.5} lapse=0.05 cfgs=6 cpu=33s
+  hybrid_no_ordinal      dev NLL=1.4739 top1=0.573 params={'gate_lr': 0.05, 'kernel_width': 1.0} lapse=0.1 cfgs=6 cpu=38s
+  developmental          dev NLL=1.7183 top1=0.394 params={} lapse=0.2 cfgs=1 cpu=5s
+  plain_rl               dev NLL=1.7537 top1=0.326 params={} lapse=0.02 cfgs=1 cpu=6s
+  memory_only            dev NLL=1.4940 top1=0.578 params={} lapse=0.3 cfgs=1 cpu=10s
+  ref_instance_based     dev NLL=1.4759 top1=0.578 params={'h': 0.5, 'kappa': 0.05, 's': 0.5} lapse=0.1 cfgs=9 cpu=15s
+  ref_delta_rule         dev NLL=1.8048 top1=0.434 params={'alpha': 0.03, 'sigma': 0.75} lapse=0.3 cfgs=20 cpu=29s
+# Human DEV-partition comparison — MCPL (EXPLORATORY, Phase II)
+
+tune=47 dev=93; test participants never loaded. Lower NLL is better.
+
+| model | dev NLL [95% CI] | top-1 | selected params | lapse | configs | CPU s |
+|---|---|---|---|---|---|---|
+| hybrid_exemplar | 1.4360 [1.3135, 1.5526] | 0.573 | `{'gate_lr': 0.05, 'kernel_width': 1.0, 'ordinal_spread': 0.5}` | 0.0 | 12 | 62 |
+| hybrid_exemplar_only | 1.4490 [1.3221, 1.5833] | 0.576 | `{'kernel_width': 1.0, 'ordinal_spread': 0.5}` | 0.05 | 6 | 33 |
+| hybrid_no_ordinal | 1.4739 [1.3290, 1.6157] | 0.573 | `{'gate_lr': 0.05, 'kernel_width': 1.0}` | 0.1 | 6 | 38 |
+| ref_instance_based | 1.4759 [1.3741, 1.5852] | 0.578 | `{'h': 0.5, 'kappa': 0.05, 's': 0.5}` | 0.1 | 9 | 15 |
+| hybrid_fixed_gate | 1.4849 [1.3770, 1.6006] | 0.573 | `{'kernel_width': 1.0, 'ordinal_spread': 0.5}` | 0.0 | 6 | 38 |
+| memory_only | 1.4940 [1.3662, 1.6245] | 0.578 | `{}` | 0.3 | 1 | 10 |
+| developmental | 1.7183 [1.6330, 1.8044] | 0.394 | `{}` | 0.2 | 1 | 5 |
+| plain_rl | 1.7537 [1.6901, 1.8170] | 0.326 | `{}` | 0.02 | 1 | 6 |
+| ref_delta_rule | 1.8048 [1.7150, 1.8922] | 0.434 | `{'alpha': 0.03, 'sigma': 0.75}` | 0.3 | 20 | 29 |
+
+| contrast (treatment − control, NLL; negative favours treatment) | mean | 95% CI | share better | n |
+|---|---|---|---|---|
+| hybrid_exemplar − ref_instance_based | -0.0399 | [-0.0622, -0.0158] | 0.62 | 93 |
+| hybrid_exemplar − developmental | -0.2823 | [-0.3340, -0.2322] | 0.91 | 93 |
+| hybrid_exemplar − memory_only | -0.0580 | [-0.0758, -0.0409] | 0.63 | 93 |
+| hybrid_exemplar − plain_rl | -0.3177 | [-0.4040, -0.2400] | 0.76 | 93 |
+| hybrid_fixed_gate − ref_instance_based | +0.0089 | [-0.0110, +0.0273] | 0.40 | 93 |
+| hybrid_fixed_gate − developmental | -0.2334 | [-0.2713, -0.1969] | 0.95 | 93 |
+| hybrid_fixed_gate − memory_only | -0.0091 | [-0.0384, +0.0179] | 0.53 | 93 |
+| hybrid_fixed_gate − plain_rl | -0.2689 | [-0.3371, -0.1979] | 0.77 | 93 |
+| hybrid_exemplar_only − ref_instance_based | -0.0269 | [-0.0538, +0.0001] | 0.56 | 93 |
+| hybrid_exemplar_only − developmental | -0.2692 | [-0.3255, -0.2121] | 0.81 | 93 |
+| hybrid_exemplar_only − memory_only | -0.0449 | [-0.0590, -0.0310] | 0.76 | 93 |
+| hybrid_exemplar_only − plain_rl | -0.3047 | [-0.3900, -0.2107] | 0.73 | 93 |
+| hybrid_no_ordinal − ref_instance_based | -0.0021 | [-0.0478, +0.0436] | 0.55 | 93 |
+| hybrid_no_ordinal − developmental | -0.2444 | [-0.3120, -0.1767] | 0.73 | 93 |
+| hybrid_no_ordinal − memory_only | -0.0201 | [-0.0323, -0.0080] | 0.66 | 93 |
+| hybrid_no_ordinal − plain_rl | -0.2798 | [-0.3829, -0.1810] | 0.69 | 93 |
+
+Terciles of participant predictability (ref_instance_based top-1 on dev): mean NLL per model
+
+| tercile | n | hybrid_exemplar | hybrid_fixed_gate | hybrid_exemplar_only | hybrid_no_ordinal | developmental | plain_rl | memory_only | ref_instance_based | ref_delta_rule |
+|---|---|---|---|---|---|---|---|---|---|---|
+| least_predictable | 31 | 2.200 | 2.180 | 2.252 | 2.359 | 2.258 | 2.089 | 2.311 | 2.130 | 2.071 |
+| middle | 31 | 1.280 | 1.318 | 1.300 | 1.318 | 1.530 | 1.580 | 1.354 | 1.333 | 1.903 |
+| most_predictable | 31 | 0.828 | 0.956 | 0.795 | 0.745 | 1.367 | 1.592 | 0.817 | 0.966 | 1.440 |
