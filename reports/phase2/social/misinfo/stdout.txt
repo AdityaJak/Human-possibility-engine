@@ -1,0 +1,23 @@
+v2_clean         s1000 acc@5=0.7666 acc@15=0.8106 cpu=27.5s misinf-share@5=0.000 trust(h/m)@5=0.52/nan
+v2_clean         s1001 acc@5=0.7736 acc@15=0.8120 cpu=26.8s misinf-share@5=0.000 trust(h/m)@5=0.58/nan
+v2_clean         s1002 acc@5=0.7536 acc@15=0.7855 cpu=28.8s misinf-share@5=0.000 trust(h/m)@5=0.61/nan
+v2_clean         s1003 acc@5=0.7873 acc@15=0.8408 cpu=29.3s misinf-share@5=0.000 trust(h/m)@5=0.56/nan
+v2_clean         s1004 acc@5=0.7673 acc@15=0.8027 cpu=32.3s misinf-share@5=0.000 trust(h/m)@5=0.58/nan
+v2_misinfo_0_5   s1000 acc@5=0.7633 acc@15=0.8068 cpu=30.5s misinf-share@5=0.017 trust(h/m)@5=0.51/nan
+v2_misinfo_0_5   s1001 acc@5=0.7779 acc@15=0.8194 cpu=34.9s misinf-share@5=0.037 trust(h/m)@5=0.58/nan
+v2_misinfo_0_5   s1002 acc@5=0.7529 acc@15=0.7873 cpu=32.6s misinf-share@5=0.078 trust(h/m)@5=0.58/nan
+v2_misinfo_0_5   s1003 acc@5=0.7852 acc@15=0.8431 cpu=32.7s misinf-share@5=0.036 trust(h/m)@5=0.56/nan
+v2_misinfo_0_5   s1004 acc@5=0.7663 acc@15=0.7983 cpu=34.8s misinf-share@5=0.035 trust(h/m)@5=0.57/nan
+v1_misinfo_0_5   s1000 acc@5=0.7407 acc@15=0.7955 cpu=29.0s
+v1_misinfo_0_5   s1001 acc@5=0.7551 acc@15=0.8069 cpu=29.1s
+v1_misinfo_0_5   s1002 acc@5=0.7416 acc@15=0.7770 cpu=28.4s
+v1_misinfo_0_5   s1003 acc@5=0.7862 acc@15=0.8311 cpu=28.2s
+v1_misinfo_0_5   s1004 acc@5=0.7660 acc@15=0.7969 cpu=27.7s
+
+| contrast | estimate | 95% CI (paired, seeds) |
+|---|---|---|
+| damage_v2_year5 (v2_clean − v2_misinfo_0_5) | +0.0005 | [-0.0021, +0.0024] (n=5) |
+| residual_v2_year15 (v2_clean − v2_misinfo_0_5) | -0.0007 | [-0.0043, +0.0029] (n=5) |
+| damage_v1_year5 (v2_clean − v1_misinfo_0_5) | +0.0118 | [+0.0033, +0.0202] (n=5) |
+| recovery_v2_gap5_minus_gapFinal (gap@5 − gap@15) | +0.0012 | [-0.0013, +0.0035] (n=5) |
+CPU hours: 0.126

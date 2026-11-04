@@ -1,0 +1,6 @@
+v1_connected   s1000 demos/ay=10.09 full=0.00 correct=0.78 gain=0.119 flip=0.117 anti=0.007 demo-dominant cells=0.020 demo-only cells=0 cpu=26.8s
+v1_connected   s1001 demos/ay=9.36 full=0.00 correct=0.76 gain=0.146 flip=0.109 anti=0.009 demo-dominant cells=0.035 demo-only cells=0 cpu=26.6s
+v1_connected   s1002 demos/ay=8.69 full=0.00 correct=0.81 gain=0.199 flip=0.109 anti=0.007 demo-dominant cells=0.032 demo-only cells=0 cpu=25.8s
+v2_connected   s1000 demos/ay=10.73 full=0.41 correct=0.74 gain=0.137 flip=0.109 anti=0.014 demo-dominant cells=0.036 demo-only cells=0 cpu=28.5s
+v2_connected   s1001 demos/ay=10.33 full=0.51 correct=0.74 gain=0.143 flip=0.105 anti=0.021 demo-dominant cells=0.045 demo-only cells=0 cpu=27.2s
+v2_connected   s1002 demos/ay=9.44 full=0.49 correct=0.81 gain=0.257 flip=0.106 anti=0.017 demo-dominant cells=0.045 demo-only cells=0 cpu=27.3s

@@ -1,0 +1,17 @@
+{
+ "arm": "v1_isolated",
+ "seed": 1004,
+ "run_id": "social_dev__v1_isolated__s1004",
+ "event_stream_hash": "3484f2ad1745b414b6f5032bce60da9a0196f72995ca3a9e2418e24ae2cc309f",
+ "wall_s": 27.86,
+ "cpu_s": 27.57,
+ "agent_years": 1669.32,
+ "metrics": {
+  "accuracy_10_60": 0.7997222222222223,
+  "youth_accuracy_10_20": 0.7999999999999999,
+  "mean_friends": 0.0,
+  "socialize_share": 0.18446601941747573,
+  "population": 118.0
+ },
+ "v2": null
+}

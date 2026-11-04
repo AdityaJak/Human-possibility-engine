@@ -1,0 +1,20 @@
+v1_connected         s1000 acc10_60=0.7920 friends=0.000 soc=0.208 cpu=78.8s
+v1_connected         s1001 acc10_60=0.7929 friends=0.117 soc=0.183 cpu=84.4s
+v1_connected         s1002 acc10_60=0.7769 friends=0.097 soc=0.233 cpu=79.8s
+v1_connected         s1003 acc10_60=0.8372 friends=0.021 soc=0.172 cpu=75.8s
+v1_connected         s1004 acc10_60=0.8066 friends=0.149 soc=0.155 cpu=72.8s
+v2_connected         s1000 acc10_60=0.8006 friends=1.693 soc=0.198 cpu=81.6s demos/ay=10.46 gain=0.058 repeat=0.56
+v2_connected         s1001 acc10_60=0.7834 friends=1.563 soc=0.202 cpu=87.0s demos/ay=9.80 gain=0.054 repeat=0.59
+v2_connected         s1002 acc10_60=0.7912 friends=1.505 soc=0.184 cpu=90.6s demos/ay=9.66 gain=0.056 repeat=0.59
+v2_connected         s1003 acc10_60=0.8439 friends=1.773 soc=0.222 cpu=79.9s demos/ay=10.42 gain=0.054 repeat=0.60
+v2_connected         s1004 acc10_60=0.8133 friends=1.871 soc=0.155 cpu=83.7s demos/ay=10.39 gain=0.060 repeat=0.58
+v2_isolated          s1000 acc10_60=0.7956 friends=0.000 soc=0.297 cpu=87.2s demos/ay=17.20 gain=0.056 repeat=0.96
+v2_isolated          s1001 acc10_60=0.7934 friends=0.000 soc=0.212 cpu=89.1s demos/ay=16.61 gain=0.056 repeat=0.95
+v2_isolated          s1002 acc10_60=0.7968 friends=0.000 soc=0.214 cpu=88.0s demos/ay=16.90 gain=0.052 repeat=0.96
+v2_isolated          s1003 acc10_60=0.8393 friends=0.000 soc=0.242 cpu=90.5s demos/ay=17.24 gain=0.053 repeat=0.96
+v2_isolated          s1004 acc10_60=0.8071 friends=0.000 soc=0.204 cpu=84.4s demos/ay=16.39 gain=0.062 repeat=0.95
+v2_reward_only       s1000 acc10_60=0.7869 friends=0.000 soc=0.238 cpu=68.6s demos/ay=0.00 gain=0.000 repeat=0.57
+v2_reward_only       s1001 acc10_60=0.7689 friends=0.320 soc=0.260 cpu=75.2s demos/ay=0.00 gain=0.000 repeat=0.59
+v2_reward_only       s1002 acc10_60=0.7718 friends=0.000 soc=0.214 cpu=73.6s demos/ay=0.00 gain=0.000 repeat=0.59
+v2_reward_only       s1003 acc10_60=0.8135 friends=0.010 soc=0.232 cpu=69.2s demos/ay=0.00 gain=0.000 repeat=0.59
+v2_reward_only       s1004 acc10_60=0.7971 friends=0.050 soc=0.165 cpu=70.9s demos/ay=0.00 gain=0.000 repeat=0.57

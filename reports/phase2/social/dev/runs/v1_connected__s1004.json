@@ -1,0 +1,17 @@
+{
+ "arm": "v1_connected",
+ "seed": 1004,
+ "run_id": "social_dev__v1_connected__s1004",
+ "event_stream_hash": "13cc0ef4b5db5521f99ae7d0985d5f2985a0deb19f53449b04c82ee478bc33f2",
+ "wall_s": 26.24,
+ "cpu_s": 25.98,
+ "agent_years": 1666.94,
+ "metrics": {
+  "accuracy_10_60": 0.8017777777777778,
+  "youth_accuracy_10_20": 0.8145299145299146,
+  "mean_friends": 0.07920792079207921,
+  "socialize_share": 0.1553398058252427,
+  "population": 117.0
+ },
+ "v2": null
+}
