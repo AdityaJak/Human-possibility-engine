@@ -1,0 +1,15 @@
+{
+  "jobs": [],
+  "preregistration_hash": "76304d1e1f1c7c30161edfc23ff9935d",
+  "skipped_arms": {
+    "ablate_curriculum": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_feedback": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_forgetting": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_learning": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_memory": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_plasticity_schedule": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_shared_representation": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "ablate_social_learning": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "developmental": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")"
+  }
+}

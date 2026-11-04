@@ -1,0 +1,103 @@
+[
+  {
+    "contrast": "developmental_vs_strongest_baseline",
+    "control": "plain_rl",
+    "control_selection": "strongest of memory_only=0.7167, plain_rl=0.7611, static_persona=0.4419 -> plain_rl",
+    "kind": "superiority",
+    "metric": "final_heldout_accuracy",
+    "primary": true,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "calibration_not_degraded",
+    "control": "plain_rl",
+    "control_selection": "strongest of memory_only=0.7170, plain_rl=0.5500, static_persona=2.7643 -> plain_rl",
+    "kind": "non_inferiority",
+    "metric": "final_log_loss",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "developmental_vs_plain_rl",
+    "control": "plain_rl",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "developmental_vs_memory_only",
+    "control": "memory_only",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "developmental_vs_static_persona",
+    "control": "static_persona",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "final_heldout_accuracy",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "ci_high": 0.32333333333333336,
+    "ci_level": 0.95,
+    "ci_low": 0.25,
+    "contrast": "memory_only_vs_static_persona",
+    "control": "static_persona",
+    "control_mean": 0.4418518518518519,
+    "control_selection": "",
+    "estimate": 0.27481481481481485,
+    "improvement": 0.27481481481481485,
+    "kind": "exploratory",
+    "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+    "metric": "final_heldout_accuracy",
+    "n_units": 3,
+    "p_value": 0.25,
+    "primary": false,
+    "relative_improvement": 0.6219614417435038,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "standardized_effect": 6.539793279546844,
+    "threshold": null,
+    "treatment": "memory_only",
+    "treatment_mean": 0.7166666666666667,
+    "variant": "main",
+    "verdict": "exploratory"
+  },
+  {
+    "contrast": "practice_efficiency_vs_plain_rl",
+    "control": "plain_rl",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "episodes_to_criterion/compare",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  }
+]

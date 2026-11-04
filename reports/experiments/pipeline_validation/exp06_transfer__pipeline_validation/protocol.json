@@ -1,0 +1,104 @@
+{
+  "kind": "learning_lab",
+  "params": {
+    "n_agents": 5,
+    "episodes_per_family": 80,
+    "block": 10,
+    "checkpoint_every": 20,
+    "feedback_mode": "bandit",
+    "full_feedback_fraction": 0.25,
+    "label_noise": 0.05,
+    "age_start": 8.0,
+    "age_end": 18.0,
+    "enable_gate": true,
+    "transfer_modes": [
+      "shared",
+      "orthogonal"
+    ],
+    "transfer_shots": [
+      0,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "transfer_feedback": "bandit",
+    "skip_retention": true
+  },
+  "contrasts": [
+    {
+      "name": "shared_representation_vs_specialists",
+      "treatment": "developmental",
+      "control": "developmental_specialists",
+      "metric": "transfer_auc/shared/trained",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.03,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": true,
+      "description": "few-shot learning curve area on 'barter' (shared latent world) must exceed independent specialists by >= 0.03"
+    },
+    {
+      "name": "shared_vs_plain_rl",
+      "treatment": "developmental",
+      "control": "plain_rl",
+      "metric": "transfer_auc/shared/trained",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "transfer_gain_vs_plain_rl",
+      "treatment": "developmental",
+      "control": "plain_rl",
+      "metric": "transfer_gain/shared",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": "benefit of prior training (trained minus fresh agent AUC) exceeds that of plain RL (expected ~0)"
+    },
+    {
+      "name": "orthogonal_control_no_benefit",
+      "treatment": "developmental",
+      "control": "developmental_specialists",
+      "metric": "transfer_auc/orthogonal/trained",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": "in the orthogonal world a shared representation should not help; a negative estimate = negative transfer"
+    },
+    {
+      "name": "orthogonal_gain_vs_plain_rl",
+      "treatment": "developmental",
+      "control": "plain_rl",
+      "metric": "transfer_gain/orthogonal",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    }
+  ],
+  "sensitivity": [],
+  "pipeline_validation": true
+}

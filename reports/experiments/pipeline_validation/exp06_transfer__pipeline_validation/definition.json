@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp06_transfer__pipeline_validation",
+  "title": "[PIPELINE VALIDATION] Exp 6 / H3: transfer to an unseen task family (shared vs orthogonal latent structure)",
+  "hypothesis": "A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised 'barter' family than independently trained specialists when barter shares the latent structure, and shows no benefit (or negative transfer) when it does not.",
+  "falsification_criterion": "Not supported if the developmental learner's few-shot AUC on barter (shared world) does not exceed the specialist ablation by >= 0.03 with a paired 95% CI excluding 0 across 10 seeds.",
+  "arms": [
+    {
+      "name": "developmental",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "developmental_specialists",
+      "policy_class": "developmental",
+      "policy_params": {
+        "use_shared_representation": false
+      },
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "plain_rl",
+      "policy_class": "plain_rl",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "memory_only",
+      "policy_class": "memory_only",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    }
+  ],
+  "control_arm": "developmental_specialists",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "base_config": {
+    "schema_version": "0.1.0",
+    "seed": 0,
+    "population_seed": null,
+    "task_seed": null,
+    "n_agents": 20,
+    "years": 10.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [],
+    "log": {
+      "frames_every_ticks": 1,
+      "decision_sample_rate": 0.02,
+      "log_learning_episodes": true,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": 10.0
+    },
+    "max_events": 5000000,
+    "label": null
+  },
+  "analysis": {
+    "primary_metric": "transfer_auc/shared/trained",
+    "primary_metric_definition": "Mean held-out accuracy on barter across shot counts {0,2,4,8,16,32,64} of bandit-feedback practice, measured on a clone of each trained agent (transfer_probe); mean over 20 agents; one value per seed.",
+    "comparison": "developmental - developmental_specialists, paired by seed",
+    "test": "paired_bootstrap",
+    "alpha": 0.05,
+    "n_bootstrap": 4000,
+    "minimum_effect_of_interest": 0.03,
+    "secondary_metrics": [
+      "transfer_gain/shared",
+      "transfer_auc/orthogonal/trained",
+      "transfer_gain/orthogonal",
+      "zero_shot/barter",
+      "final_heldout_accuracy"
+    ]
+  },
+  "ablations": [],
+  "validity_notes": [
+    "Barter is never practised during development; leakage/holdout_symbols_in_practice must be 0.",
+    "Because all rules are linear in the raw features, a shared representation can only help through sample efficiency."
+  ],
+  "preregistration_hash": "c7c139d88580bb42932160e44925d2f6",
+  "created_at": "2026-11-04T03:47:18.715938Z"
+}

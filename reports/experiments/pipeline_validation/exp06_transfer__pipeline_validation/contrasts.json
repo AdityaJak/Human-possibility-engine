@@ -1,0 +1,62 @@
+[
+  {
+    "contrast": "shared_representation_vs_specialists",
+    "control": null,
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "transfer_auc/shared/trained",
+    "primary": true,
+    "reason": "no data for arm(s) ['developmental', 'developmental_specialists']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "shared_vs_plain_rl",
+    "control": "plain_rl",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "transfer_auc/shared/trained",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "transfer_gain_vs_plain_rl",
+    "control": "plain_rl",
+    "control_selection": "",
+    "kind": "superiority",
+    "metric": "transfer_gain/shared",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "orthogonal_control_no_benefit",
+    "control": null,
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "transfer_auc/orthogonal/trained",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental', 'developmental_specialists']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  },
+  {
+    "contrast": "orthogonal_gain_vs_plain_rl",
+    "control": "plain_rl",
+    "control_selection": "",
+    "kind": "exploratory",
+    "metric": "transfer_gain/orthogonal",
+    "primary": false,
+    "reason": "no data for arm(s) ['developmental']",
+    "treatment": "developmental",
+    "variant": "main",
+    "verdict": "not_computed"
+  }
+]

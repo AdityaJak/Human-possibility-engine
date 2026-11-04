@@ -1,0 +1,45 @@
+{
+  "jobs": [
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__pipeline_validation__main__plain_rl__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__pipeline_validation__main__plain_rl__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__pipeline_validation__main__plain_rl__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__pipeline_validation__main__memory_only__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__pipeline_validation__main__memory_only__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__pipeline_validation__main__memory_only__s2",
+      "seed": 2,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "c7c139d88580bb42932160e44925d2f6",
+  "skipped_arms": {
+    "developmental": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")",
+    "developmental_specialists": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['memory_only', 'plain_rl', 'random', 'static_persona']\")"
+  }
+}

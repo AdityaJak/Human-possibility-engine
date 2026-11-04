@@ -115,8 +115,11 @@ def evaluate_contrast(c: ContrastSpec, data: RawData, variant: str, salt: int) -
         "primary": c.primary,
     }
     if ctrl is None or c.treatment not in vals:
-        missing = [a for a in [c.treatment, ctrl] if a is None or a not in vals]
-        return {**base, "verdict": "not_computed", "reason": f"arm data unavailable: {missing or 'control'}"}
+        wanted = [c.treatment] + (
+            c.control.strongest_of if isinstance(c.control, StrongestOf) else [c.control]
+        )
+        missing = [a for a in wanted if a not in vals]
+        return {**base, "verdict": "not_computed", "reason": f"no data for arm(s) {missing}"}
     t, k = vals[c.treatment], vals[ctrl]
     seeds = sorted(set(t) & set(k)) if c.paired else sorted(set(t) | set(k))
     if len(seeds) < 2:

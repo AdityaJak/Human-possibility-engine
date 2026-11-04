@@ -16,7 +16,7 @@ registered at import time:
 
 Hyperparameters were chosen on tuning task seeds 1001-1003 (never on evaluation seeds): REINFORCE
 with lr=0.05 gave the best mean held-out accuracy among {REINFORCE, reward regression} x
-lr {0.02, 0.05, 0.1, 0.2, 0.4} (see docs in reports/experiments/README.md). This is a deliberate
+lr {0.02, 0.05, 0.1, 0.2, 0.4} (see experiments/README.md). This is a deliberate
 effort to make the strongest *fair* baseline, not a strawman.
 """
 
