@@ -25,7 +25,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 
 | Target | Status | Evidence / blocker |
 |---|---|---|
-| GitHub Pages static site (dashboard + in-browser Future Self) | **built, verified locally; publication blocked by a repo setting** | `pages` workflow run #1: build OK (57 MB), `configure-pages` failed "Resource not accessible by integration". Founder: Settings → Pages → Source "GitHub Actions", re-run. Local verification of the exact build: 9/9 routes, 0 errors; Future Self end-to-end 9.2 s with real Pyodide engine (`docs/DEPLOYMENT.md`) |
+| GitHub Pages static site (dashboard + in-browser Future Self) | **LIVE** — <https://adityajak.github.io/Human-possibility-engine/> | Pages enabled by the founder; deep-link 404 defect found on first deploy, fixed (`scripts/static_routes.py`) and re-verified against the live site: 9/9 routes, 0 errors; Future Self end-to-end 11.1 s with the real in-browser engine (`docs/DEPLOYMENT.md`) |
 | Render (API, read-only) | config verified, **not deployed** (needs account) | `render.yaml`, `HPE_READ_ONLY=1` tested (405 on job endpoints), Dockerfile `$PORT`/healthcheck exercised outside Docker |
 | Vercel (web) | config verified, **not deployed** (needs account) | `apps/web/vercel.json` |
 | Local full stack | works | `make demo`, `make demo-check` 14/14 |

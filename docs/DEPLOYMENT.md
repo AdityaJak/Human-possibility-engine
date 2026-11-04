@@ -19,19 +19,20 @@ runs clone the repository and run `make demo` (one command, no API keys).
 
 ## Status (2026-11-04)
 
-* **Static site: built and verified, publication blocked by one repository setting.** The `pages`
-  workflow run #1 built the site (57 MB) but failed at `actions/configure-pages`:
-  *"Create Pages site failed. Error: Resource not accessible by integration"* — the workflow token
-  cannot enable Pages. **Founder action:** repo **Settings → Pages → Build and deployment → Source:
-  "GitHub Actions"**, then re-run the `pages` workflow (Actions → pages → Re-run jobs) or push any
-  commit. The site will be at `https://adityajak.github.io/Human-possibility-engine/`.
-* **Verified locally on the exact static build** (`make static-site`, `vite preview`, Playwright):
-  9/9 routes render stored real outputs with 0 console errors and 0 failed requests; the Future Self
-  flow (consent → decision → three illustrative scenarios) completes in 9.2 s on first visit with the
-  repository's own Python engine running in the browser (Pyodide 0.27.7 + numpy 2.0.2 + pydantic
-  2.10.5 + our wheel, ≈10 MB downloaded once, then cached); no probability language in any scenario.
+* **Static site: LIVE at <https://adityajak.github.io/Human-possibility-engine/>.** The founder enabled
+  Pages (Source: GitHub Actions); the `pages` workflow now builds, deploys and browser-verifies the site
+  on every push to the branch. First live deployment exposed one static-host defect — deep links such
+  as `/lab/benchmarks` were served from `404.html` with HTTP 404 — reproduced with a plain file server,
+  fixed by `scripts/static_routes.py` (every client-side route gets a real `index.html`; unknown routes
+  still 404) and re-verified.
+* **Verified against the live site from this session** (Playwright, `scripts/e2e/`): 9/9 routes render
+  the stored real outputs with 0 console errors and 0 failed requests; the Future Self flow (consent →
+  decision → illustrative scenarios) completes in 11.1 s on a first visit with the repository's own
+  Python engine running in the browser (Pyodide 0.27.7 + numpy 2.0.2 + pydantic 2.10.5 + our wheel,
+  ≈10 MB downloaded once, then cached); no probability language in any scenario.
 * **Live API (Render) and Vercel front end: configuration verified, not deployed** — both need your
-  account (sections B and C).
+  account (sections B and C). Everything the dashboard shows is served by the static site; Render/Vercel
+  only add live (interactive) simulation runs.
 
 ## A. GitHub Pages — static site (automatic)
 
@@ -46,8 +47,7 @@ Founder action (once), only if the workflow's "Setup Pages" step fails with a pe
 2. **Build and deployment → Source: GitHub Actions**. Save.
 3. Re-run the failed `pages` workflow (Actions → pages → Re-run all jobs).
 
-URL: `https://adityajak.github.io/Human-possibility-engine/` (the workflow prints it; it is live only
-after the first successful deploy).
+URL: <https://adityajak.github.io/Human-possibility-engine/> (live).
 
 What it serves: the Living Society replay, Agent Inspector, Proof of Learning, Twin-society
 experiment, Evidence and Benchmarks pages from stored real outputs; the complete Future Self flow with

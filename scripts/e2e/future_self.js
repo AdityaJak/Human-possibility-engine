@@ -15,6 +15,8 @@ const { chromium } = require('playwright');
   await p.goto(root + '/future/welcome', { waitUntil: 'networkidle', timeout: 90000 });
   { const lk = p.getByRole('link', { name: /continue to consent/i }); if (await lk.count()) await lk.first().click(); else await p.getByRole('button', { name: /continue to consent/i }).click(); }
   log('consent page: ' + p.url());
+  // the consent step renders after a client-side navigation; wait for it instead of counting too early
+  await p.locator('input[type=checkbox]').first().waitFor({ timeout: 60000 });
   const boxes = p.locator('input[type=checkbox]'); const n = await boxes.count();
   for (let i = 0; i < n; i++) await boxes.nth(i).check();
   await p.locator('button.btn--future').first().click(); log('consent submitted');
