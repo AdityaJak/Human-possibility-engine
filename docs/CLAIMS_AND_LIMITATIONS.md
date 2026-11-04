@@ -20,6 +20,10 @@ The authoritative, machine-generated list of claims is [`docs/EVIDENCE.md`](EVID
 4. **One real causal estimate.** From the HeartSteps V1 micro-randomised trial (CC-BY-4.0), our estimator
    gives +12.2% [−0.5%, +27.4%] for activity suggestions, consistent with the published +14%
    (`reports/human_validation/exp07b_causal_grounding`). This validates a pipeline, not our agents.
+5. **Real human choices, mixed.** On held-out Psych-101 participants the developmental learner is the
+   best of eight models on the Iowa Gambling Task (−0.110 nats vs the instance-based reference,
+   95% CI [−0.140, −0.083]) but clearly worse than exemplar-memory models on the preregistered primary
+   task, multiple-cue learning (+0.229 [+0.171, +0.289]). We may say the former only alongside the latter.
 
 ## What we cannot claim (and the UI never says)
 

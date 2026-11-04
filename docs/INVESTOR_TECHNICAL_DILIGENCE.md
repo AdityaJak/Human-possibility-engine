@@ -32,7 +32,7 @@ with no language model and no API key (Tiers 1–2 in `ARCHITECTURE.md`).
 | Shared representation transfers to an unseen family | supported (synthetic) | +0.09 AUC vs specialists; negative when structure differs |
 | Tutoring effect flows through learning | supported (synthetic) | +0.029 [+0.022, +0.037]; 0.000 in a non-learning society |
 | Causal estimator recovers a randomised human effect | supported with caveats | HeartSteps +12% vs published +14% |
-| Agents predict held-out human choices | **not yet tested for our learner** | rerun in progress |
+| Agents predict held-out human choices | **mixed; preregistered primary failed** | IGT: best of 8 models (−0.11 nats vs instance-based); MCPL: worse than exemplar models (+0.23 nats) |
 | Bit-identical replay of a 100-agent, 80-year society | supported (engineering) | from seed and from checkpoint |
 | 1,000 / 10,000 agents | **not tested** | no benchmark record |
 

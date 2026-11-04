@@ -1,9 +1,8 @@
 # BUILD_STATUS
 
 _Last updated: 2026-11-04 05:05 UTC. All 8 lanes merged into `claude/human-possibility-engine-yjujoc`;
-remote verified; CI green on the last completed run. Society experiments 3–5 and the Exp 7 rerun were
-still executing locally at the time of writing (not committed; nothing is implied to continue after
-the session ends)._
+remote verified; CI green on the last completed run. Society experiments 3–5 were still executing
+locally at the time of writing (not committed; nothing is implied to continue after the session ends)._
 
 Legend: **implemented** (code exists) · **tested** (tests pass in the integrated branch) · **partial** · **not started**
 
@@ -44,7 +43,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | Investor assets | implemented | `docs/INVESTOR_DEMO.md`, `docs/INVESTOR_TECHNICAL_DILIGENCE.md`, screenshots, recording shot list |
 | 1,000 / 10,000-agent benchmarks | **not started** | harness ready (`make bench-1k`, `make bench-10k`); needs a quiet machine |
 | Society experiments 3–5 | **running / not committed** | Exp 2 committed |
-| Exp 7 rerun with all policy classes | **running / not committed** | first pass inconclusive (developmental not in that build) |
+| Exp 7 with all policy classes | committed | `reports/human_validation/exp07_human_heldout` (2,654 s) |
 
 ## Experiments executed (10 seeds each unless stated)
 
@@ -56,7 +55,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | Ablations: learning necessary | passed | +0.409 [+0.395, +0.426] |
 | Exp 2 twin tutoring | passed; manipulation check failed as defined | +0.029 [+0.022, +0.037]; non-learning society 0.000 |
 | Exp 7b HeartSteps causal grounding (real data) | passed (weak rule, see audit) | +12.2% [−0.5%, +27.4%] vs published +14% |
-| Exp 7 Psych-101 held-out choices (real data) | inconclusive | developmental class absent in first pass; rerun in progress |
+| Exp 7 Psych-101 held-out choices (real data, all 5 classes + 4 references) | **FAILED** primary (MCPL); secondary (IGT) passed | MCPL: +0.229 nats worse than instance-based [+0.171, +0.289]; IGT: best model, −0.110 [−0.140, −0.083] |
 
 ## Gates
 
@@ -66,7 +65,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | §52 Gate 1 determinism, persistence, replay, coverage | GO | replay verified; branch coverage 91% (audit) |
 | §52 Gate 2 measurable learning, ablations, honest uncertainty | GO | preregistered results incl. a failed H1 |
 | §52 Gate 3 web/API integration, demo, accessibility, secrets | conditional | e2e verified; secrets scan clean; accessibility fixes open |
-| §52 Gate 4 external human evidence for the learner | **NO-GO** (partial) | pipeline validated on HeartSteps; learner not yet evaluated on held-out humans |
+| §52 Gate 4 external human evidence for the learner | **NO-GO** | primary human test (MCPL) failed; secondary (IGT) passed; causal pipeline validated on HeartSteps |
 | §52 Gate 5 performance to 10,000 agents | **NO-GO** | no benchmark record |
 | §42 Gate 1 `make demo` + 100-agent seeded run with replay | GO | |
 | §42 Gate 2 learned parameters change with experience; held-out skill; baselines | GO | |

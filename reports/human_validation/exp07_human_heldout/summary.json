@@ -3,17 +3,29 @@
   "splits": {
     "1": {
       "igt": {
-        "best_adaptive_on_train": "ref_instance_based",
+        "best_adaptive_on_train": "developmental",
         "best_non_developmental_on_train": "ref_instance_based",
         "best_static_on_train": "ref_bias",
         "chance_nll": 1.3862943611198906,
         "contrasts": [
           {
-            "ci_high": -0.05967473033172261,
-            "ci_low": -0.10259951511321312,
-            "cohen_dz": -0.625935450836903,
-            "contrast": "ref_instance_based - ref_bias",
-            "estimate": -0.0809271616553393,
+            "ci_high": -0.09045300960795426,
+            "ci_low": -0.14848595867811176,
+            "cohen_dz": -0.6140777604562057,
+            "contrast": "developmental - ref_instance_based",
+            "estimate": -0.11885245695906553,
+            "metric": "heldout_nll_per_choice_igt",
+            "n_participants": 153,
+            "p_value": 0.0005,
+            "role": "secondary",
+            "status": "passed"
+          },
+          {
+            "ci_high": -0.1600484937620112,
+            "ci_low": -0.24161646054285602,
+            "cohen_dz": -0.778559938432659,
+            "contrast": "developmental - ref_bias",
+            "estimate": -0.19977961861440482,
             "label": "best_adaptive - best_static",
             "metric": "heldout_nll_per_choice_igt",
             "n_participants": 153,
@@ -22,22 +34,58 @@
             "status": "passed"
           }
         ],
-        "developmental_available": false,
+        "developmental_available": true,
         "models": [
           {
+            "lapse": 0.0,
+            "minus_chance": -0.2357975195855604,
             "model": "developmental",
-            "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 250.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.1915966026259368,
+            "test_nll_ci_low": 1.1090094266733235,
+            "test_nll_mean": 1.1504968415343302,
+            "test_nll_sd": 0.2643475431344579,
+            "test_top1_mean": 0.48124765890761756,
+            "train_objective": 1.177936544381223
           },
           {
+            "lapse": 0.3,
+            "minus_chance": -0.11317738053437365,
             "model": "memory_only",
-            "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 500.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.3058946007131176,
+            "test_nll_ci_low": 1.238967536444596,
+            "test_nll_mean": 1.273116980585517,
+            "test_nll_sd": 0.21496571539462866,
+            "test_top1_mean": 0.4470266215648053,
+            "train_objective": 1.2989528639813201
           },
           {
+            "lapse": 0.0,
+            "minus_chance": -0.06093307407852877,
             "model": "plain_rl",
-            "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 500.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.337282038747424,
+            "test_nll_ci_low": 1.3140500328926104,
+            "test_nll_mean": 1.3253612870413618,
+            "test_nll_sd": 0.07380323216957323,
+            "test_top1_mean": 0.4187306501547987,
+            "train_objective": 1.3329528383973348
           },
           {
             "lapse": 0.0,
@@ -118,9 +166,21 @@
             "status": "unavailable"
           },
           {
+            "lapse": 0.3,
+            "minus_chance": 0.47704808741724913,
             "model": "static_persona",
-            "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 250.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.9152377943474013,
+            "test_nll_ci_low": 1.8092686232702127,
+            "test_nll_mean": 1.8633424485371397,
+            "test_nll_sd": 0.3388388302090423,
+            "test_top1_mean": 0.22928219240912745,
+            "train_objective": 1.8564377044850044
           }
         ],
         "n_test": 153,
@@ -132,6 +192,18 @@
         "best_static_on_train": "ref_population_static",
         "chance_nll": 2.1972245773362196,
         "contrasts": [
+          {
+            "ci_high": 0.27931934271002634,
+            "ci_low": 0.15113927301050803,
+            "cohen_dz": 0.7834217355050134,
+            "contrast": "developmental - ref_instance_based",
+            "estimate": 0.21582829500964565,
+            "metric": "heldout_nll_per_choice_mcpl",
+            "n_participants": 69,
+            "p_value": 0.0005,
+            "role": "primary",
+            "status": "failed"
+          },
           {
             "ci_high": -0.03752138319352348,
             "ci_low": -0.12322148755515511,
@@ -146,22 +218,52 @@
             "status": "passed"
           }
         ],
-        "developmental_available": false,
+        "developmental_available": true,
         "models": [
           {
+            "lapse": 0.3,
+            "minus_chance": -0.4410220645793943,
             "model": "developmental",
-            "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.8411768714323276,
+            "test_nll_ci_low": 1.6710806079695288,
+            "test_nll_mean": 1.7562025127568253,
+            "test_nll_sd": 0.3691386480050007,
+            "test_top1_mean": 0.3841624179427424,
+            "train_objective": 1.732211606550996
           },
           {
+            "lapse": 0.3,
+            "minus_chance": -0.6396877802965717,
             "model": "memory_only",
-            "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.7020765785246332,
+            "test_nll_ci_low": 1.3965644426235844,
+            "test_nll_mean": 1.5575367970396479,
+            "test_nll_sd": 0.6672605095832401,
+            "test_top1_mean": 0.5560413561910096,
+            "train_objective": 1.5288138308141692
           },
           {
+            "lapse": 0.05,
+            "minus_chance": -0.40667210410978294,
             "model": "plain_rl",
-            "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.8589920121938128,
+            "test_nll_ci_low": 1.7218386167902007,
+            "test_nll_mean": 1.7905524732264366,
+            "test_nll_sd": 0.29430966071263676,
+            "test_top1_mean": 0.3210730872199052,
+            "train_objective": 1.7624637591620747
           },
           {
             "lapse": 0.0,
@@ -250,9 +352,19 @@
             "train_objective": 1.604600042104689
           },
           {
+            "lapse": 0.3,
+            "minus_chance": 0.6199666523420477,
             "model": "static_persona",
-            "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 2.861080356870723,
+            "test_nll_ci_low": 2.7752545376296625,
+            "test_nll_mean": 2.8171912296782673,
+            "test_nll_sd": 0.1852035601912083,
+            "test_top1_mean": 0.11431722027185165,
+            "train_objective": 2.8522328495026477
           }
         ],
         "n_test": 69,
@@ -261,17 +373,29 @@
     },
     "2": {
       "igt": {
-        "best_adaptive_on_train": "ref_instance_based",
+        "best_adaptive_on_train": "developmental",
         "best_non_developmental_on_train": "ref_instance_based",
         "best_static_on_train": "ref_bias",
         "chance_nll": 1.3862943611198906,
         "contrasts": [
           {
-            "ci_high": -0.0692184197508097,
-            "ci_low": -0.12587482287334958,
-            "cohen_dz": -0.5464604580165298,
-            "contrast": "ref_instance_based - ref_bias",
-            "estimate": -0.0972685047547226,
+            "ci_high": -0.07987874457027687,
+            "ci_low": -0.14972930037731744,
+            "cohen_dz": -0.5022178986192575,
+            "contrast": "developmental - ref_instance_based",
+            "estimate": -0.11263998656764385,
+            "metric": "heldout_nll_per_choice_igt",
+            "n_participants": 153,
+            "p_value": 0.0005,
+            "role": "secondary",
+            "status": "passed"
+          },
+          {
+            "ci_high": -0.1600851112599235,
+            "ci_low": -0.26297336456232184,
+            "cohen_dz": -0.6402895659988402,
+            "contrast": "developmental - ref_bias",
+            "estimate": -0.20990849132236641,
             "label": "best_adaptive - best_static",
             "metric": "heldout_nll_per_choice_igt",
             "n_participants": 153,
@@ -280,22 +404,58 @@
             "status": "passed"
           }
         ],
-        "developmental_available": false,
+        "developmental_available": true,
         "models": [
           {
+            "lapse": 0.01,
+            "minus_chance": -0.24204864875630716,
             "model": "developmental",
-            "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 250.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.1937487349192566,
+            "test_nll_ci_low": 1.0926391543002405,
+            "test_nll_mean": 1.1442457123635834,
+            "test_nll_sd": 0.32691834966433053,
+            "test_top1_mean": 0.46914144020181175,
+            "train_objective": 1.1813326596638205
           },
           {
+            "lapse": 0.3,
+            "minus_chance": -0.13271743290617,
             "model": "memory_only",
-            "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 500.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.2936808179627546,
+            "test_nll_ci_low": 1.2102324218127833,
+            "test_nll_mean": 1.2535769282137206,
+            "test_nll_sd": 0.26078746026459937,
+            "test_top1_mean": 0.4502923976608187,
+            "train_objective": 1.3073037802184284
           },
           {
+            "lapse": 0.0,
+            "minus_chance": -0.06073708758037255,
             "model": "plain_rl",
-            "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 500.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.3385747608441754,
+            "test_nll_ci_low": 1.312367883818563,
+            "test_nll_mean": 1.325557273539518,
+            "test_nll_sd": 0.08261966673528957,
+            "test_top1_mean": 0.415728796391851,
+            "train_objective": 1.3328690788045474
           },
           {
             "lapse": 0.0,
@@ -376,9 +536,21 @@
             "status": "unavailable"
           },
           {
+            "lapse": 0.3,
+            "minus_chance": 0.45074559761520194,
             "model": "static_persona",
-            "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 250.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.893863478796567,
+            "test_nll_ci_low": 1.7755919404015736,
+            "test_nll_mean": 1.8370399587350925,
+            "test_nll_sd": 0.3638370250323625,
+            "test_top1_mean": 0.24733402132782933,
+            "train_objective": 1.8406823405101271
           }
         ],
         "n_test": 153,
@@ -390,6 +562,18 @@
         "best_static_on_train": "ref_population_static",
         "chance_nll": 2.1972245773362196,
         "contrasts": [
+          {
+            "ci_high": 0.2591339730026337,
+            "ci_low": 0.13503390028239687,
+            "cohen_dz": 0.7415697582687053,
+            "contrast": "developmental - ref_instance_based",
+            "estimate": 0.19602677312404235,
+            "metric": "heldout_nll_per_choice_mcpl",
+            "n_participants": 69,
+            "p_value": 0.0005,
+            "role": "primary",
+            "status": "failed"
+          },
           {
             "ci_high": -0.05276760127270283,
             "ci_low": -0.1443633636706471,
@@ -404,22 +588,52 @@
             "status": "passed"
           }
         ],
-        "developmental_available": false,
+        "developmental_available": true,
         "models": [
           {
+            "lapse": 0.3,
+            "minus_chance": -0.4709408384537579,
             "model": "developmental",
-            "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.8168633386246704,
+            "test_nll_ci_low": 1.6351550028057036,
+            "test_nll_mean": 1.7262837388824617,
+            "test_nll_sd": 0.3713303858235041,
+            "test_top1_mean": 0.38651589635364053,
+            "train_objective": 1.741627974549009
           },
           {
+            "lapse": 0.3,
+            "minus_chance": -0.6746552082942647,
             "model": "memory_only",
-            "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.6727648476754766,
+            "test_nll_ci_low": 1.3738118311814598,
+            "test_nll_mean": 1.5225693690419548,
+            "test_nll_sd": 0.6407263516086484,
+            "test_top1_mean": 0.5670770779781492,
+            "train_objective": 1.5436159935861988
           },
           {
+            "lapse": 0.05,
+            "minus_chance": -0.43763186486519223,
             "model": "plain_rl",
-            "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.8271370468991446,
+            "test_nll_ci_low": 1.6886691870809074,
+            "test_nll_mean": 1.7595927124710273,
+            "test_nll_sd": 0.30476018207141303,
+            "test_top1_mean": 0.3301385596596687,
+            "train_objective": 1.7755694247579228
           },
           {
             "lapse": 0.0,
@@ -508,9 +722,19 @@
             "train_objective": 1.6042701312775272
           },
           {
+            "lapse": 0.3,
+            "minus_chance": 0.640850002645382,
             "model": "static_persona",
-            "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 2.8806290688299456,
+            "test_nll_ci_low": 2.792681203749309,
+            "test_nll_mean": 2.8380745799816016,
+            "test_nll_sd": 0.1882937756317681,
+            "test_top1_mean": 0.10321961172622798,
+            "train_objective": 2.841176201470894
           }
         ],
         "n_test": 69,
@@ -519,17 +743,29 @@
     },
     "20261104": {
       "igt": {
-        "best_adaptive_on_train": "ref_instance_based",
+        "best_adaptive_on_train": "developmental",
         "best_non_developmental_on_train": "ref_instance_based",
         "best_static_on_train": "ref_bias",
         "chance_nll": 1.3862943611198906,
         "contrasts": [
           {
-            "ci_high": -0.04553782003725604,
-            "ci_low": -0.09487166197710468,
-            "cohen_dz": -0.4501106416625766,
-            "contrast": "ref_instance_based - ref_bias",
-            "estimate": -0.06955070584259362,
+            "ci_high": -0.08266407233863876,
+            "ci_low": -0.1394770870040099,
+            "cohen_dz": -0.5910278476352018,
+            "contrast": "developmental - ref_instance_based",
+            "estimate": -0.11013149501636511,
+            "metric": "heldout_nll_per_choice_igt",
+            "n_participants": 153,
+            "p_value": 0.0005,
+            "role": "secondary",
+            "status": "passed"
+          },
+          {
+            "ci_high": -0.1400390124969595,
+            "ci_low": -0.21976349729995823,
+            "cohen_dz": -0.7158330101933578,
+            "contrast": "developmental - ref_bias",
+            "estimate": -0.17968220085895872,
             "label": "best_adaptive - best_static",
             "metric": "heldout_nll_per_choice_igt",
             "n_participants": 153,
@@ -538,22 +774,58 @@
             "status": "passed"
           }
         ],
-        "developmental_available": false,
+        "developmental_available": true,
         "models": [
           {
+            "lapse": 0.0,
+            "minus_chance": -0.21557220808220845,
             "model": "developmental",
-            "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 250.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.2098311480374648,
+            "test_nll_ci_low": 1.1265750957427614,
+            "test_nll_mean": 1.1707221530376821,
+            "test_nll_sd": 0.2615332377704417,
+            "test_top1_mean": 0.4616520467836257,
+            "train_objective": 1.1714017741234781
           },
           {
+            "lapse": 0.3,
+            "minus_chance": -0.10028300245598931,
             "model": "memory_only",
-            "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 500.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.3160333216535616,
+            "test_nll_ci_low": 1.2549905658894016,
+            "test_nll_mean": 1.2860113586639013,
+            "test_nll_sd": 0.19776185166505353,
+            "test_top1_mean": 0.4293190765584986,
+            "train_objective": 1.2934421381545245
           },
           {
+            "lapse": 0.0,
+            "minus_chance": -0.05418748256340611,
             "model": "plain_rl",
-            "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 500.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.3439748157328582,
+            "test_nll_ci_low": 1.3194055180924993,
+            "test_nll_mean": 1.3321068785564845,
+            "test_nll_sd": 0.07803602388479465,
+            "test_top1_mean": 0.3948468256698391,
+            "train_objective": 1.3300699459341678
           },
           {
             "lapse": 0.0,
@@ -634,9 +906,21 @@
             "status": "unavailable"
           },
           {
+            "lapse": 0.3,
+            "minus_chance": 0.4609156371685954,
             "model": "static_persona",
-            "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 153,
+            "note": "",
+            "params": {
+              "igt_reward_scale": 250.0
+            },
+            "status": "ok",
+            "test_nll_ci_high": 1.9077558689844656,
+            "test_nll_ci_low": 1.7863950639089723,
+            "test_nll_mean": 1.847209998288486,
+            "test_nll_sd": 0.38238072890191277,
+            "test_top1_mean": 0.26056759545923636,
+            "train_objective": 1.8217978072439798
           }
         ],
         "n_test": 153,
@@ -648,6 +932,18 @@
         "best_static_on_train": "ref_population_static",
         "chance_nll": 2.1972245773362196,
         "contrasts": [
+          {
+            "ci_high": 0.288990474545912,
+            "ci_low": 0.17075089644718633,
+            "cohen_dz": 0.9111478168719941,
+            "contrast": "developmental - ref_instance_based",
+            "estimate": 0.22892790089656437,
+            "metric": "heldout_nll_per_choice_mcpl",
+            "n_participants": 69,
+            "p_value": 0.0005,
+            "role": "primary",
+            "status": "failed"
+          },
           {
             "ci_high": -0.05451893998657971,
             "ci_low": -0.13588412722620805,
@@ -662,22 +958,52 @@
             "status": "passed"
           }
         ],
-        "developmental_available": false,
+        "developmental_available": true,
         "models": [
           {
+            "lapse": 0.3,
+            "minus_chance": -0.46305979817985254,
             "model": "developmental",
-            "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.8099073058677921,
+            "test_nll_ci_low": 1.6594267508343625,
+            "test_nll_mean": 1.734164779156367,
+            "test_nll_sd": 0.3208575429739643,
+            "test_top1_mean": 0.3875086162204152,
+            "train_objective": 1.7430751258826267
           },
           {
+            "lapse": 0.3,
+            "minus_chance": -0.6684313736620962,
             "model": "memory_only",
-            "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.6743567465443778,
+            "test_nll_ci_low": 1.3877153584553206,
+            "test_nll_mean": 1.5287932036741234,
+            "test_nll_sd": 0.6022362706306499,
+            "test_top1_mean": 0.5652624832051423,
+            "train_objective": 1.5409813642020294
           },
           {
+            "lapse": 0.05,
+            "minus_chance": -0.4273576527634726,
             "model": "plain_rl",
-            "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 1.8283003453603741,
+            "test_nll_ci_low": 1.713181057706828,
+            "test_nll_mean": 1.769866924572747,
+            "test_nll_sd": 0.2557346011235798,
+            "test_top1_mean": 0.32222455599897315,
+            "train_objective": 1.771220218408115
           },
           {
             "lapse": 0.0,
@@ -766,9 +1092,19 @@
             "train_objective": 1.6100748716025786
           },
           {
+            "lapse": 0.3,
+            "minus_chance": 0.6815233205522278,
             "model": "static_persona",
-            "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-            "status": "unavailable"
+            "n_test": 69,
+            "note": "",
+            "params": {},
+            "status": "ok",
+            "test_nll_ci_high": 2.9169503753721555,
+            "test_nll_ci_low": 2.8400126514440043,
+            "test_nll_mean": 2.8787478978884473,
+            "test_nll_sd": 0.1643729293303297,
+            "test_top1_mean": 0.09830767845890719,
+            "train_objective": 2.82085300506096
           }
         ],
         "n_test": 69,

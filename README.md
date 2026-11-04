@@ -29,8 +29,12 @@ pretending to predict fate.
   *negatively* when the structure is not shared.
 * **Twin-society intervention.** Tutoring access raises held-out skill (+0.029 [+0.022, +0.037]); a
   society that cannot learn shows exactly zero effect — the mechanism check.
+* **Real human choices — mixed.** On held-out participants from Psych-101, the developmental learner
+  predicts Iowa Gambling Task choices better than every other model tested (−0.110 nats vs the
+  instance-based reference), but on the preregistered primary task (multiple-cue learning) it is clearly
+  worse than exemplar-memory models (+0.229 nats). Human validity (Gate 4) is therefore **not passed**.
 * **One real causal estimate.** Our estimator recovers the published HeartSteps V1 effect
-  (+12.2% [−0.5%, +27.4%] vs published +14%). Human validation of the *agents* is still open.
+  (+12.2% [−0.5%, +27.4%] vs published +14%).
 * **Future Self.** Consent → values → 2–4 options → illustrative scenarios → evidence and "cannot
   predict" → reversible experiments → journey. No probabilities, ever; crisis and high-stakes routing
   independently audited.

@@ -30,7 +30,7 @@ figure from raw logs. Unit of analysis is the seed (10 seeds). Primary test: pai
 | Exp 2 `exp02_twin_tutoring` | Twin societies: does tutoring access raise held-out skill through learning? | +0.029 [+0.022, +0.037]; non-learning society: exactly 0 | passed (manipulation check **failed** as defined, §4) | `reports/experiments/exp02_twin_tutoring` |
 | Exp 3–5 | social influence, midlife education, multigenerational | running at time of writing | pending | — |
 | Exp 7b `exp07b_causal_grounding` | Can our estimator recover a randomised human effect (HeartSteps V1)? | +12.2% [−0.5%, +27.4%]; published +14% inside CI | passed (see caveat §5) | `reports/human_validation/exp07b_causal_grounding` |
-| Exp 7 `exp07_human_heldout` | Do our policy classes predict held-out human choices (Psych-101)? | developmental class not in first-pass build | inconclusive; rerun in progress | `reports/human_validation/exp07_human_heldout` |
+| Exp 7 `exp07_human_heldout` | Do our policy classes predict held-out human choices (Psych-101)? | MCPL (primary): developmental **worse** than instance-based, +0.229 nats [+0.171, +0.289]; IGT (secondary): developmental **best** of 8 models, −0.110 [−0.140, −0.083] | **FAILED** (primary); secondary passed | `reports/human_validation/exp07_human_heldout` |
 
 ## 2. H1 — the investor's decisive question (failed)
 
@@ -141,20 +141,38 @@ validates an estimation pipeline on randomised human data. It says nothing about
 
 ### Exp 7 — held-out human choice prediction on Psych-101 (Apache-2.0)
 
-Primary: per-choice negative log-likelihood on held-out participants (70/30 split by participant),
-multiple-cue probability learning (MCPL, 9 actions, 69 held-out people); secondary: Iowa Gambling Task
-(4 actions, 153 people). First pass (policy classes not yet registered in that build):
+Teacher-forced one-step-ahead prediction of each held-out participant's actual choices (per-choice
+negative log-likelihood, lower is better; lapse-mixed; hyperparameters fitted on training participants
+only; 70/30 split by participant, seed 20261104, plus two robustness splits). Primary: multiple-cue
+probability learning (MCPL, 9 actions, 69 held-out people). Secondary: Iowa Gambling Task (IGT, 4 decks,
+153 held-out people). All five policy classes plus four reference cognitive models. 2,654 s, 0 LLM calls.
 
-| Model | MCPL NLL (chance 2.197) | IGT NLL (chance 1.386) |
+| Model | MCPL held-out NLL (chance 2.197) | IGT held-out NLL (chance 1.386) |
 |---|---|---|
-| instance-based | 1.505 [1.388, 1.616] | 1.281 [1.253, 1.307] |
-| population-static | 1.602 [1.516, 1.693] | n/a |
-| delta rule | 1.802 | 1.304 |
-| fitted bias | 1.936 | 1.350 |
+| **developmental** | 1.734 [1.659, 1.810] | **1.171 [1.127, 1.210]** |
+| memory_only | 1.529 [1.388, 1.674] | 1.286 [1.255, 1.316] |
+| plain_rl | 1.770 [1.713, 1.828] | 1.332 [1.319, 1.344] |
+| static_persona | 2.879 [2.840, 2.917] (worse than chance) | 1.847 [1.786, 1.908] |
+| ref: instance-based | **1.505 [1.388, 1.616]** | 1.281 [1.253, 1.307] |
+| ref: population-static | 1.602 [1.516, 1.693] | n/a |
+| ref: delta rule | 1.802 [1.722, 1.886] | 1.304 [1.284, 1.324] |
+| ref: fitted bias | 1.936 [1.907, 1.965] | 1.350 [1.341, 1.359] |
 
-Secondary contrast (best adaptive − best static): MCPL −0.097 [−0.136, −0.055]; IGT −0.070
-[−0.095, −0.046]. **Primary inconclusive**: no verdict on the developmental learner yet. A rerun with
-all five policy classes is in progress; results will replace this section when committed.
+| Contrast (NLL difference; negative favours the first) | Estimate | 95% CI (paired over participants) | Verdict |
+|---|---|---|---|
+| **MCPL primary**: developmental − instance-based | +0.2289 | [+0.1708, +0.2890] (dz 0.91, n = 69) | **failed** (robustness splits: +0.216, +0.196, both failed) |
+| MCPL: best adaptive − best static | −0.0970 | [−0.1359, −0.0545] | passed |
+| **IGT secondary**: developmental − instance-based | −0.1101 | [−0.1395, −0.0827] (dz −0.59, n = 153) | passed (splits: −0.119, −0.113) |
+| IGT: developmental − fitted bias | −0.1797 | [−0.2198, −0.1400] | passed |
+
+**Reading.** On the primary task — a 9-way cue-to-category mapping — exemplar-memory models
+(instance-based reference, and our own `memory_only` baseline) fit human choices far better than any
+parametric learner, including ours. On the secondary task — a 4-arm bandit with losses — the
+developmental learner fits human choices better than every other model, by a wide and split-stable
+margin. By the preregistered rule **Gate 4 is not passed**. Caveats: registry classes got only
+lapse (and IGT reward-scale) fitting while reference models got small parameter grids; several reference
+fits sit at grid edges; Psych-101 was used to train Centaur (context only); these are short laboratory
+tasks with adults, not life decisions.
 
 ## 6. The stored 100-agent, 80-year society (descriptive)
 

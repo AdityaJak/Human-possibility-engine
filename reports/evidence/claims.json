@@ -150,7 +150,7 @@
   {
     "claim_id": "exp07_human_heldout",
     "claim": "A developmental learner (Tier-2 policy, hpe.development) predicts held-out human choices in multiple-cue probability learning better than the strongest non-developmental model, including static models fitted to other participants and the memory-only / plain-RL baselines.",
-    "status": "inconclusive",
+    "status": "not_supported",
     "evidence_kind": "human_dataset",
     "run_ids": [
       "split1",
@@ -158,7 +158,7 @@
       "split20261104"
     ],
     "metric": "heldout_nll_per_choice_igt",
-    "value": "-0.0696 (95% CI [-0.0949, -0.0455], n=153 participants) \u2014 Primary contrast not evaluated: the 'developmental' policy class is not available in this build (see per-model notes). Reference and baseline models were evaluated; see secondary contrasts.",
+    "value": "-0.1101 (95% CI [-0.1395, -0.0827], n=153 participants) \u2014 Primary contrast developmental - ref_instance_based on held-out MCPL participants: +0.2289 nats/choice (95% CI [+0.1708, +0.2890], n=69); minimum effect of interest 0.02 nats/choice; rule: passed if ci_high < 0 and estimate <= -0.02; failed if ci_low > -0.02; inconclusive otherwise, or if the developmental class is not available in the build.",
     "config_ref": "reports/human_validation/exp07_human_heldout/definition.json (preregistration f30610430c3b847f)",
     "limitations": [
       "Teacher-forced one-step-ahead likelihood measures predictive fit to human choice sequences, not generative realism.",

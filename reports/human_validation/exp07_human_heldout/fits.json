@@ -3,31 +3,37 @@
     "igt": {
       "models": {
         "developmental": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.0,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "seconds": 28.06,
+          "status": "ok",
+          "train_objective": 1.177936544381223
         },
         "memory_only": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.3,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 500.0
+          },
+          "seconds": 39.91,
+          "status": "ok",
+          "train_objective": 1.2989528639813201
         },
         "plain_rl": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.0,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 500.0
+          },
+          "seconds": 32.88,
+          "status": "ok",
+          "train_objective": 1.3329528383973348
         },
         "random": {
           "lapse": 0.0,
@@ -36,7 +42,7 @@
           "params": {
             "igt_reward_scale": 250.0
           },
-          "seconds": 11.5,
+          "seconds": 21.91,
           "status": "ok",
           "train_objective": 1.3862943611198908
         },
@@ -48,7 +54,7 @@
             "igt_reward_scale": 250.0,
             "smoothing": 1.0
           },
-          "seconds": 11.67,
+          "seconds": 16.12,
           "status": "ok",
           "train_objective": 1.3481184521304765
         },
@@ -61,7 +67,7 @@
             "beta": 6.0,
             "igt_reward_scale": 250.0
           },
-          "seconds": 186.43,
+          "seconds": 260.76,
           "status": "ok",
           "train_objective": 1.305706330798758
         },
@@ -74,7 +80,7 @@
             "decay": 0.5,
             "igt_reward_scale": 250.0
           },
-          "seconds": 210.61,
+          "seconds": 271.59,
           "status": "ok",
           "train_objective": 1.2793536845813194
         },
@@ -88,13 +94,15 @@
           "train_objective": null
         },
         "static_persona": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.3,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "seconds": 24.46,
+          "status": "ok",
+          "train_objective": 1.8564377044850044
         }
       },
       "n_test": 153,
@@ -618,38 +626,38 @@
     "mcpl": {
       "models": {
         "developmental": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 7.7,
+          "status": "ok",
+          "train_objective": 1.732211606550996
         },
         "memory_only": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 15.68,
+          "status": "ok",
+          "train_objective": 1.5288138308141692
         },
         "plain_rl": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.05,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 8.84,
+          "status": "ok",
+          "train_objective": 1.7624637591620747
         },
         "random": {
           "lapse": 0.0,
           "n_grid": 7,
           "note": "",
           "params": {},
-          "seconds": 3.92,
+          "seconds": 4.47,
           "status": "ok",
           "train_objective": 2.197224577336219
         },
@@ -660,7 +668,7 @@
           "params": {
             "smoothing": 1.0
           },
-          "seconds": 4.55,
+          "seconds": 4.12,
           "status": "ok",
           "train_objective": 1.925197616315166
         },
@@ -672,7 +680,7 @@
             "alpha": 0.03,
             "sigma": 0.75
           },
-          "seconds": 73.03,
+          "seconds": 94.3,
           "status": "ok",
           "train_objective": 1.8084263111593666
         },
@@ -685,7 +693,7 @@
             "kappa": 0.05,
             "s": 0.5
           },
-          "seconds": 30.65,
+          "seconds": 41.4,
           "status": "ok",
           "train_objective": 1.5155232280327144
         },
@@ -696,18 +704,18 @@
           "params": {
             "smoothing": 0.5
           },
-          "seconds": 7.76,
+          "seconds": 10.68,
           "status": "ok",
           "train_objective": 1.604600042104689
         },
         "static_persona": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 6.08,
+          "status": "ok",
+          "train_objective": 2.8522328495026477
         }
       },
       "n_test": 69,
@@ -954,31 +962,37 @@
     "igt": {
       "models": {
         "developmental": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.01,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "seconds": 26.98,
+          "status": "ok",
+          "train_objective": 1.1813326596638205
         },
         "memory_only": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.3,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 500.0
+          },
+          "seconds": 47.76,
+          "status": "ok",
+          "train_objective": 1.3073037802184284
         },
         "plain_rl": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.0,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 500.0
+          },
+          "seconds": 35.59,
+          "status": "ok",
+          "train_objective": 1.3328690788045474
         },
         "random": {
           "lapse": 0.0,
@@ -987,7 +1001,7 @@
           "params": {
             "igt_reward_scale": 250.0
           },
-          "seconds": 11.69,
+          "seconds": 20.79,
           "status": "ok",
           "train_objective": 1.3862943611198908
         },
@@ -999,7 +1013,7 @@
             "igt_reward_scale": 250.0,
             "smoothing": 1.0
           },
-          "seconds": 11.82,
+          "seconds": 16.86,
           "status": "ok",
           "train_objective": 1.3460821716186222
         },
@@ -1012,7 +1026,7 @@
             "beta": 6.0,
             "igt_reward_scale": 250.0
           },
-          "seconds": 187.35,
+          "seconds": 277.15,
           "status": "ok",
           "train_objective": 1.3033969074152465
         },
@@ -1025,7 +1039,7 @@
             "decay": 0.5,
             "igt_reward_scale": 250.0
           },
-          "seconds": 202.79,
+          "seconds": 283.51,
           "status": "ok",
           "train_objective": 1.28468030674057
         },
@@ -1039,13 +1053,15 @@
           "train_objective": null
         },
         "static_persona": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.3,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "seconds": 23.94,
+          "status": "ok",
+          "train_objective": 1.8406823405101271
         }
       },
       "n_test": 153,
@@ -1569,38 +1585,38 @@
     "mcpl": {
       "models": {
         "developmental": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 8.02,
+          "status": "ok",
+          "train_objective": 1.741627974549009
         },
         "memory_only": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 16.13,
+          "status": "ok",
+          "train_objective": 1.5436159935861988
         },
         "plain_rl": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.05,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 9.99,
+          "status": "ok",
+          "train_objective": 1.7755694247579228
         },
         "random": {
           "lapse": 0.0,
           "n_grid": 7,
           "note": "",
           "params": {},
-          "seconds": 3.23,
+          "seconds": 4.61,
           "status": "ok",
           "train_objective": 2.197224577336219
         },
@@ -1611,7 +1627,7 @@
           "params": {
             "smoothing": 1.0
           },
-          "seconds": 3.24,
+          "seconds": 5.51,
           "status": "ok",
           "train_objective": 1.9297027773920792
         },
@@ -1623,7 +1639,7 @@
             "alpha": 0.03,
             "sigma": 0.75
           },
-          "seconds": 66.37,
+          "seconds": 88.32,
           "status": "ok",
           "train_objective": 1.799920174826794
         },
@@ -1636,7 +1652,7 @@
             "kappa": 0.05,
             "s": 0.5
           },
-          "seconds": 31.95,
+          "seconds": 41.36,
           "status": "ok",
           "train_objective": 1.5198059911445208
         },
@@ -1647,18 +1663,18 @@
           "params": {
             "smoothing": 1.0
           },
-          "seconds": 7.57,
+          "seconds": 10.61,
           "status": "ok",
           "train_objective": 1.6042701312775272
         },
         "static_persona": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 6.11,
+          "status": "ok",
+          "train_objective": 2.841176201470894
         }
       },
       "n_test": 69,
@@ -1905,31 +1921,37 @@
     "igt": {
       "models": {
         "developmental": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.0,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "seconds": 27.62,
+          "status": "ok",
+          "train_objective": 1.1714017741234781
         },
         "memory_only": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.3,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 500.0
+          },
+          "seconds": 38.35,
+          "status": "ok",
+          "train_objective": 1.2934421381545245
         },
         "plain_rl": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.0,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 500.0
+          },
+          "seconds": 31.0,
+          "status": "ok",
+          "train_objective": 1.3300699459341678
         },
         "random": {
           "lapse": 0.0,
@@ -1938,7 +1960,7 @@
           "params": {
             "igt_reward_scale": 250.0
           },
-          "seconds": 12.03,
+          "seconds": 17.1,
           "status": "ok",
           "train_objective": 1.3862943611198908
         },
@@ -1950,7 +1972,7 @@
             "igt_reward_scale": 250.0,
             "smoothing": 1.0
           },
-          "seconds": 11.45,
+          "seconds": 17.14,
           "status": "ok",
           "train_objective": 1.3474195541473233
         },
@@ -1963,7 +1985,7 @@
             "beta": 6.0,
             "igt_reward_scale": 250.0
           },
-          "seconds": 182.25,
+          "seconds": 249.14,
           "status": "ok",
           "train_objective": 1.3005383823569057
         },
@@ -1976,7 +1998,7 @@
             "decay": 0.5,
             "igt_reward_scale": 250.0
           },
-          "seconds": 208.15,
+          "seconds": 262.38,
           "status": "ok",
           "train_objective": 1.2744370212215996
         },
@@ -1990,13 +2012,15 @@
           "train_objective": null
         },
         "static_persona": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
-          "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "lapse": 0.3,
+          "n_grid": 21,
+          "note": "",
+          "params": {
+            "igt_reward_scale": 250.0
+          },
+          "seconds": 21.73,
+          "status": "ok",
+          "train_objective": 1.8217978072439798
         }
       },
       "n_test": 153,
@@ -2520,38 +2544,38 @@
     "mcpl": {
       "models": {
         "developmental": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'developmental' not registered in this build (KeyError: \"no policy registered for 'developmental'; known: ['random']\")",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.01,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 7.78,
+          "status": "ok",
+          "train_objective": 1.7430751258826267
         },
         "memory_only": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'memory_only' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 16.45,
+          "status": "ok",
+          "train_objective": 1.5409813642020294
         },
         "plain_rl": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'plain_rl' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.05,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 8.42,
+          "status": "ok",
+          "train_objective": 1.771220218408115
         },
         "random": {
           "lapse": 0.0,
           "n_grid": 7,
           "note": "",
           "params": {},
-          "seconds": 3.45,
+          "seconds": 4.37,
           "status": "ok",
           "train_objective": 2.197224577336219
         },
@@ -2562,7 +2586,7 @@
           "params": {
             "smoothing": 1.0
           },
-          "seconds": 3.17,
+          "seconds": 3.92,
           "status": "ok",
           "train_objective": 1.9287498970051717
         },
@@ -2574,7 +2598,7 @@
             "alpha": 0.03,
             "sigma": 1.0
           },
-          "seconds": 68.52,
+          "seconds": 81.21,
           "status": "ok",
           "train_objective": 1.8238295773337307
         },
@@ -2587,7 +2611,7 @@
             "kappa": 0.05,
             "s": 0.5
           },
-          "seconds": 31.38,
+          "seconds": 36.76,
           "status": "ok",
           "train_objective": 1.5303973165273712
         },
@@ -2598,18 +2622,18 @@
           "params": {
             "smoothing": 0.5
           },
-          "seconds": 7.91,
+          "seconds": 9.47,
           "status": "ok",
           "train_objective": 1.6100748716025786
         },
         "static_persona": {
-          "lapse": null,
-          "n_grid": 0,
-          "note": "policy class 'static_persona' not registered in this build (ModuleNotFoundError: No module named 'hpe.evaluation.baselines')",
+          "lapse": 0.3,
+          "n_grid": 7,
+          "note": "",
           "params": {},
-          "seconds": 0.0,
-          "status": "unavailable",
-          "train_objective": null
+          "seconds": 5.79,
+          "status": "ok",
+          "train_objective": 2.82085300506096
         }
       },
       "n_test": 69,

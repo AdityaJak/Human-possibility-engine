@@ -22,10 +22,13 @@ noise. Candidate causes, each a falsifiable experiment:
 
 ## 2. Gate 4 — real human validity
 
-* Run `make human-experiments` with all five policy classes (Psych-101 MCPL primary, IGT secondary);
-  report whether the developmental learner predicts held-out participants' choices better than the
-  strongest reference model. Give every class an equal hyper-parameter grid (the first pass favoured
-  the reference models).
+* Exp 7 ran with all five classes: **primary (MCPL) failed, secondary (IGT) passed.** Exemplar-memory
+  models — including our own `memory_only` baseline — fit 9-way cue learning far better than the
+  parametric developmental learner, whose replay memory is used for consolidation but never for
+  prediction. Next: add an instance/exemplar pathway to the learner's predictions (a hybrid, not a
+  replacement), give every class an equal hyper-parameter grid, and re-test under a new preregistration
+  on the same held-out participants. Keep the IGT result as the positive anchor and check it on a second
+  bandit dataset.
 * Add one longitudinal human learning dataset with verified licence (candidates to review:
   open educational-practice logs). Keep DfE-DB on watch until it publishes a licence.
 
