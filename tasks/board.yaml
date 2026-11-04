@@ -1,7 +1,7 @@
 # Machine-readable task board (spec §47C). Status: todo | in_progress | review | done | blocked
 # Owner = lane branch. "done" requires the acceptance test to pass in the integrated branch.
 version: 1
-updated: 2026-11-04 (all lanes merged; Exp3-5 + Exp7 rerun executing; 1k/10k benchmarks not started)
+updated: 2026-11-04 (Exp2/3/4/7 committed; Exp5 executing; 1k benchmark measured; 10k not started)
 tasks:
   - id: T00-contracts
     title: Freeze v0.1 contracts (schemas, Policy protocol, World/Sink protocols, registry, TS/JSON export)
@@ -104,7 +104,7 @@ tasks:
     owner: infra/release
     depends_on: [T60-infra]
     acceptance: "BenchmarkRecord JSON with status completed, hardware and load disclosed"
-    status: todo
+    status: in_progress
   - id: T11-h1-redesign
     title: Fix the research hypothesis after H1 failed (non-linear/non-stationary task families, component redesign, noise robustness, re-tune on seeds >= 1000)
     owner: research/development
