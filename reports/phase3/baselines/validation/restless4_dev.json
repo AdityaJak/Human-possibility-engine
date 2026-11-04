@@ -1,0 +1,56 @@
+{
+ "details": {
+  "bahrami2020four/exp.csv": {
+   "free_steps_per_participant": {
+    "max": 150.0,
+    "mean": 145.01724137931035,
+    "median": 148.0,
+    "min": 14.0,
+    "q25": 145.0,
+    "q75": 149.0
+   },
+   "normalised_reward": {
+    "max": 0.98,
+    "mean": 0.586094202037015,
+    "median": 0.59,
+    "min": 0.01,
+    "q25": 0.48,
+    "q75": 0.71
+   },
+   "p_action0": 0.15535211825783696,
+   "participants": 348,
+   "steps_per_participant": {
+    "max": 150.0,
+    "mean": 145.01724137931035,
+    "median": 148.0,
+    "min": 14.0,
+    "q25": 145.0,
+    "q75": 149.0
+   }
+  }
+ },
+ "excluded": 0,
+ "exclusion_notes": [],
+ "family": "restless4",
+ "participants_parsed": 348,
+ "partition": "dev",
+ "per_experiment": {
+  "bahrami2020four/exp.csv": {
+   "feedback_modes": {
+    "bandit": 50466
+   },
+   "free_trials_per_participant": [
+    14,
+    150
+   ],
+   "mean_normalised_reward": 0.586094202037015,
+   "n_blocks": 1,
+   "participants": 348,
+   "trials_per_participant": [
+    14,
+    150
+   ]
+  }
+ },
+ "role": "counted_primary"
+}
