@@ -1,4 +1,602 @@
 {
+  "by_op": {
+    "control": {
+      "logistic_quad": {
+        "composition": {
+          "AND": {
+            "mean": 0.6166666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5888888888888889,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.4708333333333333,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.4583333333333333,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.5333333333333333,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.6222222222222222,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.55,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.48333333333333334,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 0.9,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.8611111111111112,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.9291666666666666,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.9833333333333334,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 0.4166666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.4888888888888889,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.4750000000000001,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.5833333333333334,
+            "n_seeds": 2
+          }
+        }
+      },
+      "logistic_raw": {
+        "composition": {
+          "AND": {
+            "mean": 0.6166666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.611111111111111,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.47916666666666663,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.45,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.8833333333333333,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.8555555555555555,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5791666666666666,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.3666666666666667,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 0.7166666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5111111111111111,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5208333333333334,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6499999999999999,
+            "n_seeds": 2
+          }
+        }
+      },
+      "lstsq_raw": {
+        "composition": {
+          "AND": {
+            "mean": 0.5833333333333334,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5499999999999999,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.47916666666666663,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.45,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.9,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.9388888888888888,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.575,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.3666666666666667,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 0.95,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.9333333333333332,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.9916666666666667,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 0.7166666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5333333333333333,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5375,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6333333333333333,
+            "n_seeds": 2
+          }
+        }
+      },
+      "oracle_prims": {
+        "composition": {
+          "AND": {
+            "mean": 0.5,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.6333333333333334,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6499999999999999,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.6166666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.7222222222222223,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5916666666666667,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6333333333333333,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        }
+      }
+    },
+    "shared": {
+      "logistic_quad": {
+        "composition": {
+          "AND": {
+            "mean": 0.6666666666666666,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.7777777777777778,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5583333333333333,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6583333333333334,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.7,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.7722222222222223,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5333333333333333,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.625,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 0.9666666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.9388888888888888,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.9291666666666666,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.9833333333333334,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 0.21666666666666667,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.4777777777777778,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.4750000000000001,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.5833333333333334,
+            "n_seeds": 2
+          }
+        }
+      },
+      "logistic_raw": {
+        "composition": {
+          "AND": {
+            "mean": 0.8,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.7611111111111111,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.6083333333333334,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.9166666666666666,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.8944444444444445,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.6625,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.5833333333333334,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 0.36666666666666664,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5333333333333333,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5208333333333334,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6499999999999999,
+            "n_seeds": 2
+          }
+        }
+      },
+      "lstsq_raw": {
+        "composition": {
+          "AND": {
+            "mean": 0.7,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.638888888888889,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.6125,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.5916666666666667,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 0.9166666666666666,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.9166666666666666,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.6625,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.5833333333333334,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.9916666666666667,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 0.36666666666666664,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 0.5333333333333333,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 0.5375,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 0.6333333333333333,
+            "n_seeds": 2
+          }
+        }
+      },
+      "oracle_prims": {
+        "composition": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "composition_pair": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_a": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        },
+        "primitive_b": {
+          "AND": {
+            "mean": 1.0,
+            "n_seeds": 1
+          },
+          "IMPLIES": {
+            "mean": 1.0,
+            "n_seeds": 3
+          },
+          "OR": {
+            "mean": 1.0,
+            "n_seeds": 4
+          },
+          "XOR": {
+            "mean": 1.0,
+            "n_seeds": 2
+          }
+        }
+      }
+    }
+  },
   "ceiling_linear_raw_composition": {
     "control": {
       "max_over_seeds_best_linear_probe": 0.7333333333333333,
@@ -10,7 +608,7 @@
     }
   },
   "chance": 0.5,
-  "code_version": "ea049efdcd3910f0d91d91b24fd6a0f0f409e141",
+  "code_version": "aa699ea208edc515d58d5df66c4b95ce741525d7+dirty",
   "config": {
     "control": {
       "eval_items_per_family": 60,
@@ -33,7 +631,7 @@
       "shared_structure": true
     }
   },
-  "cpu_s": 12.46,
+  "cpu_s": 11.12,
   "label": "EXPLORATORY dev-seed measurement; not a result claim",
   "per_seed": {
     "control": {
