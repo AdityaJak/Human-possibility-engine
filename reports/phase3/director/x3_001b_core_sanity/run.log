@@ -1,0 +1,7 @@
+[garcia] pop_gru: 8 config(s), 138 dev participants
+[garcia] pop_gru: select NLL 0.4415 config {'dropout': 0.2, 'hidden': 12, 'lr': 0.01} lapse 0.0 causal=ok
+[described] pop_gru: 8 config(s), 85 dev participants
+[described] pop_gru: select NLL 0.3556 config {'dropout': 0.0, 'hidden': 32, 'lr': 0.003} lapse 0.0 causal=ok
+[bandit2] pop_gru: 8 config(s), 32 dev participants
+[bandit2] pop_gru: select NLL 0.3600 config {'dropout': 0.0, 'hidden': 12, 'lr': 0.01} lapse 0.0 causal=ok
+[restless4] pop_gru: 8 config(s), 348 dev participants

@@ -1,0 +1,162 @@
+{
+ "experiment_id": "x3_001b_core_sanity",
+ "report_partition": "tune",
+ "families": {
+  "bandit2": {
+   "role": "secondary",
+   "models": {
+    "pop_gru": {
+     "report_nll": 0.36004271086552764,
+     "ci": [
+      0.2930724775274757,
+      0.4351703062002525
+     ],
+     "n": 16,
+     "top1": 0.8309375,
+     "ece": 0.05428489780417111,
+     "quarters": [
+      0.4376316860038787,
+      0.3256968810193939,
+      0.31602899850695393,
+      0.36081327793188395
+     ],
+     "select_nll": 0.36004271086552764,
+     "lapse0_nll": null,
+     "params": 2284,
+     "role": "comparator",
+     "config": {
+      "dropout": 0.0,
+      "hidden": 12,
+      "lr": 0.01
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "lr",
+      "dropout"
+     ],
+     "fit_cpu_s": 377.6,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": null,
+     "describe": {
+      "population_params": 2284,
+      "per_person_params": 0,
+      "config": {
+       "dropout": 0.0,
+       "hidden": 12,
+       "lr": 0.01
+      }
+     }
+    }
+   },
+   "contrasts": [],
+   "excluded_models": [],
+   "best_comparator": "pop_gru"
+  },
+  "described": {
+   "role": "counted",
+   "models": {
+    "pop_gru": {
+     "report_nll": 0.3556101465608349,
+     "ci": [
+      0.3134988305335738,
+      0.3967979302232046
+     ],
+     "n": 41,
+     "top1": 0.8385691056910568,
+     "ece": 0.03153086592516147,
+     "quarters": [
+      0.3854434801772823,
+      0.36381956001715404,
+      0.35697161569518193,
+      0.3160024932035998
+     ],
+     "select_nll": 0.3556101465608349,
+     "lapse0_nll": null,
+     "params": 8004,
+     "role": "comparator",
+     "config": {
+      "dropout": 0.0,
+      "hidden": 32,
+      "lr": 0.003
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "lr",
+      "dropout"
+     ],
+     "fit_cpu_s": 1296.0,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": null,
+     "describe": {
+      "population_params": 8004,
+      "per_person_params": 0,
+      "config": {
+       "dropout": 0.0,
+       "hidden": 32,
+       "lr": 0.003
+      }
+     }
+    }
+   },
+   "contrasts": [],
+   "excluded_models": [],
+   "best_comparator": "pop_gru"
+  },
+  "garcia": {
+   "role": "counted",
+   "models": {
+    "pop_gru": {
+     "report_nll": 0.4415145685407962,
+     "ci": [
+      0.40698204705442687,
+      0.47634243972408163
+     ],
+     "n": 68,
+     "top1": 0.7717673959827834,
+     "ece": 0.060473679385646156,
+     "quarters": [
+      0.5348436818617583,
+      0.5000078163871975,
+      0.4001530364578776,
+      0.33105373945635136
+     ],
+     "select_nll": 0.4415145685407962,
+     "lapse0_nll": null,
+     "params": 2284,
+     "role": "comparator",
+     "config": {
+      "dropout": 0.2,
+      "hidden": 12,
+      "lr": 0.01
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "hidden",
+      "lr",
+      "dropout"
+     ],
+     "fit_cpu_s": 211.6,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": null,
+     "describe": {
+      "population_params": 2284,
+      "per_person_params": 0,
+      "config": {
+       "dropout": 0.2,
+       "hidden": 12,
+       "lr": 0.01
+      }
+     }
+    }
+   },
+   "contrasts": [],
+   "excluded_models": [],
+   "best_comparator": "pop_gru"
+  }
+ }
+}

@@ -27,6 +27,7 @@ artifact directory named in the row).
 
 | ID | Date | Lane | Question | Partition | Result | Artifacts |
 |---|---|---|---|---|---|---|
+| X3-001 | 2026-11-04 | director | Does the torch population GRU (encoding v3, trainer v2) reproduce the Phase II numpy `ref_gru` before it is used as a comparator (ADR-0009)? 8 configs (hidden 12/32 × lr 0.003/0.01 × dropout 0/0.2) | Psych-101 dev (fit) / tune (select, report) | **Yes, at least as good everywhere**: tune NLL bandit2 0.360 [0.293, 0.435] vs Phase II 0.389; described 0.356 [0.314, 0.397] vs 0.372; garcia 0.442 [0.407, 0.476] vs 0.447. Every selected config sits on a grid edge (two-point grids); described had 3/8 fits at the 150-epoch cap — the A3-1 adequacy rule (≤ 25 %) is re-checked on the evaluation lane's 24-config pool runs before any freeze. restless4 part stopped for CPU (covered by the evaluation lane's pool runs). Strict causality check: pass | `reports/phase3/director/x3_001b_core_sanity/` |
 
 ## 4. Confirmatory ledger
 
