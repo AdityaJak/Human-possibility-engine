@@ -35,6 +35,7 @@ class PopRNNPredictor:
             self.k_max,
             cell=self.cell,
             layers=int(self.config.get("layers", 1)),
+            dropout=float(self.config.get("dropout", 0.0)),
         )
 
         def loss(m: torch.nn.Module, b: nets.Batch) -> tuple[torch.Tensor, int]:
@@ -48,9 +49,9 @@ class PopRNNPredictor:
             seed=seed,
             key=self.name,
             lr=float(self.config.get("lr", 0.01)),
-            max_epochs=int(self.config.get("max_epochs", 40)),
-            patience=int(self.config.get("patience", 5)),
-            batch_size=int(self.config.get("batch_size", 16)),
+            max_epochs=int(self.config.get("max_epochs", 150)),
+            patience=int(self.config.get("patience", 10)),
+            batch_size=int(self.config.get("batch_size", 8)),
             budget_s=budget_s,
             weight_decay=float(self.config.get("weight_decay", 0.0)),
         )

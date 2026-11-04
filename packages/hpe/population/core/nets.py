@@ -81,15 +81,23 @@ def train(
     seed: int,
     key: str,
     lr: float = 0.01,
-    max_epochs: int = 40,
-    patience: int = 5,
-    batch_size: int = 16,
+    max_epochs: int = 150,
+    patience: int = 10,
+    batch_size: int = 8,
     budget_s: float = 2700.0,
     weight_decay: float = 0.0,
     clip: float = 1.0,
+    plateau: int = 4,
+    min_lr: float = 1e-4,
     val_loss_fn: LossFn | None = None,
 ) -> dict[str, Any]:
-    """Adam with early stopping on a seeded 20 % participant split of ``seqs``; restores the best weights."""
+    """Adam with early stopping on a seeded 20 % participant split of ``seqs``; restores the best weights.
+
+    The learning rate is halved after ``plateau`` epochs without validation improvement (floor ``min_lr``);
+    training stops after ``patience`` such epochs, at ``max_epochs`` or when ``budget_s`` CPU-seconds are used.
+    X3-001 showed the first defaults (40 epochs, batch 16, no decay) stopped 3/4 restless4 fits while still
+    improving, i.e. an under-trained comparator; these defaults give ≈ 5x more updates.
+    """
     fit, val = split_train_val(seqs, seed, key)
     opt = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     rng = stream(seed, "phase3_batches", key)
@@ -111,6 +119,7 @@ def train(
     best_state = {k: v.detach().clone() for k, v in model.state_dict().items()}
     t0 = time.process_time()
     epochs, bad, history = 0, 0, [best]
+    since_decay = 0
     stopped = "max_epochs"
     for _ep in range(max_epochs):
         order = rng.permutation(len(fit))
@@ -127,10 +136,15 @@ def train(
         v = val_nll()
         history.append(v)
         if v < best - 1e-5:
-            best, bad = v, 0
+            best, bad, since_decay = v, 0, 0
             best_state = {k: t.detach().clone() for k, t in model.state_dict().items()}
         else:
             bad += 1
+            since_decay += 1
+            if plateau and since_decay >= plateau:
+                for g in opt.param_groups:
+                    g["lr"] = max(min_lr, g["lr"] * 0.5)
+                since_decay = 0
         if bad >= patience:
             stopped = "early_stop"
             break
@@ -144,6 +158,7 @@ def train(
         "best_val_nll": best,
         "val_history": [round(h, 5) for h in history],
         "stopped": stopped,
+        "final_lr": opt.param_groups[0]["lr"],
         "n_fit": len(fit),
         "n_val": len(val),
         "cpu_s": round(time.process_time() - t0, 2),
@@ -154,11 +169,19 @@ class PopRNN(nn.Module):
     """Population sequence model: RNN over encoding v3 (+ optional extra inputs) -> K logits."""
 
     def __init__(
-        self, d_in: int, hidden: int, k: int, cell: str = "gru", layers: int = 1, extra_in: int = 0
+        self,
+        d_in: int,
+        hidden: int,
+        k: int,
+        cell: str = "gru",
+        layers: int = 1,
+        extra_in: int = 0,
+        dropout: float = 0.0,
     ) -> None:
         super().__init__()
         rnn_cls = {"gru": nn.GRU, "lstm": nn.LSTM}[cell]
         self.cell = cell
+        self.drop = nn.Dropout(dropout)  # input dropout; inactive in eval mode (all predictions)
         self.rnn = rnn_cls(d_in + extra_in, hidden, num_layers=layers, batch_first=True)
         self.head = nn.Linear(hidden, k)
 
@@ -166,7 +189,7 @@ class PopRNN(nn.Module):
         self, x: torch.Tensor, avail: torch.Tensor, extra: torch.Tensor | None = None
     ) -> tuple[torch.Tensor, torch.Tensor]:
         inp = x if extra is None else torch.cat([x, extra], dim=-1)
-        h, _ = self.rnn(inp)
+        h, _ = self.rnn(self.drop(inp))
         return masked_log_softmax(self.head(h), avail), h
 
 
