@@ -59,6 +59,7 @@ def run_exp07(
     verify_hash: bool = True,
     log: Log = print,
 ) -> dict[str, Any]:
+    code_version = _code_version()  # captured before any output is written
     outdir.mkdir(parents=True, exist_ok=True)
     write_json(outdir / "definition.json", defn.model_dump(mode="json"))  # frozen before any analysis
     t0 = time.perf_counter()
@@ -141,7 +142,7 @@ def run_exp07(
         outdir / "run_info.json",
         {
             "created_at": _now(),
-            "code_version": _code_version(),
+            "code_version": code_version,
             "wall_time_s": round(time.perf_counter() - t0, 1),
             "registered_policy_classes": registry.registered(),
             "split_seeds": seeds,
@@ -319,6 +320,7 @@ def run_exp07b(
     verify_hash: bool = True,
     log: Log = print,
 ) -> dict[str, Any]:
+    code_version = _code_version()  # captured before any output is written
     outdir.mkdir(parents=True, exist_ok=True)
     write_json(outdir / "definition.json", defn.model_dump(mode="json"))
     digest = data.sha256_file(csv_path)
@@ -380,7 +382,7 @@ def run_exp07b(
         )
     estimates = {
         "created_at": _now(),
-        "code_version": _code_version(),
+        "code_version": code_version,
         "primary": primary,
         "sensitivity": sens,
         "time_moderated": {
