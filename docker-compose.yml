@@ -1,0 +1,40 @@
+# Local full stack: `docker compose up --build`, then open http://localhost:5173
+# No API keys required. Synthetic research prototype; not validated for predicting human futures.
+name: human-possibility-engine
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    image: hpe-api:0.1.0
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      HPE_DATA_DIR: /app/data
+      HPE_REPORTS_DIR: /app/reports
+      HPE_CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+      HPE_LLM_PROVIDER: none
+      HPE_MAX_AGENTS_PER_RUN: "2000"
+      HPE_MAX_CONCURRENT_JOBS: "2"
+    volumes:
+      - hpe-data:/app/data          # runtime SQLite DB, run logs, checkpoints (named volume, writable by uid 10001)
+      - ./reports:/app/reports:ro   # committed real outputs for offline demo mode
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: infra/docker/web.Dockerfile
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    image: hpe-web:0.1.0
+    ports:
+      - "127.0.0.1:5173:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  hpe-data: {}

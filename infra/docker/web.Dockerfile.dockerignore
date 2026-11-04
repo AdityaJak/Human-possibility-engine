@@ -1,0 +1,12 @@
+**/node_modules
+apps/web/dist
+.git
+.claude
+.venv
+data
+datasets
+reports
+packages
+**/__pycache__
+.env
+.env.*
