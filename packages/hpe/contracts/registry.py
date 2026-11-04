@@ -23,6 +23,7 @@ _REGISTRY: dict[str, PolicyFactoryBuilder] = {}
 
 _PROVIDERS: dict[str, str] = {
     "developmental": "hpe.development",
+    "hybrid_exemplar": "hpe.development",
     "static_persona": "hpe.evaluation.baselines",
     "memory_only": "hpe.evaluation.baselines",
     "plain_rl": "hpe.evaluation.baselines",

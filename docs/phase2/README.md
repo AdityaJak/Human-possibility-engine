@@ -15,7 +15,7 @@
 | `INVESTOR_TECHNICAL_BRIEF.md` | **not yet produced** | Stage 7 |
 | `BREAKTHROUGH_STATUS.md` | written (no breakthrough claimed; gate table) | updated at each stage |
 | `STATE_OF_THE_ART_BENCHMARK.md` (added requirement: Centaur, Simile, cognitive foundation models; reproduced vs published figures) | **not yet produced** | Stage 4–5 (human-validation lane) |
-| `COGNITIVE_ARCHITECTURE_NOTES.md` | **not yet produced** | Stage 3–4 (cognitive-architecture lane) |
+| `COGNITIVE_ARCHITECTURE_NOTES.md` | written (Candidate A mechanism, dev results, abandoned attempts; exploratory) | Stage 3–4 (cognitive-architecture lane) |
 
 Reproduction log for Stage 1: `reports/phase2/stage1_reproduction.json`.
 "Not yet produced" means exactly that; no file here contains projected results.
