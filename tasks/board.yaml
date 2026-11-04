@@ -1,7 +1,7 @@
 # Machine-readable task board (spec §47C). Status: todo | in_progress | review | done | blocked
 # Owner = lane branch. "done" requires the acceptance test to pass in the integrated branch.
 version: 1
-updated: "2026-11-04 Phase II: all lanes merged except affective (not executed); pilot B X-010 running; no confirmatory gate run"
+updated: "2026-11-04 Phase II closed: X-010 recorded, stop rule applied (no freeze), Stage 8 decision PIVOT; affective not executed"
 tasks:
   - id: T00-contracts
     title: Freeze v0.1 contracts (schemas, Policy protocol, World/Sink protocols, registry, TS/JSON export)
@@ -181,10 +181,10 @@ tasks:
     owner: director
     depends_on: [P2-02-human-validation, P2-03-cognitive]
     acceptance: "reports/phase2/human/p2_human_dev_pilot_hybrid committed; ledger row X-010"
-    status: in_progress
+    status: done
   - id: P2-08-decision
     title: Stage 8 GO / PIVOT / NO-GO on the foundational hypothesis
     owner: director
     depends_on: [P2-07-pilot-b]
     acceptance: "BREAKTHROUGH_STATUS.md decision with evidence; INVESTOR_TECHNICAL_BRIEF updated"
-    status: todo
+    status: done

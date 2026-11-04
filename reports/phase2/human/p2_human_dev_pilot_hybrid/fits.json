@@ -1,0 +1,556 @@
+{
+  "bandit2": {
+    "experiments": [
+      "gershman2018deconstructing/exp1.csv",
+      "gershman2018deconstructing/exp2.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 6.67,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder",
+          "lr_head"
+        ],
+        "lapse": 0.2,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 1.0
+        },
+        "select_objective": 0.5617871584391987,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 26.46,
+        "fit_log": null,
+        "grid_edges": [
+          "exemplar_beta",
+          "gate_lr",
+          "kernel_width",
+          "recency_decay"
+        ],
+        "lapse": 0.05,
+        "n_grid": 112,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exemplar_beta": 1.0,
+          "gate_lr": 0.2,
+          "kernel_width": 1.0,
+          "recency_decay": 0.9
+        },
+        "select_objective": 0.5853855590993114,
+        "status": "ok"
+      },
+      "memory_only": {
+        "cpu_seconds": 8.68,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.7751593577989996,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 2.82,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.05
+        },
+        "select_objective": 0.6823104210904313,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 0.0,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": null,
+        "n_grid": 0,
+        "note": "ValueError: ref_bayes_rule needs full (corrective) feedback",
+        "param_count": null,
+        "params": {},
+        "select_objective": null,
+        "status": "unavailable"
+      },
+      "ref_bias": {
+        "cpu_seconds": 0.63,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6806676820516474,
+        "status": "ok"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 9.09,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay"
+        ],
+        "lapse": 0.1,
+        "n_grid": 56,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 0.5,
+          "decay": 0.9,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.6103193019321002,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 36.75,
+        "fit_log": {
+          "best_val_nll": 0.3495615193882862,
+          "epochs": 15,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.01,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.3894380997994158,
+        "status": "ok"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 6.6,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.0,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.4,
+          "alpha": 0.9,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.5338696511054029,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 32,
+      "tune": 16
+    },
+    "role": "exploratory"
+  },
+  "described": {
+    "experiments": [
+      "plonsky2018when/exp1.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 44.32,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder"
+        ],
+        "lapse": 0.3,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 0.35
+        },
+        "select_objective": 0.655202648096225,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 203.64,
+        "fit_log": null,
+        "grid_edges": [
+          "exemplar_beta",
+          "gate_lr",
+          "kernel_width",
+          "recency_decay"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exemplar_beta": 1.0,
+          "gate_lr": 0.05,
+          "kernel_width": 0.5,
+          "recency_decay": 0.9
+        },
+        "select_objective": 0.6414040443617106,
+        "status": "ok"
+      },
+      "memory_only": {
+        "cpu_seconds": 89.09,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.775737961989879,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 20.35,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.05
+        },
+        "select_objective": 0.6636232810889107,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 60.78,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma",
+          "tau2"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 15,
+        "params": {
+          "sigma": 0.5,
+          "tau2": 3.0
+        },
+        "select_objective": 0.6689626373024602,
+        "status": "ok"
+      },
+      "ref_bias": {
+        "cpu_seconds": 3.89,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6781077596469114,
+        "status": "ok"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 332.89,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay",
+          "lr_att"
+        ],
+        "lapse": 0.0,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 6.0,
+          "c": 2.0,
+          "decay": 0.98,
+          "lr_att": 0.05
+        },
+        "select_objective": 0.6799311857233521,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 245.25,
+        "fit_log": {
+          "best_val_nll": 0.32650186395457864,
+          "epochs": 10,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.003,
+          "max_epochs": 10.0,
+          "max_steps_per_epoch": 60000.0,
+          "patience": 3.0,
+          "window": 64.0
+        },
+        "select_objective": 0.3719589834308027,
+        "status": "ok"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 50.36,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.1,
+          "alpha": 0.9,
+          "c": 3.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.6504585415315925,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 85,
+      "tune": 41
+    },
+    "role": "exploratory"
+  },
+  "garcia": {
+    "experiments": [
+      "garcia2023experiential/exp1.csv",
+      "garcia2023experiential/exp2.csv",
+      "garcia2023experiential/exp3.csv",
+      "garcia2023experiential/exp4.csv"
+    ],
+    "models": {
+      "developmental": {
+        "cpu_seconds": 22.37,
+        "fit_log": null,
+        "grid_edges": [
+          "exploration_base",
+          "lr_encoder",
+          "lr_head"
+        ],
+        "lapse": 0.3,
+        "n_grid": 84,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exploration_base": 0.3,
+          "lr_encoder": 0.06,
+          "lr_head": 0.1
+        },
+        "select_objective": 0.6404528695438041,
+        "status": "ok"
+      },
+      "hybrid_exemplar": {
+        "cpu_seconds": 82.05,
+        "fit_log": null,
+        "grid_edges": [
+          "exemplar_beta",
+          "gate_lr",
+          "kernel_width",
+          "recency_decay"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "exemplar_beta": 1.0,
+          "gate_lr": 0.05,
+          "kernel_width": 0.5,
+          "recency_decay": 0.99
+        },
+        "select_objective": 0.6246808965309453,
+        "status": "ok"
+      },
+      "memory_only": {
+        "cpu_seconds": 34.9,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "memory_capacity"
+        ],
+        "lapse": 0.3,
+        "n_grid": 63,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "beta": 6.0,
+          "memory_capacity": 64.0
+        },
+        "select_objective": 0.6511144516582401,
+        "status": "ok"
+      },
+      "plain_rl": {
+        "cpu_seconds": 12.02,
+        "fit_log": null,
+        "grid_edges": [
+          "lr"
+        ],
+        "lapse": 0.3,
+        "n_grid": 28,
+        "note": "",
+        "param_count": null,
+        "params": {
+          "lr": 0.01
+        },
+        "select_objective": 0.625845226577468,
+        "status": "ok"
+      },
+      "ref_bayes_rule": {
+        "cpu_seconds": 31.2,
+        "fit_log": null,
+        "grid_edges": [
+          "sigma",
+          "tau2"
+        ],
+        "lapse": 0.1,
+        "n_grid": 63,
+        "note": "",
+        "param_count": 15,
+        "params": {
+          "sigma": 0.5,
+          "tau2": 0.3
+        },
+        "select_objective": 0.6120392763311368,
+        "status": "ok"
+      },
+      "ref_bias": {
+        "cpu_seconds": 2.48,
+        "fit_log": null,
+        "grid_edges": [],
+        "lapse": 0.0,
+        "n_grid": 7,
+        "note": "",
+        "param_count": 1,
+        "params": {},
+        "select_objective": 0.6514991745158318,
+        "status": "ok"
+      },
+      "ref_exemplar": {
+        "cpu_seconds": 69.95,
+        "fit_log": null,
+        "grid_edges": [
+          "beta",
+          "c",
+          "decay",
+          "lr_att"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 16,
+        "params": {
+          "beta": 2.0,
+          "c": 2.0,
+          "decay": 0.98,
+          "lr_att": 0.0
+        },
+        "select_objective": 0.6426627347834343,
+        "status": "ok"
+      },
+      "ref_gru": {
+        "cpu_seconds": 148.12,
+        "fit_log": {
+          "best_val_nll": 0.4535219733762314,
+          "epochs": 15,
+          "param_count": 666
+        },
+        "grid_edges": [
+          "hidden",
+          "lr"
+        ],
+        "lapse": 0.02,
+        "n_grid": 28,
+        "note": "",
+        "param_count": 666,
+        "params": {
+          "hidden": 12.0,
+          "lr": 0.003,
+          "max_epochs": 15.0,
+          "patience": 4.0,
+          "window": 64.0
+        },
+        "select_objective": 0.4467191063715732,
+        "status": "ok"
+      },
+      "ref_pvl_delta": {
+        "cpu_seconds": 29.58,
+        "fit_log": null,
+        "grid_edges": [
+          "A",
+          "alpha",
+          "c",
+          "lam"
+        ],
+        "lapse": 0.3,
+        "n_grid": 112,
+        "note": "",
+        "param_count": 4,
+        "params": {
+          "A": 0.4,
+          "alpha": 0.5,
+          "c": 1.0,
+          "lam": 1.0
+        },
+        "select_objective": 0.617491645576676,
+        "status": "ok"
+      }
+    },
+    "n": {
+      "dev": 138,
+      "tune": 68
+    },
+    "role": "exploratory"
+  }
+}

@@ -414,6 +414,20 @@
     ]
   },
   {
+    "claim_id": "phase2:X-010",
+    "claim": "[EXPLORATORY, dev+tune] Candidate A (`hybrid_exemplar`) vs the strongest references on the three pristine Gate-D families (bandit2, garcia, described); 16-config grid of its own knobs, same lapse grid; fit dev / select tune / report tune",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "Candidate A does not approach the population-fitted GRU in any family: hybrid \u2212 GRU = bandit2 +0.196 [+0.135, +0.255], garcia +0.178 [+0.152, +0.202], described +0.269 [+0.223, +0.317] (report NLL 0.585 / 0.625 / 0.641 vs GRU 0.389 / 0.447 / 0.372). Against per-participant models it is a marginal improvement on the Phase I learner (garcia \u22120.016 [\u22120.023, \u22120.009], described \u22120.014 [\u22120.018, \u22120.010], bandit2 +0.024 [+0.009, +0.038]), beats the exemplar reference (\u22120.025 / \u22120.018 / \u22120.039, CIs exclude 0) and `memory_only` (\u22120.190 / \u22120.026 / \u22120.134), and is level with or behind PVL-Delta (bandit2 +",
+    "config_ref": "reports/phase2/human/p2_human_dev_pilot_hybrid/ (contrasts: scripts/phase2_contrasts.py)",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
     "claim_id": "phase2:X-007",
     "claim": "[EXPLORATORY, dev seeds] Gate A controls on v1 families, 20 agents \u00d7 10 dev seeds",
     "status": "inconclusive",

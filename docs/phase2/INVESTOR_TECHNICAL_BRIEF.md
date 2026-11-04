@@ -31,10 +31,12 @@ partitions, equal tuning budgets, an independent critic with veto, and automated
 cue-learning (−0.040 nats, controls confirming both mechanisms matter) and beats plain RL on 4/5 new
 synthetic families; learning is genuine under controls designed to fail it.
 
-**Where we lose.** A 2k-parameter sequence model fitted on *other people* beats every per-participant
-learner we have in 8 of 9 human families — the Phase I IGT advantage does not survive it. No
-architecture, ours included, learns non-linear compositional structure (parity/XOR) at the budgets
-used. Tailored intervention selection learned from 22 participants adds nothing over always-send.
+**Where we lose.** A 666-parameter sequence model fitted on *other people* beats every per-participant
+learner we have in 8 of 9 human families — the Phase I IGT advantage does not survive it — and Candidate
+A, the architecture built this phase, is 0.18–0.27 nats behind it on every pristine family (X-010); it
+improves on the Phase I learner by at most 0.016 nats. No architecture, ours included, learns non-linear
+compositional structure (parity/XOR) at the budgets used. Tailored intervention selection learned from 22
+participants adds nothing over always-send.
 
 **What we could not test.** Centaur-70B / Minitaur-8B cannot run here; published figures use a
 different protocol and are not comparable. Affect mechanisms were not executed. The second,
@@ -42,11 +44,15 @@ independent human dataset Gate D requires is identified but not adapted.
 
 ## What this means for the thesis
 
-The developmental premise is neither confirmed nor refuted. Two things changed this phase: the
+**Decision (Stage 8): PIVOT.** The developmental premise is neither confirmed nor refuted; no gate has a
+confirmatory pass and none was attempted, because the stop rule (freeze only when the candidate is within
+the margin of the best reference on the tuning partition) was applied. Two things changed this phase: the
 baseline bar is now a population-fitted model (which is also what Centaur is), and the next
 architecture must therefore learn a *prior across people* and then adapt per person (Candidate F) —
 or the question must be narrowed, explicitly and separately, to per-participant adaptation (D-ind).
-Both are preregistrable; neither has been run.
+Both are preregistrable; neither has been run. What an investor should take from this phase: the
+evaluation machinery is now strong enough to reject our own architecture quickly and cheaply (≈ 3.5
+CPU-hours for the whole phase), which is the precondition for any credible positive result later.
 
 ## Diligence pointers
 

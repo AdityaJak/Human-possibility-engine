@@ -90,8 +90,11 @@ Directly reproduced (tune partition, exploratory; details and CIs in `HUMAN_VALI
   and ahead of plain RL and memory-only in 7 of 9 families.
 * **Tie** on the weather-prediction task (n = 5 tune participants; −0.007 nats vs the Bayesian rule
   learner, below the 0.02 margin).
-* **Untested**: the hybrid exemplar candidate (not yet registered), the test partition (locked), any
-  second dataset, and any direct run of Centaur/Minitaur (section 3).
+* **Candidate A (hybrid exemplar, X-010)** also loses to the GRU on every pristine family (bandit2
+  +0.196, garcia +0.178, described +0.269 nats; CIs exclude 0); it beats the exemplar and memory-only
+  references everywhere and is level with PVL-Delta on garcia/described (`HUMAN_VALIDATION_V2.md` §6b).
+* **Untested**: the test partition (locked; no freeze was granted), any second dataset, and any direct
+  run of Centaur/Minitaur (section 3).
 
 Against the published figures (section 2) no comparison is valid: different participants, scoring unit,
 information and lapse treatment. Resource cost of our strongest baseline: the GRU fits in 2–20 s of
