@@ -1,0 +1,29 @@
+# Pre-specified confirmation of a heterogeneous treatment effect in HeartSteps V1 (Phase II, causal lane).
+# Written 2026-11-04 AFTER the dev-partition discovery (reports/phase2/causal/hte_dev.json) and BEFORE the
+# single test-partition run. Discovery rule (fixed in advance): up to 2 moderators with raw p < 0.10 on dev.
+# Dev result: only `weekend` qualified (beta1 = -0.3659, raw p = 0.099, Holm p = 0.497).
+id: hte_confirm_weekend
+dataset: heartsteps_v1_suggestions
+partition_file: reports/phase2/causal/partition.json
+evaluate_on: test            # 15 participants never used in discovery
+hypothesis: >-
+  The causal excursion effect of delivering an activity suggestion on log 30-minute step count is
+  smaller on weekends than on weekdays (negative weekend x suggestion interaction).
+falsification: >-
+  Not supported if, on the test partition, the Holm-adjusted p-value of the weekend interaction is
+  >= 0.05 or the interaction has a positive sign.
+moderators: [weekend]
+model: >-
+  WCLS (Boruvka et al. 2018) with Y = g'alpha + (A - p)(beta0 + beta1 * weekend) + e and
+  g = [1, log(pre + 0.5), study_day, weekend]; p = empirical P(send | available) in the test
+  partition; participant-cluster sandwich SE with CR1 and t(G-1); participant cluster bootstrap
+  (2000) reported alongside.
+decision_rule:
+  alpha_holm: 0.05
+  expected_sign:
+    weekend: -1
+n_bootstrap: 2000
+seed: 20261105
+caveats:
+  - "15 test participants; power for an interaction of this size is low (in simulation, beta1 = 0.20 with 37 participants was rejected in 50-74% of replicates); a null here is weak evidence of absence."
+  - "The exploratory dev effect is in-sample; this run is the only inferential test."

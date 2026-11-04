@@ -1,0 +1,106 @@
+{
+ "code_version": "10939b1e2487d674ad680b61f24b06ddc7fb0a8e+dirty",
+ "created_at": "2026-11-04T07:32:12Z",
+ "cpu_seconds": 3.95,
+ "wall_seconds": 1.97,
+ "partition": "test",
+ "label": "CONFIRMATORY (pre-specified, single run)",
+ "spec": {
+  "id": "hte_confirm_weekend",
+  "dataset": "heartsteps_v1_suggestions",
+  "partition_file": "reports/phase2/causal/partition.json",
+  "evaluate_on": "test",
+  "hypothesis": "The causal excursion effect of delivering an activity suggestion on log 30-minute step count is smaller on weekends than on weekdays (negative weekend x suggestion interaction).",
+  "falsification": "Not supported if, on the test partition, the Holm-adjusted p-value of the weekend interaction is >= 0.05 or the interaction has a positive sign.",
+  "moderators": [
+   "weekend"
+  ],
+  "model": "WCLS (Boruvka et al. 2018) with Y = g'alpha + (A - p)(beta0 + beta1 * weekend) + e and g = [1, log(pre + 0.5), study_day, weekend]; p = empirical P(send | available) in the test partition; participant-cluster sandwich SE with CR1 and t(G-1); participant cluster bootstrap (2000) reported alongside.",
+  "decision_rule": {
+   "alpha_holm": 0.05,
+   "expected_sign": {
+    "weekend": -1
+   }
+  },
+  "n_bootstrap": 2000,
+  "seed": 20261105,
+  "caveats": [
+   "15 test participants; power for an interaction of this size is low (in simulation, beta1 = 0.20 with 37 participants was rejected in 50-74% of replicates); a null here is weak evidence of absence.",
+   "The exploratory dev effect is in-sample; this run is the only inferential test."
+  ]
+ },
+ "provenance": {
+  "name": "heartsteps_v1_suggestions",
+  "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/main/data_files/suggestions.csv",
+  "sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+  "size_bytes": 4371854,
+  "licence": "CC-BY-4.0",
+  "licence_evidence": "LICENSE file in github.com/klasnja/HeartStepsV1 is 'Attribution 4.0 International'",
+  "citation": "Klasnja, P., Smith, S., Seewald, N. J., Lee, A., Hall, K., Luers, B., Hekler, E. B., & Murphy, S. A. (2019). Efficacy of Contextually Tailored Suggestions for Physical Activity: A Micro-randomized Optimization Trial of HeartSteps. Annals of Behavioral Medicine, 53(6), 573-582. doi:10.1093/abm/kay067",
+  "retrieved": "2026-11-04",
+  "local_path": "/home/user/Human-possibility-engine/.claude/worktrees/agent-a77d5957a4d3079fa/datasets/external/heartsteps_v1_suggestions.csv"
+ },
+ "sample": {
+  "n_obs": 2705,
+  "n_users": 15,
+  "p_send": 0.6070240295748613,
+  "p_walk": 0.3378927911275416,
+  "p_sed": 0.26876155268022184,
+  "mean_steps30": 240.49870609981517,
+  "is_randomized_equals_send": false,
+  "moderator_means": {
+   "evening": 0.33160813308687614,
+   "weekend": 0.2846580406654344,
+   "log_pre_c": -3.4673434794947586e-16,
+   "home": 0.30720887245841033,
+   "day_c": 0.03860511248365719
+  }
+ },
+ "centring_p": 0.6070240295748613,
+ "marginal_any_suggestion": {
+  "term": "any_suggestion:intercept",
+  "estimate": 0.14893863513907213,
+  "se_cluster_robust": 0.08419970498268291,
+  "t": 1.7688735984253612,
+  "df": 14,
+  "p_value": 0.09868646128116274,
+  "ci_low_sandwich": -0.031651771234392556,
+  "ci_high_sandwich": 0.3295290415125368,
+  "ci_low_bootstrap": -0.006972782294838845,
+  "ci_high_bootstrap": 0.30980319252204047,
+  "n_bootstrap": 2000,
+  "percent_effect": 16.06017668578172,
+  "centring_p": 0.6070240295748613,
+  "n_obs": 2705,
+  "n_users": 15
+ },
+ "moderators": [
+  {
+   "moderator": "weekend",
+   "beta0": 0.17402650579394904,
+   "beta1": -0.08769790799568138,
+   "se1": 0.19927431500717632,
+   "p_raw": 0.6665926867960916,
+   "p_holm": 0.6665926867960916,
+   "ci_low_boot": -0.44286207687401596,
+   "ci_high_boot": 0.3063706688398789,
+   "ci_low_sandwich": -0.5150988060670122,
+   "ci_high_sandwich": 0.33970299007564947,
+   "n_obs": 2705,
+   "n_users": 15
+  }
+ ],
+ "moderator_descriptions": {
+  "weekend": "local weekday is Saturday or Sunday"
+ },
+ "selected_for_confirmation": null,
+ "verdicts": [
+  {
+   "moderator": "weekend",
+   "beta1": -0.08769790799568138,
+   "p_holm": 0.6665926867960916,
+   "expected_sign": -1,
+   "passed": false
+  }
+ ]
+}

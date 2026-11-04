@@ -1,0 +1,32 @@
+# Pre-specified off-policy evaluation of a contextual suggestion policy learned on the dev partition
+# (Phase II, causal lane). Written 2026-11-04 AFTER the dev-partition exploratory run
+# (reports/phase2/causal/ope_dev.json) and BEFORE the single test-partition run.
+id: ope_confirm_contextual
+dataset: heartsteps_v1_suggestions
+partition_file: reports/phase2/causal/partition.json
+evaluate_on: test
+policy: >-
+  contextual_greedy: send a suggestion iff the dev-fitted linear outcome model's conditional effect
+  beta0 + beta' m(x) is positive, with moderators m(x) = [evening, weekend, log_pre_c, home, day_c].
+  The outcome model is refitted deterministically on the dev partition by the CLI (least squares);
+  its dev coefficients are recorded in reports/phase2/causal/ope_dev.json and must match.
+policy_moderators: [evening, weekend, log_pre_c, home, day_c]
+comparators: [never, always, behaviour]
+estimators: [IPW, doubly_robust]
+logging_probability: empirical P(send | available) on the dev partition (0.585)
+hypothesis: >-
+  Among held-out participants, the mean log 30-minute step count under the dev-learned contextual
+  policy exceeds that under never sending (doubly-robust estimate), i.e. tailoring who/when to
+  suggest captures more of the benefit than not suggesting.
+falsification: >-
+  Not supported if the participant-cluster bootstrap 95% CI of (contextual - never), doubly robust,
+  includes 0 on the test partition.
+decision_rule:
+  min_improvement_over_never: 0.0
+n_bootstrap: 2000
+seed: 20261105
+caveats:
+  - Retrospective off-policy estimate under randomisation-based identification; not a prospective
+    result; proximal (30-minute) outcome only; nothing about long-run behaviour or engagement.
+  - The dev-learned policy was selected in-sample; only this test run is inferential.
+  - 15 test participants; CIs will be wide.

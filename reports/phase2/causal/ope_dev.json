@@ -1,0 +1,178 @@
+{
+ "code_version": "10939b1e2487d674ad680b61f24b06ddc7fb0a8e+dirty",
+ "created_at": "2026-11-04T07:33:05Z",
+ "cpu_seconds": 6.7,
+ "wall_seconds": 5.34,
+ "partition": "dev",
+ "label": "EXPLORATORY (dev partition; policy learned on the same rows)",
+ "spec": null,
+ "provenance": {
+  "name": "heartsteps_v1_suggestions",
+  "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/main/data_files/suggestions.csv",
+  "sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+  "size_bytes": 4371854,
+  "licence": "CC-BY-4.0",
+  "licence_evidence": "LICENSE file in github.com/klasnja/HeartStepsV1 is 'Attribution 4.0 International'",
+  "citation": "Klasnja, P., Smith, S., Seewald, N. J., Lee, A., Hall, K., Luers, B., Hekler, E. B., & Murphy, S. A. (2019). Efficacy of Contextually Tailored Suggestions for Physical Activity: A Micro-randomized Optimization Trial of HeartSteps. Annals of Behavioral Medicine, 53(6), 573-582. doi:10.1093/abm/kay067",
+  "retrieved": "2026-11-04",
+  "local_path": "/home/user/Human-possibility-engine/.claude/worktrees/agent-a77d5957a4d3079fa/datasets/external/heartsteps_v1_suggestions.csv"
+ },
+ "sample": {
+  "n_obs": 3885,
+  "n_users": 22,
+  "p_send": 0.585070785070785,
+  "p_walk": 0.3276705276705277,
+  "p_sed": 0.2574002574002574,
+  "mean_steps30": 194.95958815958815,
+  "is_randomized_equals_send": false,
+  "moderator_means": {
+   "evening": 0.33745173745173745,
+   "weekend": 0.27927927927927926,
+   "log_pre_c": -1.6094661710910892e-16,
+   "home": 0.25302445302445303,
+   "day_c": 0.035919892017453006
+  }
+ },
+ "logging_p": 0.585070785070785,
+ "outcome_model": {
+  "moderators": [
+   "evening",
+   "weekend",
+   "log_pre_c",
+   "home",
+   "day_c"
+  ],
+  "coef": [
+   1.663937956738151,
+   0.38291789708324303,
+   0.004619409311905308,
+   0.06383675480300317,
+   0.19792987163646716,
+   -0.2070521686182479,
+   0.02750608120754716,
+   0.06746430693773782,
+   -0.319133445251299
+  ],
+  "fitted_on": "dev"
+ },
+ "policies": {
+  "never": {
+   "ipw": 2.812491644215844,
+   "ipw_ci": [
+    2.446390095488181,
+    3.196600705856282
+   ],
+   "dr": 2.773363240317159,
+   "dr_ci": [
+    2.451922296811512,
+    3.1118510882382333
+   ],
+   "share_send": 0.0,
+   "effective_sample_size_ipw": 1611.9999999999995,
+   "ipw_minus_always": -0.00956910124232957,
+   "ipw_minus_always_ci": [
+    -0.3378904760899201,
+    0.2995507345127925
+   ],
+   "dr_minus_always": -0.07841003392442358,
+   "dr_minus_always_ci": [
+    -0.25980290989531535,
+    0.09285133454130907
+   ]
+  },
+  "always": {
+   "ipw": 2.8220607454581734,
+   "ipw_ci": [
+    2.4584415927515195,
+    3.2195907412318348
+   ],
+   "dr": 2.8517732742415824,
+   "dr_ci": [
+    2.4944656606445204,
+    3.2461469354035146
+   ],
+   "share_send": 1.0,
+   "effective_sample_size_ipw": 2272.999999999998,
+   "ipw_minus_never": 0.00956910124232957,
+   "ipw_minus_never_ci": [
+    -0.29955073451279257,
+    0.3378904760899201
+   ],
+   "dr_minus_never": 0.07841003392442358,
+   "dr_minus_never_ci": [
+    -0.09285133454130921,
+    0.25980290989531524
+   ]
+  },
+  "behaviour": {
+   "ipw": 2.8180902457921153,
+   "ipw_ci": [
+    2.4781564372378404,
+    3.1731771518319634
+   ],
+   "dr": 2.819238660422748,
+   "dr_ci": [
+    2.480055974042567,
+    3.175449756890005
+   ],
+   "share_send": 0.585070785070785,
+   "effective_sample_size_ipw": 3885.0,
+   "ipw_minus_never": 0.005598601576271456,
+   "ipw_minus_never_ci": [
+    -0.17525838340993014,
+    0.1976898461138711
+   ],
+   "dr_minus_never": 0.04587542010558909,
+   "dr_minus_never_ci": [
+    -0.054324603194953976,
+    0.15200309245612617
+   ],
+   "ipw_minus_always": -0.003970499666058114,
+   "ipw_minus_always_ci": [
+    -0.140200629976049,
+    0.1242923511028624
+   ],
+   "dr_minus_always": -0.03253461381883449,
+   "dr_minus_always_ci": [
+    -0.10779981743918912,
+    0.038526731346355175
+   ]
+  },
+  "contextual_greedy": {
+   "ipw": 2.8769938361322813,
+   "ipw_ci": [
+    2.535049979046812,
+    3.2166767181078244
+   ],
+   "dr": 2.9274583996274868,
+   "dr_ci": [
+    2.5926247304607934,
+    3.271167879017758
+   ],
+   "share_send": 0.6517374517374518,
+   "effective_sample_size_ipw": 1966.9709154776092,
+   "ipw_minus_never": 0.06450219191643747,
+   "ipw_minus_never_ci": [
+    -0.19179850112135347,
+    0.3376114188965925
+   ],
+   "dr_minus_never": 0.1540951593103279,
+   "dr_minus_never_ci": [
+    0.003963663693103048,
+    0.30481686707471883
+   ],
+   "ipw_minus_always": 0.0549330906741079,
+   "ipw_minus_always_ci": [
+    -0.08553165785614278,
+    0.19889099763401308
+   ],
+   "dr_minus_always": 0.07568512538590433,
+   "dr_minus_always_ci": [
+    -0.024728913964700772,
+    0.19529609192440864
+   ]
+  }
+ },
+ "outcome_scale": "mean log(steps in 30 min after decision + 0.5) over available decision points",
+ "caveat": "Retrospective off-policy estimate under randomisation-based identification; not a prospective result."
+}
