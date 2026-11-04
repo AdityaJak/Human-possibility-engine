@@ -2,7 +2,7 @@
 #
 # Frozen copies, the permuted-feedback copy (sensitivity variant `permuted_feedback`, lab option
 # feedback_permutation: true) and the age-script null, under hpe.evaluation.learning_lab with common
-# random numbers. Dev seeds 1000-1009 only; the confirmatory copy must use seeds 500-509 and a new
+# confirmatory seeds: see docs/phase2/EXPERIMENT_REGISTRY.md section 1 (never listed here; dev definition)
 # experiment_id (the runner refuses to mix preregistration hashes).
 #
 # LIMITATION (contract v0.1.0 is frozen): hpe.contracts.schemas.PolicyClass does not include
@@ -100,6 +100,6 @@ definition:
     minimum_effect_of_interest: 0.10
     secondary_metrics: [final_log_loss]
   validity_notes:
-    - "Dev seeds; exploratory. Seeds 500-509 are reserved for the confirmatory copy."
+    # confirmatory seeds: see docs/phase2/EXPERIMENT_REGISTRY.md section 1 (never listed here; dev definition)
     - "Frozen copies: developmental use_learning=false (development lane flag); plain_rl lr=0.0 (baseline parameter). Both verified to leave the policy state hash unchanged after practice (scripts/gate_a_dev.py freeze check)."
     - "feedback_permutation keeps the observed items, decision count and update calls identical; only the outcome information is drawn from an independently sampled item of the same family and split."

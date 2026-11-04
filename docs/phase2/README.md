@@ -10,7 +10,7 @@
 | `CAUSAL_VALIDITY_REPORT.md` | written (estimator validation, HTE dev/test, OPE; Gate E not started) | Stage 4–5 (causal lane) |
 | `AFFECTIVE_MODEL_REPORT.md` | **not yet produced** | Stage 4–5 (affective lane) |
 | `RESEARCH_RESULTS_V2.md` | **not yet produced** | Stage 5 (director, from confirmatory ledger) |
-| `INDEPENDENT_REVIEW_V2.md` | **not yet produced** | Stage 6 (critic) |
+| `INDEPENDENT_REVIEW_V2.md` | written — design review (blocking findings acted on, see registry/thesis); results review pending | Stage 2 and 6 (critic) |
 | `SCIENTIFIC_LIMITATIONS.md` | **not yet produced** | Stage 7 |
 | `INVESTOR_TECHNICAL_BRIEF.md` | **not yet produced** | Stage 7 |
 | `BREAKTHROUGH_STATUS.md` | written (no breakthrough claimed; gate table) | updated at each stage |
