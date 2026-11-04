@@ -1,0 +1,834 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp06_transfer",
+  "preregistration_hash": "8ea8b2d414bfb432cf8734232d644bb5",
+  "status": "passed",
+  "status_reason": "primary contrast 'shared_representation_vs_specialists' (superiority): developmental vs developmental_specialists on transfer_auc/shared/trained: estimate +0.0895 (95% CI [+0.0503, +0.1228], n=10 seeds; relative +13.7%); threshold 0.0300 -> passed",
+  "arms": [
+    {
+      "arm": "developmental",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1349.0,
+          "sd": 0.0,
+          "ci_low": 1349.0,
+          "ci_high": 1349.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 69.0,
+          "sd": 8.246211251235321,
+          "ci_low": 64.8,
+          "ci_high": 74.7,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 73.8,
+          "sd": 10.21763181955584,
+          "ci_low": 68.1,
+          "ci_high": 79.8,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 198.6,
+          "sd": 78.17672287836066,
+          "ci_low": 155.7,
+          "ci_high": 246.60750000000002,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8489166666666668,
+          "sd": 0.03120973400352276,
+          "ci_low": 0.8317222222222223,
+          "ci_high": 0.8679444444444444,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8943333333333333,
+          "sd": 0.030934019788040962,
+          "ci_low": 0.8771645833333334,
+          "ci_high": 0.9129166666666665,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8879999999999999,
+          "sd": 0.03706475814431138,
+          "ci_low": 0.8668312499999998,
+          "ci_high": 0.9098333333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7644166666666666,
+          "sd": 0.07381998667094679,
+          "ci_low": 0.7239166666666667,
+          "ci_high": 0.808,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.36673093276187113,
+          "sd": 0.0805693363862401,
+          "ci_low": 0.31927272341001606,
+          "ci_high": 0.4122073299447766,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9041388888888887,
+          "sd": 0.00880988229564391,
+          "ci_low": 0.8990555555555556,
+          "ci_high": 0.9093340277777776,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.055222222222222214,
+          "sd": 0.03099233278341636,
+          "ci_low": 0.03688819444444443,
+          "ci_high": 0.07258402777777775,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.10829939585421322,
+          "sd": 0.01815098630524415,
+          "ci_low": 0.09744971319771002,
+          "ci_high": 0.11833338770732195,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.055174082098256805,
+          "sd": 0.02913717206528429,
+          "ci_low": -0.07173617532273993,
+          "ci_high": -0.03867471217648987,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/fresh": {
+          "mean": 0.6540833333333333,
+          "sd": 0.023087671945607156,
+          "ci_low": 0.6404148809523809,
+          "ci_high": 0.6670479166666666,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/trained": {
+          "mean": 0.5519404761904763,
+          "sd": 0.018592279876342526,
+          "ci_low": 0.5418333333333334,
+          "ci_high": 0.5631550595238095,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6692619047619048,
+          "sd": 0.029358740199509476,
+          "ci_low": 0.6526500000000001,
+          "ci_high": 0.6870014880952382,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7416785714285715,
+          "sd": 0.06859922023706086,
+          "ci_low": 0.6967011904761905,
+          "ci_high": 0.7766666666666667,
+          "n": 10.0
+        },
+        "transfer_gain/orthogonal": {
+          "mean": -0.10214285714285716,
+          "sd": 0.02376656176862442,
+          "ci_low": -0.11666785714285717,
+          "ci_high": -0.08939255952380952,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.07241666666666668,
+          "sd": 0.05977075889847452,
+          "ci_low": 0.03532113095238096,
+          "ci_high": 0.10514910714285719,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "developmental_specialists",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1349.0,
+          "sd": 0.0,
+          "ci_low": 1349.0,
+          "ci_high": 1349.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 66.9,
+          "sd": 6.332456079595025,
+          "ci_low": 63.6,
+          "ci_high": 71.1,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 74.1,
+          "sd": 9.279008567729637,
+          "ci_low": 68.7,
+          "ci_high": 79.5,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 201.9,
+          "sd": 63.797335367552776,
+          "ci_low": 164.4,
+          "ci_high": 240.30750000000003,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8519444444444444,
+          "sd": 0.027446481155994535,
+          "ci_low": 0.836888888888889,
+          "ci_high": 0.8690277777777776,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9164166666666667,
+          "sd": 0.02601059257160294,
+          "ci_low": 0.9013312499999999,
+          "ci_high": 0.9319166666666666,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8899999999999999,
+          "sd": 0.0381861102018217,
+          "ci_low": 0.86875,
+          "ci_high": 0.91275,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7494166666666666,
+          "sd": 0.05959100572202956,
+          "ci_low": 0.71683125,
+          "ci_high": 0.7864166666666665,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.357249297142089,
+          "sd": 0.06593135252722027,
+          "ci_low": 0.3168077115042776,
+          "ci_high": 0.39414126760562895,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9186388888888889,
+          "sd": 0.010092550118836903,
+          "ci_low": 0.9123055555555555,
+          "ci_high": 0.9240833333333333,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.06669444444444442,
+          "sd": 0.023422247551934193,
+          "ci_low": 0.05205555555555554,
+          "ci_high": 0.07949999999999995,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.11384162702015879,
+          "sd": 0.018619533321574473,
+          "ci_low": 0.10263462548952731,
+          "ci_high": 0.12431538758358915,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.05808575722400746,
+          "sd": 0.02280951581097974,
+          "ci_low": -0.07139259225176892,
+          "ci_high": -0.04442194041324659,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/fresh": {
+          "mean": 0.6541904761904762,
+          "sd": 0.01997280211660387,
+          "ci_low": 0.6422249999999999,
+          "ci_high": 0.6654883928571429,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/trained": {
+          "mean": 0.6438333333333335,
+          "sd": 0.01988556959342438,
+          "ci_low": 0.6320473214285715,
+          "ci_high": 0.6552860119047619,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6620833333333334,
+          "sd": 0.021178452834177585,
+          "ci_low": 0.6496300595238095,
+          "ci_high": 0.6746074404761905,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.652154761904762,
+          "sd": 0.02059125798774234,
+          "ci_low": 0.6399395833333333,
+          "ci_high": 0.6642863095238096,
+          "n": 10.0
+        },
+        "transfer_gain/orthogonal": {
+          "mean": -0.010357142857142867,
+          "sd": 0.0032135507684171193,
+          "ci_low": -0.012321726190476204,
+          "ci_high": -0.008523809523809532,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": -0.00992857142857143,
+          "sd": 0.004210539990827944,
+          "ci_low": -0.012464285714285712,
+          "ci_high": -0.007523511904761892,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "memory_only",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 69.9,
+          "sd": 8.83742043811428,
+          "ci_low": 64.8,
+          "ci_high": 75.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 85.5,
+          "sd": 25.029982021567655,
+          "ci_low": 71.7,
+          "ci_high": 101.1,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 356.1,
+          "sd": 157.41696223723795,
+          "ci_low": 264.0,
+          "ci_high": 453.00750000000005,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.7726666666666666,
+          "sd": 0.04484430465296527,
+          "ci_low": 0.7475527777777777,
+          "ci_high": 0.7993895833333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8342500000000002,
+          "sd": 0.03858502316113951,
+          "ci_low": 0.8120791666666668,
+          "ci_high": 0.8567541666666668,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8344166666666666,
+          "sd": 0.068280297846993,
+          "ci_low": 0.7949937499999999,
+          "ci_high": 0.8736708333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.6493333333333333,
+          "sd": 0.06588640617394846,
+          "ci_low": 0.6111666666666667,
+          "ci_high": 0.68891875,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.5732161302411027,
+          "sd": 0.0719967869705398,
+          "ci_low": 0.5306159809939206,
+          "ci_high": 0.6135060631535691,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9431111111111112,
+          "sd": 0.010851757046735376,
+          "ci_low": 0.9363888888888889,
+          "ci_high": 0.9491666666666667,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.17044444444444443,
+          "sd": 0.04462544163537503,
+          "ci_low": 0.14402083333333332,
+          "ci_high": 0.19583333333333336,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.17333307317061403,
+          "sd": 0.010591319157770236,
+          "ci_low": 0.16812691241611472,
+          "ci_high": 0.18023614064063076,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": 0.05389999999999999,
+          "sd": 0.04218771169230025,
+          "ci_low": 0.028599166666666672,
+          "ci_high": 0.07769652777777779,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/fresh": {
+          "mean": 0.6651666666666667,
+          "sd": 0.028435589785336057,
+          "ci_low": 0.6487377976190476,
+          "ci_high": 0.6821727678571428,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/trained": {
+          "mean": 0.6651666666666667,
+          "sd": 0.028435589785336057,
+          "ci_low": 0.6487377976190476,
+          "ci_high": 0.6821727678571428,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6693988095238095,
+          "sd": 0.0313563942181627,
+          "ci_low": 0.6509691964285713,
+          "ci_high": 0.6880776785714285,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6693988095238095,
+          "sd": 0.0313563942181627,
+          "ci_low": 0.6509691964285713,
+          "ci_high": 0.6880776785714285,
+          "n": 10.0
+        },
+        "transfer_gain/orthogonal": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "plain_rl",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 64.2,
+          "sd": 6.0332412515993425,
+          "ci_low": 60.9,
+          "ci_high": 68.1,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 68.7,
+          "sd": 8.179242018671413,
+          "ci_low": 64.2,
+          "ci_high": 73.8,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 230.7,
+          "sd": 132.10942434209605,
+          "ci_low": 157.8,
+          "ci_high": 309.3,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8368611111111111,
+          "sd": 0.04113280416984927,
+          "ci_low": 0.8137222222222222,
+          "ci_high": 0.8609166666666667,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8960833333333333,
+          "sd": 0.02948124011161195,
+          "ci_low": 0.8795833333333334,
+          "ci_high": 0.9135,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.87525,
+          "sd": 0.04984551752448703,
+          "ci_low": 0.8471645833333334,
+          "ci_high": 0.90391875,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.73925,
+          "sd": 0.08511561672147214,
+          "ci_low": 0.693,
+          "ci_high": 0.7898479166666668,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.3830236385200966,
+          "sd": 0.06664001076572282,
+          "ci_low": 0.34300861137862176,
+          "ci_high": 0.4202029336367694,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9171944444444445,
+          "sd": 0.016976265405136207,
+          "ci_low": 0.9071944444444444,
+          "ci_high": 0.92655625,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.0803333333333333,
+          "sd": 0.027456100388796492,
+          "ci_low": 0.06413749999999996,
+          "ci_high": 0.0959722222222222,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.12763277607316,
+          "sd": 0.012327094259374127,
+          "ci_low": 0.1208033427936075,
+          "ci_high": 0.13494898588654639,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.08146111111111112,
+          "sd": 0.03245004655253985,
+          "ci_low": -0.10062777777777776,
+          "ci_high": -0.06377208333333333,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/fresh": {
+          "mean": 0.6896904761904761,
+          "sd": 0.027748195699458775,
+          "ci_low": 0.6738562499999998,
+          "ci_high": 0.7061011904761905,
+          "n": 10.0
+        },
+        "transfer_auc/orthogonal/trained": {
+          "mean": 0.6896904761904761,
+          "sd": 0.027748195699458775,
+          "ci_low": 0.6738562499999998,
+          "ci_high": 0.7061011904761905,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6924107142857142,
+          "sd": 0.03508745832894408,
+          "ci_low": 0.6725642857142857,
+          "ci_high": 0.7131973214285715,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6924107142857142,
+          "sd": 0.03508745832894408,
+          "ci_low": 0.6725642857142857,
+          "ci_high": 0.7131973214285715,
+          "n": 10.0
+        },
+        "transfer_gain/orthogonal": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    }
+  ],
+  "effects": [
+    {
+      "metric": "transfer_auc/shared/trained",
+      "contrast": "shared_representation_vs_specialists: developmental - developmental_specialists",
+      "estimate": 0.08952380952380957,
+      "ci_low": 0.050307738095238086,
+      "ci_high": 0.12281279761904768,
+      "ci_level": 0.95,
+      "p_value": 0.005859375,
+      "standardized_effect": 1.447504671888611,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "transfer_auc/shared/trained",
+      "contrast": "shared_vs_plain_rl: developmental - plain_rl",
+      "estimate": 0.04926785714285716,
+      "ci_low": 0.01336889880952385,
+      "ci_high": 0.082268005952381,
+      "ci_level": 0.95,
+      "p_value": 0.037109375,
+      "standardized_effect": 0.8088100225664564,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "transfer_gain/shared",
+      "contrast": "transfer_gain_vs_plain_rl: developmental - plain_rl",
+      "estimate": 0.07241666666666668,
+      "ci_low": 0.03611875000000001,
+      "ci_high": 0.10628750000000001,
+      "ci_level": 0.95,
+      "p_value": 0.015625,
+      "standardized_effect": 1.2115734851162299,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "transfer_auc/orthogonal/trained",
+      "contrast": "orthogonal_control_no_benefit: developmental - developmental_specialists",
+      "estimate": -0.09189285714285712,
+      "ci_low": -0.10451249999999995,
+      "ci_high": -0.07835654761904759,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": -4.163952296073474,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "transfer_gain/orthogonal",
+      "contrast": "orthogonal_gain_vs_plain_rl: developmental - plain_rl",
+      "estimate": -0.10214285714285716,
+      "ci_low": -0.11660714285714287,
+      "ci_high": -0.08878571428571427,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": -4.2977548935034315,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    }
+  ],
+  "run_ids": [
+    "exp06_transfer__main__developmental__s0",
+    "exp06_transfer__main__developmental__s1",
+    "exp06_transfer__main__developmental__s2",
+    "exp06_transfer__main__developmental__s3",
+    "exp06_transfer__main__developmental__s4",
+    "exp06_transfer__main__developmental__s5",
+    "exp06_transfer__main__developmental__s6",
+    "exp06_transfer__main__developmental__s7",
+    "exp06_transfer__main__developmental__s8",
+    "exp06_transfer__main__developmental__s9",
+    "exp06_transfer__main__developmental_specialists__s0",
+    "exp06_transfer__main__developmental_specialists__s1",
+    "exp06_transfer__main__developmental_specialists__s2",
+    "exp06_transfer__main__developmental_specialists__s3",
+    "exp06_transfer__main__developmental_specialists__s4",
+    "exp06_transfer__main__developmental_specialists__s5",
+    "exp06_transfer__main__developmental_specialists__s6",
+    "exp06_transfer__main__developmental_specialists__s7",
+    "exp06_transfer__main__developmental_specialists__s8",
+    "exp06_transfer__main__developmental_specialists__s9",
+    "exp06_transfer__main__memory_only__s0",
+    "exp06_transfer__main__memory_only__s1",
+    "exp06_transfer__main__memory_only__s2",
+    "exp06_transfer__main__memory_only__s3",
+    "exp06_transfer__main__memory_only__s4",
+    "exp06_transfer__main__memory_only__s5",
+    "exp06_transfer__main__memory_only__s6",
+    "exp06_transfer__main__memory_only__s7",
+    "exp06_transfer__main__memory_only__s8",
+    "exp06_transfer__main__memory_only__s9",
+    "exp06_transfer__main__plain_rl__s0",
+    "exp06_transfer__main__plain_rl__s1",
+    "exp06_transfer__main__plain_rl__s2",
+    "exp06_transfer__main__plain_rl__s3",
+    "exp06_transfer__main__plain_rl__s4",
+    "exp06_transfer__main__plain_rl__s5",
+    "exp06_transfer__main__plain_rl__s6",
+    "exp06_transfer__main__plain_rl__s7",
+    "exp06_transfer__main__plain_rl__s8",
+    "exp06_transfer__main__plain_rl__s9"
+  ],
+  "sensitivity": [],
+  "ablations": [],
+  "figures": [
+    "figures/primary_metric.png",
+    "figures/learning_curves.png",
+    "figures/transfer_orthogonal.png",
+    "figures/transfer_shared.png"
+  ],
+  "limitations": [
+    "Barter is never practised during development; leakage/holdout_symbols_in_practice must be 0.",
+    "Because all rules are linear in the raw features, a shared representation can only help through sample efficiency."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T04:07:56.806950Z"
+}

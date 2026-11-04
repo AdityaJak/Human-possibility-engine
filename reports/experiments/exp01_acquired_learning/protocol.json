@@ -1,0 +1,127 @@
+{
+  "kind": "learning_lab",
+  "params": {
+    "n_agents": 20,
+    "episodes_per_family": 300,
+    "block": 10,
+    "checkpoint_every": 30,
+    "feedback_mode": "bandit",
+    "full_feedback_fraction": 0.0,
+    "label_noise": 0.05,
+    "age_start": 8.0,
+    "age_end": 18.0,
+    "enable_gate": true,
+    "criterion": 0.7,
+    "retention_gap_years": 3.0,
+    "transfer_modes": [
+      "shared"
+    ],
+    "transfer_shots": [
+      0,
+      8,
+      32
+    ]
+  },
+  "contrasts": [
+    {
+      "name": "instruction_vs_no_feedback_developmental",
+      "treatment": "dev_full",
+      "control": "dev_none",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.05,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": true,
+      "description": "instructional feedback must raise held-out accuracy by >= 0.05 over the no-feedback condition"
+    },
+    {
+      "name": "outcome_feedback_vs_none_developmental",
+      "treatment": "dev_bandit",
+      "control": "dev_none",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "instruction_vs_outcome_efficiency_developmental",
+      "treatment": "dev_full",
+      "control": "dev_bandit",
+      "metric": "episodes_to_criterion/compare",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "less",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "no_feedback_learning_is_null_developmental",
+      "treatment": "dev_none",
+      "control": "dev_none_frozen",
+      "metric": "final_heldout_accuracy",
+      "kind": "equivalence",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": 0.03,
+      "primary": false,
+      "description": "without any outcome information the learner should be no better than a frozen copy"
+    },
+    {
+      "name": "instruction_vs_no_feedback_plain_rl",
+      "treatment": "rl_full",
+      "control": "rl_none",
+      "metric": "final_heldout_accuracy",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "mechanism_check_static_persona",
+      "treatment": "static_full",
+      "control": "static_none",
+      "metric": "final_heldout_accuracy",
+      "kind": "equivalence",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": 0.02,
+      "primary": false,
+      "description": "a non-learning persona must show no feedback effect: differences arise from the learning mechanism, not hard-coded outputs"
+    },
+    {
+      "name": "retention_developmental_full",
+      "treatment": "dev_full",
+      "control": "rl_full",
+      "metric": "retention_change",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    }
+  ],
+  "sensitivity": [],
+  "pipeline_validation": false
+}

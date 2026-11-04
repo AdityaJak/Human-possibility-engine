@@ -1,0 +1,546 @@
+{
+  "jobs": [
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_ablations__main__developmental__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_learning",
+      "run_id": "exp_ablations__main__ablate_learning__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_feedback",
+      "run_id": "exp_ablations__main__ablate_feedback__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_memory",
+      "run_id": "exp_ablations__main__ablate_memory__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "run_id": "exp_ablations__main__ablate_shared_representation__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_social_learning",
+      "run_id": "exp_ablations__main__ablate_social_learning__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "run_id": "exp_ablations__main__ablate_plasticity_schedule__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_curriculum",
+      "run_id": "exp_ablations__main__ablate_curriculum__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "ablate_forgetting",
+      "run_id": "exp_ablations__main__ablate_forgetting__s9",
+      "seed": 9,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "35deebb2c439534ae1b859edf09687e3",
+  "skipped_arms": {}
+}

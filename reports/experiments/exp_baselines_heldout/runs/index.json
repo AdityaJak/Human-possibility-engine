@@ -1,0 +1,1206 @@
+{
+  "jobs": [
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__main__static_persona__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__main__memory_only__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__main__plain_rl__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__main__developmental__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s3",
+      "seed": 3,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s4",
+      "seed": 4,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s5",
+      "seed": 5,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s6",
+      "seed": 6,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s7",
+      "seed": 7,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s8",
+      "seed": 8,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__high_label_noise__static_persona__s9",
+      "seed": 9,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s3",
+      "seed": 3,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s4",
+      "seed": 4,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s5",
+      "seed": 5,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s6",
+      "seed": 6,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s7",
+      "seed": 7,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s8",
+      "seed": 8,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__high_label_noise__memory_only__s9",
+      "seed": 9,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s3",
+      "seed": 3,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s4",
+      "seed": 4,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s5",
+      "seed": 5,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s6",
+      "seed": 6,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s7",
+      "seed": 7,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s8",
+      "seed": 8,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__high_label_noise__plain_rl__s9",
+      "seed": 9,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s0",
+      "seed": 0,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s1",
+      "seed": 1,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s2",
+      "seed": 2,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s3",
+      "seed": 3,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s4",
+      "seed": 4,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s5",
+      "seed": 5,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s6",
+      "seed": 6,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s7",
+      "seed": 7,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s8",
+      "seed": 8,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__high_label_noise__developmental__s9",
+      "seed": 9,
+      "variant": "high_label_noise"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s0",
+      "seed": 0,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s1",
+      "seed": 1,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s2",
+      "seed": 2,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s3",
+      "seed": 3,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s4",
+      "seed": 4,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s5",
+      "seed": 5,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s6",
+      "seed": 6,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s7",
+      "seed": 7,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s8",
+      "seed": 8,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__static_persona__s9",
+      "seed": 9,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s0",
+      "seed": 0,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s1",
+      "seed": 1,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s2",
+      "seed": 2,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s3",
+      "seed": 3,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s4",
+      "seed": 4,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s5",
+      "seed": 5,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s6",
+      "seed": 6,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s7",
+      "seed": 7,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s8",
+      "seed": 8,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__memory_only__s9",
+      "seed": 9,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s0",
+      "seed": 0,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s1",
+      "seed": 1,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s2",
+      "seed": 2,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s3",
+      "seed": 3,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s4",
+      "seed": 4,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s5",
+      "seed": 5,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s6",
+      "seed": 6,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s7",
+      "seed": 7,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s8",
+      "seed": 8,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__plain_rl__s9",
+      "seed": 9,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s0",
+      "seed": 0,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s1",
+      "seed": 1,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s2",
+      "seed": 2,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s3",
+      "seed": 3,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s4",
+      "seed": 4,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s5",
+      "seed": 5,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s6",
+      "seed": 6,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s7",
+      "seed": 7,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s8",
+      "seed": 8,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__low_data_100_episodes__developmental__s9",
+      "seed": 9,
+      "variant": "low_data_100_episodes"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s0",
+      "seed": 0,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s1",
+      "seed": 1,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s2",
+      "seed": 2,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s3",
+      "seed": 3,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s4",
+      "seed": 4,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s5",
+      "seed": 5,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s6",
+      "seed": 6,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s7",
+      "seed": 7,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s8",
+      "seed": 8,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__no_age_gate__static_persona__s9",
+      "seed": 9,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s0",
+      "seed": 0,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s1",
+      "seed": 1,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s2",
+      "seed": 2,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s3",
+      "seed": 3,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s4",
+      "seed": 4,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s5",
+      "seed": 5,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s6",
+      "seed": 6,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s7",
+      "seed": 7,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s8",
+      "seed": 8,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__no_age_gate__memory_only__s9",
+      "seed": 9,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s0",
+      "seed": 0,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s1",
+      "seed": 1,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s2",
+      "seed": 2,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s3",
+      "seed": 3,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s4",
+      "seed": 4,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s5",
+      "seed": 5,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s6",
+      "seed": 6,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s7",
+      "seed": 7,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s8",
+      "seed": 8,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__no_age_gate__plain_rl__s9",
+      "seed": 9,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s0",
+      "seed": 0,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s1",
+      "seed": 1,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s2",
+      "seed": 2,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s3",
+      "seed": 3,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s4",
+      "seed": 4,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s5",
+      "seed": 5,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s6",
+      "seed": 6,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s7",
+      "seed": 7,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s8",
+      "seed": 8,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__no_age_gate__developmental__s9",
+      "seed": 9,
+      "variant": "no_age_gate"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s0",
+      "seed": 0,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s1",
+      "seed": 1,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s2",
+      "seed": 2,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s3",
+      "seed": 3,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s4",
+      "seed": 4,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s5",
+      "seed": 5,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s6",
+      "seed": 6,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s7",
+      "seed": 7,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s8",
+      "seed": 8,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "static_persona",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__static_persona__s9",
+      "seed": 9,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s0",
+      "seed": 0,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s1",
+      "seed": 1,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s2",
+      "seed": 2,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s3",
+      "seed": 3,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s4",
+      "seed": 4,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s5",
+      "seed": 5,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s6",
+      "seed": 6,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s7",
+      "seed": 7,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s8",
+      "seed": 8,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__memory_only__s9",
+      "seed": 9,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s0",
+      "seed": 0,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s1",
+      "seed": 1,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s2",
+      "seed": 2,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s3",
+      "seed": 3,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s4",
+      "seed": 4,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s5",
+      "seed": 5,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s6",
+      "seed": 6,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s7",
+      "seed": 7,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s8",
+      "seed": 8,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__plain_rl__s9",
+      "seed": 9,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s0",
+      "seed": 0,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s1",
+      "seed": 1,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s2",
+      "seed": 2,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s3",
+      "seed": 3,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s4",
+      "seed": 4,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s5",
+      "seed": 5,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s6",
+      "seed": 6,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s7",
+      "seed": 7,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s8",
+      "seed": 8,
+      "variant": "bandit_only_feedback"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp_baselines_heldout__bandit_only_feedback__developmental__s9",
+      "seed": 9,
+      "variant": "bandit_only_feedback"
+    }
+  ],
+  "preregistration_hash": "a2c3efe591fa8df730ccba91c97485f1",
+  "skipped_arms": {}
+}

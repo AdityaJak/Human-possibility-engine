@@ -1,0 +1,246 @@
+{
+  "jobs": [
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental",
+      "run_id": "exp06_transfer__main__developmental__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "developmental_specialists",
+      "run_id": "exp06_transfer__main__developmental_specialists__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "plain_rl",
+      "run_id": "exp06_transfer__main__plain_rl__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "memory_only",
+      "run_id": "exp06_transfer__main__memory_only__s9",
+      "seed": 9,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "8ea8b2d414bfb432cf8734232d644bb5",
+  "skipped_arms": {}
+}

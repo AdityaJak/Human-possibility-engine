@@ -1,0 +1,1966 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp_ablations",
+  "preregistration_hash": "35deebb2c439534ae1b859edf09687e3",
+  "status": "passed",
+  "status_reason": "primary contrast 'learning_is_necessary' (superiority): developmental vs ablate_learning on final_heldout_accuracy: estimate +0.4086 (95% CI [+0.3947, +0.4255], n=10 seeds; relative +91.9%); threshold 0.1000 -> passed",
+  "arms": [
+    {
+      "arm": "ablate_curriculum",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1439.0,
+          "sd": 0.0,
+          "ci_low": 1439.0,
+          "ci_high": 1439.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 70.8,
+          "sd": 11.331372379372235,
+          "ci_low": 64.8,
+          "ci_high": 78.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 72.9,
+          "sd": 10.959014554237985,
+          "ci_low": 66.9,
+          "ci_high": 79.5,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 187.8,
+          "sd": 86.9390591161418,
+          "ci_low": 140.99250000000004,
+          "ci_high": 243.3,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8530277777777778,
+          "sd": 0.02616701724490584,
+          "ci_low": 0.8386944444444444,
+          "ci_high": 0.8694173611111111,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9057499999999999,
+          "sd": 0.02701008613622729,
+          "ci_low": 0.8908333333333335,
+          "ci_high": 0.9225020833333334,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8883333333333333,
+          "sd": 0.03996912388578879,
+          "ci_low": 0.86483125,
+          "ci_high": 0.9111666666666667,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7649999999999999,
+          "sd": 0.06641271074235824,
+          "ci_low": 0.7268333333333333,
+          "ci_high": 0.8051687499999999,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.3476514990580261,
+          "sd": 0.06544521068201582,
+          "ci_low": 0.3075433220909122,
+          "ci_high": 0.38440589141910664,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9076944444444445,
+          "sd": 0.00950601751516526,
+          "ci_low": 0.9019166666666667,
+          "ci_high": 0.9131666666666666,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.054666666666666655,
+          "sd": 0.02819404153455347,
+          "ci_low": 0.03763680555555555,
+          "ci_high": 0.07080624999999999,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.1075526161284461,
+          "sd": 0.017307846028415688,
+          "ci_low": 0.09675573484342981,
+          "ci_high": 0.11723767036524856,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.006666666666666659,
+          "sd": 0.006669238187173733,
+          "ci_low": -0.010694444444444428,
+          "ci_high": -0.002944444444444442,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.05876309667526465,
+          "sd": 0.024322774355297668,
+          "ci_low": -0.07283404074486063,
+          "ci_high": -0.04400054022047213,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6658541666666666,
+          "sd": 0.02765484080423186,
+          "ci_low": 0.6489791666666667,
+          "ci_high": 0.6820223958333334,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7312083333333332,
+          "sd": 0.06130271415154206,
+          "ci_low": 0.6912677083333335,
+          "ci_high": 0.7627291666666667,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.06535416666666667,
+          "sd": 0.04779211368417633,
+          "ci_low": 0.036184375000000026,
+          "ci_high": 0.09133333333333335,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_feedback",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 90.0,
+          "sd": 0.0,
+          "ci_low": 90.0,
+          "ci_high": 90.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 354.0,
+          "sd": 64.21837743200929,
+          "ci_low": 315.8925,
+          "ci_high": 393.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 356.4,
+          "sd": 58.903310603055246,
+          "ci_low": 324.0,
+          "ci_high": 392.1,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 576.9,
+          "sd": 20.59368835347374,
+          "ci_low": 564.9,
+          "ci_high": 588.9,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.58025,
+          "sd": 0.020461266060025435,
+          "ci_low": 0.56794375,
+          "ci_high": 0.59175,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.6455,
+          "sd": 0.03661654823898982,
+          "ci_low": 0.62583125,
+          "ci_high": 0.6692499999999999,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.64625,
+          "sd": 0.03797792162380927,
+          "ci_low": 0.6226645833333334,
+          "ci_high": 0.6675020833333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.449,
+          "sd": 0.03679439034002097,
+          "ci_low": 0.4249145833333333,
+          "ci_high": 0.46775,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.764730958298067,
+          "sd": 0.01819547146984608,
+          "ci_low": 0.7541938782255877,
+          "ci_high": 0.7757395965397031,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.6059722222222221,
+          "sd": 0.027043140483086054,
+          "ci_low": 0.5900548611111112,
+          "ci_high": 0.6213347222222222,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.025722222222222212,
+          "sd": 0.015028664883334885,
+          "ci_low": 0.017915972222222205,
+          "ci_high": 0.035416666666666666,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.15035076807763206,
+          "sd": 0.00802136670423231,
+          "ci_low": 0.1459330576560545,
+          "ci_high": 0.15529948774626226,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.02202777777777778,
+          "sd": 0.011687261363950943,
+          "ci_low": -0.02913958333333334,
+          "ci_high": -0.015165972222222223,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.08024999999999999,
+          "sd": 0.020461266060025456,
+          "ci_low": -0.09175,
+          "ci_high": -0.06794374999999998,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_forgetting",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1439.0,
+          "sd": 0.0,
+          "ci_low": 1439.0,
+          "ci_high": 1439.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 71.4,
+          "sd": 13.401492454200763,
+          "ci_low": 64.5,
+          "ci_high": 79.8,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 70.5,
+          "sd": 11.157956802210698,
+          "ci_low": 64.5,
+          "ci_high": 77.4,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 183.9,
+          "sd": 80.07558928912107,
+          "ci_low": 140.4,
+          "ci_high": 233.7,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8542500000000001,
+          "sd": 0.029285926080496703,
+          "ci_low": 0.8379430555555556,
+          "ci_high": 0.8722784722222223,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9015833333333333,
+          "sd": 0.029794693578422602,
+          "ci_low": 0.8858312500000002,
+          "ci_high": 0.9197500000000002,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.891,
+          "sd": 0.034566986319462,
+          "ci_low": 0.8713333333333333,
+          "ci_high": 0.9119166666666667,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7701666666666667,
+          "sd": 0.06833084909666791,
+          "ci_low": 0.7321645833333333,
+          "ci_high": 0.8109999999999999,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.36197526561962984,
+          "sd": 0.08067729684053664,
+          "ci_low": 0.3125763627189229,
+          "ci_high": 0.40900372734574614,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9102499999999999,
+          "sd": 0.010764222416178783,
+          "ci_low": 0.9035833333333333,
+          "ci_high": 0.915917361111111,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.05599999999999997,
+          "sd": 0.03083519625114075,
+          "ci_low": 0.03805486111111109,
+          "ci_high": 0.07411458333333332,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.11064911396471647,
+          "sd": 0.019033883450219623,
+          "ci_low": 0.09908505052661407,
+          "ci_high": 0.12123239535869608,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.05551979329121655,
+          "sd": 0.025586074605052127,
+          "ci_low": -0.07016367034812677,
+          "ci_high": -0.04023241178703663,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6658541666666666,
+          "sd": 0.02765484080423186,
+          "ci_low": 0.6495208333333332,
+          "ci_high": 0.6826468750000001,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7284375000000001,
+          "sd": 0.060629752741028636,
+          "ci_low": 0.6903505208333334,
+          "ci_high": 0.7592729166666666,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.06258333333333335,
+          "sd": 0.04813909726184305,
+          "ci_low": 0.03391614583333334,
+          "ci_high": 0.08902135416666666,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_learning",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.33333333333333315,
+          "sd": 0.0,
+          "ci_low": 0.33333333333333315,
+          "ci_high": 0.33333333333333315,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.8283022165960002,
+          "sd": 0.0,
+          "ci_low": 0.8283022165960002,
+          "ci_high": 0.8283022165960002,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.05222222222222221,
+          "sd": 0.017411347071915773,
+          "ci_low": 0.04222222222222223,
+          "ci_high": 0.06277777777777774,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": 0.0555555555555556,
+          "sd": 0.0,
+          "ci_low": 0.0555555555555556,
+          "ci_high": 0.0555555555555556,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_memory",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 990.0,
+          "sd": 0.0,
+          "ci_low": 990.0,
+          "ci_high": 990.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 71.4,
+          "sd": 5.966573556070519,
+          "ci_low": 68.1,
+          "ci_high": 75.3,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 75.3,
+          "sd": 6.700746227100382,
+          "ci_low": 71.7,
+          "ci_high": 79.5,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 198.6,
+          "sd": 77.14661366515058,
+          "ci_low": 158.39250000000004,
+          "ci_high": 246.30750000000003,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8461111111111113,
+          "sd": 0.030695806070016516,
+          "ci_low": 0.8297486111111112,
+          "ci_high": 0.8654444444444443,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8980833333333333,
+          "sd": 0.026741936594785045,
+          "ci_low": 0.88225,
+          "ci_high": 0.9135020833333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8889166666666668,
+          "sd": 0.03471677735086639,
+          "ci_low": 0.8689979166666668,
+          "ci_high": 0.9098333333333335,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7513333333333334,
+          "sd": 0.07063665505272065,
+          "ci_low": 0.71183125,
+          "ci_high": 0.7942520833333334,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.37727832368405867,
+          "sd": 0.07822300880705507,
+          "ci_low": 0.32966187526390656,
+          "ci_high": 0.4207280127251515,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.8959444444444445,
+          "sd": 0.011110493810012782,
+          "ci_low": 0.8897222222222222,
+          "ci_high": 0.9027499999999998,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.04983333333333333,
+          "sd": 0.029280114461536142,
+          "ci_low": 0.032222222222222215,
+          "ci_high": 0.06611249999999999,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.11385830307669235,
+          "sd": 0.01712386543373205,
+          "ci_low": 0.1032410258567898,
+          "ci_high": 0.12304313030344098,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.009527777777777779,
+          "sd": 0.005162068177949586,
+          "ci_low": -0.012416666666666668,
+          "ci_high": -0.006361111111111113,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.06308127615192027,
+          "sd": 0.024891584064676068,
+          "ci_low": -0.0777291732846266,
+          "ci_high": -0.04880522177106346,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6534375,
+          "sd": 0.027359392571523183,
+          "ci_low": 0.6377067708333333,
+          "ci_high": 0.6691255208333333,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7280833333333333,
+          "sd": 0.05790532462883159,
+          "ci_low": 0.6908708333333333,
+          "ci_high": 0.7573760416666667,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.07464583333333334,
+          "sd": 0.044736243704312124,
+          "ci_low": 0.047144270833333335,
+          "ci_high": 0.09979375000000004,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_plasticity_schedule",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1439.0,
+          "sd": 0.0,
+          "ci_low": 1439.0,
+          "ci_high": 1439.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 65.4,
+          "sd": 5.796550698475776,
+          "ci_low": 62.4,
+          "ci_high": 69.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 69.3,
+          "sd": 10.530906893520616,
+          "ci_low": 63.9,
+          "ci_high": 76.2,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 167.4,
+          "sd": 73.56357794452362,
+          "ci_low": 129.6,
+          "ci_high": 216.9,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8645833333333333,
+          "sd": 0.02759515585906597,
+          "ci_low": 0.8494430555555557,
+          "ci_high": 0.8823333333333332,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9164166666666664,
+          "sd": 0.025098724821279703,
+          "ci_low": 0.9024166666666666,
+          "ci_high": 0.9313333333333332,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8995,
+          "sd": 0.04009864379960867,
+          "ci_low": 0.8759145833333334,
+          "ci_high": 0.9233333333333331,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7778333333333334,
+          "sd": 0.06876579504303894,
+          "ci_low": 0.7380000000000001,
+          "ci_high": 0.8183354166666666,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.31349213224414085,
+          "sd": 0.060190381758764074,
+          "ci_low": 0.2756357779459126,
+          "ci_high": 0.34694514084322947,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.923361111111111,
+          "sd": 0.005706964556087988,
+          "ci_low": 0.9200277777777778,
+          "ci_high": 0.9266666666666665,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.05877777777777775,
+          "sd": 0.026978055910051604,
+          "ci_low": 0.04160902777777777,
+          "ci_high": 0.07369583333333331,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.10702612074550255,
+          "sd": 0.013294839211023389,
+          "ci_low": 0.09863098529728222,
+          "ci_high": 0.11450824681542617,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.01033333333333333,
+          "sd": 0.004041960979483942,
+          "ci_low": -0.012805555555555551,
+          "ci_high": -0.008111111111111109,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.07527867238278349,
+          "sd": 0.02104011319807317,
+          "ci_low": -0.08804038841296342,
+          "ci_high": -0.06321988586706898,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6623333333333333,
+          "sd": 0.02588979790964913,
+          "ci_low": 0.6473119791666666,
+          "ci_high": 0.6772916666666667,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7388125,
+          "sd": 0.05698042985599597,
+          "ci_low": 0.7027270833333332,
+          "ci_high": 0.7680416666666666,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.07647916666666668,
+          "sd": 0.044422243804188535,
+          "ci_low": 0.04937395833333333,
+          "ci_high": 0.100625,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_shared_representation",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1439.0,
+          "sd": 0.0,
+          "ci_low": 1439.0,
+          "ci_high": 1439.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 67.2,
+          "sd": 4.9396356140913875,
+          "ci_low": 64.5,
+          "ci_high": 70.2,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 73.5,
+          "sd": 10.124228365658293,
+          "ci_low": 67.8,
+          "ci_high": 79.5,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 189.9,
+          "sd": 63.7502941169686,
+          "ci_low": 153.3,
+          "ci_high": 227.4,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8536666666666667,
+          "sd": 0.027396081243303977,
+          "ci_low": 0.8387493055555557,
+          "ci_high": 0.8705020833333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9190833333333333,
+          "sd": 0.02614492491412878,
+          "ci_low": 0.90358125,
+          "ci_high": 0.9342541666666668,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.892,
+          "sd": 0.03701893075938173,
+          "ci_low": 0.87108125,
+          "ci_high": 0.9139166666666665,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7499166666666667,
+          "sd": 0.06100426265211632,
+          "ci_low": 0.71658125,
+          "ci_high": 0.7872520833333333,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.35242600510393546,
+          "sd": 0.06729921015666662,
+          "ci_low": 0.3123174443390122,
+          "ci_high": 0.38931934288864734,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9214722222222221,
+          "sd": 0.008588730374018342,
+          "ci_low": 0.9160548611111112,
+          "ci_high": 0.9261395833333332,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.06780555555555552,
+          "sd": 0.02328384301783131,
+          "ci_low": 0.0535534722222222,
+          "ci_high": 0.07983402777777775,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.11053053046758876,
+          "sd": 0.019219172264754943,
+          "ci_low": 0.09884420417282748,
+          "ci_high": 0.12088024588659263,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.004916666666666672,
+          "sd": 0.007235327615695582,
+          "ci_low": -0.008833333333333328,
+          "ci_high": -0.00044374999999999905,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.05565468261684452,
+          "sd": 0.021898154941932264,
+          "ci_low": -0.06817893860747727,
+          "ci_high": -0.042889151801516825,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6611875,
+          "sd": 0.021640843318527055,
+          "ci_low": 0.6487286458333332,
+          "ci_high": 0.6738130208333334,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6521250000000001,
+          "sd": 0.021434790213143703,
+          "ci_low": 0.6400619791666666,
+          "ci_high": 0.6647927083333334,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": -0.009062500000000005,
+          "sd": 0.0056776938594581185,
+          "ci_low": -0.012312500000000002,
+          "ci_high": -0.005728645833333336,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "ablate_social_learning",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1349.0,
+          "sd": 0.0,
+          "ci_low": 1349.0,
+          "ci_high": 1349.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 69.0,
+          "sd": 8.246211251235321,
+          "ci_low": 64.8,
+          "ci_high": 74.7,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 73.8,
+          "sd": 10.21763181955584,
+          "ci_low": 67.8,
+          "ci_high": 80.1,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 198.6,
+          "sd": 78.17672287836066,
+          "ci_low": 154.79250000000005,
+          "ci_high": 246.90750000000003,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8489166666666668,
+          "sd": 0.03120973400352276,
+          "ci_low": 0.8316666666666667,
+          "ci_high": 0.867945138888889,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8943333333333333,
+          "sd": 0.030934019788040962,
+          "ci_low": 0.8765812499999999,
+          "ci_high": 0.9133354166666666,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8879999999999999,
+          "sd": 0.03706475814431138,
+          "ci_low": 0.8666645833333332,
+          "ci_high": 0.9099166666666665,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7644166666666666,
+          "sd": 0.07381998667094679,
+          "ci_low": 0.7236666666666667,
+          "ci_high": 0.8101666666666667,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.36673093276187113,
+          "sd": 0.0805693363862401,
+          "ci_low": 0.3184764623611277,
+          "ci_high": 0.41112075333145437,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9041388888888887,
+          "sd": 0.00880988229564391,
+          "ci_low": 0.898861111111111,
+          "ci_high": 0.9094458333333334,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.055222222222222214,
+          "sd": 0.03099233278341636,
+          "ci_low": 0.03658125,
+          "ci_high": 0.07286180555555556,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.10829939585421322,
+          "sd": 0.01815098630524415,
+          "ci_low": 0.09708167280812721,
+          "ci_high": 0.1180425493113089,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.007166666666666664,
+          "sd": 0.006957148872847086,
+          "ci_low": -0.011138888888888886,
+          "ci_high": -0.002943749999999993,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.055174082098256805,
+          "sd": 0.02913717206528429,
+          "ci_low": -0.07236724505759806,
+          "ci_high": -0.03826854670659292,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6658541666666666,
+          "sd": 0.02765484080423186,
+          "ci_low": 0.6495208333333332,
+          "ci_high": 0.6815421875000001,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7273541666666666,
+          "sd": 0.05958835529859298,
+          "ci_low": 0.6877697916666666,
+          "ci_high": 0.7578963541666666,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0615,
+          "sd": 0.04811420634128606,
+          "ci_low": 0.03228750000000001,
+          "ci_high": 0.08856354166666668,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "developmental",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1439.0,
+          "sd": 0.0,
+          "ci_low": 1439.0,
+          "ci_high": 1439.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 70.8,
+          "sd": 11.331372379372235,
+          "ci_low": 64.8,
+          "ci_high": 78.3,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 72.9,
+          "sd": 10.959014554237985,
+          "ci_low": 66.9,
+          "ci_high": 79.8,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 187.8,
+          "sd": 86.9390591161418,
+          "ci_low": 141.6,
+          "ci_high": 243.9,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8530277777777778,
+          "sd": 0.02616701724490584,
+          "ci_low": 0.8388881944444445,
+          "ci_high": 0.8691395833333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9057499999999999,
+          "sd": 0.02701008613622729,
+          "ci_low": 0.8903333333333334,
+          "ci_high": 0.9229166666666666,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8883333333333333,
+          "sd": 0.03996912388578879,
+          "ci_low": 0.8636666666666667,
+          "ci_high": 0.9118333333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7649999999999999,
+          "sd": 0.06641271074235824,
+          "ci_low": 0.7259979166666668,
+          "ci_high": 0.8038354166666667,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.3476514990580261,
+          "sd": 0.06544521068201582,
+          "ci_low": 0.30832264225889283,
+          "ci_high": 0.3834155159923146,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9076944444444445,
+          "sd": 0.00950601751516526,
+          "ci_low": 0.9019999999999999,
+          "ci_high": 0.9129444444444443,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.054666666666666655,
+          "sd": 0.02819404153455347,
+          "ci_low": 0.03830555555555553,
+          "ci_high": 0.07050069444444443,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.1075526161284461,
+          "sd": 0.017307846028415688,
+          "ci_low": 0.09701796962502995,
+          "ci_high": 0.11721426592066264,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 19980.0,
+          "sd": 0.0,
+          "ci_low": 19980.0,
+          "ci_high": 19980.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.006666666666666659,
+          "sd": 0.006669238187173733,
+          "ci_low": -0.01055624999999999,
+          "ci_high": -0.0027770833333333267,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.05876309667526465,
+          "sd": 0.024322774355297668,
+          "ci_low": -0.07304955145258596,
+          "ci_high": -0.04471333320570581,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6658541666666666,
+          "sd": 0.02765484080423186,
+          "ci_low": 0.649353125,
+          "ci_high": 0.6815010416666667,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7312083333333332,
+          "sd": 0.06130271415154206,
+          "ci_low": 0.6927494791666666,
+          "ci_high": 0.7635624999999999,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.06535416666666667,
+          "sd": 0.04779211368417633,
+          "ci_low": 0.036187500000000004,
+          "ci_high": 0.09152187500000002,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    }
+  ],
+  "effects": [
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "learning_is_necessary: developmental - ablate_learning",
+      "estimate": 0.40858333333333324,
+      "ci_low": 0.39469374999999995,
+      "ci_high": 0.42552777777777767,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": 15.614440480902562,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "feedback_is_necessary: developmental - ablate_feedback",
+      "estimate": 0.2727777777777778,
+      "ci_low": 0.26044375,
+      "ci_high": 0.28544513888888895,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": 12.477003779689474,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "memory_contribution: developmental - ablate_memory",
+      "estimate": 0.0069166666666666266,
+      "ci_low": 0.002777083333333347,
+      "ci_high": 0.011222916666666615,
+      "ci_level": 0.95,
+      "p_value": 0.01171875,
+      "standardized_effect": 0.9903904682216871,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "transfer_auc/shared/trained",
+      "contrast": "shared_representation_contribution: developmental - ablate_shared_representation",
+      "estimate": 0.07908333333333337,
+      "ci_low": 0.04505989583333335,
+      "ci_high": 0.10721093750000002,
+      "ci_level": 0.95,
+      "p_value": 0.005859375,
+      "standardized_effect": 1.4912858368687403,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "social_learning_contribution: developmental - ablate_social_learning",
+      "estimate": 0.004111111111111088,
+      "ci_low": -0.003611805555555596,
+      "ci_high": 0.01316666666666666,
+      "ci_level": 0.95,
+      "p_value": 0.39453125,
+      "standardized_effect": 0.2907268734385825,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "plasticity_schedule_contribution: developmental - ablate_plasticity_schedule",
+      "estimate": -0.011555555555555552,
+      "ci_low": -0.015388888888888907,
+      "ci_high": -0.007722222222222241,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": -1.7457704501512095,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "curriculum_contribution: developmental - ablate_curriculum",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": 1.0,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "retention_change",
+      "contrast": "forgetting_effect_on_retention: developmental - ablate_forgetting",
+      "estimate": -0.006666666666666659,
+      "ci_low": -0.010639583333333322,
+      "ci_high": -0.002749999999999999,
+      "ci_level": 0.95,
+      "p_value": 0.01171875,
+      "standardized_effect": -0.9996144206527187,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    }
+  ],
+  "run_ids": [
+    "exp_ablations__main__ablate_curriculum__s0",
+    "exp_ablations__main__ablate_curriculum__s1",
+    "exp_ablations__main__ablate_curriculum__s2",
+    "exp_ablations__main__ablate_curriculum__s3",
+    "exp_ablations__main__ablate_curriculum__s4",
+    "exp_ablations__main__ablate_curriculum__s5",
+    "exp_ablations__main__ablate_curriculum__s6",
+    "exp_ablations__main__ablate_curriculum__s7",
+    "exp_ablations__main__ablate_curriculum__s8",
+    "exp_ablations__main__ablate_curriculum__s9",
+    "exp_ablations__main__ablate_feedback__s0",
+    "exp_ablations__main__ablate_feedback__s1",
+    "exp_ablations__main__ablate_feedback__s2",
+    "exp_ablations__main__ablate_feedback__s3",
+    "exp_ablations__main__ablate_feedback__s4",
+    "exp_ablations__main__ablate_feedback__s5",
+    "exp_ablations__main__ablate_feedback__s6",
+    "exp_ablations__main__ablate_feedback__s7",
+    "exp_ablations__main__ablate_feedback__s8",
+    "exp_ablations__main__ablate_feedback__s9",
+    "exp_ablations__main__ablate_forgetting__s0",
+    "exp_ablations__main__ablate_forgetting__s1",
+    "exp_ablations__main__ablate_forgetting__s2",
+    "exp_ablations__main__ablate_forgetting__s3",
+    "exp_ablations__main__ablate_forgetting__s4",
+    "exp_ablations__main__ablate_forgetting__s5",
+    "exp_ablations__main__ablate_forgetting__s6",
+    "exp_ablations__main__ablate_forgetting__s7",
+    "exp_ablations__main__ablate_forgetting__s8",
+    "exp_ablations__main__ablate_forgetting__s9",
+    "exp_ablations__main__ablate_learning__s0",
+    "exp_ablations__main__ablate_learning__s1",
+    "exp_ablations__main__ablate_learning__s2",
+    "exp_ablations__main__ablate_learning__s3",
+    "exp_ablations__main__ablate_learning__s4",
+    "exp_ablations__main__ablate_learning__s5",
+    "exp_ablations__main__ablate_learning__s6",
+    "exp_ablations__main__ablate_learning__s7",
+    "exp_ablations__main__ablate_learning__s8",
+    "exp_ablations__main__ablate_learning__s9",
+    "exp_ablations__main__ablate_memory__s0",
+    "exp_ablations__main__ablate_memory__s1",
+    "exp_ablations__main__ablate_memory__s2",
+    "exp_ablations__main__ablate_memory__s3",
+    "exp_ablations__main__ablate_memory__s4",
+    "exp_ablations__main__ablate_memory__s5",
+    "exp_ablations__main__ablate_memory__s6",
+    "exp_ablations__main__ablate_memory__s7",
+    "exp_ablations__main__ablate_memory__s8",
+    "exp_ablations__main__ablate_memory__s9",
+    "exp_ablations__main__ablate_plasticity_schedule__s0",
+    "exp_ablations__main__ablate_plasticity_schedule__s1",
+    "exp_ablations__main__ablate_plasticity_schedule__s2",
+    "exp_ablations__main__ablate_plasticity_schedule__s3",
+    "exp_ablations__main__ablate_plasticity_schedule__s4",
+    "exp_ablations__main__ablate_plasticity_schedule__s5",
+    "exp_ablations__main__ablate_plasticity_schedule__s6",
+    "exp_ablations__main__ablate_plasticity_schedule__s7",
+    "exp_ablations__main__ablate_plasticity_schedule__s8",
+    "exp_ablations__main__ablate_plasticity_schedule__s9",
+    "exp_ablations__main__ablate_shared_representation__s0",
+    "exp_ablations__main__ablate_shared_representation__s1",
+    "exp_ablations__main__ablate_shared_representation__s2",
+    "exp_ablations__main__ablate_shared_representation__s3",
+    "exp_ablations__main__ablate_shared_representation__s4",
+    "exp_ablations__main__ablate_shared_representation__s5",
+    "exp_ablations__main__ablate_shared_representation__s6",
+    "exp_ablations__main__ablate_shared_representation__s7",
+    "exp_ablations__main__ablate_shared_representation__s8",
+    "exp_ablations__main__ablate_shared_representation__s9",
+    "exp_ablations__main__ablate_social_learning__s0",
+    "exp_ablations__main__ablate_social_learning__s1",
+    "exp_ablations__main__ablate_social_learning__s2",
+    "exp_ablations__main__ablate_social_learning__s3",
+    "exp_ablations__main__ablate_social_learning__s4",
+    "exp_ablations__main__ablate_social_learning__s5",
+    "exp_ablations__main__ablate_social_learning__s6",
+    "exp_ablations__main__ablate_social_learning__s7",
+    "exp_ablations__main__ablate_social_learning__s8",
+    "exp_ablations__main__ablate_social_learning__s9",
+    "exp_ablations__main__developmental__s0",
+    "exp_ablations__main__developmental__s1",
+    "exp_ablations__main__developmental__s2",
+    "exp_ablations__main__developmental__s3",
+    "exp_ablations__main__developmental__s4",
+    "exp_ablations__main__developmental__s5",
+    "exp_ablations__main__developmental__s6",
+    "exp_ablations__main__developmental__s7",
+    "exp_ablations__main__developmental__s8",
+    "exp_ablations__main__developmental__s9"
+  ],
+  "sensitivity": [],
+  "ablations": [
+    {
+      "contrast": "ablation:ablate_learning",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_learning",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": -0.40858333333333324,
+      "ci_low": -0.42497291666666664,
+      "ci_high": -0.3941381944444444,
+      "ci_level": 0.95,
+      "improvement": -0.40858333333333324,
+      "relative_improvement": -0.47898010355270426,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.4444444444444445,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.001953125,
+      "standardized_effect": -15.614440480902562,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_feedback",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_feedback",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": -0.2727777777777778,
+      "ci_low": -0.28616736111111113,
+      "ci_high": -0.2599708333333333,
+      "ci_level": 0.95,
+      "improvement": -0.2727777777777778,
+      "relative_improvement": -0.31977596144452763,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.58025,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.001953125,
+      "standardized_effect": -12.477003779689474,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_memory",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_memory",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": -0.0069166666666666266,
+      "ci_low": -0.011083333333333289,
+      "ci_high": -0.002888888888888884,
+      "ci_level": 0.95,
+      "improvement": -0.0069166666666666266,
+      "relative_improvement": -0.00810837213846099,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.8461111111111113,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.01171875,
+      "standardized_effect": -0.9903904682216871,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_shared_representation",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_shared_representation",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": 0.0006388888888889555,
+      "ci_low": -0.004027777777777665,
+      "ci_high": 0.004861111111111183,
+      "ci_level": 0.95,
+      "improvement": 0.0006388888888889555,
+      "relative_improvement": 0.0007489661011430654,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.8536666666666667,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.810546875,
+      "standardized_effect": 0.08466353265849043,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_social_learning",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_social_learning",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": -0.004111111111111088,
+      "ci_low": -0.012638888888888821,
+      "ci_high": 0.0037229166666666847,
+      "ci_level": 0.95,
+      "improvement": -0.004111111111111088,
+      "relative_improvement": -0.004819434042137457,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.8489166666666668,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.39453125,
+      "standardized_effect": -0.2907268734385825,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_plasticity_schedule",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_plasticity_schedule",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": 0.011555555555555552,
+      "ci_low": 0.007916666666666627,
+      "ci_high": 0.015584027777777775,
+      "ci_level": 0.95,
+      "improvement": 0.011555555555555552,
+      "relative_improvement": 0.01354651730762968,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.8645833333333333,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.001953125,
+      "standardized_effect": 1.7457704501512095,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_curriculum",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_curriculum",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "improvement": 0.0,
+      "relative_improvement": 0.0,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.8530277777777778,
+      "control_mean": 0.8530277777777778,
+      "p_value": 1.0,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "contrast": "ablation:ablate_forgetting",
+      "variant": "main",
+      "metric": "final_heldout_accuracy",
+      "kind": "exploratory",
+      "treatment": "ablate_forgetting",
+      "control": "developmental",
+      "control_selection": "",
+      "primary": false,
+      "verdict": "exploratory",
+      "estimate": 0.0012222222222222356,
+      "ci_low": -0.003083333333333316,
+      "ci_high": 0.006361111111111139,
+      "ci_level": 0.95,
+      "improvement": 0.0012222222222222356,
+      "relative_improvement": 0.0014328047152300785,
+      "threshold": null,
+      "margin": null,
+      "treatment_mean": 0.8542500000000001,
+      "control_mean": 0.8530277777777778,
+      "p_value": 0.67578125,
+      "standardized_effect": 0.14955262922940346,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  ],
+  "figures": [
+    "figures/primary_metric.png",
+    "figures/learning_curves.png",
+    "figures/transfer_shared.png"
+  ],
+  "limitations": [
+    "Curriculum only affects self-directed practice choice; in this fixed-schedule lab it may have no effect by design.",
+    "Ablation flags are implemented by the research/development lane; this experiment only toggles them."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T04:10:22.900733Z"
+}

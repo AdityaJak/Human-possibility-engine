@@ -1,0 +1,546 @@
+{
+  "jobs": [
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none",
+      "run_id": "exp01_acquired_learning__main__dev_none__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_bandit",
+      "run_id": "exp01_acquired_learning__main__dev_bandit__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_full",
+      "run_id": "exp01_acquired_learning__main__dev_full__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_none_frozen",
+      "run_id": "exp01_acquired_learning__main__dev_none_frozen__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_none",
+      "run_id": "exp01_acquired_learning__main__rl_none__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_bandit",
+      "run_id": "exp01_acquired_learning__main__rl_bandit__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "rl_full",
+      "run_id": "exp01_acquired_learning__main__rl_full__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "static_none",
+      "run_id": "exp01_acquired_learning__main__static_none__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "static_full",
+      "run_id": "exp01_acquired_learning__main__static_full__s9",
+      "seed": 9,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "a103ffb31b3d872999c6c2367a278da7",
+  "skipped_arms": {}
+}

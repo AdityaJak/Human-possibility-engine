@@ -1,0 +1,1634 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp01_acquired_learning",
+  "preregistration_hash": "a103ffb31b3d872999c6c2367a278da7",
+  "status": "passed",
+  "status_reason": "primary contrast 'instruction_vs_no_feedback_developmental' (superiority): dev_full vs dev_none on final_heldout_accuracy: estimate +0.3908 (95% CI [+0.3742, +0.4102], n=10 seeds; relative +87.9%); threshold 0.0500 -> passed",
+  "arms": [
+    {
+      "arm": "dev_bandit",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1349.0,
+          "sd": 0.0,
+          "ci_low": 1349.0,
+          "ci_high": 1349.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 43.2,
+          "sd": 7.37563556583431,
+          "ci_low": 39.45,
+          "ci_high": 48.15,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 45.0,
+          "sd": 9.797958971132712,
+          "ci_low": 39.9,
+          "ci_high": 51.45,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 148.5,
+          "sd": 60.79884867330959,
+          "ci_low": 115.04625000000001,
+          "ci_high": 186.60375000000002,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.85875,
+          "sd": 0.0253406997358032,
+          "ci_low": 0.8448319444444443,
+          "ci_high": 0.8751118055555556,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9146666666666665,
+          "sd": 0.024677550151534052,
+          "ci_low": 0.9,
+          "ci_high": 0.9295833333333332,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.9054166666666665,
+          "sd": 0.03172083573541351,
+          "ci_low": 0.88708125,
+          "ci_high": 0.9252520833333334,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7561666666666667,
+          "sd": 0.06232531142677462,
+          "ci_low": 0.7206645833333334,
+          "ci_high": 0.7932520833333333,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.37825830110413977,
+          "sd": 0.07995162530989963,
+          "ci_low": 0.328961554340372,
+          "ci_high": 0.42571593888108006,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9147777777777778,
+          "sd": 0.011057587132650567,
+          "ci_low": 0.9084444444444444,
+          "ci_high": 0.9213333333333333,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.05602777777777775,
+          "sd": 0.025885235926247148,
+          "ci_low": 0.04044374999999997,
+          "ci_high": 0.07113958333333333,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.1088200319749214,
+          "sd": 0.019529497662660076,
+          "ci_low": 0.09634936618425947,
+          "ci_high": 0.11971258534470014,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.012194444444444444,
+          "sd": 0.005366297945056396,
+          "ci_low": -0.015333333333333327,
+          "ci_high": -0.009083333333333332,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.0482624937516608,
+          "sd": 0.01986226890581005,
+          "ci_low": -0.060470663112428526,
+          "ci_high": -0.03651796807729475,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6494166666666666,
+          "sd": 0.026012570164909904,
+          "ci_low": 0.6350819444444445,
+          "ci_high": 0.6654180555555556,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6941666666666667,
+          "sd": 0.051801231905101844,
+          "ci_low": 0.6616069444444446,
+          "ci_high": 0.7212805555555555,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.044750000000000005,
+          "sd": 0.04704039977772602,
+          "ci_low": 0.01769375,
+          "ci_high": 0.0720590277777778,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "dev_full",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 1349.0,
+          "sd": 0.0,
+          "ci_low": 1349.0,
+          "ci_high": 1349.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 45.9,
+          "sd": 6.640783086353596,
+          "ci_low": 42.15,
+          "ci_high": 49.95,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 44.85,
+          "sd": 7.5976970194921565,
+          "ci_low": 40.35,
+          "ci_high": 49.35,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 127.8,
+          "sd": 53.87392690346602,
+          "ci_low": 99.14625000000002,
+          "ci_high": 162.15750000000003,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.83525,
+          "sd": 0.030199510915470233,
+          "ci_low": 0.8188041666666667,
+          "ci_high": 0.8541680555555556,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8823333333333332,
+          "sd": 0.03221695359225368,
+          "ci_low": 0.8644979166666666,
+          "ci_high": 0.9018333333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8770833333333332,
+          "sd": 0.04138842281616772,
+          "ci_low": 0.8525,
+          "ci_high": 0.9015833333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7463333333333333,
+          "sd": 0.07293155932570627,
+          "ci_low": 0.70558125,
+          "ci_high": 0.79025,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.3769399312572856,
+          "sd": 0.06052117453545676,
+          "ci_low": 0.33884784066507706,
+          "ci_high": 0.41023227680738644,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.8920833333333332,
+          "sd": 0.01235772945836959,
+          "ci_low": 0.8847770833333332,
+          "ci_high": 0.8990833333333332,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.056833333333333326,
+          "sd": 0.027884732364499763,
+          "ci_low": 0.04036111111111111,
+          "ci_high": 0.07327777777777775,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.12170152018340788,
+          "sd": 0.015710879765803192,
+          "ci_low": 0.11200776001064568,
+          "ci_high": 0.13039273742102445,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": -0.020972222222222225,
+          "sd": 0.01021313505110045,
+          "ci_low": -0.027029166666666667,
+          "ci_high": -0.014693750000000002,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.08410805326933327,
+          "sd": 0.02671411619973618,
+          "ci_low": -0.10009686020604687,
+          "ci_high": -0.06852114981861869,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6494166666666666,
+          "sd": 0.026012570164909904,
+          "ci_low": 0.6353604166666668,
+          "ci_high": 0.6652236111111111,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.7084444444444443,
+          "sd": 0.05461239527269541,
+          "ci_low": 0.6718048611111112,
+          "ci_high": 0.7365569444444444,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.059027777777777776,
+          "sd": 0.04813145187720765,
+          "ci_low": 0.028666666666666667,
+          "ci_high": 0.08658680555555556,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "dev_none",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.33333333333333315,
+          "sd": 0.0,
+          "ci_low": 0.33333333333333315,
+          "ci_high": 0.33333333333333315,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.8283022165960002,
+          "sd": 0.0,
+          "ci_low": 0.8283022165960002,
+          "ci_high": 0.8283022165960002,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.05222222222222221,
+          "sd": 0.017411347071915773,
+          "ci_low": 0.04277777777777776,
+          "ci_high": 0.06277777777777777,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": 0.0555555555555556,
+          "sd": 0.0,
+          "ci_low": 0.0555555555555556,
+          "ci_high": 0.0555555555555556,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6494166666666666,
+          "sd": 0.026012570164909904,
+          "ci_low": 0.634970138888889,
+          "ci_high": 0.6650284722222222,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6494166666666666,
+          "sd": 0.026012570164909904,
+          "ci_low": 0.634970138888889,
+          "ci_high": 0.6650284722222222,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "dev_none_frozen",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.33333333333333315,
+          "sd": 0.0,
+          "ci_low": 0.33333333333333315,
+          "ci_high": 0.33333333333333315,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.8283022165960002,
+          "sd": 0.0,
+          "ci_low": 0.8283022165960002,
+          "ci_high": 0.8283022165960002,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.05222222222222221,
+          "sd": 0.017411347071915773,
+          "ci_low": 0.04222222222222222,
+          "ci_high": 0.06277777777777774,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": 0.0555555555555556,
+          "sd": 0.0,
+          "ci_low": 0.0555555555555556,
+          "ci_high": 0.0555555555555556,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "rl_bandit",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 37.35,
+          "sd": 3.837316770869979,
+          "ci_low": 35.1,
+          "ci_high": 39.6,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 41.7,
+          "sd": 9.214119599831555,
+          "ci_low": 36.3,
+          "ci_high": 46.953750000000014,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 219.15,
+          "sd": 104.58118855702492,
+          "ci_low": 157.8,
+          "ci_high": 281.40375,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8218055555555555,
+          "sd": 0.0402977281370069,
+          "ci_low": 0.7994152777777778,
+          "ci_high": 0.8470597222222224,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.8831666666666667,
+          "sd": 0.03161008590409385,
+          "ci_low": 0.8650812500000001,
+          "ci_high": 0.90216875,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8718333333333333,
+          "sd": 0.05241660042391141,
+          "ci_low": 0.8414125,
+          "ci_high": 0.9028333333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.7104166666666666,
+          "sd": 0.07482515628012869,
+          "ci_low": 0.6703333333333333,
+          "ci_high": 0.7578354166666667,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.4137948793822167,
+          "sd": 0.06832091594765868,
+          "ci_low": 0.37006160980295266,
+          "ci_high": 0.4513096688748801,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.8989999999999998,
+          "sd": 0.0231126394318978,
+          "ci_low": 0.8849715277777777,
+          "ci_high": 0.9120555555555555,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.07719444444444443,
+          "sd": 0.02613882493005912,
+          "ci_low": 0.061580555555555534,
+          "ci_high": 0.09197430555555555,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.12473940815361659,
+          "sd": 0.012849082065292197,
+          "ci_low": 0.11700790066402927,
+          "ci_high": 0.1323089536300601,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.07180555555555555,
+          "sd": 0.032675759316557286,
+          "ci_low": -0.09231208333333334,
+          "ci_high": -0.053794027777777774,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6683888888888888,
+          "sd": 0.030694912291836986,
+          "ci_low": 0.6503048611111111,
+          "ci_high": 0.6863340277777777,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6683888888888888,
+          "sd": 0.030694912291836986,
+          "ci_low": 0.6503048611111111,
+          "ci_high": 0.6863340277777777,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "rl_full",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 34.5,
+          "sd": 2.8284271247461903,
+          "ci_low": 32.85,
+          "ci_high": 36.15,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 37.95,
+          "sd": 5.570008976653448,
+          "ci_low": 34.8,
+          "ci_high": 41.4,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 114.9,
+          "sd": 69.1165682018429,
+          "ci_low": 77.1,
+          "ci_high": 157.96125000000004,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.8588333333333333,
+          "sd": 0.03763927041854827,
+          "ci_low": 0.8376944444444444,
+          "ci_high": 0.8819187499999999,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.9166666666666666,
+          "sd": 0.026571008985706943,
+          "ci_low": 0.9006645833333331,
+          "ci_high": 0.9324999999999998,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.8905833333333334,
+          "sd": 0.04537914692134083,
+          "ci_low": 0.8641666666666665,
+          "ci_high": 0.9178333333333333,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.76925,
+          "sd": 0.08132529749312743,
+          "ci_low": 0.72358125,
+          "ci_high": 0.8169250000000001,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.34683184638933245,
+          "sd": 0.06145717464932458,
+          "ci_low": 0.3091887772599836,
+          "ci_high": 0.38112012220107794,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.9340277777777779,
+          "sd": 0.013399559039076657,
+          "ci_low": 0.9261111111111111,
+          "ci_high": 0.9418333333333333,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.07519444444444442,
+          "sd": 0.02795255202318838,
+          "ci_low": 0.05788749999999998,
+          "ci_high": 0.09039097222222223,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.12942440218375453,
+          "sd": 0.008618167991002642,
+          "ci_low": 0.12426015274557436,
+          "ci_high": 0.13446507780810424,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "self_estimate_gap": {
+          "mean": -0.09373333333333334,
+          "sd": 0.029439270451537918,
+          "ci_low": -0.1120175,
+          "ci_high": -0.07756055555555555,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6683888888888888,
+          "sd": 0.030694912291836986,
+          "ci_low": 0.6511111111111112,
+          "ci_high": 0.6864729166666667,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6683888888888888,
+          "sd": 0.030694912291836986,
+          "ci_low": 0.6511111111111112,
+          "ci_high": 0.6864729166666667,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "rl_none",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 600.0,
+          "sd": 0.0,
+          "ci_low": 600.0,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.33333333333333315,
+          "sd": 0.0,
+          "ci_low": 0.33333333333333315,
+          "ci_high": 0.33333333333333315,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 0.8283022165960002,
+          "sd": 0.0,
+          "ci_low": 0.8283022165960002,
+          "ci_high": 0.8283022165960002,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4444444444444445,
+          "sd": 0.0,
+          "ci_low": 0.4444444444444445,
+          "ci_high": 0.4444444444444445,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.05222222222222221,
+          "sd": 0.017411347071915773,
+          "ci_low": 0.042222222222222223,
+          "ci_high": 0.06277777777777774,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.6683888888888888,
+          "sd": 0.030694912291836986,
+          "ci_low": 0.6508597222222222,
+          "ci_high": 0.6870562499999999,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.6683888888888888,
+          "sd": 0.030694912291836986,
+          "ci_low": 0.6508597222222222,
+          "ci_high": 0.6870562499999999,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "static_full",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 560.85,
+          "sd": 23.85843666295007,
+          "ci_low": 546.45,
+          "ci_high": 574.8,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 513.45,
+          "sd": 36.7154599589873,
+          "ci_low": 490.35,
+          "ci_high": 533.1,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 594.6,
+          "sd": 11.384199576606166,
+          "ci_low": 586.5,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.43805555555555553,
+          "sd": 0.02031389477642469,
+          "ci_low": 0.4251388888888889,
+          "ci_high": 0.44913888888888887,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.48858333333333326,
+          "sd": 0.025805092090085177,
+          "ci_low": 0.47508333333333325,
+          "ci_high": 0.5045020833333332,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.49141666666666667,
+          "sd": 0.03551006204124176,
+          "ci_low": 0.4686666666666667,
+          "ci_high": 0.5096666666666667,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.33416666666666667,
+          "sd": 0.02676774823699245,
+          "ci_low": 0.31799999999999995,
+          "ci_high": 0.34933333333333333,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 2.9048521981176894,
+          "sd": 0.263198660066851,
+          "ci_low": 2.767550174948218,
+          "ci_high": 3.0718306932110373,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4426388888888889,
+          "sd": 0.015275392630876456,
+          "ci_low": 0.43405416666666663,
+          "ci_high": 0.4518333333333334,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.00458333333333334,
+          "sd": 0.014860029382576238,
+          "ci_low": -0.004195833333333328,
+          "ci_high": 0.013194444444444457,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.4828656363546845,
+          "sd": 0.02432359158099196,
+          "ci_low": 0.4700257008943169,
+          "ci_high": 0.4980727544789841,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5110833333333333,
+          "sd": 0.02585288984969082,
+          "ci_low": 0.4953333333333333,
+          "ci_high": 0.5256666666666666,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5110833333333333,
+          "sd": 0.02585288984969082,
+          "ci_low": 0.4953333333333333,
+          "ci_high": 0.5256666666666666,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5110833333333333,
+          "sd": 0.02585288984969081,
+          "ci_low": 0.4953333333333333,
+          "ci_high": 0.5256666666666666,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "static_none",
+      "n_runs": 10,
+      "metrics": {
+        "compute/decisions": {
+          "mean": 900.0,
+          "sd": 0.0,
+          "ci_low": 900.0,
+          "ci_high": 900.0,
+          "n": 10.0
+        },
+        "compute/param_updates": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "episodes_to_criterion/compare": {
+          "mean": 560.85,
+          "sd": 23.85843666295007,
+          "ci_low": 546.6,
+          "ci_high": 574.8,
+          "n": 10.0
+        },
+        "episodes_to_criterion/signal": {
+          "mean": 513.45,
+          "sd": 36.7154599589873,
+          "ci_low": 490.35,
+          "ci_high": 533.25,
+          "n": 10.0
+        },
+        "episodes_to_criterion/sort": {
+          "mean": 594.6,
+          "sd": 11.384199576606166,
+          "ci_low": 586.5,
+          "ci_high": 600.0,
+          "n": 10.0
+        },
+        "final_heldout_accuracy": {
+          "mean": 0.43805555555555553,
+          "sd": 0.02031389477642469,
+          "ci_low": 0.42485902777777773,
+          "ci_high": 0.4487777777777778,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/compare": {
+          "mean": 0.48858333333333326,
+          "sd": 0.025805092090085177,
+          "ci_low": 0.47391666666666665,
+          "ci_high": 0.5040833333333332,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/signal": {
+          "mean": 0.49141666666666667,
+          "sd": 0.03551006204124176,
+          "ci_low": 0.4684166666666666,
+          "ci_high": 0.50991875,
+          "n": 10.0
+        },
+        "final_heldout_accuracy/sort": {
+          "mean": 0.33416666666666667,
+          "sd": 0.02676774823699245,
+          "ci_low": 0.31758333333333333,
+          "ci_high": 0.3496666666666667,
+          "n": 10.0
+        },
+        "final_log_loss": {
+          "mean": 2.9048521981176894,
+          "sd": 0.263198660066851,
+          "ci_low": 2.7711842523736108,
+          "ci_high": 3.077947043627147,
+          "n": 10.0
+        },
+        "final_train_accuracy": {
+          "mean": 0.4426388888888889,
+          "sd": 0.015275392630876456,
+          "ci_low": 0.43355486111111113,
+          "ci_high": 0.4516951388888889,
+          "n": 10.0
+        },
+        "generalization_gap": {
+          "mean": 0.00458333333333334,
+          "sd": 0.014860029382576238,
+          "ci_low": -0.004306249999999999,
+          "ci_high": 0.013278472222222235,
+          "n": 10.0
+        },
+        "heldout_ece": {
+          "mean": 0.4828656363546845,
+          "sd": 0.02432359158099196,
+          "ci_low": 0.4704111102520333,
+          "ci_high": 0.49896764709936214,
+          "n": 10.0
+        },
+        "leakage/assessment_mutated_policy": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/holdout_symbols_in_practice": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "leakage/practice_items": {
+          "mean": 18180.0,
+          "sd": 0.0,
+          "ci_low": 18180.0,
+          "ci_high": 18180.0,
+          "n": 10.0
+        },
+        "retention_change": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "transfer_auc/shared/fresh": {
+          "mean": 0.5110833333333333,
+          "sd": 0.02585288984969082,
+          "ci_low": 0.4953312499999999,
+          "ci_high": 0.5257520833333333,
+          "n": 10.0
+        },
+        "transfer_auc/shared/trained": {
+          "mean": 0.5110833333333333,
+          "sd": 0.02585288984969082,
+          "ci_low": 0.4953312499999999,
+          "ci_high": 0.5257520833333333,
+          "n": 10.0
+        },
+        "transfer_gain/shared": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        },
+        "zero_shot/barter": {
+          "mean": 0.5110833333333333,
+          "sd": 0.02585288984969081,
+          "ci_low": 0.49533124999999995,
+          "ci_high": 0.5257520833333333,
+          "n": 10.0
+        }
+      }
+    }
+  ],
+  "effects": [
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "instruction_vs_no_feedback_developmental: dev_full - dev_none",
+      "estimate": 0.39080555555555563,
+      "ci_low": 0.3742479166666667,
+      "ci_high": 0.41019513888888887,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": 12.940790883979469,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "outcome_feedback_vs_none_developmental: dev_bandit - dev_none",
+      "estimate": 0.4143055555555556,
+      "ci_low": 0.40069444444444446,
+      "ci_high": 0.42997291666666665,
+      "ci_level": 0.95,
+      "p_value": 0.005859375,
+      "standardized_effect": 16.349412600086737,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "episodes_to_criterion/compare",
+      "contrast": "instruction_vs_outcome_efficiency_developmental: dev_full - dev_bandit",
+      "estimate": 2.7,
+      "ci_low": -0.75,
+      "ci_high": 6.15,
+      "ci_level": 0.95,
+      "p_value": 0.21484375,
+      "standardized_effect": 0.4506263051047594,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": false
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "no_feedback_learning_is_null_developmental: dev_none - dev_none_frozen",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": null,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.03",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "instruction_vs_no_feedback_plain_rl: rl_full - rl_none",
+      "estimate": 0.4143888888888889,
+      "ci_low": 0.3927777777777778,
+      "ci_high": 0.43744513888888886,
+      "ci_level": 0.95,
+      "p_value": 0.005859375,
+      "standardized_effect": 11.009482497425935,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "final_heldout_accuracy",
+      "contrast": "mechanism_check_static_persona: static_full - static_none",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": null,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.02",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "retention_change",
+      "contrast": "retention_developmental_full: dev_full - rl_full",
+      "estimate": -0.020972222222222225,
+      "ci_low": -0.02683402777777778,
+      "ci_high": -0.014833333333333334,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": -2.053455879834126,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    }
+  ],
+  "run_ids": [
+    "exp01_acquired_learning__main__dev_bandit__s0",
+    "exp01_acquired_learning__main__dev_bandit__s1",
+    "exp01_acquired_learning__main__dev_bandit__s2",
+    "exp01_acquired_learning__main__dev_bandit__s3",
+    "exp01_acquired_learning__main__dev_bandit__s4",
+    "exp01_acquired_learning__main__dev_bandit__s5",
+    "exp01_acquired_learning__main__dev_bandit__s6",
+    "exp01_acquired_learning__main__dev_bandit__s7",
+    "exp01_acquired_learning__main__dev_bandit__s8",
+    "exp01_acquired_learning__main__dev_bandit__s9",
+    "exp01_acquired_learning__main__dev_full__s0",
+    "exp01_acquired_learning__main__dev_full__s1",
+    "exp01_acquired_learning__main__dev_full__s2",
+    "exp01_acquired_learning__main__dev_full__s3",
+    "exp01_acquired_learning__main__dev_full__s4",
+    "exp01_acquired_learning__main__dev_full__s5",
+    "exp01_acquired_learning__main__dev_full__s6",
+    "exp01_acquired_learning__main__dev_full__s7",
+    "exp01_acquired_learning__main__dev_full__s8",
+    "exp01_acquired_learning__main__dev_full__s9",
+    "exp01_acquired_learning__main__dev_none__s0",
+    "exp01_acquired_learning__main__dev_none__s1",
+    "exp01_acquired_learning__main__dev_none__s2",
+    "exp01_acquired_learning__main__dev_none__s3",
+    "exp01_acquired_learning__main__dev_none__s4",
+    "exp01_acquired_learning__main__dev_none__s5",
+    "exp01_acquired_learning__main__dev_none__s6",
+    "exp01_acquired_learning__main__dev_none__s7",
+    "exp01_acquired_learning__main__dev_none__s8",
+    "exp01_acquired_learning__main__dev_none__s9",
+    "exp01_acquired_learning__main__dev_none_frozen__s0",
+    "exp01_acquired_learning__main__dev_none_frozen__s1",
+    "exp01_acquired_learning__main__dev_none_frozen__s2",
+    "exp01_acquired_learning__main__dev_none_frozen__s3",
+    "exp01_acquired_learning__main__dev_none_frozen__s4",
+    "exp01_acquired_learning__main__dev_none_frozen__s5",
+    "exp01_acquired_learning__main__dev_none_frozen__s6",
+    "exp01_acquired_learning__main__dev_none_frozen__s7",
+    "exp01_acquired_learning__main__dev_none_frozen__s8",
+    "exp01_acquired_learning__main__dev_none_frozen__s9",
+    "exp01_acquired_learning__main__rl_bandit__s0",
+    "exp01_acquired_learning__main__rl_bandit__s1",
+    "exp01_acquired_learning__main__rl_bandit__s2",
+    "exp01_acquired_learning__main__rl_bandit__s3",
+    "exp01_acquired_learning__main__rl_bandit__s4",
+    "exp01_acquired_learning__main__rl_bandit__s5",
+    "exp01_acquired_learning__main__rl_bandit__s6",
+    "exp01_acquired_learning__main__rl_bandit__s7",
+    "exp01_acquired_learning__main__rl_bandit__s8",
+    "exp01_acquired_learning__main__rl_bandit__s9",
+    "exp01_acquired_learning__main__rl_full__s0",
+    "exp01_acquired_learning__main__rl_full__s1",
+    "exp01_acquired_learning__main__rl_full__s2",
+    "exp01_acquired_learning__main__rl_full__s3",
+    "exp01_acquired_learning__main__rl_full__s4",
+    "exp01_acquired_learning__main__rl_full__s5",
+    "exp01_acquired_learning__main__rl_full__s6",
+    "exp01_acquired_learning__main__rl_full__s7",
+    "exp01_acquired_learning__main__rl_full__s8",
+    "exp01_acquired_learning__main__rl_full__s9",
+    "exp01_acquired_learning__main__rl_none__s0",
+    "exp01_acquired_learning__main__rl_none__s1",
+    "exp01_acquired_learning__main__rl_none__s2",
+    "exp01_acquired_learning__main__rl_none__s3",
+    "exp01_acquired_learning__main__rl_none__s4",
+    "exp01_acquired_learning__main__rl_none__s5",
+    "exp01_acquired_learning__main__rl_none__s6",
+    "exp01_acquired_learning__main__rl_none__s7",
+    "exp01_acquired_learning__main__rl_none__s8",
+    "exp01_acquired_learning__main__rl_none__s9",
+    "exp01_acquired_learning__main__static_full__s0",
+    "exp01_acquired_learning__main__static_full__s1",
+    "exp01_acquired_learning__main__static_full__s2",
+    "exp01_acquired_learning__main__static_full__s3",
+    "exp01_acquired_learning__main__static_full__s4",
+    "exp01_acquired_learning__main__static_full__s5",
+    "exp01_acquired_learning__main__static_full__s6",
+    "exp01_acquired_learning__main__static_full__s7",
+    "exp01_acquired_learning__main__static_full__s8",
+    "exp01_acquired_learning__main__static_full__s9",
+    "exp01_acquired_learning__main__static_none__s0",
+    "exp01_acquired_learning__main__static_none__s1",
+    "exp01_acquired_learning__main__static_none__s2",
+    "exp01_acquired_learning__main__static_none__s3",
+    "exp01_acquired_learning__main__static_none__s4",
+    "exp01_acquired_learning__main__static_none__s5",
+    "exp01_acquired_learning__main__static_none__s6",
+    "exp01_acquired_learning__main__static_none__s7",
+    "exp01_acquired_learning__main__static_none__s8",
+    "exp01_acquired_learning__main__static_none__s9"
+  ],
+  "sensitivity": [],
+  "ablations": [],
+  "figures": [
+    "figures/primary_metric.png",
+    "figures/learning_curves.png",
+    "figures/transfer_shared.png"
+  ],
+  "limitations": [
+    "Feedback conditions are properties of the synthetic environment; 'instruction' here means revealing the correct answer, not human teaching.",
+    "Retention measures forgetting dynamics built into each policy class (baselines do not forget by construction)."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T04:05:45.846442Z"
+}

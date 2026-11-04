@@ -1,0 +1,174 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp01_acquired_learning",
+  "title": "Exp 1: acquired learning — identical agents randomised to none / outcome / instructional feedback",
+  "hypothesis": "Identical initial agents acquire held-out skill as a function of the feedback they receive: instructional (full) feedback > outcome-only (bandit) feedback > no feedback, and a non-learning persona shows no effect.",
+  "falsification_criterion": "Not supported if dev_full fails to exceed dev_none by >= 0.05 held-out accuracy with the paired 95% CI excluding 0 across 10 seeds. The mechanism check fails if static_full and static_none differ by more than 0.02.",
+  "arms": [
+    {
+      "name": "dev_none",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "none"
+      }
+    },
+    {
+      "name": "dev_bandit",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "bandit"
+      }
+    },
+    {
+      "name": "dev_full",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "full"
+      }
+    },
+    {
+      "name": "dev_none_frozen",
+      "policy_class": "developmental",
+      "policy_params": {
+        "use_learning": false
+      },
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "none"
+      }
+    },
+    {
+      "name": "rl_none",
+      "policy_class": "plain_rl",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "none"
+      }
+    },
+    {
+      "name": "rl_bandit",
+      "policy_class": "plain_rl",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "bandit"
+      }
+    },
+    {
+      "name": "rl_full",
+      "policy_class": "plain_rl",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "full"
+      }
+    },
+    {
+      "name": "static_none",
+      "policy_class": "static_persona",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "none"
+      }
+    },
+    {
+      "name": "static_full",
+      "policy_class": "static_persona",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {
+        "feedback_mode": "full"
+      }
+    }
+  ],
+  "control_arm": "dev_none",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "base_config": {
+    "schema_version": "0.1.0",
+    "seed": 0,
+    "population_seed": null,
+    "task_seed": null,
+    "n_agents": 20,
+    "years": 10.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [],
+    "log": {
+      "frames_every_ticks": 1,
+      "decision_sample_rate": 0.02,
+      "log_learning_episodes": true,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": 10.0
+    },
+    "max_events": 5000000,
+    "label": null
+  },
+  "analysis": {
+    "primary_metric": "final_heldout_accuracy",
+    "primary_metric_definition": "Mean held-out accuracy over training families after 300 episodes/family; mean over 20 agents; one value per seed.",
+    "comparison": "dev_full - dev_none, paired by seed",
+    "test": "paired_bootstrap",
+    "alpha": 0.05,
+    "n_bootstrap": 4000,
+    "minimum_effect_of_interest": 0.05,
+    "secondary_metrics": [
+      "episodes_to_criterion/compare",
+      "retention_change",
+      "final_log_loss",
+      "transfer_auc/shared/trained"
+    ]
+  },
+  "ablations": [],
+  "validity_notes": [
+    "Feedback conditions are properties of the synthetic environment; 'instruction' here means revealing the correct answer, not human teaching.",
+    "Retention measures forgetting dynamics built into each policy class (baselines do not forget by construction)."
+  ],
+  "preregistration_hash": "a103ffb31b3d872999c6c2367a278da7",
+  "created_at": "2026-11-04T04:02:22.707649Z"
+}
