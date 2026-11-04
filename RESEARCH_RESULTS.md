@@ -30,7 +30,7 @@ figure from raw logs. Unit of analysis is the seed (10 seeds). Primary test: pai
 | Exp 2 `exp02_twin_tutoring` | Twin societies: does tutoring access raise held-out skill through learning? | +0.029 [+0.022, +0.037]; non-learning society: exactly 0 | passed (manipulation check **failed** as defined, §4) | `reports/experiments/exp02_twin_tutoring` |
 | Exp 3 `exp03_social_influence` (H2) | Do connected societies out-learn isolated ones; does misinformation hurt? | connected − isolated = −0.004 [−0.007, −0.000]; misinformation −0.002 (CI includes 0) | **FAILED** | `reports/experiments/exp03_social_influence` |
 | Exp 4 `exp04_midlife_education` | Do adults adapt when education opens at 38–45? | −0.003 [−0.015, +0.007] after 5 years; non-learners exactly 0 | **FAILED** | `reports/experiments/exp04_midlife_education` |
-| Exp 5 `exp05_multigenerational` | inherited initial conditions vs acquired behaviour (cross-fostering) | running at time of writing | pending | — |
+| Exp 5 `exp05_multigenerational` | Does skill pass between generations through rearing (acquired) rather than inheritance? | rearing-household correlation −0.075 [−0.177, +0.023]; vs non-learning society −0.035 [−0.208, +0.138] | **inconclusive** (no transmission detectable through either channel) | `reports/experiments/exp05_multigenerational` |
 | Exp 7b `exp07b_causal_grounding` | Can our estimator recover a randomised human effect (HeartSteps V1)? | +12.2% [−0.5%, +27.4%]; published +14% inside CI | passed (see caveat §5) | `reports/human_validation/exp07b_causal_grounding` |
 | Exp 7 `exp07_human_heldout` | Do our policy classes predict held-out human choices (Psych-101)? | MCPL (primary): developmental **worse** than instance-based, +0.229 nats [+0.171, +0.289]; IGT (secondary): developmental **best** of 8 models, −0.110 [−0.140, −0.083] | **FAILED** (primary); secondary passed | `reports/human_validation/exp07_human_heldout` |
 
@@ -183,6 +183,31 @@ cohort already sits at 0.80, close to the within-family plateau of the learners 
 as a metric**, a design weakness. A follow-up needs an uptake manipulation check and a harder,
 non-stationary task where adults have something new to learn. 40 main runs plus sensitivity, 403 s,
 0 LLM calls.
+
+### Exp 5 — multigenerational transmission (inconclusive)
+
+100 agents, 40 years, 10 paired seeds. Newborns are cross-fostered (swapped between households) in the
+treatment arm, so rearing and biological households differ; the metric is the Pearson correlation,
+over agents aged 10–25 at year 40, between a child's held-out accuracy and the mean accuracy of the
+adults in its rearing (or biological) household.
+
+| Arm | Rearing-household corr. | Biological-household corr. | Children's accuracy 10–25 | Children per society |
+|---|---|---|---|---|
+| dev_cross_foster | −0.075 [−0.177, +0.023] | −0.017 [−0.103, +0.069] | 0.832 | 25.7 |
+| dev_natural | +0.018 [−0.124, +0.160] | +0.027 [−0.098, +0.165] | 0.829 | 25.7 |
+| static_cross_foster | −0.040 [−0.157, +0.069] | +0.014 [−0.148, +0.169] | 0.453 | 25.0 |
+
+* Primary (rearing correlation, dev_cross_foster − static_cross_foster): **−0.035 [−0.208, +0.138]**,
+  p = 0.70 → inconclusive (the CI spans both the null and the hypothesised effect).
+* Rearing − biological within the developmental cross-foster arm: −0.058 [−0.149, +0.043].
+
+**Reading.** No intergenerational transmission is detectable through *either* channel. Two reasons,
+both structural: children in every developmental arm converge to the same ~0.83 plateau whatever their
+household, so there is almost no between-child variance for a household to explain; and ~25 children
+per society make a correlation metric noisy (±0.1). The experiment does not refute acquired
+transmission — it could not have detected it. Fix before re-running: tasks with a higher ceiling and
+persistent household-level differences in inputs, a larger population, and a preregistered power
+analysis. 30 main runs plus sensitivity, 763 s, 0 LLM calls.
 
 ## 5. Real human data
 

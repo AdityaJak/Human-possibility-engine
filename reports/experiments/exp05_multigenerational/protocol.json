@@ -1,0 +1,93 @@
+{
+  "kind": "society",
+  "params": {
+    "metrics": [
+      {
+        "name": "rearing_corr_children",
+        "fn": "rearing_household_corr",
+        "args": {
+          "age_min": 10,
+          "age_max": 25
+        }
+      },
+      {
+        "name": "biological_corr_children",
+        "fn": "biological_parent_corr",
+        "args": {
+          "age_min": 10,
+          "age_max": 25
+        }
+      },
+      {
+        "name": "rearing_minus_biological",
+        "fn": "rearing_minus_biological_corr",
+        "args": {
+          "age_min": 10,
+          "age_max": 25
+        }
+      },
+      {
+        "name": "children_accuracy_10_25",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 10,
+          "age_max": 25
+        }
+      },
+      {
+        "name": "n_children_10_25",
+        "fn": "cohort_size",
+        "args": {
+          "age_min": 10,
+          "age_max": 25
+        }
+      }
+    ]
+  },
+  "contrasts": [
+    {
+      "name": "environmental_transmission_requires_learning",
+      "treatment": "dev_cross_foster",
+      "control": "static_cross_foster",
+      "metric": "rearing_corr_children",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": true,
+      "description": "with learning, children's skill tracks their rearing household's skill; without learning it cannot"
+    },
+    {
+      "name": "rearing_vs_biological_developmental",
+      "treatment": "dev_cross_foster",
+      "control": "static_cross_foster",
+      "metric": "rearing_minus_biological",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "natural_vs_cross_foster_biological_corr",
+      "treatment": "dev_natural",
+      "control": "dev_cross_foster",
+      "metric": "biological_corr_children",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": "in natural families biological and rearing influences are confounded"
+    }
+  ],
+  "sensitivity": [],
+  "pipeline_validation": false
+}

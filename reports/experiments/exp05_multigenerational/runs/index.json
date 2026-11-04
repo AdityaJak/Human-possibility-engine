@@ -1,0 +1,186 @@
+{
+  "jobs": [
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_natural",
+      "run_id": "exp05_multigenerational__main__dev_natural__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_cross_foster",
+      "run_id": "exp05_multigenerational__main__dev_cross_foster__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "static_cross_foster",
+      "run_id": "exp05_multigenerational__main__static_cross_foster__s9",
+      "seed": 9,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "dca65664028ca3047ee374eb2918dd26",
+  "skipped_arms": {}
+}

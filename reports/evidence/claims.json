@@ -117,6 +117,35 @@
     ]
   },
   {
+    "claim_id": "exp05_multigenerational",
+    "claim": "Skill passes between generations mainly through acquired, environmental channels (caregiver demonstrations, household resources for education) rather than inherited initial learning parameters: under cross-fostering, children's held-out accuracy correlates with their rearing household, and this requires a learning mechanism.",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp05_multigenerational__main__dev_cross_foster__s0",
+      "exp05_multigenerational__main__dev_cross_foster__s1",
+      "exp05_multigenerational__main__dev_cross_foster__s2",
+      "exp05_multigenerational__main__dev_cross_foster__s3",
+      "exp05_multigenerational__main__dev_cross_foster__s4",
+      "exp05_multigenerational__main__dev_cross_foster__s5",
+      "exp05_multigenerational__main__dev_cross_foster__s6",
+      "exp05_multigenerational__main__dev_cross_foster__s7",
+      "exp05_multigenerational__main__dev_cross_foster__s8",
+      "exp05_multigenerational__main__dev_cross_foster__s9",
+      "exp05_multigenerational__main__dev_natural__s0",
+      "exp05_multigenerational__main__dev_natural__s1",
+      "... +18 more"
+    ],
+    "metric": "rearing_corr_children",
+    "value": "-0.0351 (95% CI [-0.2079, +0.1382], n=10 seeds) \u2014 primary contrast 'environmental_transmission_requires_learning' (superiority): dev_cross_foster vs static_cross_foster on rearing_corr_children: estimate -0.0351 (95% CI [-0.2079, +0.1382], n=10 seeds; relative -87.6%); threshold \u2014 -> inconclusive",
+    "config_ref": "reports/experiments/exp05_multigenerational/definition.json (preregistration dca65664028ca3047ee374eb2918dd26)",
+    "limitations": [
+      "Assumes the world keeps biological parents in AgentState.parents and the rearing home in household_id under cross_foster (sim/world lane semantics).",
+      "Correlations with few children per society are noisy; n_children_10_25 is reported.",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
     "claim_id": "exp06_transfer",
     "claim": "A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised 'barter' family than independently trained specialists when barter shares the latent structure, and shows no benefit (or negative transfer) when it does not.",
     "status": "supported",

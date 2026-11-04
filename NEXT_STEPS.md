@@ -28,6 +28,10 @@ noise. Candidate causes, each a falsifiable experiment:
    little headroom and the design had no uptake metric. Re-run with (a) an uptake manipulation check
    (education episodes per treated adult), (b) a non-stationary task family whose rules change at year
    10 so adults have something new to learn, (c) a longer window.
+7. **Intergenerational transmission is undetectable at the ceiling (Exp 5 inconclusive).** All children
+   converge to ~0.83 whatever their household, and ~25 children per society make correlations noisy.
+   Re-run with persistent household-level input differences, a higher task ceiling, a larger population,
+   and a preregistered power analysis.
 
 ## 2. Gate 4 — real human validity
 

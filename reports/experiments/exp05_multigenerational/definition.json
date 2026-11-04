@@ -1,0 +1,142 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp05_multigenerational",
+  "title": "Exp 5: multigenerational transmission — inherited initial conditions vs acquired (cross-fostering)",
+  "hypothesis": "Skill passes between generations mainly through acquired, environmental channels (caregiver demonstrations, household resources for education) rather than inherited initial learning parameters: under cross-fostering, children's held-out accuracy correlates with their rearing household, and this requires a learning mechanism.",
+  "falsification_criterion": "Not supported if rearing-household correlation in dev_cross_foster does not exceed static_cross_foster with a paired 95% CI excluding 0 across 10 seeds.",
+  "arms": [
+    {
+      "name": "dev_natural",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "dev_cross_foster",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "cross_foster",
+          "kind": "cross_foster",
+          "target": {
+            "age_min": 0.0,
+            "age_max": 200.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    },
+    {
+      "name": "static_cross_foster",
+      "policy_class": "static_persona",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "cross_foster",
+          "kind": "cross_foster",
+          "target": {
+            "age_min": 0.0,
+            "age_max": 200.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    }
+  ],
+  "control_arm": "static_cross_foster",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "base_config": {
+    "schema_version": "0.1.0",
+    "seed": 0,
+    "population_seed": null,
+    "task_seed": null,
+    "n_agents": 100,
+    "years": 40.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": null
+  },
+  "analysis": {
+    "primary_metric": "rearing_corr_children",
+    "primary_metric_definition": "Year 40: Pearson correlation, over alive agents aged 10-25, between a child's held-out accuracy and the mean held-out accuracy of the other adults (25+) in its rearing household; one value per society.",
+    "comparison": "dev_cross_foster - static_cross_foster, paired by seed",
+    "test": "paired_bootstrap",
+    "alpha": 0.05,
+    "n_bootstrap": 4000,
+    "minimum_effect_of_interest": null,
+    "secondary_metrics": [
+      "biological_corr_children",
+      "rearing_minus_biological",
+      "children_accuracy_10_25",
+      "n_children_10_25"
+    ]
+  },
+  "ablations": [],
+  "validity_notes": [
+    "Assumes the world keeps biological parents in AgentState.parents and the rearing home in household_id under cross_foster (sim/world lane semantics).",
+    "Correlations with few children per society are noisy; n_children_10_25 is reported."
+  ],
+  "preregistration_hash": "dca65664028ca3047ee374eb2918dd26",
+  "created_at": "2026-11-04T05:32:03.297219Z"
+}
