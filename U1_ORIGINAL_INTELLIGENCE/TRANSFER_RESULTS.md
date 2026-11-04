@@ -95,4 +95,110 @@ Diagnostics:
 
 ## 2. Attempt 2 — revision R1 (confirmatory universes 4–8, 100 worlds per condition per universe)
 
-_Filled in from `results_r1/summary_confirm.json` after the R1 run._
+**What R1 changed** (`EXPERIMENTS_AND_BASELINES.md` §R1, frozen at 2edb4e7):
+* information gain over the concept assignment **and** the laws, so probes now have value;
+* an unbiased prior for unobserved concept pairs;
+* β = 0 as the "no active identification" ablation;
+* feasible universes;
+* universe-level statistics;
+* a staged design. The broad-trained GRU and the relational comparator run only if H1 first holds against the
+  narrow GRU.
+
+β = 0.5 was selected on dev `iid`.
+
+**Deviation R1-X1 (analysis code).**
+* What happened: the stage-1 summary refused to run. The frozen check "was this stage-2 comparator run?" applied
+  `any()` to generator objects, which are always truthy, so the skip was never recognised.
+* The loud stage gate added after the critic's review stopped the run instead of deciding. No result was printed or
+  read.
+* The line was fixed (`u1/stats.py`, commented) and the preregistered analysis then run unchanged. Because the code
+  changed after the freeze, the freeze hash no longer matches `stats.py`. No evaluation code changed.
+
+### 2.1 All agents (universe means of 100 worlds; 500 worlds per cell)
+
+| agent | iid | cue_reversed | recombined | novel_role | role_switch |
+|---|---|---|---|---|---|
+| `ira` (β = 0.5) | 0.905 | **0.816** | 0.881 | 0.747 | **0.712** |
+| `gru_narrow` (20k updates, 2.56 M episodes) | **0.936** | 0.733 | **0.887** | **0.791** | 0.498 |
+| `ira_noactive` (β = 0) | 0.912 | 0.822 | 0.881 | 0.806 | 0.717 |
+| `ira_beta1` (β = 1, descriptive) | 0.848 | 0.738 | 0.834 | 0.656 | 0.653 |
+| `ira_closed` | 0.899 | 0.816 | 0.887 | 0.742 | 0.706 |
+| `ira_nocuetrack` | 0.900 | 0.696 | 0.873 | 0.710 | 0.701 |
+| `ira_nochange` | 0.930 | 0.831 | 0.903 | 0.765 | 0.492 |
+| `ira_nolibrary` | 0.770 | 0.775 | 0.791 | 0.780 | 0.423 |
+| `entity_bayes` | 0.553 | 0.560 | 0.566 | 0.573 | 0.360 |
+| `ucb` | 0.444 | 0.445 | 0.467 | 0.458 | 0.244 |
+| `random` | 0.207 | 0.214 | 0.222 | 0.221 | 0.236 |
+
+### 2.2 H1: IRA − `gru_narrow` (unit = universe; one-sided t over 5 universe means; Holm over 4 shifts)
+
+| condition | estimate | per universe (u4–u8) | > 0 | Holm p | passes |
+|---|---|---|---|---|---|
+| iid | −0.031 | −0.050, −0.008, −0.043, +0.004, −0.054 | 1 | — | non-inferior (≥ −0.05): yes |
+| cue_reversed | +0.084 | +0.179, −0.059, −0.033, −0.040, +0.372 | 2 | 0.56 | no |
+| recombined | −0.006 | −0.033, −0.024, −0.051, −0.056, +0.134 | 1 | 1.0 | no |
+| novel_role | −0.044 | +0.034, −0.186, +0.012, −0.028, −0.054 | 2 | 1.0 | no |
+| role_switch | **+0.214** | +0.289, +0.225, +0.147, +0.184, +0.224 | 5 | 0.002 | **yes** |
+
+**H1 is not supported (1 of 4 shift conditions).** By the preregistered staging, H1 requires all three comparators,
+so stage 2 (`gru_broad`, `rel_broad`) was not run. On dev, `rel_broad` exceeded IRA in four of five conditions,
+including `role_switch` (R1-D).
+
+### 2.3 Mechanisms (Holm over M1–M5)
+
+| | ablation | condition(s) | estimate | per universe | Holm p | passes |
+|---|---|---|---|---|---|---|
+| M1 cue-validity tracking | `ira_nocuetrack` | cue_reversed | +0.120 | +0.031, +0.084, +0.031, +0.004, +0.450 | 0.34 | no |
+| M2 open concept set | `ira_closed` | novel_role | +0.005 | +0.012, +0.035, −0.005, −0.002, −0.014 | 0.58 | no |
+| M3 re-identification | `ira_nochange` | role_switch | **+0.221** | +0.304, +0.191, +0.156, +0.207, +0.245 | 0.002 | **yes** |
+| M4 information-gain action selection | `ira_noactive` (β = 0) | all five | **−0.016** | −0.030, −0.040, −0.004, −0.002, −0.001 | 0.94 | no |
+| M5 cross-world library | `ira_nolibrary` | iid | **+0.135** | +0.109, +0.129, +0.126, +0.151, +0.162 | < 0.001 | **yes** |
+
+**Accumulation (A):** accumulating − frozen = +0.006 (per universe −0.005, −0.012, +0.025, +0.051, −0.029),
+p = 0.35. **Fails.**
+
+**Descriptive** (`results_r1/diagnostics_concepts.json`):
+
+| diagnostic | value |
+|---|---|
+| IRA probes per world | 0.16 (iid), 0.40 (cue_reversed), 0.28 (recombined), 0.94 (novel_role), 0.15 (role_switch) |
+| unseen-role worlds in which any entity got a new concept | 2%, 0%, 0%, 0%, 0% (u4–u8) |
+| library vs. true roles (adjusted Rand index) | 0.28, 0.43, 0.47, 0.24, 0.53 |
+| post-switch normalized return | IRA 0.553, `ira_nochange` 0.104, `gru_narrow` 0.102 |
+
+### 2.4 What attempt 2 shows
+
+* **Fixing the information gain changed behaviour but did not help.**
+  * IRA now probes, most under novelty (0.94 per world on `novel_role`).
+  * Yet removing information-gain-driven action selection entirely does not hurt; it helps slightly (M4 −0.016;
+    `ira_noactive` beats `ira` on `novel_role`, 0.806 vs 0.747).
+  * More information seeking is worse still (`ira_beta1`, every condition).
+  * Within a 20-step episode, greedy exploitation of the posterior beats paying for experiments in this
+    environment family.
+* **Concepts are not formed for novelty.**
+  * The open concept set is inert (M2), and a new concept was opened in 1 of 500 unseen-role worlds.
+  * The learned library makes the unseen role *harder*: `ira` 0.747 vs `ira_nolibrary` 0.780. Well-learned concepts
+    absorb the novel entity, so knowledge entrenches.
+* **The cross-world library is the one learned component that clearly helps** (M5 +0.135 in-distribution). This is
+  ordinary hierarchical-Bayesian transfer, not a new mechanism.
+* **The only robust advantage over the meta-trained agent is the role switch.**
+  * It is fully explained by the designers' surprise-reset rule (M3).
+  * Meta-learners trained with mid-episode switches matched or exceeded IRA there on dev (`gru_broad` 0.673,
+    `rel_broad` 0.770 vs IRA 0.682). This is not a held-out comparison: the dev models were trained before t = 10
+    was excluded from their training switch times.
+* **Cue reversal hurts the narrow GRU strongly in two universes** (u4 and u8; IRA − GRU +0.18 and +0.37), while
+  IRA's cue tracking protects it there (M1 +0.45 in u8). The effect is not consistent across universes (2 of 5),
+  so it does not pass. This is the closest thing to the predicted "incidental correlation" failure, and it is
+  universe-dependent: it depends on how the reversed codes map onto other roles' codes.
+
+## 3. Both attempts together
+
+| claim | attempt 1 | attempt 2 |
+|---|---|---|
+| H1: IRA beats a meta-trained recurrent agent under ≥ 3 of 4 shifts | not supported (1/4) | not supported (1/4) |
+| active identification explains performance | not tested (agent never probed) | **no** (M4 −0.016) |
+| new concepts opened for the unseen concept | no (M2 0.000) | no (M2 +0.005; 1/500 worlds) |
+| cue-validity tracking separates general from incidental | no (M1 +0.019) | inconsistent (M1 +0.120, 2 universes carry it) |
+| re-identification after change | yes (M3 +0.180), hand-written rule | yes (M3 +0.221), hand-written rule |
+| cross-world library | yes (M5 +0.083) | yes (M5 +0.135) |
+| accumulation without retraining | no (+0.027) | no (+0.006) |

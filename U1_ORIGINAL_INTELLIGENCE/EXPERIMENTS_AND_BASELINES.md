@@ -336,3 +336,12 @@ margin 0.05.
   * Had stage 2 run, the dev numbers suggest that `rel_broad` would exceed IRA in 4 of 5 conditions, including
     `role_switch` (0.770 vs 0.682). On dev it trails IRA only on `cue_reversed` (0.831 vs 0.842).
   * On `novel_role`, IRA with its learned library does worse than without it (0.701 vs 0.785).
+
+## R1 post-freeze deviations
+
+* **R1-X1 (analysis code, after the run, before any R1 result was read).**
+  * The stage-2 presence check in `u1/stats.py` applied `any()` to generator objects, which are always truthy. The
+    stage-1 summary therefore demanded stage-2 files and exited with an error.
+  * The stage gate refused to decide, as designed.
+  * The line was fixed and commented; the preregistered analysis then ran unchanged.
+  * The freeze hash of `stats.py` no longer matches. No training or evaluation code changed after the freeze.
