@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { isMockMode } from "../api/config";
+import { isMockMode, isStaticMode } from "../api/config";
 
 export function SyntheticBadge() {
   return (
@@ -43,6 +43,21 @@ export function FutureBanner({ children }: { children?: ReactNode }) {
           "Future Self is a decision-exploration tool. It shows illustrative scenarios conditioned on your stated assumptions. It does not predict your future and shows no individualized probabilities."}
       </p>
     </div>
+  );
+}
+
+/** Shown only on the static (GitHub Pages) deployment: real stored outputs, read-only, no backend. */
+export function StaticModeBadge({ enabled }: { enabled?: boolean }) {
+  const on = enabled ?? isStaticMode();
+  if (!on) return null;
+  return (
+    <span
+      className="chip chip--lab"
+      data-testid="static-mode-badge"
+      title="This deployment has no backend: every number is pre-rendered from the committed stored real outputs by the real API code, and Future Self runs the repository's own Python engine in your browser. Live simulations need the API (make demo)."
+    >
+      Static deployment · stored real outputs
+    </span>
   );
 }
 

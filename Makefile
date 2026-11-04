@@ -10,7 +10,7 @@ UV_VENV_FLAGS ?= --allow-existing
 
 .DEFAULT_GOAL := help
 .PHONY: help setup setup-py setup-web lint format typecheck test test-fast test-slow test-integration \
-        contracts contracts-check openapi openapi-check smoke experiments demo-data api web demo demo-check \
+        static-site contracts contracts-check openapi openapi-check smoke experiments demo-data api web demo demo-check \
         bench bench-1k bench-10k docker-config docker-build secrets-scan audit clean
 
 help: ## List targets
@@ -80,6 +80,11 @@ web: ## Start the web dev server on :5173
 
 demo: ## Full local stack: API + built web app (Ctrl-C to stop); OFFLINE=1 for no-network mode
 	$(PY) scripts/demo.py $(if $(OFFLINE),--offline,) $(DEMO_ARGS)
+
+static-site: ## Pre-render the read-only API + build the static web app (GitHub Pages deployment; BASE=/path/ optional)
+	$(PY) scripts/export_static_api.py --out $(WEB)/public/api
+	cd $(WEB) && VITE_API_MODE=static VITE_BASE_PATH=$(or $(BASE),/) $(NPM) run build && cp dist/index.html dist/404.html
+	@echo "static site built in $(WEB)/dist — preview: cd $(WEB) && npx vite preview --port 4173"
 
 demo-check: ## Headless full-stack smoke: start API + web, walk the demo endpoints, shut down
 	$(PY) scripts/demo.py --check $(DEMO_ARGS)

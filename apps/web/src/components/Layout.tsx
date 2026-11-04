@@ -4,7 +4,7 @@ import { api } from "../api/client";
 import { apiBaseUrl, isMockMode } from "../api/config";
 import { CONTRACT_VERSION } from "../types/contracts";
 import type { Health } from "../types/contracts";
-import { MockBanner } from "./Badges";
+import { MockBanner, StaticModeBadge } from "./Badges";
 import { Loading } from "./AsyncState";
 
 const LAB_LINKS: Array<{ to: string; label: string }> = [
@@ -114,7 +114,7 @@ export function Layout() {
             individualized probabilities, and never uses simulation results as evidence about a person.
           </span>
           <span>
-            <ApiStatus /> {isMockMode() && <span className="badge badge--mock">Mock mode</span>}
+            <ApiStatus /> <StaticModeBadge /> {isMockMode() && <span className="badge badge--mock">Mock mode</span>}
           </span>
         </div>
       </footer>

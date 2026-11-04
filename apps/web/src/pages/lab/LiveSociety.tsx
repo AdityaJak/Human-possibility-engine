@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { api } from "../../api/client";
+import { isStaticMode } from "../../api/config";
 import { useApi } from "../../api/hooks";
 import type { AgentFrame, AgentPage, ExperienceEvent, FramesResponse, PolicyClass, RunInfo, WorldMap, WorldTick } from "../../types/contracts";
 import { LabBanner, SourceTag } from "../../components/Badges";
@@ -150,14 +151,21 @@ export default function LiveSociety() {
               )}
               {run && <RunMeta run={run} />}
             </div>
-            <details>
-              <summary>
-                <strong>Start a new live run</strong> (switch seed)
-              </summary>
-              <div style={{ marginTop: 10 }}>
-                <NewRunForm onCreated={onCreated} defaultSeed={(run?.manifest?.config.seed ?? 0) + 1} />
-              </div>
-            </details>
+            {isStaticMode() ? (
+              <p className="muted" data-testid="static-live-notice" style={{ margin: 0 }}>
+                Live interactive runs need the API, which this static deployment does not include. You are replaying a stored real output; run{" "}
+                <code>make demo</code> locally or deploy the API (docs/DEPLOYMENT.md) to start new simulations.
+              </p>
+            ) : (
+              <details>
+                <summary>
+                  <strong>Start a new live run</strong> (switch seed)
+                </summary>
+                <div style={{ marginTop: 10 }}>
+                  <NewRunForm onCreated={onCreated} defaultSeed={(run?.manifest?.config.seed ?? 0) + 1} />
+                </div>
+              </details>
+            )}
           </div>
         )}
       </section>

@@ -1,0 +1,70 @@
+name: pages
+
+# Static deployment of the research dashboard + Future Self to GitHub Pages.
+# Serves the committed stored real outputs read-only (pre-rendered by scripts/export_static_api.py
+# from the real API) and runs the repository's own Python Future Self engine in the browser.
+
+on:
+  push:
+    branches: [claude/human-possibility-engine-yjujoc]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install Python package
+        run: |
+          uv venv --allow-existing .venv
+          uv pip install --python .venv/bin/python -e ".[dev,parquet]"
+      - name: Pre-render the read-only API from stored real outputs
+        run: .venv/bin/python scripts/export_static_api.py --out apps/web/public/api --no-wheel
+      - name: Build the hpe wheel for the in-browser Future Self engine
+        run: uv build --wheel -o apps/web/public/wheels
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Build the web app (static mode, Pages base path)
+        working-directory: apps/web
+        env:
+          VITE_API_MODE: static
+          VITE_BASE_PATH: /Human-possibility-engine/
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+          cp dist/index.html dist/404.html
+          du -sh dist
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - run: echo "Deployed to ${{ steps.deployment.outputs.page_url }}"
