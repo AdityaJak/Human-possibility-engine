@@ -1,0 +1,16 @@
+# X3-001 (exploratory, director): does the torch population GRU on encoding v3 reproduce or improve on the
+# Phase II numpy ref_gru on the tune partition? Required by ADR-0009 before pop_gru is used as a comparator.
+# Phase II ref_gru tune NLL (X-009/X-010): bandit2 0.389, garcia 0.447, described 0.372.
+experiment_id: x3_001_core_sanity
+title: Torch population GRU (encoding v3) vs the Phase II numpy GRU, tune partition
+lane: director
+hypothesis: (Exploratory.) pop_gru with the v3 encoding is at least as good as the Phase II ref_gru on tune.
+families: [restless4, garcia, described, bandit2]
+report_partition: tune
+seed: 20261107
+threads: 3
+models:
+  pop_gru:
+    role: comparator
+    grid: {hidden: [12, 32], lr: [0.003, 0.01]}
+    fixed: {max_epochs: 40, patience: 5, batch_size: 16}
