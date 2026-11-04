@@ -1,0 +1,44 @@
+{
+ "L1_forged_freeze_record": {
+  "returned": {
+   "without_record": "locked (expected)",
+   "forged_record_outside_repo": "locked",
+   "fields_checked": "presence of experiment_id, preregistration_hash, code_version, frozen_at only",
+   "record_accepted": {
+    "experiment_id": "anything",
+    "preregistration_hash": "not-a-hash",
+    "code_version": "none",
+    "frozen_at": "never"
+   },
+   "experiment_id_in_record_matches_file_name": false,
+   "load_family_accepts_freeze_dir_argument": false
+  }
+ },
+ "L3_tampered_partitions": {
+  "returned": {
+   "tampered_file_accepted_by_Partitions.load": false,
+   "a_test_participant_now_assigned_to": "/tmp/tmptl04oe94/psych101_p3_tampered.json: not one of the pinned partition files (modified or foreign)",
+   "expected_digests_pinned_in_code": false,
+   "alias_family_registration": "refused: family 'critic_restless4_alias' overlaps the studies of 'restless4'"
+  }
+ },
+ "L4_exposed_file_fail_open": {
+  "raised": "DataUnavailable",
+  "message": "/home/user/Human-possibility-engine/reports/phase3/partitions/does_not_exist.json is missing; refusing to load data without the exposure list",
+  "where": "  File \"/home/user/Human-possibility-engine/packages/hpe/population/core/data.py\", line 76, in exposed_keys"
+ },
+ "L7_guard_blind_to_phase3_keys": {
+  "returned": {
+   "KEY_RE": "([A-Za-z0-9_.\\-À-ɏ]+/exp\\d+\\.csv)#([A-Za-z0-9_\\-]+)",
+   "matches": {
+    "bahrami2020four/exp.csv#99999": false,
+    "kool2016when/exp1.csv#99999": true,
+    "garcia2023experiential/exp1.csv#99999": true
+   },
+   "default_partitions_file": "reports/phase2/partitions/psych101.json",
+   "phase3_guard_scripts": [
+    "phase3_guard.py"
+   ]
+  }
+ }
+}

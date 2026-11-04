@@ -23,7 +23,7 @@ from pydantic import BaseModel, Field
 
 from hpe.core.rng import derive_seed, stream
 from hpe.population.core import evaluate
-from hpe.population.core.adaptation import overrides_harness
+from hpe.population.core.adaptation import AdaptiveBase, overrides_harness
 from hpe.population.core.conformance import check_causal, check_encoding_leak, state_digest
 from hpe.population.core.data import load_family
 from hpe.population.core.encoding import EncodedSeq, input_dim, rekey
@@ -193,6 +193,9 @@ def select_model_family(
     violations: list[str] = []
     if overrides_harness(model):
         violations.append("adaptive model overrides the harness-owned predict_logprobs")
+    if bool(spec.adaptive or getattr(model, "adaptive", False)) and not isinstance(model, AdaptiveBase):
+        # critic G-1: an adaptive model must not implement its own frozen/donor ablations
+        violations.append("adaptive model does not use the harness-owned adaptation modes (AdaptiveBase)")
     t_check = time.process_time()
     violations += check_causal(model, sel_seqs[:20], seed=defn.seed)
     check_cpu = time.process_time() - t_check

@@ -39,10 +39,33 @@ class FamilySpec:
 
 FAMILIES: dict[str, FamilySpec] = {}
 
+# Canonical owner of every study prefix covered by the pinned partition files (critic finding T-2): a family
+# registered under another name over any of these studies is refused, whether or not the canonical family
+# has been imported yet.
+CANONICAL_PREFIXES: dict[str, str] = {
+    **{p: n for n, ps in psych101_v2.PARADIGM_PREFIXES.items() for p in ps},
+    "bahrami2020four/": "restless4",
+    "kool2016when/": "two_step",
+    "kool2017cost/": "two_step",
+    "zorowitz2023data/": "two_step",
+    "schulz2020finding/": "spatial_bandit",
+    "sadeghiyeh2020temporal/": "horizon_external",
+    "somerville2017charting/": "horizon_external",
+    "feng2021dynamics/": "horizon_external",
+    "collsiöö2023MCPL/": "mcpl",
+    "steingroever2015data/": "igt",
+}
+
 
 def register_family(spec: FamilySpec) -> None:
     if spec.name in FAMILIES and FAMILIES[spec.name] != spec:
         raise ValueError(f"family {spec.name!r} already registered differently")
+    for prefix in spec.prefixes:
+        owner = next(
+            (n for p, n in CANONICAL_PREFIXES.items() if p.startswith(prefix) or prefix.startswith(p)), None
+        )
+        if owner is not None and owner != spec.name:
+            raise ValueError(f"family {spec.name!r} overlaps the studies of {owner!r}")
     for other in FAMILIES.values():  # critic finding T-2: no second name over the same studies
         if other.name != spec.name and any(
             a.startswith(b) or b.startswith(a) for a in spec.prefixes for b in other.prefixes

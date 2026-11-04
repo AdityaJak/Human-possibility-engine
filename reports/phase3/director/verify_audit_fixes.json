@@ -1,0 +1,126 @@
+{
+ "k2_T40": {
+  "Honest": {
+   "check_causal_flags": false,
+   "runner_G1_flag": false,
+   "excluded_by_runner": false,
+   "first_violation": []
+  },
+  "PeekAll": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "ProbeDodger": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "KeyCache": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "Transductive": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0: predict_logprobs mutated model state"
+   ]
+  },
+  "InvariantFields": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq1: predictions depend on seq.key"
+   ]
+  },
+  "DonorPathPeek": {
+   "check_causal_flags": true,
+   "runner_G1_flag": true,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 donor: rows <= 0 depend on the target's data at or after row 0"
+   ]
+  },
+  "SabotagedAblations": {
+   "check_causal_flags": false,
+   "runner_G1_flag": true,
+   "excluded_by_runner": true,
+   "first_violation": []
+  }
+ },
+ "k4_T60": {
+  "Honest": {
+   "check_causal_flags": false,
+   "runner_G1_flag": false,
+   "excluded_by_runner": false,
+   "first_violation": []
+  },
+  "PeekAll": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "ProbeDodger": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "KeyCache": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "Transductive": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0: predict_logprobs mutated model state"
+   ]
+  },
+  "InvariantFields": {
+   "check_causal_flags": true,
+   "runner_G1_flag": false,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after row 0"
+   ]
+  },
+  "DonorPathPeek": {
+   "check_causal_flags": true,
+   "runner_G1_flag": true,
+   "excluded_by_runner": true,
+   "first_violation": [
+    "seq0 donor: rows <= 0 depend on the target's data at or after row 0"
+   ]
+  },
+  "SabotagedAblations": {
+   "check_causal_flags": false,
+   "runner_G1_flag": true,
+   "excluded_by_runner": true,
+   "first_violation": []
+  }
+ }
+}

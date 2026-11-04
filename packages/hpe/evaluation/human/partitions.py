@@ -31,6 +31,16 @@ class TestPartitionLocked(PermissionError):
     """Raised when code tries to touch the test partition without a freeze record."""
 
 
+# SHA-256 of the two frozen partition files (critic finding T-2): any other file is refused unless a caller
+# explicitly opts in with ``allow_unpinned=True`` (unit tests with synthetic partitions only).
+PINNED_PARTITION_SHA256 = frozenset(
+    {
+        "854054b4052bb8933f459c0fd4541c99398053d38ed3dbb5d499bee29597c15d",  # reports/phase2/partitions/psych101.json
+        "bfd0c52e1e4d27b29ed6ab0de78cb162b02f98ea2ceee68cdb82ac919c33b832",  # reports/phase3/partitions/psych101_p3.json
+    }
+)
+
+
 @dataclass(frozen=True, slots=True)
 class Partitions:
     split_seed: int
@@ -39,8 +49,11 @@ class Partitions:
     test_partition_sha256: str
 
     @classmethod
-    def load(cls, path: Path = DEFAULT_PARTITIONS_FILE) -> Partitions:
-        raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    def load(cls, path: Path = DEFAULT_PARTITIONS_FILE, *, allow_unpinned: bool = False) -> Partitions:
+        data = Path(path).read_bytes()
+        if not allow_unpinned and hashlib.sha256(data).hexdigest() not in PINNED_PARTITION_SHA256:
+            raise ValueError(f"{path}: not one of the pinned partition files (modified or foreign)")
+        raw = json.loads(data.decode("utf-8"))
         families: dict[str, tuple[str, ...]] = {}
         assignment: dict[tuple[str, str], Partition] = {}
         for fam, exps in raw["families"].items():
@@ -92,23 +105,24 @@ def freeze_record(experiment_id: str, freeze_dir: Path = DEFAULT_FREEZE_DIR) -> 
 def check_partition_access(
     partition: str, experiment_id: str | None = None, freeze_dir: Path = DEFAULT_FREEZE_DIR
 ) -> None:
-    """Allow dev/tune always; allow test only with a valid freeze record for ``experiment_id``."""
+    """Allow dev/tune always; allow test only when Phase III ``validate_freeze`` passes for ``experiment_id``."""
     if partition not in PARTITIONS:
         raise ValueError(f"unknown partition {partition!r}; expected one of {PARTITIONS}")
     if partition != "test":
         return
-    if Path(freeze_dir).resolve() == DEFAULT_FREEZE_DIR.resolve():
-        # Phase II ended (PIVOT) without any human test freeze; the test partitions of the families Phase III
-        # reuses are governed by Phase III's stricter lock (hpe.population.core.freeze). Critic finding T-4.
-        raise TestPartitionLocked(
-            "Phase II is closed: its test partitions cannot be unlocked through Phase II tooling"
-        )
-    if experiment_id is None or freeze_record(experiment_id, freeze_dir) is None:
-        raise TestPartitionLocked(
-            "the test partition is locked: no freeze record "
-            f"{Path(freeze_dir) / f'{experiment_id}.json'} exists. Develop and tune on dev/tune only; "
-            "the Research Director creates the freeze record once model selection is final."
-        )
+    # Critic findings T-1/T-4: test access is granted only through Phase III's full freeze validation
+    # (fixed directory, committed record + critic approval, matching hash, unchanged code, clean tree).
+    from hpe.population.core.freeze import FREEZE_DIR as _P3_FREEZE_DIR
+    from hpe.population.core.freeze import validate_freeze
+
+    if experiment_id is not None and Path(freeze_dir).resolve() == _P3_FREEZE_DIR.resolve():
+        validate_freeze(experiment_id)
+        return
+    # Phase II ended (PIVOT) without any human test freeze; Phase II-style records no longer open anything.
+    raise TestPartitionLocked(
+        "test partitions open only through hpe.population.core.freeze.validate_freeze "
+        f"(Phase II is closed; no record in {Path(freeze_dir)} can unlock {experiment_id!r})"
+    )
 
 
 def iter_partition_records(

@@ -45,7 +45,7 @@ def _partitions_file(tmp_path, exps=("expA/exp1.csv", "expB/exp1.csv")):
 
 
 def test_test_partition_is_locked_without_freeze_record(tmp_path):
-    parts = Partitions.load(_partitions_file(tmp_path))
+    parts = Partitions.load(_partitions_file(tmp_path), allow_unpinned=True)
     recs = [{"experiment": "expA/exp1.csv", "participant": str(i), "text": "t"} for i in range(5)]
     assert [
         r["participant"] for r in iter_partition_records(recs, parts, "dev", freeze_dir=tmp_path / "freeze")
@@ -59,25 +59,21 @@ def test_test_partition_is_locked_without_freeze_record(tmp_path):
         check_partition_access("test", "x", tmp_path / "freeze")
 
 
-def test_test_partition_opens_only_with_valid_freeze_record(tmp_path):
-    parts = Partitions.load(_partitions_file(tmp_path))
+def test_a_four_field_record_in_any_directory_no_longer_opens_test(tmp_path):
+    """Critic finding T-1: Phase II-style records are not enough; only Phase III validate_freeze opens test."""
+    parts = Partitions.load(_partitions_file(tmp_path), allow_unpinned=True)
     recs = [{"experiment": "expA/exp1.csv", "participant": str(i), "text": "t"} for i in range(5)]
     fz = tmp_path / "freeze"
     fz.mkdir()
-    (fz / "x.json").write_text(
-        json.dumps({"experiment_id": "x", "preregistration_hash": "h", "code_version": "c"})
-    )
-    with pytest.raises(ValueError, match="missing fields"):  # frozen_at missing
-        check_partition_access("test", "x", fz)
     (fz / "x.json").write_text(
         json.dumps(
             {"experiment_id": "x", "preregistration_hash": "h", "code_version": "c", "frozen_at": "now"}
         )
     )
-    assert [
-        r["participant"]
-        for r in iter_partition_records(recs, parts, "test", experiment_id="x", freeze_dir=fz)
-    ] == ["3", "4"]
+    with pytest.raises(TestPartitionLocked):
+        check_partition_access("test", "x", fz)
+    with pytest.raises(TestPartitionLocked):
+        list(iter_partition_records(recs, parts, "test", experiment_id="x", freeze_dir=fz))
 
 
 def test_tampered_partitions_file_is_rejected(tmp_path):
@@ -85,8 +81,10 @@ def test_tampered_partitions_file_is_rejected(tmp_path):
     doc = json.loads(p.read_text())
     doc["families"]["famA"]["expA/exp1.csv"]["test"] = ["3"]  # moved a participant out of test
     p.write_text(json.dumps(doc))
-    with pytest.raises(ValueError, match="digest mismatch"):
+    with pytest.raises(ValueError, match="not one of the pinned"):
         Partitions.load(p)
+    with pytest.raises(ValueError, match="digest mismatch"):
+        Partitions.load(p, allow_unpinned=True)
 
 
 def test_gru_gradients_match_finite_differences():
