@@ -106,3 +106,20 @@ def test_horizon_external_reuses_the_horizon_parser():
     assert p.paradigm == "horizon_external" and [t.forced for t in p.trials] == [True, False]
     assert get_family("horizon_external").role == "external"
     assert get_family("two_step").role == "counted_if_validated"
+
+
+def test_spatial_bandit_parser():
+    from hpe.population.families.spatial_bandit import parse_spatial_bandit
+
+    text = (
+        "You will be playing a game for 2 rounds.\nEach round contains 2 trials.\n"
+        "In each trial, you have to select one option that will generate a reward between 0 and 50 points.\n"
+        "You can choose between options 1, 2, 3, 4, 5, 6, 7 and 8 by pressing the corresponding key.\n\n"
+        "You are playing round 1:\nYou press <<3>> and get 25.0 points.\nYou press <<8>> and get 50 points.\n\n"
+        "You are playing round 2:\nYou press <<1>> and get 0.5 points.\n"
+    )
+    p = parse_spatial_bandit(text, "schulz2020finding/exp1.csv", "1")
+    assert [t.choice for t in p.trials] == [2, 7, 0] and [t.block for t in p.trials] == [0, 0, 1]
+    assert p.trials[0].reward == pytest.approx(0.5) and p.trials[1].reward == 1.0
+    with pytest.raises(ParseError):
+        parse_spatial_bandit(text.replace("50 points.\n\nYou are", "51 points.\n\nYou are"), "s/e", "1")
