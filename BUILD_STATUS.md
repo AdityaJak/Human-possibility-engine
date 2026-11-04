@@ -20,7 +20,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in integrated br
 | Docker / compose | not started | |
 | External human validation | not started | |
 | 1,000 / 10,000-agent benchmarks | not started | |
-| GitHub remote | exists (`AdityaJak/Human-possibility-engine`, **public**); nothing pushed yet — awaiting founder decision on visibility (ADR-0007) | |
+| GitHub remote | `AdityaJak/Human-possibility-engine` (public; founder authorised public push 2026-11-04, ADR-0007) — branch `claude/human-possibility-engine-yjujoc` | verified by push |
 
 ## Last executed commands (orchestrator, 2026-11-04)
 
