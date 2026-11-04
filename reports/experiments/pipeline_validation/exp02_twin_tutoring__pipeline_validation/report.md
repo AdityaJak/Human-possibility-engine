@@ -26,13 +26,13 @@
 
 | contrast | kind | treatment | control | estimate | 95% CI | relative | p | verdict |
 |---|---|---|---|---|---|---|---|---|
-| tutoring_effect_developmental (primary) | superiority | dev_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
-| mechanism_check_static_persona | equivalence | static_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['static_tutoring', 'static_control'] |
-| manipulation_check | superiority | dev_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
-| tutoring_effect_plain_rl | superiority | rl_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['rl_tutoring', 'rl_control'] |
-| tutoring_effect_on_transfer_family | exploratory | dev_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
-| tutoring_effect_on_employment | exploratory | dev_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
-| spillover_to_adults | exploratory | dev_tutoring | None | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
+| tutoring_effect_developmental (primary) | superiority | dev_tutoring | dev_control | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
+| mechanism_check_static_persona | equivalence | static_tutoring | static_control | — | — | — | — | not_computed: no data for arm(s) ['static_tutoring', 'static_control'] |
+| manipulation_check | superiority | dev_tutoring | dev_control | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
+| tutoring_effect_plain_rl | superiority | rl_tutoring | rl_control | — | — | — | — | not_computed: no data for arm(s) ['rl_tutoring', 'rl_control'] |
+| tutoring_effect_on_transfer_family | exploratory | dev_tutoring | dev_control | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
+| tutoring_effect_on_employment | exploratory | dev_tutoring | dev_control | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
+| spillover_to_adults | exploratory | dev_tutoring | dev_control | — | — | — | — | not_computed: no data for arm(s) ['dev_tutoring', 'dev_control'] |
 
 ## Compute
 

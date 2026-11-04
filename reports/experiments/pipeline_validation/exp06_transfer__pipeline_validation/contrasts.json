@@ -1,7 +1,7 @@
 [
   {
     "contrast": "shared_representation_vs_specialists",
-    "control": null,
+    "control": "developmental_specialists",
     "control_selection": "",
     "kind": "superiority",
     "metric": "transfer_auc/shared/trained",
@@ -37,7 +37,7 @@
   },
   {
     "contrast": "orthogonal_control_no_benefit",
-    "control": null,
+    "control": "developmental_specialists",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "transfer_auc/orthogonal/trained",

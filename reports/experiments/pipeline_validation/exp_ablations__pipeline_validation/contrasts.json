@@ -1,7 +1,7 @@
 [
   {
     "contrast": "learning_is_necessary",
-    "control": null,
+    "control": "ablate_learning",
     "control_selection": "",
     "kind": "superiority",
     "metric": "final_heldout_accuracy",
@@ -13,7 +13,7 @@
   },
   {
     "contrast": "feedback_is_necessary",
-    "control": null,
+    "control": "ablate_feedback",
     "control_selection": "",
     "kind": "superiority",
     "metric": "final_heldout_accuracy",
@@ -25,7 +25,7 @@
   },
   {
     "contrast": "memory_contribution",
-    "control": null,
+    "control": "ablate_memory",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "final_heldout_accuracy",
@@ -37,7 +37,7 @@
   },
   {
     "contrast": "shared_representation_contribution",
-    "control": null,
+    "control": "ablate_shared_representation",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "transfer_auc/shared/trained",
@@ -49,7 +49,7 @@
   },
   {
     "contrast": "social_learning_contribution",
-    "control": null,
+    "control": "ablate_social_learning",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "final_heldout_accuracy",
@@ -61,7 +61,7 @@
   },
   {
     "contrast": "plasticity_schedule_contribution",
-    "control": null,
+    "control": "ablate_plasticity_schedule",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "final_heldout_accuracy",
@@ -73,7 +73,7 @@
   },
   {
     "contrast": "curriculum_contribution",
-    "control": null,
+    "control": "ablate_curriculum",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "final_heldout_accuracy",
@@ -85,7 +85,7 @@
   },
   {
     "contrast": "forgetting_effect_on_retention",
-    "control": null,
+    "control": "ablate_forgetting",
     "control_selection": "",
     "kind": "exploratory",
     "metric": "retention_change",

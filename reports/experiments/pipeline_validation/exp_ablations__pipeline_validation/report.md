@@ -26,14 +26,14 @@
 
 | contrast | kind | treatment | control | estimate | 95% CI | relative | p | verdict |
 |---|---|---|---|---|---|---|---|---|
-| learning_is_necessary (primary) | superiority | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_learning'] |
-| feedback_is_necessary | superiority | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_feedback'] |
-| memory_contribution | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_memory'] |
-| shared_representation_contribution | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_shared_representation'] |
-| social_learning_contribution | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_social_learning'] |
-| plasticity_schedule_contribution | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_plasticity_schedule'] |
-| curriculum_contribution | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_curriculum'] |
-| forgetting_effect_on_retention | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_forgetting'] |
+| learning_is_necessary (primary) | superiority | developmental | ablate_learning | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_learning'] |
+| feedback_is_necessary | superiority | developmental | ablate_feedback | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_feedback'] |
+| memory_contribution | exploratory | developmental | ablate_memory | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_memory'] |
+| shared_representation_contribution | exploratory | developmental | ablate_shared_representation | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_shared_representation'] |
+| social_learning_contribution | exploratory | developmental | ablate_social_learning | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_social_learning'] |
+| plasticity_schedule_contribution | exploratory | developmental | ablate_plasticity_schedule | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_plasticity_schedule'] |
+| curriculum_contribution | exploratory | developmental | ablate_curriculum | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_curriculum'] |
+| forgetting_effect_on_retention | exploratory | developmental | ablate_forgetting | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'ablate_forgetting'] |
 
 ## Ablations (ablated arm minus full learner, primary metric)
 

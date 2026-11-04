@@ -31,12 +31,12 @@
 
 | contrast | kind | treatment | control | estimate | 95% CI | relative | p | verdict |
 |---|---|---|---|---|---|---|---|---|
-| instruction_vs_no_feedback_developmental (primary) | superiority | dev_full | None | — | — | — | — | not_computed: no data for arm(s) ['dev_full', 'dev_none'] |
-| outcome_feedback_vs_none_developmental | superiority | dev_bandit | None | — | — | — | — | not_computed: no data for arm(s) ['dev_bandit', 'dev_none'] |
-| instruction_vs_outcome_efficiency_developmental | superiority | dev_full | None | — | — | — | — | not_computed: no data for arm(s) ['dev_full', 'dev_bandit'] |
-| no_feedback_learning_is_null_developmental | equivalence | dev_none | None | — | — | — | — | not_computed: no data for arm(s) ['dev_none', 'dev_none_frozen'] |
-| instruction_vs_no_feedback_plain_rl | superiority | rl_full | rl_none | +0.3522 | [+0.3144, +0.4022] | +79.2% | 0.5000 | **passed** |
-| mechanism_check_static_persona | equivalence | static_full | static_none | +0.0000 | [+0.0000, +0.0000] | +0.0% | 1.0000 | **passed** |
+| instruction_vs_no_feedback_developmental (primary) | superiority | dev_full | dev_none | — | — | — | — | not_computed: no data for arm(s) ['dev_full', 'dev_none'] |
+| outcome_feedback_vs_none_developmental | superiority | dev_bandit | dev_none | — | — | — | — | not_computed: no data for arm(s) ['dev_bandit', 'dev_none'] |
+| instruction_vs_outcome_efficiency_developmental | superiority | dev_full | dev_bandit | — | — | — | — | not_computed: no data for arm(s) ['dev_full', 'dev_bandit'] |
+| no_feedback_learning_is_null_developmental | equivalence | dev_none | dev_none_frozen | — | — | — | — | not_computed: no data for arm(s) ['dev_none', 'dev_none_frozen'] |
+| instruction_vs_no_feedback_plain_rl | superiority | rl_full | rl_none | +0.3522 | [+0.3144, +0.4022] | +79.2% | 0.2500 (Holm) | **passed** |
+| mechanism_check_static_persona | equivalence | static_full | static_none | +0.0000 | [+0.0000, +0.0000] | +0.0% | CI vs margin 0.02 | **passed** |
 | retention_developmental_full | exploratory | dev_full | rl_full | — | — | — | — | not_computed: no data for arm(s) ['dev_full'] |
 
 ## Contamination checks (from raw logs)

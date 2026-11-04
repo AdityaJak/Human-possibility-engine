@@ -70,6 +70,7 @@
     "estimate": 0.27481481481481485,
     "improvement": 0.27481481481481485,
     "kind": "exploratory",
+    "margin": null,
     "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
     "metric": "final_heldout_accuracy",
     "n_units": 3,

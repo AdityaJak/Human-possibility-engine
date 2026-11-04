@@ -1,7 +1,7 @@
 [
   {
     "contrast": "instruction_vs_no_feedback_developmental",
-    "control": null,
+    "control": "dev_none",
     "control_selection": "",
     "kind": "superiority",
     "metric": "final_heldout_accuracy",
@@ -13,7 +13,7 @@
   },
   {
     "contrast": "outcome_feedback_vs_none_developmental",
-    "control": null,
+    "control": "dev_none",
     "control_selection": "",
     "kind": "superiority",
     "metric": "final_heldout_accuracy",
@@ -25,7 +25,7 @@
   },
   {
     "contrast": "instruction_vs_outcome_efficiency_developmental",
-    "control": null,
+    "control": "dev_bandit",
     "control_selection": "",
     "kind": "superiority",
     "metric": "episodes_to_criterion/compare",
@@ -37,7 +37,7 @@
   },
   {
     "contrast": "no_feedback_learning_is_null_developmental",
-    "control": null,
+    "control": "dev_none_frozen",
     "control_selection": "",
     "kind": "equivalence",
     "metric": "final_heldout_accuracy",
@@ -58,11 +58,12 @@
     "estimate": 0.35222222222222216,
     "improvement": 0.35222222222222216,
     "kind": "superiority",
+    "margin": null,
     "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
     "metric": "final_heldout_accuracy",
     "n_units": 3,
     "p_value": 0.25,
-    "p_value_holm": 0.5,
+    "p_value_holm": 0.25,
     "primary": false,
     "relative_improvement": 0.7924999999999998,
     "seeds": [
@@ -88,11 +89,11 @@
     "estimate": 0.0,
     "improvement": 0.0,
     "kind": "equivalence",
+    "margin": 0.02,
     "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
     "metric": "final_heldout_accuracy",
     "n_units": 3,
     "p_value": 1.0,
-    "p_value_holm": 1.0,
     "primary": false,
     "relative_improvement": 0.0,
     "seeds": [

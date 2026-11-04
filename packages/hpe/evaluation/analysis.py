@@ -110,7 +110,12 @@ def evaluate_contrast(c: ContrastSpec, data: RawData, variant: str, salt: int) -
         "metric": c.metric,
         "kind": c.kind,
         "treatment": c.treatment,
-        "control": ctrl,
+        "control": ctrl
+        or (
+            "strongest_of(" + ",".join(c.control.strongest_of) + ")"
+            if isinstance(c.control, StrongestOf)
+            else c.control
+        ),
         "control_selection": note,
         "primary": c.primary,
     }
@@ -183,6 +188,7 @@ def evaluate_contrast(c: ContrastSpec, data: RawData, variant: str, salt: int) -
         "improvement": imp,
         "relative_improvement": rel,
         "threshold": thr,
+        "margin": c.margin,
         "treatment_mean": float(np.mean(tv)),
         "control_mean": control_mean,
         "p_value": p,
@@ -322,7 +328,9 @@ def analyze(exp_dir: str | Path, *, make_figures: bool = True) -> ExperimentResu
 
     # Contrasts (main variant)
     main = [evaluate_contrast(c, data, MAIN_VARIANT, salt=i) for i, c in enumerate(proto.contrasts)]
-    confirmatory = [r for r in main if not r["primary"] and r["kind"] != "exploratory" and "p_value" in r]
+    # Holm family = non-primary superiority contrasts. Equivalence / non-inferiority are decided by the 95% CI
+    # against the margin (a TOST at alpha/2 per side), so they carry no difference p-value.
+    confirmatory = [r for r in main if not r["primary"] and r["kind"] == "superiority" and "p_value" in r]
     adj = stats.holm([r["p_value"] for r in confirmatory])
     for r, a_ in zip(confirmatory, adj, strict=True):
         r["p_value_holm"] = a_
@@ -334,11 +342,19 @@ def analyze(exp_dir: str | Path, *, make_figures: bool = True) -> ExperimentResu
             ci_low=r["ci_low"],
             ci_high=r["ci_high"],
             ci_level=r["ci_level"],
-            p_value=r.get("p_value_holm", r["p_value"]),
+            p_value=None
+            if r["kind"] in ("equivalence", "non_inferiority")
+            else r.get("p_value_holm", r["p_value"]),
             standardized_effect=r["standardized_effect"] if np.isfinite(r["standardized_effect"]) else None,
             n_units=r["n_units"],
             unit_of_analysis="seed (independent task world + population)",
-            method=r["method"] + ("; Holm-adjusted p" if "p_value_holm" in r else ""),
+            method=r["method"]
+            + ("; Holm-adjusted p" if "p_value_holm" in r else "")
+            + (
+                f"; decided by 95% CI vs margin {r.get('margin')}"
+                if r["kind"] in ("equivalence", "non_inferiority")
+                else ""
+            ),
             passed_minimum_effect=(r["verdict"] == "passed") if r["kind"] != "exploratory" else None,
         )
         for r in main
@@ -491,11 +507,14 @@ def render_report(
                 f"| {r['contrast']}{' (primary)' if r['primary'] else ''} | {r['kind']} | {r['treatment']} | {r['control']} | — | — | — | — | {r['verdict']}: {r['reason']} |"
             )
             continue
-        p = r.get("p_value_holm", r["p_value"])
+        if r["kind"] in ("equivalence", "non_inferiority"):
+            p_txt = f"CI vs margin {r.get('margin')}"
+        else:
+            p_txt = _fmt(r.get("p_value_holm", r["p_value"]), 4) + (" (Holm)" if "p_value_holm" in r else "")
         L.append(
             f"| {r['contrast']}{' (primary)' if r['primary'] else ''} | {r['kind']} | {r['treatment']} | {r['control']} | "
             f"{r['estimate']:+.4f} | [{r['ci_low']:+.4f}, {r['ci_high']:+.4f}] | {r['relative_improvement']:+.1%} | "
-            f"{_fmt(p, 4)} | **{r['verdict']}** |"
+            f"{p_txt} | **{r['verdict']}** |"
         )
     L.append("")
     if result.sensitivity:

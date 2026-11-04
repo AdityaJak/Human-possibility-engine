@@ -28,10 +28,10 @@
 
 | contrast | kind | treatment | control | estimate | 95% CI | relative | p | verdict |
 |---|---|---|---|---|---|---|---|---|
-| shared_representation_vs_specialists (primary) | superiority | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'developmental_specialists'] |
+| shared_representation_vs_specialists (primary) | superiority | developmental | developmental_specialists | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'developmental_specialists'] |
 | shared_vs_plain_rl | superiority | developmental | plain_rl | — | — | — | — | not_computed: no data for arm(s) ['developmental'] |
 | transfer_gain_vs_plain_rl | superiority | developmental | plain_rl | — | — | — | — | not_computed: no data for arm(s) ['developmental'] |
-| orthogonal_control_no_benefit | exploratory | developmental | None | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'developmental_specialists'] |
+| orthogonal_control_no_benefit | exploratory | developmental | developmental_specialists | — | — | — | — | not_computed: no data for arm(s) ['developmental', 'developmental_specialists'] |
 | orthogonal_gain_vs_plain_rl | exploratory | developmental | plain_rl | — | — | — | — | not_computed: no data for arm(s) ['developmental'] |
 
 ## Contamination checks (from raw logs)

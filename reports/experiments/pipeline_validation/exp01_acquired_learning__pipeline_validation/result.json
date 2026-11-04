@@ -793,7 +793,7 @@
       "ci_low": 0.31444444444444436,
       "ci_high": 0.4022222222222222,
       "ci_level": 0.95,
-      "p_value": 0.5,
+      "p_value": 0.25,
       "standardized_effect": 7.8016367538334075,
       "n_units": 3,
       "unit_of_analysis": "seed (independent task world + population)",
@@ -807,11 +807,11 @@
       "ci_low": 0.0,
       "ci_high": 0.0,
       "ci_level": 0.95,
-      "p_value": 1.0,
+      "p_value": null,
       "standardized_effect": 0.0,
       "n_units": 3,
       "unit_of_analysis": "seed (independent task world + population)",
-      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.02",
       "passed_minimum_effect": true
     }
   ],
