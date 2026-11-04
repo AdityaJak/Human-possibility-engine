@@ -1,0 +1,144 @@
+{
+ "arm": "v2_misinfo_0_5",
+ "seed": 1002,
+ "run_id": "social_misinfo__v2_misinfo_0_5__s1002",
+ "event_stream_hash": "71af704324c44e31f917624179e1d4500b808d6d83bc7a4a391b97a1138d2e65",
+ "cpu_s": 32.6,
+ "yearly": [
+  {
+   "year": 1,
+   "accuracy_10_60": 0.7202380952380951,
+   "demos": 1753.0,
+   "demos_from_misinformers": 92.0,
+   "misinformer_demo_share": 0.052481460353679406,
+   "trust_honest": 0.5978,
+   "trust_misinformer": 0.2577
+  },
+  {
+   "year": 2,
+   "accuracy_10_60": 0.7273297491039427,
+   "demos": 1502.0,
+   "demos_from_misinformers": 108.0,
+   "misinformer_demo_share": 0.07190412782956059,
+   "trust_honest": 0.5913,
+   "trust_misinformer": 0.2351
+  },
+  {
+   "year": 3,
+   "accuracy_10_60": 0.7291044776119403,
+   "demos": 1461.0,
+   "demos_from_misinformers": 98.0,
+   "misinformer_demo_share": 0.06707734428473648,
+   "trust_honest": 0.5977,
+   "trust_misinformer": 0.2379
+  },
+  {
+   "year": 4,
+   "accuracy_10_60": 0.740686274509804,
+   "demos": 1360.0,
+   "demos_from_misinformers": 92.0,
+   "misinformer_demo_share": 0.06764705882352941,
+   "trust_honest": 0.5936,
+   "trust_misinformer": 0.2292
+  },
+  {
+   "year": 5,
+   "accuracy_10_60": 0.7529320987654321,
+   "demos": 1181.0,
+   "demos_from_misinformers": 92.0,
+   "misinformer_demo_share": 0.07790008467400508,
+   "trust_honest": 0.5804,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 6,
+   "accuracy_10_60": 0.7627923976608187,
+   "demos": 1194.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.589,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 7,
+   "accuracy_10_60": 0.7676954732510287,
+   "demos": 961.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.5977,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 8,
+   "accuracy_10_60": 0.7637292464878671,
+   "demos": 898.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6032,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 9,
+   "accuracy_10_60": 0.7671445639187575,
+   "demos": 840.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6072,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 10,
+   "accuracy_10_60": 0.7687719298245612,
+   "demos": 739.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6111,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 11,
+   "accuracy_10_60": 0.7719358533791524,
+   "demos": 736.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6125,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 12,
+   "accuracy_10_60": 0.7833883388338834,
+   "demos": 693.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6141,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 13,
+   "accuracy_10_60": 0.7777216610549945,
+   "demos": 733.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6162,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 14,
+   "accuracy_10_60": 0.7864197530864198,
+   "demos": 706.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6206,
+   "trust_misinformer": NaN
+  },
+  {
+   "year": 15,
+   "accuracy_10_60": 0.7873424971363115,
+   "demos": 730.0,
+   "demos_from_misinformers": 0.0,
+   "misinformer_demo_share": 0.0,
+   "trust_honest": 0.6201,
+   "trust_misinformer": NaN
+  }
+ ]
+}

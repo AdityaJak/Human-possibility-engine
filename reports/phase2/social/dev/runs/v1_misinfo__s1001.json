@@ -1,0 +1,17 @@
+{
+ "arm": "v1_misinfo",
+ "seed": 1001,
+ "run_id": "social_dev__v1_misinfo__s1001",
+ "event_stream_hash": "1a2a7f9329df4d37b77522aa0d338aa53c33928befec4f7e5aa45e7b9e9af1ac",
+ "wall_s": 26.55,
+ "cpu_s": 26.12,
+ "agent_years": 1654.05,
+ "metrics": {
+  "accuracy_10_60": 0.8026666666666666,
+  "youth_accuracy_10_20": 0.7984848484848485,
+  "mean_friends": 0.06796116504854369,
+  "socialize_share": 0.17307692307692307,
+  "population": 116.0
+ },
+ "v2": null
+}

@@ -1,0 +1,30 @@
+v1_connected   s1000 demos/ay=10.09 full=0.00 correct=0.78 gain=0.119 flip=0.117 anti=0.007 demo-dominant cells=0.020 demo-only cells=0 cpu=26.8s
+v1_connected   s1001 demos/ay=9.36 full=0.00 correct=0.76 gain=0.146 flip=0.109 anti=0.009 demo-dominant cells=0.035 demo-only cells=0 cpu=26.6s
+v1_connected   s1002 demos/ay=8.69 full=0.00 correct=0.81 gain=0.199 flip=0.109 anti=0.007 demo-dominant cells=0.032 demo-only cells=0 cpu=25.8s
+v2_connected   s1000 demos/ay=10.73 full=0.41 correct=0.74 gain=0.137 flip=0.109 anti=0.014 demo-dominant cells=0.036 demo-only cells=0 cpu=28.5s
+v2_connected   s1001 demos/ay=10.33 full=0.51 correct=0.74 gain=0.143 flip=0.105 anti=0.021 demo-dominant cells=0.045 demo-only cells=0 cpu=27.2s
+v2_connected   s1002 demos/ay=9.44 full=0.49 correct=0.81 gain=0.257 flip=0.106 anti=0.017 demo-dominant cells=0.045 demo-only cells=0 cpu=27.3s
+/home/user/Human-possibility-engine/.claude/worktrees/agent-aca5484bed73bc545/experiments/phase2/social/transfer_audit.py:249: RuntimeWarning: Mean of empty slice
+  k: {"mean": float(np.nanmean([r[k] for r in rs])), "values": [r[k] for r in rs]} for k in KEYS
+# Knowledge transfer audit — Phase I vs social v2 (EXPLORATORY, dev seeds)
+
+Seeds [1000, 1001, 1002]; 100 agents × 15 years; CPU 0.045 h.
+
+| measure | v1_connected | v2_connected |
+|---|---|---|
+| demos_per_agent_year | 9.3799 | 10.1698 |
+| share_full_feedback | 0.0000 | 0.4718 |
+| share_demo_correct | 0.7820 | 0.7634 |
+| mean_info_gain_nats | 0.1547 | 0.1788 |
+| mean_trust | 0.5498 | 0.5882 |
+| flip_rate | 0.1117 | 0.1068 |
+| anti_flip_rate | 0.0076 | 0.0173 |
+| flips_per_agent_year | 1.0497 | 1.0864 |
+| share_cells_demo_dominant | 0.0291 | 0.0422 |
+| acc_above_chance_demo_dominant | 0.2574 | 0.3155 |
+| acc_above_chance_practice_dominant | 0.3573 | 0.3595 |
+| cells_demo_only | 0.0000 | 0.0000 |
+| acc_above_chance_demo_only | nan | nan |
+| mean_demos_per_cell | 43.9459 | 47.8541 |
+| mean_practice_per_cell | 262.0586 | 257.1654 |
+CPU hours: 0.045

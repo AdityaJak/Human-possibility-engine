@@ -1,0 +1,40 @@
+v1_connected         s1000 acc10_60=0.8001 friends=0.020 soc=0.218 cpu=22.9s
+v1_connected         s1001 acc10_60=0.8166 friends=0.097 soc=0.192 cpu=23.5s
+v1_connected         s1002 acc10_60=0.7830 friends=0.058 soc=0.184 cpu=24.0s
+v1_connected         s1003 acc10_60=0.8355 friends=0.021 soc=0.192 cpu=24.9s
+v1_connected         s1004 acc10_60=0.8018 friends=0.079 soc=0.155 cpu=26.0s
+v1_isolated          s1000 acc10_60=0.7932 friends=0.000 soc=0.188 cpu=27.3s
+v1_isolated          s1001 acc10_60=0.8070 friends=0.000 soc=0.231 cpu=24.6s
+v1_isolated          s1002 acc10_60=0.7842 friends=0.000 soc=0.194 cpu=24.3s
+v1_isolated          s1003 acc10_60=0.8396 friends=0.000 soc=0.192 cpu=25.3s
+v1_isolated          s1004 acc10_60=0.7997 friends=0.000 soc=0.184 cpu=27.6s
+v2_connected         s1000 acc10_60=0.8106 friends=1.723 soc=0.218 cpu=26.8s demos/ay=10.73 gain=0.136 repeat=0.58
+v2_connected         s1001 acc10_60=0.8120 friends=1.369 soc=0.221 cpu=27.9s demos/ay=10.33 gain=0.136 repeat=0.58
+v2_connected         s1002 acc10_60=0.7855 friends=1.515 soc=0.194 cpu=27.2s demos/ay=9.44 gain=0.193 repeat=0.59
+v2_connected         s1003 acc10_60=0.8408 friends=1.330 soc=0.182 cpu=28.3s demos/ay=10.38 gain=0.147 repeat=0.60
+v2_connected         s1004 acc10_60=0.8027 friends=1.356 soc=0.233 cpu=28.2s demos/ay=10.26 gain=0.150 repeat=0.57
+v2_isolated          s1000 acc10_60=0.8036 friends=0.000 soc=0.218 cpu=30.1s demos/ay=17.62 gain=0.131 repeat=0.96
+v2_isolated          s1001 acc10_60=0.8169 friends=0.000 soc=0.231 cpu=28.1s demos/ay=17.46 gain=0.119 repeat=0.96
+v2_isolated          s1002 acc10_60=0.7911 friends=0.000 soc=0.204 cpu=28.5s demos/ay=16.13 gain=0.136 repeat=0.96
+v2_isolated          s1003 acc10_60=0.8511 friends=0.000 soc=0.232 cpu=30.0s demos/ay=18.17 gain=0.128 repeat=0.96
+v2_isolated          s1004 acc10_60=0.8037 friends=0.000 soc=0.175 cpu=32.0s demos/ay=16.80 gain=0.131 repeat=0.95
+v2_reward_only       s1000 acc10_60=0.7907 friends=0.000 soc=0.178 cpu=25.5s demos/ay=0.00 gain=0.000 repeat=0.58
+v2_reward_only       s1001 acc10_60=0.7791 friends=0.078 soc=0.250 cpu=25.8s demos/ay=0.00 gain=0.000 repeat=0.60
+v2_reward_only       s1002 acc10_60=0.7729 friends=0.039 soc=0.233 cpu=24.9s demos/ay=0.00 gain=0.000 repeat=0.59
+v2_reward_only       s1003 acc10_60=0.8157 friends=0.010 soc=0.141 cpu=24.3s demos/ay=0.00 gain=0.000 repeat=0.60
+v2_reward_only       s1004 acc10_60=0.7886 friends=0.010 soc=0.204 cpu=22.9s demos/ay=0.00 gain=0.000 repeat=0.57
+v2_no_learn_signal   s1000 acc10_60=0.8068 friends=1.624 soc=0.178 cpu=30.9s demos/ay=10.14 gain=0.135 repeat=0.58
+v2_no_learn_signal   s1001 acc10_60=0.8229 friends=1.155 soc=0.173 cpu=31.2s demos/ay=9.55 gain=0.133 repeat=0.58
+v2_no_learn_signal   s1002 acc10_60=0.7796 friends=1.155 soc=0.175 cpu=30.6s demos/ay=8.68 gain=0.158 repeat=0.58
+v2_no_learn_signal   s1003 acc10_60=0.8341 friends=1.010 soc=0.192 cpu=31.6s demos/ay=9.63 gain=0.144 repeat=0.59
+v2_no_learn_signal   s1004 acc10_60=0.8016 friends=1.515 soc=0.214 cpu=30.6s demos/ay=9.68 gain=0.140 repeat=0.59
+v1_misinfo           s1000 acc10_60=0.7896 friends=0.000 soc=0.198 cpu=24.9s
+v1_misinfo           s1001 acc10_60=0.8027 friends=0.068 soc=0.173 cpu=26.1s
+v1_misinfo           s1002 acc10_60=0.7722 friends=0.019 soc=0.194 cpu=27.8s
+v1_misinfo           s1003 acc10_60=0.8286 friends=0.000 soc=0.172 cpu=25.1s
+v1_misinfo           s1004 acc10_60=0.7969 friends=0.119 soc=0.214 cpu=25.8s
+v2_misinfo           s1000 acc10_60=0.8067 friends=1.386 soc=0.228 cpu=28.1s demos/ay=10.71 gain=0.137 repeat=0.58
+v2_misinfo           s1001 acc10_60=0.8180 friends=1.495 soc=0.173 cpu=29.4s demos/ay=10.37 gain=0.136 repeat=0.59
+v2_misinfo           s1002 acc10_60=0.7842 friends=1.097 soc=0.204 cpu=26.5s demos/ay=9.55 gain=0.151 repeat=0.58
+v2_misinfo           s1003 acc10_60=0.8387 friends=1.082 soc=0.182 cpu=25.4s demos/ay=10.64 gain=0.129 repeat=0.58
+v2_misinfo           s1004 acc10_60=0.8042 friends=1.337 soc=0.155 cpu=24.9s demos/ay=10.41 gain=0.154 repeat=0.57

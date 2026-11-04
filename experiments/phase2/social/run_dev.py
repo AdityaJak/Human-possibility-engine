@@ -40,6 +40,7 @@ from hpe.contracts.schemas import (
     InterventionKind,
     InterventionTarget,
     LogConfig,
+    PolicyClass,
     SimulationConfig,
 )
 from hpe.evaluation.society import cohort_mean_accuracy, mean_friends
@@ -101,13 +102,24 @@ def paired_bootstrap(
     }
 
 
-def run_one(arm: str, seed: int, n_agents: int, years: float) -> dict[str, Any]:
+def make_factory(policy: str, params: dict[str, Any]) -> Any:
+    """``developmental_social`` strips the world flag itself; other registered learners (e.g.
+    ``hybrid_exemplar``) get the flag removed here, the world still reads it from the config."""
+    if policy == "developmental_social":
+        return get_factory(policy, dict(params))
+    return get_factory(policy, {k: v for k, v in params.items() if k != "social_v2"})
+
+
+def run_one(
+    arm: str, seed: int, n_agents: int, years: float, policy: str = "developmental_social"
+) -> dict[str, Any]:
     params, interventions = ARMS[arm]
+    known = {m.value for m in PolicyClass}
     cfg = SimulationConfig(
         seed=seed,
         n_agents=n_agents,
         years=years,
-        policy_class="developmental",
+        policy_class=PolicyClass(policy) if policy in known else PolicyClass.DEVELOPMENTAL,
         policy_params=dict(params),
         interventions=list(interventions),
         log=LogConfig(
@@ -123,9 +135,13 @@ def run_one(arm: str, seed: int, n_agents: int, years: float) -> dict[str, Any]:
     t0, c0 = time.perf_counter(), time.process_time()
     w = World(
         cfg,
-        get_factory("developmental_social", dict(params)),
+        make_factory(policy, params),
         sink=sink,
-        run_id=f"social_dev__{arm}__s{seed}",
+        run_id=(
+            f"social_dev__{arm}__s{seed}"
+            if policy == "developmental_social"
+            else f"social_dev__{policy}__{arm}__s{seed}"
+        ),
     )
     w.run()
     wall, cpu = time.perf_counter() - t0, time.process_time() - c0
@@ -181,6 +197,11 @@ def main() -> int:
     ap.add_argument("--agents", type=int, default=100)
     ap.add_argument("--years", type=float, default=15.0)
     ap.add_argument("--arms", nargs="+", default=list(ARMS))
+    ap.add_argument(
+        "--policy",
+        default="developmental_social",
+        help="registered learner: developmental_social (default) or e.g. hybrid_exemplar",
+    )
     ap.add_argument("--out", default="reports/phase2/social/dev")
     a = ap.parse_args()
     for s in a.seeds:
@@ -196,7 +217,7 @@ def main() -> int:
             if p.exists():
                 r = json.loads(p.read_text())
             else:
-                r = run_one(arm, seed, a.agents, a.years)
+                r = run_one(arm, seed, a.agents, a.years, a.policy)
                 p.write_text(json.dumps(r, indent=1) + "\n")
             total_cpu += r["cpu_s"]
             results.setdefault(arm, {})[seed] = r
@@ -262,7 +283,7 @@ def main() -> int:
             "seeds": a.seeds,
             "n_agents": a.agents,
             "years": a.years,
-            "policy": "developmental_social",
+            "policy": a.policy,
             "arms": {
                 k: {"policy_params": v[0], "interventions": [i.model_dump(mode="json") for i in v[1]]}
                 for k, v in ARMS.items()
@@ -278,7 +299,7 @@ def main() -> int:
     lines = [
         "# Social mechanism v2 — dev-partition results (EXPLORATORY)",
         "",
-        f"Seeds {a.seeds}; {a.agents} agents × {a.years:g} years; policy `developmental_social`; CPU {summary['cpu_hours_total']} h.",
+        f"Seeds {a.seeds}; {a.agents} agents × {a.years:g} years; policy `{a.policy}`; CPU {summary['cpu_hours_total']} h.",
         "",
         "| arm | n | accuracy 10–60 | youth 10–20 | mean friends | socialise share | demos/agent-yr | repeat share | instructional | info gain | trust honest | trust misinf. |",
         "|---|---|---|---|---|---|---|---|---|---|---|---|",
