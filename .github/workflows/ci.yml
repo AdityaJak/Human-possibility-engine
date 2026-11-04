@@ -15,6 +15,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Phase III research models (ADR-0009): CPU PyTorch extra, population-model tests and the leakage guard.
+  population-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install (with the CPU PyTorch research extra)
+        run: |
+          uv venv --allow-existing .venv
+          uv pip install --python .venv/bin/python -e ".[dev,parquet]"
+          uv pip install --python .venv/bin/python --index-url https://download.pytorch.org/whl/cpu "torch>=2.5,<2.6"
+      - name: Population-model tests (torch tests must not be skipped here)
+        run: .venv/bin/python -m pytest -q tests/population -rs
+      - name: Phase III leakage guard (no test-partition keys, no raw record access in lane code)
+        run: .venv/bin/python scripts/phase3_guard.py > /dev/null
+
   python:
     runs-on: ubuntu-latest
     timeout-minutes: 30
