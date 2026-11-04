@@ -78,7 +78,12 @@ def bootstrap(
 
 
 def paired(
-    a: Sequence[ParticipantScore], b: Sequence[ParticipantScore], *, seed: int, key: tuple[str, ...]
+    a: Sequence[ParticipantScore],
+    b: Sequence[ParticipantScore],
+    *,
+    seed: int,
+    key: tuple[str, ...],
+    n_boot: int = 2000,
 ) -> dict[str, float | int]:
     """Contrast a − b on participants scored by both (negative favours a)."""
     da = {s.key: s.nll for s in a}
@@ -88,7 +93,7 @@ def paired(
         raise ValueError("no common participants")
     n_unpaired = len(set(da) ^ set(db))
     d = np.array([da[k] - db[k] for k in keys])
-    est, lo, hi, p = bootstrap(d, seed=seed, key=key)
+    est, lo, hi, p = bootstrap(d, seed=seed, key=key, n_boot=n_boot)
     sd = float(d.std(ddof=1)) if len(d) > 1 else float("nan")
     return {
         "estimate": est,

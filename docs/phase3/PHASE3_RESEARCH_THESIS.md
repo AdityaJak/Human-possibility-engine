@@ -161,3 +161,50 @@ language-model calls in any model. Every attempt, including abandoned ones, is l
 | `audit/critic-v3` | `reports/phase3/critic/`, `INDEPENDENT_SCIENTIFIC_AUDIT.md`; veto on freezes | production code |
 
 No lane certifies its own claim; the critic reviews design before any freeze and results after.
+
+## 11. Amendment A3-1 (2026-11-04) — after the critic's design review; no confirmatory data seen
+
+The independent critic's design review (`INDEPENDENT_SCIENTIFIC_AUDIT.md`) found seven items blocking
+every freeze and two blocking any Gate A2/B freeze. Changes, each implemented in core code with tests:
+
+1. **One joint freeze per candidate** (S-2). Gates A2, B and C for a candidate are preregistered together
+   and run once on the same test participants. At most two candidate freezes in Phase III; multiplicity is
+   then Holm-corrected across both. A modified candidate is never re-frozen on the same participants.
+2. **Gate B1 uses a separately trained no-adaptation twin** (G-1): `pop_gru` with the candidate's backbone
+   configuration, trained by core code on the same dev data. The candidate's own `frozen` mode is reported
+   as a diagnostic only. Adaptation modes are owned by the harness (`core/adaptation.py`): adapt = the
+   person's own prefixes; frozen = the prior state; donor = a **length-matched online** schedule over another
+   participant's prefixes (G-3).
+3. **Gate B2 is specified** (G-2, G-6): same backbone configuration as the candidate; adapter pool
+   {`ft_head`, `ft_full`, `bayes_head`, `exemplar_mix`, `reptile_gru`, `cavia_gru`}; the best adapter per
+   family is chosen on tune; B2, like B1, requires the primary family.
+4. **Gate rules are code** (`core/gates.py`, S-1): counted families and the primary come from the freeze
+   record; a counted family without results enters Holm with p = 1 and fails.
+5. **p-values** (S-4): each family's p is max(one-sided bootstrap p with 20,000 resamples, one-sided paired
+   t-test p).
+6. **Comparator adequacy before any freeze** (F-1): `pop_gru` must reach tune NLL ≤ the Phase II `ref_gru` in
+   every family where one exists; ≤ 25 % of the selected comparator's fits may stop at the epoch cap; a best
+   comparator selected at the largest capacity in its grid gets one extended search (still ≤ 24 configs).
+   Comparator grids use the full 24-configuration cap. The pool adds `pop_gru_ens` (5-seed ensemble).
+7. **Configuration counting** (F-3): all tune-evaluated configurations of a candidate architecture across
+   exploratory runs and variants are counted; above 24, comparators receive an equal-count search first.
+8. **Counted families are explicit** (L-4): `two_step` counts only if before the freeze its parser reaches
+   ≥ 95 % parse rate on dev, the encoding-leak check is clean and the critic signs off; the freeze record lists
+   the counted families.
+9. **Isolation and causality** (L-1, L-2, L-3): every participant is predicted by a fresh model copy with an
+   opaque key; the strict check (key independence, no mutation, prefix truncation with a flipped action in
+   every mode and the donor path, 20 sequences per family, tolerance 1e-5 log-prob — measured float noise
+   1.2e-7) excludes violators from all comparisons.
+10. **Test lock** (T-1, T-2, T-4, T-6): fixed freeze directory; committed freeze record plus a separate committed
+    critic approval; matching preregistration hash; code unchanged since the frozen commit; clean tree; a
+    single-run access log; two processes (fit stage on dev/tune persists hashed weights; test stage loads them);
+    pinned partition-file hashes; overlapping family names refused; the exposure list fails closed; Phase II
+    tooling can no longer unlock any test partition.
+11. **Determinism and compute** (F-2, F-4): fits stopped by the CPU budget are flagged and cannot be frozen;
+    prediction cost (ms per trial) is reported for every model.
+12. **Gate D and Gate E** (G-4, G-5): their designs will be fixed by a further amendment before the
+    continual-transfer lane runs any experiment; until then neither gate can be frozen.
+
+Power (S-3): at plausible spreads B2 is under-powered (pass probability 0.07–0.92 at 1.5× the margin
+depending on the paired SD); under no effect every rule passes with probability ≤ 0.002. Margins are not
+changed; the limitation is reported with any B result.

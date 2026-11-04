@@ -549,7 +549,13 @@ def analyze(outdir: Path) -> dict[str, Any]:
                     targets.append((c, f"{c}[{v}]", f"vs_{v}"))
             targets += [(c, comp, "vs_comparator") for comp in comps if comp != best_comp]
             for a, b, kind in targets:
-                con = evaluate.paired(scores[a], scores[b], seed=defn.seed, key=(family, a, b))
+                con = evaluate.paired(
+                    scores[a],
+                    scores[b],
+                    seed=defn.seed,
+                    key=(family, a, b),
+                    n_boot=20000 if defn.report_partition == "test" else 2000,
+                )
                 fam["contrasts"].append({"first": a, "second": b, "kind": kind, **con})
                 if kind == "vs_best_comparator":
                     best_vs.setdefault(c, {})[family] = con
