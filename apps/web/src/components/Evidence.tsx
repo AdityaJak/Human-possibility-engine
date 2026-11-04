@@ -32,7 +32,7 @@ export function EvidenceLegend({ kinds = FUTURE_SELF_LEGEND }: { kinds?: Evidenc
 export function EvidenceTable({ records }: { records: EvidenceRecord[] }) {
   if (!records.length) return <p className="muted">No evidence records were returned.</p>;
   return (
-    <div className="table-wrap">
+    <div className="table-wrap" tabIndex={0}>
       <table>
         <caption className="sr-only">Evidence ledger</caption>
         <thead>

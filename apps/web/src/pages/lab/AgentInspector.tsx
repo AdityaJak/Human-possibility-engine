@@ -103,7 +103,7 @@ function Inspector({ detail, runId }: { detail: AgentDetail; runId: string }) {
             {detail.relationships.length === 0 ? (
               <p className="muted">No relationships recorded.</p>
             ) : (
-              <div className="table-wrap" style={{ maxHeight: 280, overflow: "auto" }}>
+              <div className="table-wrap" tabIndex={0} style={{ maxHeight: 280, overflow: "auto" }}>
                 <table>
                   <thead>
                     <tr>
@@ -224,7 +224,7 @@ function SkillCurves({ detail }: { detail: AgentDetail }) {
 
 function CapabilityTable({ caps }: { caps: CapabilityState[] }) {
   return (
-    <div className="table-wrap" style={{ marginTop: 14 }}>
+    <div className="table-wrap" tabIndex={0} style={{ marginTop: 14 }}>
       <table>
         <caption className="sr-only">Capabilities: measured versus self-estimated</caption>
         <thead>
@@ -370,7 +370,7 @@ function Timeline({ detail }: { detail: AgentDetail }) {
       {shown.length === 0 ? (
         <p className="muted">No events in the selected categories.</p>
       ) : (
-        <ol className="timeline" aria-label="Life timeline">
+        <ol className="timeline" tabIndex={0} aria-label="Life timeline">
           {shown.map((e) => (
             <TimelineItem key={e.seq} e={e} age={ageAtTick(detail, e.tick)} />
           ))}
@@ -404,7 +404,7 @@ function DecisionExplanation({ value }: { value: Record<string, unknown> }) {
     <div className="stack" style={{ gap: 8 }}>
       {text.length > 0 && <KeyValue items={text.map(([k, v]) => [titleCase(k), v])} />}
       {numericEntries.length > 0 && numericEntries.length <= 16 && (
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0}>
           <table>
             <tbody>
               {numericEntries.map(([k, v]) => (
@@ -428,7 +428,7 @@ function DecisionExplanation({ value }: { value: Record<string, unknown> }) {
 function MemoryTable({ rows }: { rows: Array<Record<string, unknown>> }) {
   const cols = [...new Set(rows.flatMap((r) => Object.keys(r)))].slice(0, 6);
   return (
-    <div className="table-wrap" style={{ maxHeight: 240, overflow: "auto" }}>
+    <div className="table-wrap" tabIndex={0} style={{ maxHeight: 240, overflow: "auto" }}>
       <table>
         <thead>
           <tr>

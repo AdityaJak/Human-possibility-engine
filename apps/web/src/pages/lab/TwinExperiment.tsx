@@ -121,7 +121,7 @@ function TwinBody({ info }: { info: ExperimentInfo }) {
 
       <section className="card" aria-labelledby="design-title">
         <h2 id="design-title">Design</h2>
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0}>
           <table>
             <thead>
               <tr>

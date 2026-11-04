@@ -1,0 +1,144 @@
+{
+  "base": "http://127.0.0.1:5173",
+  "routes": {
+    "light /": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 3054
+    },
+    "light /lab/society?run=demo_developmental_100a_80y_s42": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 5549
+    },
+    "light /lab/runs/demo_developmental_100a_80y_s42/agents/a00010": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 15768
+    },
+    "light /lab/learning": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 14329
+    },
+    "light /lab/experiment": {
+      "violations": [
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "nodes": 1,
+          "sample": [
+            "h3"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 1238
+    },
+    "light /lab/evidence": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 13515
+    },
+    "light /lab/benchmarks": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2326
+    },
+    "light /future/welcome": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2183
+    },
+    "light /demo": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2077
+    },
+    "dark /": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 3054
+    },
+    "dark /lab/society?run=demo_developmental_100a_80y_s42": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 5549
+    },
+    "dark /lab/runs/demo_developmental_100a_80y_s42/agents/a00010": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 15768
+    },
+    "dark /lab/learning": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 14329
+    },
+    "dark /lab/experiment": {
+      "violations": [
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "nodes": 1,
+          "sample": [
+            "h3"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 1238
+    },
+    "dark /lab/evidence": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 13515
+    },
+    "dark /lab/benchmarks": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2326
+    },
+    "dark /future/welcome": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2183
+    },
+    "dark /demo": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2077
+    }
+  },
+  "mobile_overflow": {
+    "/": 0,
+    "/lab/society?run=demo_developmental_100a_80y_s42": 0,
+    "/lab/runs/demo_developmental_100a_80y_s42/agents/a00010": 0,
+    "/lab/learning": 0,
+    "/lab/experiment": 0,
+    "/lab/evidence": 0,
+    "/lab/benchmarks": 0,
+    "/future/welcome": 0,
+    "/demo": 0
+  }
+}

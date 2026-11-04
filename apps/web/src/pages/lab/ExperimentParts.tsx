@@ -79,7 +79,7 @@ export function ArmsTable({ arms, def }: { arms: ArmSummary[]; def: ExperimentDe
   const metrics = [...new Set(arms.flatMap((a) => Object.keys(a.metrics ?? {})))].sort();
   if (!metrics.length) return <p className="muted">No arm summaries reported.</p>;
   return (
-    <div className="table-wrap">
+    <div className="table-wrap" tabIndex={0}>
       <table>
         <caption className="sr-only">Arm summaries</caption>
         <thead>
@@ -139,7 +139,7 @@ export function EffectsView({ effects, title = "Preregistered contrasts (from th
   return (
     <div className="stack">
       <IntervalPlot rows={rows} title={title} xLabel="estimate (interval excludes 0 → coloured green/red)" zeroLine={0} />
-      <div className="table-wrap">
+      <div className="table-wrap" tabIndex={0}>
         <table>
           <caption className="sr-only">{title}</caption>
           <thead>
@@ -193,7 +193,7 @@ export function RecordsTable({ rows, caption }: { rows: Array<Record<string, unk
   if (!rows.length) return <p className="muted">None reported.</p>;
   const cols = [...new Set(rows.flatMap((r) => Object.keys(r)))];
   return (
-    <div className="table-wrap">
+    <div className="table-wrap" tabIndex={0}>
       <table>
         <caption className="sr-only">{caption}</caption>
         <thead>

@@ -222,7 +222,7 @@ export default function InvestorDemo() {
         <h2 id="repro-title" style={{ fontSize: "1.05rem" }}>
           Reproduce a stated result yourself
         </h2>
-        <pre className="json">{`make setup        # Python + web dependencies, no API keys
+        <pre className="json" tabIndex={0}>{`make setup        # Python + web dependencies, no API keys
 make experiments  # rerun preregistered experiments from seeds
 make demo         # API + web app locally`}</pre>
         <p className="muted" style={{ fontSize: "0.84rem", marginTop: 8 }}>

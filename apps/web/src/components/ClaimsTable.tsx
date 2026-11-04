@@ -26,7 +26,7 @@ export function ClaimsTable({ claims }: { claims: ClaimRecord[] }) {
           </button>
         ))}
       </div>
-      <div className="table-wrap">
+      <div className="table-wrap" tabIndex={0}>
         <table>
           <caption className="sr-only">Claims and their evidence</caption>
           <thead>

@@ -59,7 +59,7 @@ export default function Benchmarks() {
           <div className="stack">
             <ScaleTargets records={d} />
             <section className="card">
-              <div className="table-wrap">
+              <div className="table-wrap" tabIndex={0}>
                 <table>
                   <caption className="sr-only">Benchmark records</caption>
                   <thead>

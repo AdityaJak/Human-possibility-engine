@@ -29,7 +29,7 @@ export function SocietyStats({ tick, history }: { tick: WorldTick | undefined; h
       {fams.length > 0 && (
         <div className="card card--flat">
           <h3>Mean measured held-out accuracy (assessed agents)</h3>
-          <div className="table-wrap">
+          <div className="table-wrap" tabIndex={0}>
             <table>
               <thead>
                 <tr>
@@ -69,7 +69,7 @@ export function SocietyStats({ tick, history }: { tick: WorldTick | undefined; h
 export function EventsFeed({ events, runId }: { events: ExperienceEvent[]; runId: string }) {
   if (!events.length) return <p className="muted">No significant events in this window.</p>;
   return (
-    <ul className="timeline" aria-live="polite" aria-label="Significant events" style={{ maxHeight: 300 }}>
+    <ul className="timeline" tabIndex={0} aria-live="polite" aria-label="Significant events" style={{ maxHeight: 300 }}>
       {events.map((e) => (
         <li key={e.seq}>
           <span className="age">t{e.tick}</span>
@@ -102,7 +102,7 @@ export function AgentList({
   if (!page) return null;
   if (!page.items.length) return <p className="muted">No matching agents.</p>;
   return (
-    <div className="table-wrap" style={{ maxHeight: 320, overflow: "auto" }}>
+    <div className="table-wrap" tabIndex={0} style={{ maxHeight: 320, overflow: "auto" }}>
       <table>
         <caption className="sr-only">Agents</caption>
         <thead>
@@ -111,7 +111,9 @@ export function AgentList({
             <th className="num">Age</th>
             <th>Activity</th>
             <th className="num">Held-out acc.</th>
-            <th />
+            <th>
+              <span className="sr-only">Details</span>
+            </th>
           </tr>
         </thead>
         <tbody>

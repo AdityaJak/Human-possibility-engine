@@ -85,7 +85,7 @@ export function ExperimentPlanner() {
         {state.plan.length === 0 ? (
           <p className="muted">No experiments selected yet.</p>
         ) : (
-          <div className="table-wrap">
+          <div className="table-wrap" tabIndex={0}>
             <table>
               <thead>
                 <tr>
@@ -243,7 +243,7 @@ export function Journey() {
                 {j.reflections.length === 0 ? (
                   <p className="muted">None yet.</p>
                 ) : (
-                  <ol className="timeline" aria-label="Reflections">
+                  <ol className="timeline" tabIndex={0} aria-label="Reflections">
                     {j.reflections.map((r, i) => (
                       <li key={`${r.decision_id}-${i}`}>
                         <span className="age">{r.created_at ? r.created_at.slice(0, 10) : "—"}</span>
@@ -317,7 +317,7 @@ export function Conversation() {
         </select>
         <IllustrativeBadge />
       </div>
-      <div className="chat" aria-live="polite" aria-label="Conversation">
+      <div className="chat" tabIndex={0} aria-live="polite" aria-label="Conversation">
         {msgs.length === 0 && <p className="muted">Ask a question, or pick one below.</p>}
         {msgs.map((m, i) => (
           <div key={i} className={`bubble bubble--${m.from}`}>
