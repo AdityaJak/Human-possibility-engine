@@ -1,0 +1,171 @@
+"""Fast tests for the U1 track (environment validity, inference exactness, information hygiene, analysis)."""
+
+from __future__ import annotations
+
+import inspect
+import itertools
+import math
+
+import numpy as np
+import pytest
+from u1 import env
+from u1.baselines import EntityBayes, RandomPairs, UCBPairs
+from u1.env import (
+    CONDITIONS,
+    N_ACT,
+    N_ENT,
+    NOVEL_ROLE,
+    PAIRS,
+    SWITCH_T,
+    Episode,
+    make_universe,
+    make_world,
+    reacting,
+)
+from u1.ira import IRA, IRAConfig, Library, _space
+from u1.play import play
+from u1.recluster import WorldRecord, recluster
+from u1.stats import holm, paired
+
+
+@pytest.fixture(scope="module")
+def uni() -> env.Universe:
+    return make_universe(0)
+
+
+def test_universe_constraints() -> None:
+    for s in range(20):
+        u = make_universe(s)
+        assert (u.law == u.law.T).all()
+        assert len({tuple(r) for r in u.sig}) == 6
+        assert len({tuple(r) for r in u.code[:5]}) == 5
+        assert all(u.law[r, :5].any() for r in range(5))
+        assert not u.law[NOVEL_ROLE, NOVEL_ROLE] and 1 <= u.law[NOVEL_ROLE, :5].sum() <= 2
+
+
+@pytest.mark.parametrize("cond", CONDITIONS)
+def test_world_conditions(uni: env.Universe, cond: str) -> None:
+    for s in range(30):
+        w = make_world(uni, cond, s)
+        r0 = w.roles_at(0)
+        assert 1 <= len(reacting(uni, r0)) <= 2
+        distinct = len(set(r0.tolist()) - {NOVEL_ROLE})
+        if cond in ("train", "iid", "cue_reversed", "role_switch"):
+            assert 2 <= distinct <= 3 and NOVEL_ROLE not in r0
+        if cond == "recombined":
+            assert distinct >= 4
+        if cond == "novel_role":
+            assert NOVEL_ROLE in r0
+            assert all(NOVEL_ROLE in (r0[PAIRS[p][0]], r0[PAIRS[p][1]]) for p in reacting(uni, r0))
+        if cond == "role_switch":
+            after = w.roles_at(SWITCH_T)
+            before = set(reacting(uni, r0))
+            assert w.switch is not None and not before & set(reacting(uni, after)) and reacting(uni, after)
+        assert w.meta["rho"] == (0.1 if cond == "cue_reversed" else 0.9)
+
+
+def test_world_determinism_and_common_random_numbers(uni: env.Universe) -> None:
+    a, b = make_world(uni, "iid", 7), make_world(uni, "iid", 7)
+    assert (a.roles == b.roles).all() and np.allclose(a.x, b.x)
+    e1, e2 = Episode(uni, a, 7), Episode(uni, b, 7)
+    assert all(e1.step(t, k) == e2.step(t, k) for t in range(20) for k in range(N_ACT))
+
+
+def test_cue_validity(uni: env.Universe) -> None:
+    agree = {0.9: [], 0.1: []}
+    for cond in ("iid", "cue_reversed"):
+        for s in range(200):
+            w = make_world(uni, cond, s)
+            for e, r in enumerate(w.roles):
+                agree[w.meta["rho"]].extend(((w.x[e, :3] > 0).astype(int) == uni.code[r]).tolist())
+    assert 0.85 < np.mean(agree[0.9]) < 0.95 and 0.05 < np.mean(agree[0.1]) < 0.15
+
+
+def test_canonical_enumeration_counts() -> None:
+    digits, law_pair, law_bit, logperm = _space(3, 2)
+    # brute force: label sequences where fresh labels appear in order of first use
+    count = 0
+    for z in itertools.product(range(5), repeat=N_ENT):
+        fresh = [v for v in z if v >= 3]
+        firsts = list(dict.fromkeys(fresh))
+        count += firsts == sorted(firsts) and (not firsts or firsts[0] == 3)
+    assert len(digits) == count
+    assert law_pair.shape == (count, len(PAIRS)) and law_bit.shape == (count, N_ENT, 3)
+    assert math.isclose(float(logperm.max()), math.log(2))
+
+
+def test_agents_receive_no_hidden_state() -> None:
+    for cls in (IRA, UCBPairs, EntityBayes, RandomPairs):
+        for meth in ("begin", "act", "observe"):
+            params = list(inspect.signature(getattr(cls, meth)).parameters)
+            assert params[1:] in (["x"], ["t"], ["t", "a", "o"])
+
+
+def test_ira_posterior_matches_brute_force(uni: env.Universe) -> None:
+    """With an empty library the exact posterior over partitions must match direct computation."""
+    ag = IRA(Library(), IRAConfig(beta=1.0, change=False), np.random.default_rng(0))
+    w = make_world(uni, "iid", 3)
+    ag.begin(w.x)
+    obs = [(0, 5), (0, 5), (1, 3), (5, 1), (6, 0), (9, 0)]
+    for t, (a, o) in enumerate(obs):
+        ag.observe(t, a, o)
+    pz = ag.posterior()
+    # brute force: log marginal likelihood per canonical assignment, Beta-Bernoulli collapsed
+    rb = 0.5
+    logp = []
+    for z in ag.digits:
+        lp = float(ag.logprior[list(ag.digits.tolist()).index(z.tolist())])
+        lp += float(np.log(np.exp(ag.logapp[list(ag.digits.tolist()).index(z.tolist())]).mean()))
+        counts: dict[tuple, list[int]] = {}
+        for a, o in obs:
+            if a >= N_ENT:
+                i, j = PAIRS[a - N_ENT]
+                key = ("p", min(z[i], z[j]), max(z[i], z[j]))
+                counts.setdefault(key, [0, 0])[0 if o else 1] += 1
+            else:
+                for bit in range(3):
+                    key = ("b", z[a], bit)
+                    counts.setdefault(key, [0, 0])[0 if (o >> bit) & 1 else 1] += 1
+        for key, (s, f) in counts.items():
+            a0, b0 = (rb, 1 - rb) if key[0] == "p" else (0.5, 0.5)
+            lp += math.lgamma(a0 + s) + math.lgamma(b0 + f) - math.lgamma(a0 + b0 + s + f)
+            lp -= math.lgamma(a0) + math.lgamma(b0) - math.lgamma(a0 + b0)
+        logp.append(lp)
+    ref = np.exp(np.array(logp) - max(logp))
+    ref /= ref.sum()
+    assert np.allclose(pz, ref, atol=1e-9)
+
+
+def test_ira_plays_legally_and_beats_random(uni: env.Universe) -> None:
+    ira = [
+        play(IRA(Library(), IRAConfig(), np.random.default_rng(s)), uni, "iid", s)["norm"] for s in range(15)
+    ]
+    rnd = [play(RandomPairs(np.random.default_rng(s)), uni, "iid", s)["norm"] for s in range(15)]
+    assert np.mean(ira) > np.mean(rnd) + 0.2
+
+
+def test_recluster_recovers_roles_from_clean_records(uni: env.Universe) -> None:
+    rng = np.random.default_rng(0)
+    records, truth = [], []
+    for s in range(60):
+        w = make_world(uni, "train", 100000 + s)
+        obs = []
+        for e in range(N_ENT):
+            bits = (rng.random(3) < uni.bit_probs(int(w.roles[e]))).astype(int)
+            obs.append((e, int(bits[0] + 2 * bits[1] + 4 * bits[2])))
+        records.append(WorldRecord(w.x, obs))
+        truth.append(w.roles)
+    _lib, assign = recluster(records, np.random.default_rng(1), sweeps=20)
+    pairs = {}
+    for (wi, e), c in assign.items():
+        pairs.setdefault(c, []).append(int(truth[wi][e]))
+    purity = sum(max(np.bincount(v)) for v in pairs.values()) / sum(len(v) for v in pairs.values())
+    assert purity > 0.9
+
+
+def test_holm_and_paired() -> None:
+    assert holm([0.01, 0.04, 0.03]) == pytest.approx([0.03, 0.06, 0.06])
+    a = {(1, i): 1.0 + 0.01 * (i % 3) for i in range(100)}
+    b = {(1, i): 0.5 for i in range(100)}
+    r = paired(a, b)
+    assert r["estimate"] > 0.49 and r["p_one_sided"] < 1e-3 and r["per_universe"]["1"] > 0

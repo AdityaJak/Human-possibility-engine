@@ -1,0 +1,31 @@
+import time, sys
+import numpy as np
+sys.path.insert(0, '.')
+from u1.env import make_universe, CONDITIONS, make_world, Episode, HORIZON, N_ENT, action_entities, is_pair, D_APP
+from u1.ira import IRA, IRAConfig, Library
+from u1.play import play
+useed = int(sys.argv[1]); beta = float(sys.argv[2])
+u = make_universe(useed)
+# oracle library: concepts = true roles 0..4, counts from simulated true outcomes (diagnostic upper bound only)
+rng = np.random.default_rng(1)
+lib = Library()
+for r in range(5): lib.add_concept()
+for s in range(300):
+    w = make_world(u, "train", 100000 + s)
+    for e in range(5):
+        r = int(w.roles[e]); lib.n[r] += 1
+        lib.app[r][np.arange(D_APP), (w.x[e] > 0).astype(int)] += 1
+        o = rng.random() < u.glow[r]; lib.glow[r][0 if o else 1] += 1
+    for i in range(5):
+        for j in range(i+1, 5):
+            ri, rj = int(w.roles[i]), int(w.roles[j]); key = (min(ri, rj), max(ri, rj))
+            o = rng.random() < (0.9 if u.law[ri, rj] else 0.05)
+            lib.react.setdefault(key, [0.0, 0.0])[0 if o else 1] += 1; lib.pooled[0 if o else 1] += 1
+cfg = IRAConfig(beta=beta)
+for name, L in (("empty", Library()), ("oracle_lib", lib)):
+    out = []
+    t0 = time.time()
+    for c in CONDITIONS[1:]:
+        r = [play(IRA(L, cfg, np.random.default_rng(s)), u, c, s)["norm"] for s in range(60)]
+        out.append(f"{c} {np.mean(r):.3f}")
+    print(name, " | ".join(out), f"{time.time()-t0:.0f}s")
