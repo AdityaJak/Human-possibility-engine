@@ -1,0 +1,5 @@
+[restless4] pop_gru: 24 config(s), 348 dev participants
+[restless4] pop_gru: select NLL 0.7325 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.0, 'hidden': 32, 'lr': 0.01} lapse 0.01 causal=ok
+[restless4] ref_gru_p2: 4 config(s), 348 dev participants
+[restless4] ref_gru_p2: select NLL 0.7751 config {'max_epochs': 15, 'patience': 4, 'window': 64, 'max_steps_per_epoch': 60000, 'hidden': 12, 'lr': 0.01} lapse 0.01 causal=ok
+[restless4] pop_gru_ens: 8 config(s), 348 dev participants
