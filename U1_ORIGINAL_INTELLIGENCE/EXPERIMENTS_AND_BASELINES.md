@@ -307,3 +307,32 @@ margin 0.05.
   * An "advance" verdict is therefore nearly unreachable by construction.
   * If H1 fails against `gru_narrow`, as in attempt 1, R1 rejects the hypothesis for the agent that does implement
     information gain over laws.
+* **R1 dev evaluation (universe 0, committed code).** 200 worlds per cell for IRA and the comparators; 50 for the
+  ablations (bug check). Logs: `results_r1/dev/dev_eval_*.log`. The dev comparator models are scratch-trained, as
+  described above.
+
+  | agent | iid | cue_reversed | recombined | novel_role | role_switch |
+  |---|---|---|---|---|---|
+  | ira (β = 0.5) | 0.865 | 0.842 | 0.890 | 0.701 | 0.682 |
+  | gru_narrow | 0.932 | 0.869 | 0.960 | 0.849 | 0.487 |
+  | gru_broad | 0.822 | 0.818 | 0.867 | 0.830 | 0.673 |
+  | rel_broad | 0.906 | 0.831 | 0.947 | 0.898 | 0.770 |
+  | ira_noactive (β = 0; 50) | 0.866 | 0.842 | 0.884 | 0.737 | 0.699 |
+  | ira_beta1 (50) | 0.813 | 0.710 | 0.804 | 0.669 | 0.645 |
+  | ira_thompson (50) | 0.593 | 0.552 | 0.635 | 0.526 | 0.420 |
+  | ira_closed (50) | 0.878 | 0.808 | 0.871 | 0.719 | 0.694 |
+  | ira_nocuetrack (50) | 0.873 | 0.775 | 0.839 | 0.708 | 0.665 |
+  | ira_nochange (50) | 0.878 | 0.858 | 0.905 | 0.732 | 0.478 |
+  | ira_nolibrary (50) | 0.800 | 0.782 | 0.808 | 0.785 | 0.452 |
+  | entity_bayes (50) | 0.627 | 0.593 | 0.592 | 0.596 | 0.369 |
+  | ucb (50) | 0.480 | 0.455 | 0.501 | 0.494 | 0.260 |
+  | random (50) | 0.230 | 0.259 | 0.207 | 0.222 | 0.260 |
+
+  Adequacy (≥ 0.85 × IRA's dev `iid` 0.865 = 0.735) holds for every comparator.
+
+  **Predictions written before the freeze:**
+  * H1 is expected to **fail** against `gru_narrow`: on dev it is behind IRA only on `role_switch`. Stage 2 is then
+    skipped.
+  * Had stage 2 run, the dev numbers suggest that `rel_broad` would exceed IRA in 4 of 5 conditions, including
+    `role_switch` (0.770 vs 0.682). On dev it trails IRA only on `cue_reversed` (0.831 vs 0.842).
+  * On `novel_role`, IRA with its learned library does worse than without it (0.701 vs 0.785).

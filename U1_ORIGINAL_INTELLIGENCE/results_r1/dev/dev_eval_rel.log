@@ -1,0 +1,5 @@
+u0 dev rel_broad       iid           norm 0.906 (3s)
+u0 dev rel_broad       cue_reversed  norm 0.831 (2s)
+u0 dev rel_broad       recombined    norm 0.947 (3s)
+u0 dev rel_broad       novel_role    norm 0.898 (2s)
+u0 dev rel_broad       role_switch   norm 0.770 (2s)
