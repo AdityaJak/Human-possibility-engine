@@ -1,8 +1,15 @@
 # U1 — The Candidate Principle (selected hypothesis)
 
-> **Status: candidate, not a discovery.** The novelty review (`PRIOR_ART_AND_NOVELTY.md`) found no new principle
-> among the six generated; this is the most testable of them. Its verdict after the experiment is in
-> `SCIENTIFIC_VERDICT.md`.
+> **Status: REJECTED** (`SCIENTIFIC_VERDICT.md`). It was a candidate, never a discovery: the novelty review found no new
+> principle among the six generated, and this was the most testable of them.
+>
+> Two preregistered confirmatory attempts failed the primary hypothesis, each passing 1 of 4 shift conditions. In
+> attempt 2 the components that define the principle did not help:
+> * active identification by information gain (M4 −0.016);
+> * opening new concepts (M2 +0.005; a new concept in 1 of 500 unseen-role worlds);
+> * accumulation without retraining (A +0.006).
+>
+> The text below is kept unchanged as the hypothesis that was tested.
 
 ## Name
 **Interventional concept formation with active identification** (implemented as IRA, "interventional role

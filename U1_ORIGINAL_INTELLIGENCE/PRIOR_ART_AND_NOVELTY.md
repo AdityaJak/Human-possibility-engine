@@ -39,7 +39,30 @@ Alchemy in particular already reports the generic comparison this track set out 
 | P5 support-based self-knowledge | KWIK (Li, Littman & Walsh 2008); R-max; learning progress (Oudeyer, Kaplan & Hafner 2007); disagreement exploration (Pathak, Gandhi & Gupta 2019) | not new |
 | P6 hidden-variable invention | Elidan, Lotner, Friedman & Koller (2000); Elidan & Friedman (2005) | not new |
 
-## 3. Overall novelty verdict (before the experiment)
+## 3. Overall novelty verdict
+
+### 3a. After both confirmatory attempts (final)
+
+| level | status |
+|---|---|
+| new principle | **no** |
+| new algorithm | **no** |
+| new combination | modest, yes. It did not outperform generic meta-learners (H1 failed twice) |
+| new implementation | yes |
+| new empirical finding | **no** — the preregistered empirical claim failed. What worked is known: hierarchical Bayesian transfer through the library (M5) and a change-detection rule (M3) |
+
+The ledger column "experimental evidence for the difference" is filled from `TRANSFER_RESULTS.md` §3:
+
+| row | evidence |
+|---|---|
+| active identification | none (M4 −0.016) |
+| new concepts | none (M2 ≈ 0) |
+| cue validity | inconsistent (M1) |
+| re-identification | effective, but a fixed rule (M3) |
+| library | effective, known (M5) |
+| accumulation | none (A) |
+
+### 3b. Before the experiment (as written)
 
 | level | status |
 |---|---|

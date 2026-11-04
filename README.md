@@ -58,6 +58,16 @@ pretending to predict fate.
   The measured opportunity: earlier sessions are worth 0.015–0.02 nats/choice when a model cannot keep them in
   context — the next, separately preregistered question. All exploratory; no test partition opened
   ([`docs/phase3/BREAKTHROUGH_VERDICT.md`](docs/phase3/BREAKTHROUGH_VERDICT.md)).
+* **U1 — search for an original principle of intelligence: REJECT.**
+  * Six candidate principles were reviewed against prior art, and none was new.
+  * The most testable one (concepts defined by interventional consequences, identified by self-chosen
+    experiments) was built as an exact Bayesian agent. It was tested twice under preregistration against
+    meta-trained recurrent agents, in hidden-law worlds with four held-out shifts.
+  * Both attempts failed: 1 of 4 shifts each. Its only advantage came from a hand-written change-detection rule.
+  * Its defining mechanisms — information-gain experiments, new-concept formation, accumulation — did not help or
+    hurt. Its learned concept library made an unseen concept harder to recognise.
+  * An independent critic found and forced fixes to two blocking defects before the second attempt.
+  * See [`U1_ORIGINAL_INTELLIGENCE/SCIENTIFIC_VERDICT.md`](U1_ORIGINAL_INTELLIGENCE/SCIENTIFIC_VERDICT.md).
 
 Full numbers with intervals and artifacts: [`RESEARCH_RESULTS.md`](RESEARCH_RESULTS.md). Generated claims
 ledger: [`docs/EVIDENCE.md`](docs/EVIDENCE.md). Limits: [`docs/CLAIMS_AND_LIMITATIONS.md`](docs/CLAIMS_AND_LIMITATIONS.md).

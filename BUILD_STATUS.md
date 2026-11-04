@@ -21,6 +21,17 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | 8 | NEXT_STEPS.md | implemented | `NEXT_STEPS.md` |
 | 9 | No invented results | enforced | evidence ledger generated from artifacts (`python -m hpe.ledger`); independent audit `reports/audit/AUDIT.md` |
 
+## U1 — Original Intelligence track (2026-11-04)
+
+| item | status | evidence |
+|---|---|---|
+| Candidate principles + novelty review | done; none new | `U1_ORIGINAL_INTELLIGENCE/ORIGINALITY_THESIS.md`, `PRIOR_ART_AND_NOVELTY.md` |
+| Learning system, environments, comparators | implemented, tested (25 passed) | `U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/` |
+| Attempt 1 (frozen 6776cfc) | run; H1 not supported (1/4) | `U1_ORIGINAL_INTELLIGENCE/results/` |
+| Independent critique + R1 review + post-results critique | done | `U1_ORIGINAL_INTELLIGENCE/INDEPENDENT_CRITIQUE.md` |
+| Attempt 2 (R1, frozen 2edb4e7) | run; H1 not supported (1/4); stage 2 skipped as preregistered | `U1_ORIGINAL_INTELLIGENCE/results_r1/` |
+| Verdict | **REJECT** | `U1_ORIGINAL_INTELLIGENCE/SCIENTIFIC_VERDICT.md` |
+
 ## Deployment (2026-11-04)
 
 | Target | Status | Evidence / blocker |

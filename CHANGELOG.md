@@ -3,6 +3,17 @@
 All notable changes are recorded here. Dates are UTC.
 
 ## [Unreleased]
+### U1 — Original Intelligence track (2026-11-04)
+- `U1_ORIGINAL_INTELLIGENCE/`: originality thesis (six candidate principles, none new on review), selected
+  hypothesis and formulation, novelty ledger, hidden-law entity worlds (v1 rejected, v2, v3), IRA exact-Bayesian
+  learner with re-clustering, flat-GRU and relational meta-RL comparators (narrow and broad training), runner with
+  hash freeze, universe-level statistics, 25 tests.
+- Two preregistered confirmatory attempts: both failed H1 (1 of 4 shifts). An independent critique found that the
+  first agent never probed and that the R1 runner would crash; both were fixed before the second freeze.
+- Verdict: REJECT. No new principle, algorithm or empirical finding (`SCIENTIFIC_VERDICT.md`).
+### Phase III Gate D (2026-11-04)
+- X3-014 leave-one-family-out transfer: pooled pretraining helps (restless4 −0.028 vs specialist) and meta-learning
+  adds nothing (`docs/phase3/TRANSFER_LEARNING_RESULTS.md`).
 ### Phase III (2026-11-04)
 - `hpe.population`: encoding v3, locked data access, harness-owned adaptation, strict causality checks, gate rules in code, two-stage confirmatory runner, seed-ensemble wrappers; comparator pool (GRU/LSTM/transformer/ensemble, fine-tuning, Bayesian head, exemplar mixture, Reptile, CAVIA, hierarchical Bayesian cognitive model); candidates F1–F4; Gate E synthetic suite; Gate D transfer harness; affect/social adapters (GBE CC0, Najar 2020 MIT); Phase III dashboard page; CI research job.
 - Result: no candidate met a preregistered stop rule; NO-GO for H3 as preregistered; pivot to cross-session person representation and population-model strength.
