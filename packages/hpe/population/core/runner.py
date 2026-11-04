@@ -32,6 +32,7 @@ from hpe.population.core.interface import get_model
 
 
 class ModelRun(BaseModel):
+    model: str | None = None  # registered model to build; defaults to the entry's name (labels may differ)
     grid: dict[str, list[Any]] = Field(default_factory=dict)
     fixed: dict[str, Any] = Field(default_factory=dict)
     role: Literal["comparator", "candidate", "reference"] = "comparator"
@@ -148,7 +149,7 @@ def select_model_family(
     defn: P3Definition, family: str, name: str, run: ModelRun, data: dict[str, list[EncodedSeq]]
 ) -> dict[str, Any]:
     """Fit every configuration on dev, select (config, lapse) on tune, run the strict checks, fit the twin."""
-    spec = get_model(name)
+    spec = get_model(run.model or name)
     configs = grid_configs(run, defn.max_configs)
     fits: list[dict[str, Any]] = []
     best: tuple[float, int, float, Any] | None = None

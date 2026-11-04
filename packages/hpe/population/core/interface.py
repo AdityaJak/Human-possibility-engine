@@ -78,6 +78,7 @@ def _import_plugins() -> None:
 
     for mod in (
         "hpe.population.core.reference",
+        "hpe.population.core.ensemble",
         "hpe.population.baselines",
         "hpe.population.candidates",
         "hpe.population.continual",
