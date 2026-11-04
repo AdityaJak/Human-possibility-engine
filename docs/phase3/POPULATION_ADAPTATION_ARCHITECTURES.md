@@ -33,4 +33,131 @@ config), `f1_latent.py`, `f3_arbiter.py`, `f2_world_policy.py`, `toy.py` (synthe
 `analysis.py` (paired ablation contrasts from the runner's parts). Tests: `tests/population/candidates/`.
 Experiment definitions: `experiments/phase3/candidates/`. Results: `reports/phase3/candidates/`.
 
+## 1. F1 `f1_latent` — population GRU + explicit individual latent, inferred online
+
+**(1) Definition.** Shared weights θ = (backbone GRU, read-out W, b) + latent pathway (z columns of the
+GRU input and read-out, bilinear modulation V). Per-person latent z = [z_trait ∈ ℝ^{d_tr}, z_ctx ∈ ℝ^{d_ctx}]
+(default 2 + 2):
+
+    h_t = GRU([x_t, z_trait], h_{t−1}),    logits_t = W[h_t; z] + b + Σ_j z_j V_j h_t
+
+z_trait enters the recurrence and the read-out; z_ctx enters only the read-out, so a context change does
+not rewrite the recurrent history. Person state = z. Every m trials (harness schedule) z is re-inferred
+from the prior mean using only the person's first t trials, by k = 2 block Gauss–Newton (Fisher-scoring)
+steps on
+
+    J_trait = Σ_{s<t} ℓ_s(z) + |z_trait|²/(2σ_tr²)                       (σ_tr = 0.5, all past trials)
+    J_ctx   = γ_t Σ_{s<t} ρ^{t−1−s} ℓ_s(z) + |z_ctx|²/(2σ_ctx²)           (σ_ctx = 1, half-life 20 trials)
+    z_b ← z_b − (Σ_s w_s J_sᵀ(diag p_s − p_s p_sᵀ)J_s + σ_b⁻² I)⁻¹ (Σ_s w_s J_sᵀ(p_s − y_s) + σ_b⁻² z_b)
+
+J_s = ∂logits_s/∂z_b by forward differences. **Proposed mechanism (surprise gating):**
+γ_t = clip(exp(β S_t), ¼, 4), S_t = mean over the last 20 free choices of ℓ_s(0) − H[p_s(0)], the person's
+excess NLL over what the population prediction (z = 0) expects of itself. γ scales the context block's
+evidence relative to its prior (its effective step size): a person who suddenly behaves unlike the
+population's expectation moves z_ctx faster. Prediction for rows [t, t+m) re-runs the GRU from trial 0
+with the latent inferred at t.
+
+Training: stage 1 = the population backbone (a `pop_gru`, z = 0). Stage 2 trains only the latent pathway
+(backbone frozen, so z = 0 reproduces the backbone exactly). Default `train_mode="joint"`: joint MAP
+("auto-decoder", empirical Bayes) with a free code per fitting participant — z_trait,i and one z_ctx,i,j per
+block of m trials — under the same Gaussian priors, early-stopped on the **online** adapt-mode NLL of
+held-out dev participants. `train_mode="meta"`: CAVIA-style first-order meta-training (sample cuts c, infer
+z on [0, c), outer loss on [c, c+m)).
+
+**(2) Closest existing methods.** CAVIA (Zintgraf et al., 2019, *Fast context adaptation via
+meta-learning*, ICML): context parameters fed to the network and adapted by gradient steps while shared
+weights are meta-learned; MAML (Finn et al., 2017, ICML) and Reptile (Nichol et al., 2018, arXiv
+1803.02999) for the outer loop; auto-decoder / per-instance latent codes (Park et al., 2019, *DeepSDF*,
+CVPR); individual latent embeddings for behavioural RNNs (Dezfouli et al., 2019, *Disentangled behavioural
+representations*, NeurIPS); hierarchical Bayesian models of individual differences with a population
+prior (e.g. Lee & Wagenmakers, 2013, *Bayesian Cognitive Modeling*); Laplace / Fisher-scoring posterior-mode
+updates. Surprise-scaled learning rates: Pearce & Hall (1980), Behrens et al. (2007, *Nat. Neurosci.*),
+Nassar et al. (2010, *J. Neurosci.*), Bayesian online change-point detection (Adams & MacKay, 2007, arXiv
+0710.3742). The trait/context split resembles two-timescale latent models (slow trait, fast state).
+
+**(3) Hypothesised mechanism.** The recurrent state can only adapt through what the population network
+learned to integrate in context; an explicit low-dimensional latent fitted by (approximate) Bayesian
+inference to the person's whole history captures stable individual differences (trait) more data-
+efficiently, and a surprise-gated context latent tracks policy changes faster than the trait.
+
+**(4) Challenging baselines.** The same backbone with z = 0 (frozen); a separately trained same-size
+`pop_gru` twin (B1); `f1_cavia` — the standard single-latent fixed-step CAVIA adapter (critic G-2 asked
+for it); the evaluation lane's adapters on the same backbone (head / full fine-tuning, Bayesian head,
+exemplar mixture, Reptile; B2).
+
+**(5) Implementation.** `packages/hpe/population/candidates/f1_latent.py` (`F1Latent`, `LatentGRU`,
+`_infer_gn`, `_infer_gd`, `F1Latent._fit_joint`); ablations registered in `candidates/__init__.py`:
+`f1_trait` (one latent of the same total size, all-trial prior, recurrence + read-out), `f1_context`
+(one context latent of the same total size, read-out only, surprise-gated), `f1_fixedstep` (β = 0),
+`f1_cavia` (single latent, k fixed-step gradient steps on the mean past NLL, meta-trained), `f1_bolt`
+(latent pathway left at its random initialisation; inference only).
+
+## 2. F3 `f3_arbiter` — episodic memory over population states with a learned reliability gate
+
+**(1) Definition.** Backbone `pop_gru` gives p_pop,t and hidden state h_t. Person state = episodic memory
+M_t = {(h_s, a_s, s): s < t free choice} plus reliability statistics. Retrieval:
+w_s = exp(−|h_t − h_s|²/(2Hb²))·ρ^{t−1−s}, p_epi,t(a) = (Σ_s w_s 1[a_s = a] + ε/K_t)/(Σ_s w_s + ε). Gate
+g_t = σ(wᵀ r̃_t + w_0) with r_t = [EW mean log p_pop(a_s), EW mean log p_epi(a_s) (each scored with the
+memory it had before s, decay λ = 0.9), log(1 + Σ_s w_s), H[p_pop,t]/log K_t, log(1 + |M_t|)], standardised;
+p_t = g_t p_epi,t + (1 − g_t) p_pop,t; with an empty memory p_t = p_pop,t. The six gate weights are fitted by
+maximum likelihood on the backbone's held-out early-stopping participants (dev), never on the people the
+backbone was trained on. Memory is updated after every trial (`update_every = 1`).
+
+**(2) Closest existing methods.** Continuous cache / kNN language models (Grave et al., 2017, ICLR;
+Khandelwal et al., 2020, *kNN-LM*, ICLR) — the closest: hidden-state-keyed memory interpolated with the
+parametric prediction (fixed λ); episodic control (Lengyel & Dayan, 2007, NeurIPS; Blundell et al., 2016,
+arXiv 1606.04460; Pritzel et al., 2017, ICML); episodic contributions to human choice (Gershman & Daw,
+2017, *Annu. Rev. Psychol.*); reliability-based arbitration between controllers (Daw, Niv & Dayan, 2005,
+*Nat. Neurosci.*; Lee, Shimojo & O'Doherty, 2014, *Neuron*); mixture of experts with a gating network
+(Jacobs et al., 1991, *Neural Comput.*); tracking the best expert / fixed share (Herbster & Warmuth, 1998,
+*Mach. Learn.*).
+
+**(3) Hypothesised mechanism.** A person's idiosyncratic state→action mapping (what *this* person did in
+internal states like the current one) is captured non-parametrically and immediately; the gate trusts it
+when it has recently predicted this person better than the population model and when retrieval support is
+high.
+
+**(4) Challenging baselines.** `f3_fixedmix` (constant g fitted on the same split — kNN-LM style),
+`f3_fixedshare` (Bayesian fixed-share mixture of the two experts, weights in the person state),
+`f3_gruepi` (a second GRU initialised from the backbone that receives [p_epi, log(1 + mass)] as input and
+is trained on dev — learned arbitration by recurrence with the same information), the frozen backbone,
+the `pop_gru` twin, and the evaluation lane's exemplar-memory mixture adapter.
+
+**(5) Implementation.** `packages/hpe/population/candidates/f3_arbiter.py` (`F3Arbiter`,
+`_kernel_probs`, `_fit_gate`; incremental `update_state` continues the backbone GRU from the stored hidden
+state).
+
+## 3. F2 `f2_world_policy` — population world model + individual policy posterior
+
+**(1) Definition.** World model (population; trained on observed outcomes only, never on choices): a GRU
+over encoding v3 with the choice slices (previous action, instructed action and flag) zeroed, outputting
+for every option a Gaussian (μ_k,t, σ_k,t) over the outcome of trial t; loss = Gaussian NLL on the outcomes
+revealed after t (every option under full feedback, the chosen one under bandit feedback). This is a
+predictive model of outcome dynamics, **not** a causal model of the task. Policy:
+logits_k,t = θᵀ f_k,t with f = [μ − μ̄, σ − σ̄, 1[prev = k], choice trace (decay 0.7), option bias (K−1)]
+(inverse temperature, uncertainty bonus, perseveration, choice kernel, side bias). Population prior
+θ ~ N(m₀, S₀): m₀ = pooled MAP on dev; S₀ = c·PSD(Cov(per-person MAP) − mean per-person posterior
+covariance) + 10⁻⁴I (method-of-moments empirical Bayes, scale c on the grid). Person state = Gaussian
+posterior N(θ_t, P_t⁻¹), updated after every free choice by one online Laplace (extended-Kalman) Newton
+step. Ablation `f2_delta`: μ from a delta rule per option (rate α, reset at block start),
+σ = (1 + decayed observation count)^{−½}. The population-only policy (θ = m₀) is the frozen variant.
+
+**(2) Closest existing methods.** Hierarchical Gaussian Filter's split into a perceptual (belief) model
+and a response model with individual parameters (Mathys et al., 2011, *Front. Hum. Neurosci.*); Kalman-
+filter learners with uncertainty bonuses in restless bandits (Daw et al., 2006, *Nature*; Speekenbrink &
+Konstantinidis, 2015, *Top. Cogn. Sci.*); hierarchical Bayesian cognitive models with a population prior
+(e.g. Piray et al., 2019, *PLoS Comput. Biol.*); online Laplace / assumed-density filtering for GLMs.
+
+**(3) Hypothesised mechanism.** Population data are best used to learn *the world* (how outcomes evolve),
+which is common to everyone, while individuals differ in a few interpretable policy parameters that can be
+estimated online with a well-calibrated population prior.
+
+**(4) Challenging baselines.** The population-only policy (frozen), the delta-rule world model, the
+`pop_gru` twin, and the evaluation lane's hierarchical Bayesian cognitive model `hb_cog`. Known structural
+limit: the world model predicts the *objective* outcome process, so individual differences in learning
+(e.g. learning rate) can only be absorbed through the policy weights.
+
+**(5) Implementation.** `packages/hpe/population/candidates/f2_world_policy.py` (`F2WorldPolicy`,
+`WorldGRU`, `world_loss`, `pooled_fit`, `laplace_step`).
+
 RESULTS_PLACEHOLDER
