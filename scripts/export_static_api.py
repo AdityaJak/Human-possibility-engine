@@ -162,6 +162,7 @@ class Exporter:
                 exp_run_ids.extend(info["result"].get("run_ids", []))
         self.dump("/research/claims")
         self.dump("/research/metrics")
+        self.dump("/research/phase3")
         self.dump("/benchmarks")
         evidence = self.dump("/evidence") or []
         for rec in evidence:

@@ -1,0 +1,1153 @@
+{
+ "S0_phase2_tune_paired_sds": {
+  "garcia": {
+   "p2_human_dev_pilot": {
+    "sd_vs_ref_gru_range": [
+     0.0951,
+     0.1209
+    ],
+    "sd_between_cognitive_models_range": [
+     0.0237,
+     0.1065
+    ],
+    "n": 68
+   },
+   "p2_human_dev_pilot_hybrid": {
+    "sd_vs_ref_gru_range": [
+     0.0951,
+     0.1209
+    ],
+    "sd_between_cognitive_models_range": [
+     0.0237,
+     0.1065
+    ],
+    "n": 68
+   }
+  },
+  "described": {
+   "p2_human_dev_pilot": {
+    "sd_vs_ref_gru_range": [
+     0.1226,
+     0.1734
+    ],
+    "sd_between_cognitive_models_range": [
+     0.0141,
+     0.0932
+    ],
+    "n": 41
+   },
+   "p2_human_dev_pilot_hybrid": {
+    "sd_vs_ref_gru_range": [
+     0.1226,
+     0.1734
+    ],
+    "sd_between_cognitive_models_range": [
+     0.0141,
+     0.0932
+    ],
+    "n": 41
+   }
+  },
+  "bandit2": {
+   "p2_human_dev_pilot": {
+    "sd_vs_ref_gru_range": [
+     0.1101,
+     0.2426
+    ],
+    "sd_between_cognitive_models_range": [
+     0.048,
+     0.2155
+    ],
+    "n": 16
+   },
+   "p2_human_dev_pilot_hybrid": {
+    "sd_vs_ref_gru_range": [
+     0.1101,
+     0.2426
+    ],
+    "sd_between_cognitive_models_range": [
+     0.0308,
+     0.2155
+    ],
+    "n": 16
+   }
+  }
+ },
+ "S1_type_I_error": {
+  "normal/n=87": {
+   "0.05": {
+    "bootstrap": 0.07,
+    "t_test": 0.065,
+    "sign_flip": 0.0625
+   },
+   "0.0125": {
+    "bootstrap": 0.015,
+    "t_test": 0.0125,
+    "sign_flip": 0.0175
+   }
+  },
+  "normal/n=347": {
+   "0.05": {
+    "bootstrap": 0.0625,
+    "t_test": 0.06,
+    "sign_flip": 0.0575
+   },
+   "0.0125": {
+    "bootstrap": 0.01,
+    "t_test": 0.015,
+    "sign_flip": 0.0125
+   }
+  },
+  "t3/n=87": {
+   "0.05": {
+    "bootstrap": 0.05,
+    "t_test": 0.0475,
+    "sign_flip": 0.0525
+   },
+   "0.0125": {
+    "bootstrap": 0.02,
+    "t_test": 0.0125,
+    "sign_flip": 0.015
+   }
+  },
+  "t3/n=347": {
+   "0.05": {
+    "bootstrap": 0.0475,
+    "t_test": 0.0475,
+    "sign_flip": 0.045
+   },
+   "0.0125": {
+    "bootstrap": 0.0125,
+    "t_test": 0.0075,
+    "sign_flip": 0.015
+   }
+  },
+  "skew_right/n=87": {
+   "0.05": {
+    "bootstrap": 0.0625,
+    "t_test": 0.0675,
+    "sign_flip": 0.0675
+   },
+   "0.0125": {
+    "bootstrap": 0.02,
+    "t_test": 0.025,
+    "sign_flip": 0.02
+   }
+  },
+  "skew_right/n=347": {
+   "0.05": {
+    "bootstrap": 0.055,
+    "t_test": 0.0675,
+    "sign_flip": 0.0725
+   },
+   "0.0125": {
+    "bootstrap": 0.02,
+    "t_test": 0.025,
+    "sign_flip": 0.0275
+   }
+  },
+  "skew_left/n=87": {
+   "0.05": {
+    "bootstrap": 0.035,
+    "t_test": 0.0325,
+    "sign_flip": 0.03
+   },
+   "0.0125": {
+    "bootstrap": 0.0025,
+    "t_test": 0.0025,
+    "sign_flip": 0.0025
+   }
+  },
+  "skew_left/n=347": {
+   "0.05": {
+    "bootstrap": 0.04,
+    "t_test": 0.0275,
+    "sign_flip": 0.03
+   },
+   "0.0125": {
+    "bootstrap": 0.0075,
+    "t_test": 0.0075,
+    "sign_flip": 0.0075
+   }
+  },
+  "contaminated/n=87": {
+   "0.05": {
+    "bootstrap": 0.0725,
+    "t_test": 0.0425,
+    "sign_flip": 0.0475
+   },
+   "0.0125": {
+    "bootstrap": 0.0225,
+    "t_test": 0.0075,
+    "sign_flip": 0.0125
+   }
+  },
+  "contaminated/n=347": {
+   "0.05": {
+    "bootstrap": 0.05,
+    "t_test": 0.04,
+    "sign_flip": 0.0375
+   },
+   "0.0125": {
+    "bootstrap": 0.0125,
+    "t_test": 0.01,
+    "sign_flip": 0.0125
+   }
+  },
+  "n_sims_per_cell": 400,
+  "mc_se_at_0.05": 0.010897247358851683
+ },
+ "S2_bootstrap_p_resampling_noise": {
+  "p~0.0125 (Holm rank 1 of 4)": {
+   "min": 0.0065,
+   "median": 0.01175,
+   "max": 0.019,
+   "sd": 0.0027296087428217417
+  },
+  "p~0.025 (Holm rank 3 of 4)": {
+   "min": 0.015,
+   "median": 0.0245,
+   "max": 0.0325,
+   "sd": 0.0036203418346890948
+  }
+ },
+ "S3_power": {
+  "vectorised_holm_matches_evaluate.holm": true,
+  "C|m=3|sd=0.03|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.372,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.494,
+    "garcia": 0.502,
+    "described": 0.5
+   }
+  },
+  "C|m=3|sd=0.03|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.379,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.499,
+    "garcia": 0.506,
+    "described": 0.494
+   }
+  },
+  "C|m=3|sd=0.03|delta=0.0300|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999
+   }
+  },
+  "C|m=3|sd=0.03|delta=0.0300|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999
+   }
+  },
+  "C|m=3|sd=0.03|delta=0.0400|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 1.0
+   }
+  },
+  "C|m=3|sd=0.03|delta=0.0400|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 1.0
+   }
+  },
+  "C|m=3|sd=0.06|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.378,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.499,
+    "garcia": 0.505,
+    "described": 0.503
+   }
+  },
+  "C|m=3|sd=0.06|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.371,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.496,
+    "garcia": 0.501,
+    "described": 0.501
+   }
+  },
+  "C|m=3|sd=0.06|delta=0.0300|cands=1": {
+   "gate_pass_prob": 0.998,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.976,
+    "described": 0.943
+   }
+  },
+  "C|m=3|sd=0.06|delta=0.0300|cands=2": {
+   "gate_pass_prob": 0.998,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.974,
+    "described": 0.941
+   }
+  },
+  "C|m=3|sd=0.06|delta=0.0400|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999
+   }
+  },
+  "C|m=3|sd=0.06|delta=0.0400|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999
+   }
+  },
+  "C|m=3|sd=0.1|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.365,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.498,
+    "garcia": 0.506,
+    "described": 0.391
+   }
+  },
+  "C|m=3|sd=0.1|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.333,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.5,
+    "garcia": 0.487,
+    "described": 0.298
+   }
+  },
+  "C|m=3|sd=0.1|delta=0.0300|cands=1": {
+   "gate_pass_prob": 0.947,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.968,
+    "garcia": 0.882,
+    "described": 0.748
+   }
+  },
+  "C|m=3|sd=0.1|delta=0.0300|cands=2": {
+   "gate_pass_prob": 0.934,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.971,
+    "garcia": 0.875,
+    "described": 0.655
+   }
+  },
+  "C|m=3|sd=0.1|delta=0.0400|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 0.992,
+    "described": 0.948
+   }
+  },
+  "C|m=3|sd=0.1|delta=0.0400|cands=2": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 0.991,
+    "described": 0.91
+   }
+  },
+  "C|m=4|sd=0.03|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.439,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.498,
+    "garcia": 0.501,
+    "described": 0.495,
+    "two_step": 0.499
+   }
+  },
+  "C|m=4|sd=0.03|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.439,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.501,
+    "garcia": 0.498,
+    "described": 0.497,
+    "two_step": 0.5
+   }
+  },
+  "C|m=4|sd=0.03|delta=0.0300|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.03|delta=0.0300|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.03|delta=0.0400|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 1.0,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.03|delta=0.0400|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 1.0,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.06|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.439,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.506,
+    "garcia": 0.498,
+    "described": 0.494,
+    "two_step": 0.497
+   }
+  },
+  "C|m=4|sd=0.06|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.437,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.499,
+    "garcia": 0.5,
+    "described": 0.5,
+    "two_step": 0.501
+   }
+  },
+  "C|m=4|sd=0.06|delta=0.0300|cands=1": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.975,
+    "described": 0.942,
+    "two_step": 0.997
+   }
+  },
+  "C|m=4|sd=0.06|delta=0.0300|cands=2": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.976,
+    "described": 0.941,
+    "two_step": 0.997
+   }
+  },
+  "C|m=4|sd=0.06|delta=0.0400|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.06|delta=0.0400|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.1|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.429,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.497,
+    "garcia": 0.498,
+    "described": 0.355,
+    "two_step": 0.494
+   }
+  },
+  "C|m=4|sd=0.1|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.408,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.498,
+    "garcia": 0.448,
+    "described": 0.262,
+    "two_step": 0.502
+   }
+  },
+  "C|m=4|sd=0.1|delta=0.0300|cands=1": {
+   "gate_pass_prob": 0.967,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.968,
+    "garcia": 0.882,
+    "described": 0.709,
+    "two_step": 0.951
+   }
+  },
+  "C|m=4|sd=0.1|delta=0.0300|cands=2": {
+   "gate_pass_prob": 0.966,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.969,
+    "garcia": 0.855,
+    "described": 0.619,
+    "two_step": 0.949
+   }
+  },
+  "C|m=4|sd=0.1|delta=0.0400|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 0.99,
+    "described": 0.931,
+    "two_step": 1.0
+   }
+  },
+  "C|m=4|sd=0.1|delta=0.0400|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 0.987,
+    "described": 0.894,
+    "two_step": 1.0
+   }
+  },
+  "B1|m=3|sd=0.03|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.369,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.495,
+    "garcia": 0.498,
+    "described": 0.501
+   }
+  },
+  "B1|m=3|sd=0.03|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.376,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.501,
+    "garcia": 0.505,
+    "described": 0.496
+   }
+  },
+  "B1|m=3|sd=0.03|delta=0.0150|cands=1": {
+   "gate_pass_prob": 0.998,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.974,
+    "described": 0.939
+   }
+  },
+  "B1|m=3|sd=0.03|delta=0.0150|cands=2": {
+   "gate_pass_prob": 0.998,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.975,
+    "described": 0.94
+   }
+  },
+  "B1|m=3|sd=0.03|delta=0.0200|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999
+   }
+  },
+  "B1|m=3|sd=0.03|delta=0.0200|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999
+   }
+  },
+  "B1|m=3|sd=0.06|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.34,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.501,
+    "garcia": 0.439,
+    "described": 0.289
+   }
+  },
+  "B1|m=3|sd=0.06|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.25,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.497,
+    "garcia": 0.339,
+    "described": 0.201
+   }
+  },
+  "B1|m=3|sd=0.06|delta=0.0150|cands=1": {
+   "gate_pass_prob": 0.885,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.938,
+    "garcia": 0.802,
+    "described": 0.578
+   }
+  },
+  "B1|m=3|sd=0.06|delta=0.0150|cands=2": {
+   "gate_pass_prob": 0.817,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.939,
+    "garcia": 0.714,
+    "described": 0.475
+   }
+  },
+  "B1|m=3|sd=0.06|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.996,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.968,
+    "described": 0.838
+   }
+  },
+  "B1|m=3|sd=0.06|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.988,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.941,
+    "described": 0.765
+   }
+  },
+  "B1|m=3|sd=0.1|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.155,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.398,
+    "garcia": 0.172,
+    "described": 0.119
+   }
+  },
+  "B1|m=3|sd=0.1|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.063,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.294,
+    "garcia": 0.11,
+    "described": 0.071
+   }
+  },
+  "B1|m=3|sd=0.1|delta=0.0150|cands=1": {
+   "gate_pass_prob": 0.471,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.748,
+    "garcia": 0.362,
+    "described": 0.228
+   }
+  },
+  "B1|m=3|sd=0.1|delta=0.0150|cands=2": {
+   "gate_pass_prob": 0.286,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.654,
+    "garcia": 0.265,
+    "described": 0.158
+   }
+  },
+  "B1|m=3|sd=0.1|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.783,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.944,
+    "garcia": 0.593,
+    "described": 0.393
+   }
+  },
+  "B1|m=3|sd=0.1|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.619,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.908,
+    "garcia": 0.486,
+    "described": 0.3
+   }
+  },
+  "B1|m=4|sd=0.03|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.435,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.498,
+    "garcia": 0.498,
+    "described": 0.498,
+    "two_step": 0.5
+   }
+  },
+  "B1|m=4|sd=0.03|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.437,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.499,
+    "garcia": 0.494,
+    "described": 0.504,
+    "two_step": 0.496
+   }
+  },
+  "B1|m=4|sd=0.03|delta=0.0150|cands=1": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.974,
+    "described": 0.939,
+    "two_step": 0.996
+   }
+  },
+  "B1|m=4|sd=0.03|delta=0.0150|cands=2": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.975,
+    "described": 0.942,
+    "two_step": 0.997
+   }
+  },
+  "B1|m=4|sd=0.03|delta=0.0200|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 0.999,
+    "two_step": 1.0
+   }
+  },
+  "B1|m=4|sd=0.03|delta=0.0200|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 1.0,
+    "garcia": 1.0,
+    "described": 1.0,
+    "two_step": 1.0
+   }
+  },
+  "B1|m=4|sd=0.06|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.403,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.496,
+    "garcia": 0.39,
+    "described": 0.24,
+    "two_step": 0.502
+   }
+  },
+  "B1|m=4|sd=0.06|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.365,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.502,
+    "garcia": 0.298,
+    "described": 0.172,
+    "two_step": 0.496
+   }
+  },
+  "B1|m=4|sd=0.06|delta=0.0150|cands=1": {
+   "gate_pass_prob": 0.936,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.941,
+    "garcia": 0.762,
+    "described": 0.532,
+    "two_step": 0.915
+   }
+  },
+  "B1|m=4|sd=0.06|delta=0.0150|cands=2": {
+   "gate_pass_prob": 0.925,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.938,
+    "garcia": 0.675,
+    "described": 0.434,
+    "two_step": 0.912
+   }
+  },
+  "B1|m=4|sd=0.06|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.956,
+    "described": 0.806,
+    "two_step": 0.997
+   }
+  },
+  "B1|m=4|sd=0.06|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.999,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.922,
+    "described": 0.731,
+    "two_step": 0.997
+   }
+  },
+  "B1|m=4|sd=0.1|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.201,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.349,
+    "garcia": 0.146,
+    "described": 0.099,
+    "two_step": 0.278
+   }
+  },
+  "B1|m=4|sd=0.1|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.09,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.26,
+    "garcia": 0.094,
+    "described": 0.056,
+    "two_step": 0.194
+   }
+  },
+  "B1|m=4|sd=0.1|delta=0.0150|cands=1": {
+   "gate_pass_prob": 0.629,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.714,
+    "garcia": 0.321,
+    "described": 0.194,
+    "two_step": 0.587
+   }
+  },
+  "B1|m=4|sd=0.1|delta=0.0150|cands=2": {
+   "gate_pass_prob": 0.443,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.623,
+    "garcia": 0.24,
+    "described": 0.133,
+    "two_step": 0.483
+   }
+  },
+  "B1|m=4|sd=0.1|delta=0.0200|cands=1": {
+   "gate_pass_prob": 0.932,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.934,
+    "garcia": 0.548,
+    "described": 0.349,
+    "two_step": 0.853
+   }
+  },
+  "B1|m=4|sd=0.1|delta=0.0200|cands=2": {
+   "gate_pass_prob": 0.835,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.891,
+    "garcia": 0.444,
+    "described": 0.267,
+    "two_step": 0.784
+   }
+  },
+  "B2|m=3|sd=0.03|delta=0.0050|cands=1": {
+   "gate_pass_prob": 0.447,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.496,
+    "garcia": 0.442,
+    "described": 0.281
+   }
+  },
+  "B2|m=3|sd=0.03|delta=0.0050|cands=2": {
+   "gate_pass_prob": 0.295,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.498,
+    "garcia": 0.339,
+    "described": 0.201
+   }
+  },
+  "B2|m=3|sd=0.03|delta=0.0075|cands=1": {
+   "gate_pass_prob": 0.922,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.937,
+    "garcia": 0.796,
+    "described": 0.583
+   }
+  },
+  "B2|m=3|sd=0.03|delta=0.0075|cands=2": {
+   "gate_pass_prob": 0.843,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.94,
+    "garcia": 0.714,
+    "described": 0.478
+   }
+  },
+  "B2|m=3|sd=0.03|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.997,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.963,
+    "described": 0.837
+   }
+  },
+  "B2|m=3|sd=0.03|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.989,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.938,
+    "described": 0.763
+   }
+  },
+  "B2|m=3|sd=0.06|delta=0.0050|cands=1": {
+   "gate_pass_prob": 0.097,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.281,
+    "garcia": 0.124,
+    "described": 0.088
+   }
+  },
+  "B2|m=3|sd=0.06|delta=0.0050|cands=2": {
+   "gate_pass_prob": 0.036,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.197,
+    "garcia": 0.079,
+    "described": 0.052
+   }
+  },
+  "B2|m=3|sd=0.06|delta=0.0075|cands=1": {
+   "gate_pass_prob": 0.315,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.578,
+    "garcia": 0.258,
+    "described": 0.168
+   }
+  },
+  "B2|m=3|sd=0.06|delta=0.0075|cands=2": {
+   "gate_pass_prob": 0.163,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.475,
+    "garcia": 0.18,
+    "described": 0.109
+   }
+  },
+  "B2|m=3|sd=0.06|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.608,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.836,
+    "garcia": 0.439,
+    "described": 0.283
+   }
+  },
+  "B2|m=3|sd=0.06|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.406,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.762,
+    "garcia": 0.333,
+    "described": 0.198
+   }
+  },
+  "B2|m=3|sd=0.1|delta=0.0050|cands=1": {
+   "gate_pass_prob": 0.024,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.118,
+    "garcia": 0.064,
+    "described": 0.045
+   }
+  },
+  "B2|m=3|sd=0.1|delta=0.0050|cands=2": {
+   "gate_pass_prob": 0.007,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.075,
+    "garcia": 0.035,
+    "described": 0.025
+   }
+  },
+  "B2|m=3|sd=0.1|delta=0.0075|cands=1": {
+   "gate_pass_prob": 0.073,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.231,
+    "garcia": 0.109,
+    "described": 0.074
+   }
+  },
+  "B2|m=3|sd=0.1|delta=0.0075|cands=2": {
+   "gate_pass_prob": 0.025,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.158,
+    "garcia": 0.069,
+    "described": 0.046
+   }
+  },
+  "B2|m=3|sd=0.1|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.166,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.394,
+    "garcia": 0.171,
+    "described": 0.117
+   }
+  },
+  "B2|m=3|sd=0.1|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.073,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.299,
+    "garcia": 0.116,
+    "described": 0.076
+   }
+  },
+  "B2|m=4|sd=0.03|delta=0.0050|cands=1": {
+   "gate_pass_prob": 0.61,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.503,
+    "garcia": 0.388,
+    "described": 0.245,
+    "two_step": 0.494
+   }
+  },
+  "B2|m=4|sd=0.03|delta=0.0050|cands=2": {
+   "gate_pass_prob": 0.495,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.499,
+    "garcia": 0.307,
+    "described": 0.171,
+    "two_step": 0.502
+   }
+  },
+  "B2|m=4|sd=0.03|delta=0.0075|cands=1": {
+   "gate_pass_prob": 0.99,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.94,
+    "garcia": 0.762,
+    "described": 0.539,
+    "two_step": 0.916
+   }
+  },
+  "B2|m=4|sd=0.03|delta=0.0075|cands=2": {
+   "gate_pass_prob": 0.974,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.937,
+    "garcia": 0.68,
+    "described": 0.434,
+    "two_step": 0.913
+   }
+  },
+  "B2|m=4|sd=0.03|delta=0.0100|cands=1": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.955,
+    "described": 0.806,
+    "two_step": 0.998
+   }
+  },
+  "B2|m=4|sd=0.03|delta=0.0100|cands=2": {
+   "gate_pass_prob": 1.0,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.999,
+    "garcia": 0.927,
+    "described": 0.731,
+    "two_step": 0.997
+   }
+  },
+  "B2|m=4|sd=0.06|delta=0.0050|cands=1": {
+   "gate_pass_prob": 0.146,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.245,
+    "garcia": 0.108,
+    "described": 0.074,
+    "two_step": 0.196
+   }
+  },
+  "B2|m=4|sd=0.06|delta=0.0050|cands=2": {
+   "gate_pass_prob": 0.06,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.176,
+    "garcia": 0.063,
+    "described": 0.043,
+    "two_step": 0.13
+   }
+  },
+  "B2|m=4|sd=0.06|delta=0.0075|cands=1": {
+   "gate_pass_prob": 0.467,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.532,
+    "garcia": 0.227,
+    "described": 0.141,
+    "two_step": 0.419
+   }
+  },
+  "B2|m=4|sd=0.06|delta=0.0075|cands=2": {
+   "gate_pass_prob": 0.282,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.43,
+    "garcia": 0.156,
+    "described": 0.092,
+    "two_step": 0.329
+   }
+  },
+  "B2|m=4|sd=0.06|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.823,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.806,
+    "garcia": 0.397,
+    "described": 0.247,
+    "two_step": 0.692
+   }
+  },
+  "B2|m=4|sd=0.06|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.66,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.729,
+    "garcia": 0.301,
+    "described": 0.172,
+    "two_step": 0.595
+   }
+  },
+  "B2|m=4|sd=0.1|delta=0.0050|cands=1": {
+   "gate_pass_prob": 0.032,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.091,
+    "garcia": 0.048,
+    "described": 0.04,
+    "two_step": 0.079
+   }
+  },
+  "B2|m=4|sd=0.1|delta=0.0050|cands=2": {
+   "gate_pass_prob": 0.009,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.056,
+    "garcia": 0.027,
+    "described": 0.021,
+    "two_step": 0.049
+   }
+  },
+  "B2|m=4|sd=0.1|delta=0.0075|cands=1": {
+   "gate_pass_prob": 0.102,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.198,
+    "garcia": 0.089,
+    "described": 0.064,
+    "two_step": 0.157
+   }
+  },
+  "B2|m=4|sd=0.1|delta=0.0075|cands=2": {
+   "gate_pass_prob": 0.041,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.139,
+    "garcia": 0.053,
+    "described": 0.037,
+    "two_step": 0.102
+   }
+  },
+  "B2|m=4|sd=0.1|delta=0.0100|cands=1": {
+   "gate_pass_prob": 0.255,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.352,
+    "garcia": 0.146,
+    "described": 0.093,
+    "two_step": 0.278
+   }
+  },
+  "B2|m=4|sd=0.1|delta=0.0100|cands=2": {
+   "gate_pass_prob": 0.124,
+   "per_family_pass_prob_bonferroni_worst_rank": {
+    "restless4": 0.265,
+    "garcia": 0.096,
+    "described": 0.059,
+    "two_step": 0.196
+   }
+  },
+  "NULL C|m=4|sd=0.03": {
+   "gate_pass_prob": 0.0
+  },
+  "NULL C|m=4|sd=0.1": {
+   "gate_pass_prob": 0.0
+  },
+  "NULL B1|m=4|sd=0.03": {
+   "gate_pass_prob": 0.0
+  },
+  "NULL B1|m=4|sd=0.1": {
+   "gate_pass_prob": 0.00105
+  },
+  "NULL B2|m=4|sd=0.03": {
+   "gate_pass_prob": 0.00045
+  },
+  "NULL B2|m=4|sd=0.1": {
+   "gate_pass_prob": 0.0017
+  }
+ }
+}

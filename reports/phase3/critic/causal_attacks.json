@@ -1,0 +1,216 @@
+{
+ "what": "toy attacks on hpe.population.core.conformance.check_causal and the runner (no human data)",
+ "part_a_check_vs_attacks": {
+  "Honest": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [],
+   "strict_flags": false
+  },
+  "PeekAll": {
+   "production_check": [
+    "critic_honest mode=adapt: rows <= 15 changed when the future changed (max |\u0394| 2.2)",
+    "critic_honest mode=adapt: rows <= 30 changed when the future changed (max |\u0394| 2.2)",
+    "critic_honest mode=adapt: rows <= 45 changed when the future changed (max |\u0394| 2.2)",
+    "critic_honest mode=frozen: rows <= 15 changed when the future changed (max |\u0394| 2.2)",
+    "critic_honest mode=frozen: rows <= 30 changed when the future changed (max |\u0394| 2.2)",
+    "critic_honest mode=frozen: rows <= 45 changed when the future changed (max |\u0394| 2.2)"
+   ],
+   "production_flags": true,
+   "strict_check": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after t"
+   ],
+   "strict_flags": true
+  },
+  "ProbeDodger": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after t"
+   ],
+   "strict_flags": true
+  },
+  "KeyCache": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after t",
+    "seq0: predict_logprobs mutated model state"
+   ],
+   "strict_flags": true
+  },
+  "Transductive": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [
+    "seq0: predict_logprobs mutated model state"
+   ],
+   "strict_flags": true
+  },
+  "InvariantFields": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [
+    "seq0 mode=adapt: rows <= 0 depend on data at or after t",
+    "seq0: predictions depend on seq.key"
+   ],
+   "strict_flags": true
+  },
+  "DonorPathPeek": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [
+    "seq0 donor: rows <= 0 depend on the target's data at or after t"
+   ],
+   "strict_flags": true
+  },
+  "SabotagedAblations": {
+   "production_check": [],
+   "production_flags": false,
+   "strict_check": [],
+   "strict_flags": false
+  },
+  "PeekAll_k2_miss_rate": {
+   "sequences": 400,
+   "missed_by_production_check": 45,
+   "rate": 0.1125,
+   "note": "random replacement equals the true action with p=1/2 at each of 3 probe rows; expected miss rate 1/8"
+  }
+ },
+ "part_b_runner_and_analyze": {
+  "causality_violations": {
+   "critictoy_a": {
+    "critic_honest": [],
+    "critic_peek_all": [
+     "critic_peek_all mode=adapt: rows <= 40 changed when the future changed (max |\u0394| 2.2)",
+     "critic_peek_all mode=adapt: rows <= 60 changed when the future changed (max |\u0394| 2.2)",
+     "critic_peek_all mode=frozen: rows <= 40 changed when the future changed (max |\u0394| 2.2)",
+     "critic_peek_all mode=frozen: rows <= 60 changed when the future changed (max |\u0394| 2.2)"
+    ],
+    "critic_keycache": [],
+    "critic_transductive": [],
+    "critic_sabotaged": []
+   },
+   "critictoy_b": {
+    "critic_honest": [],
+    "critic_peek_all": [
+     "critic_peek_all mode=adapt: rows <= 20 changed when the future changed (max |\u0394| 2.2)",
+     "critic_peek_all mode=adapt: rows <= 40 changed when the future changed (max |\u0394| 2.2)",
+     "critic_peek_all mode=frozen: rows <= 20 changed when the future changed (max |\u0394| 2.2)",
+     "critic_peek_all mode=frozen: rows <= 40 changed when the future changed (max |\u0394| 2.2)"
+    ],
+    "critic_keycache": [],
+    "critic_transductive": [],
+    "critic_sabotaged": []
+   }
+  },
+  "best_comparator": {
+   "critictoy_a": "critic_honest",
+   "critictoy_b": "critic_honest"
+  },
+  "candidate_vs_best_comparator": {
+   "critic_keycache": {
+    "critictoy_a": {
+     "estimate": -0.40224511587982786,
+     "p_holm": 0.001,
+     "meets_0.02": true
+    },
+    "critictoy_b": {
+     "estimate": -0.416751170757384,
+     "p_holm": 0.001,
+     "meets_0.02": true
+    }
+   },
+   "critic_peek_all": {
+    "critictoy_a": {
+     "estimate": -0.40224511587982786,
+     "p_holm": 0.001,
+     "meets_0.02": true
+    },
+    "critictoy_b": {
+     "estimate": -0.416751170757384,
+     "p_holm": 0.001,
+     "meets_0.02": true
+    }
+   },
+   "critic_sabotaged": {
+    "critictoy_a": {
+     "estimate": 0.0,
+     "p_holm": 1.0,
+     "meets_0.02": false
+    },
+    "critictoy_b": {
+     "estimate": 0.0,
+     "p_holm": 1.0,
+     "meets_0.02": false
+    }
+   },
+   "critic_transductive": {
+    "critictoy_a": {
+     "estimate": -0.016568987845530743,
+     "p_holm": 0.001,
+     "meets_0.02": false
+    },
+    "critictoy_b": {
+     "estimate": -0.03100125287755557,
+     "p_holm": 0.001,
+     "meets_0.02": true
+    }
+   }
+  },
+  "sabotaged_variant_contrasts": {
+   "critictoy_a": [
+    {
+     "first": "critic_sabotaged",
+     "second": "critic_honest",
+     "kind": "vs_best_comparator",
+     "estimate": 0.0,
+     "p_one_sided": 1.0
+    },
+    {
+     "first": "critic_sabotaged",
+     "second": "critic_sabotaged[frozen]",
+     "kind": "vs_frozen",
+     "estimate": -0.5876502178294889,
+     "p_one_sided": 0.0005
+    },
+    {
+     "first": "critic_sabotaged",
+     "second": "critic_sabotaged[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -0.5876502178294889,
+     "p_one_sided": 0.0005
+    }
+   ],
+   "critictoy_b": [
+    {
+     "first": "critic_sabotaged",
+     "second": "critic_honest",
+     "kind": "vs_best_comparator",
+     "estimate": 0.0,
+     "p_one_sided": 1.0
+    },
+    {
+     "first": "critic_sabotaged",
+     "second": "critic_sabotaged[frozen]",
+     "kind": "vs_frozen",
+     "estimate": -0.6073170698334499,
+     "p_one_sided": 0.0005
+    },
+    {
+     "first": "critic_sabotaged",
+     "second": "critic_sabotaged[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -0.6073170698334499,
+     "p_one_sided": 0.0005
+    }
+   ]
+  }
+ },
+ "part_c_pop_gru_strict": {
+  "strict_exact": [],
+  "strict_atol_1e-6": [],
+  "max_abs_prefix_vs_full": 0.0,
+  "production_check": []
+ }
+}
