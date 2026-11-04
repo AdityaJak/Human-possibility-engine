@@ -31,6 +31,41 @@ describe("routes", () => {
     expect(screen.getByText("Synthetic simulation — not real people")).toBeInTheDocument();
   });
 
+  it("phase III page shows committed results, gates as not evaluated, and failures", async () => {
+    const fixture = {
+      disclaimer: "Phase III research results on real human choice data.",
+      experiments: [
+        {
+          experiment_id: "x_demo",
+          lane: "director",
+          title: "Demo run",
+          hypothesis: "h",
+          report_partition: "tune",
+          path: "reports/phase3/director/x_demo",
+          preregistration_hash: "abc",
+          families: {
+            restless4: {
+              role: "counted_primary",
+              best_comparator: "pop_gru",
+              models: {
+                pop_gru: { report_nll: 0.71, ci: [0.69, 0.73], n: 174, top1: 0.7, ece: 0.03, quarters: [0.8, 0.7, 0.7, 0.68], select_nll: 0.71, params: 3000, role: "comparator", lapse: 0, grid_edges: [], fit_cpu_s: 40, causality_violations: [] },
+              },
+              contrasts: [],
+            },
+          },
+        },
+      ],
+      registry: { exploratory: [], confirmatory: [], abandoned: [{ date: "2026-11-04", lane: "director", what: "X3-001a", why: "under-converged comparator" }], amendments: [] },
+      verdict: null,
+    };
+    setTransport(async (_m, path) => (path === "/research/phase3" ? fixture : { status: "ok", version: "t", contract_version: "0.1.0" }));
+    at("/lab/phase3");
+    expect(await screen.findByRole("heading", { name: /population-trained models and individual adaptation/i })).toBeInTheDocument();
+    expect(await screen.findByText(/under-converged comparator/)).toBeInTheDocument();
+    expect(screen.getAllByText("not evaluated")).toHaveLength(7);
+    expect(screen.getByText(/research, not predictions about you/i)).toBeInTheDocument();
+  });
+
   it("lab pages surface API errors instead of fake data", async () => {
     setTransport(async (_m, path) => {
       if (path === "/health") return { status: "ok", version: "t", contract_version: "0.1.0" };

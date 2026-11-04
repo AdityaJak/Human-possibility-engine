@@ -29,6 +29,7 @@ FIXED_ROUTES = (
     "lab/experiment",
     "lab/evidence",
     "lab/benchmarks",
+    "lab/phase3",
     "future",
     "demo",
 )

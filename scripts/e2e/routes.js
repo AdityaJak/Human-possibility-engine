@@ -15,6 +15,7 @@ const { chromium } = require('playwright');
     ['/lab/experiment', /Exp 2/],
     ['/lab/evidence', /claim/i],
     ['/lab/benchmarks', /agent-years|Benchmarks/],
+    ['/lab/phase3', /Population-trained models/],
     ['/future/welcome', /ILLUSTRATIVE SCENARIO|Illustrative/i],
     ['/demo', /INVESTOR WALKTHROUGH/i],
   ];

@@ -33,6 +33,9 @@ _KEEP_MODEL_FIELDS = (
     "grid_edges",
     "fit_cpu_s",
     "causality_violations",
+    "excluded",
+    "lapse0_nll",
+    "predict_ms_per_trial",
 )
 
 

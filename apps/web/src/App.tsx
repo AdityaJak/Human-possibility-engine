@@ -9,6 +9,7 @@ const ProofOfLearning = lazy(() => import("./pages/lab/ProofOfLearning"));
 const TwinExperiment = lazy(() => import("./pages/lab/TwinExperiment"));
 const EvidencePage = lazy(() => import("./pages/lab/EvidencePage"));
 const Benchmarks = lazy(() => import("./pages/lab/Benchmarks"));
+const Phase3 = lazy(() => import("./pages/lab/Phase3"));
 const FutureSelf = lazy(() => import("./pages/future/FutureSelf"));
 const InvestorDemo = lazy(() => import("./pages/demo/InvestorDemo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -25,6 +26,7 @@ export function AppRoutes() {
         <Route path="lab/experiment" element={<TwinExperiment />} />
         <Route path="lab/evidence" element={<EvidencePage />} />
         <Route path="lab/benchmarks" element={<Benchmarks />} />
+        <Route path="lab/phase3" element={<Phase3 />} />
         <Route path="future" element={<Navigate to="/future/welcome" replace />} />
         <Route path="future/:step" element={<FutureSelf />} />
         <Route path="demo" element={<InvestorDemo />} />

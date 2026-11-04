@@ -154,6 +154,68 @@ export interface JourneyResponse {
   reflections: Reflection[];
 }
 
+/** GET /research/phase3 — Phase III results exactly as committed (hpe.population.core.dashboard). */
+export interface Phase3Model {
+  report_nll: number;
+  ci: [number, number];
+  n: number;
+  top1: number;
+  ece: number;
+  quarters: number[];
+  select_nll: number | null;
+  params: number | null;
+  role: string;
+  lapse: number;
+  grid_edges: string[];
+  fit_cpu_s: number;
+  causality_violations: string[];
+  excluded?: boolean;
+}
+
+export interface Phase3Contrast {
+  first: string;
+  second: string;
+  kind: string;
+  estimate: number;
+  ci_low: number;
+  ci_high: number;
+  n: number;
+}
+
+export interface Phase3Family {
+  role: string;
+  best_comparator: string | null;
+  models: Record<string, Phase3Model>;
+  contrasts: Phase3Contrast[];
+}
+
+export interface Phase3Experiment {
+  experiment_id: string;
+  lane: string;
+  title: string;
+  hypothesis: string;
+  report_partition: string;
+  path: string;
+  preregistration_hash: string | null;
+  families: Record<string, Phase3Family>;
+}
+
+export interface Phase3Response {
+  disclaimer: string;
+  experiments: Phase3Experiment[];
+  registry: {
+    exploratory: Array<Record<string, string>>;
+    confirmatory: Array<Record<string, string>>;
+    abandoned: Array<Record<string, string>>;
+    amendments: Array<Record<string, string>>;
+  };
+  verdict: {
+    decision: string;
+    summary: string;
+    gates: Record<string, { status: string; note?: string }>;
+  } | null;
+}
+
 /** Assumed shape of GET /research/metrics: {experiments, runs, benchmarks} summary. */
 export type ResearchMetrics = Record<string, unknown>;
 
@@ -213,6 +275,7 @@ export const api = {
   researchMetrics: (signal?: AbortSignal) => request<ResearchMetrics>("GET", "/research/metrics", { signal }),
   claims: (signal?: AbortSignal) => request<ClaimRecord[]>("GET", "/research/claims", { signal }),
   benchmarks: (signal?: AbortSignal) => request<BenchmarkRecord[]>("GET", "/benchmarks", { signal }),
+  phase3: (signal?: AbortSignal) => request<Phase3Response>("GET", "/research/phase3", { signal }),
 
   // ---- future self --------------------------------------------------------------
   scenarios: (body: DecisionRequest) => request<ScenarioResponse>("POST", "/scenarios", { body }),

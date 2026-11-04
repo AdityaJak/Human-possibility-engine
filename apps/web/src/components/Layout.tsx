@@ -12,6 +12,7 @@ const LAB_LINKS: Array<{ to: string; label: string }> = [
   { to: "/lab/learning", label: "Proof of learning" },
   { to: "/lab/experiment", label: "Twin-society experiment" },
   { to: "/lab/evidence", label: "Evidence" },
+  { to: "/lab/phase3", label: "Phase III: adaptation" },
   { to: "/lab/benchmarks", label: "Benchmarks" },
 ];
 
