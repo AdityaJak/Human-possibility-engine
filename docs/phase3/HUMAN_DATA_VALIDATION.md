@@ -17,7 +17,7 @@ records before any transcript is parsed.
 | `two_step` | counted **if validated** | kool2016when exp1–2, kool2017cost exp1–2, zorowitz2023data exp1 | **`families/two_step.py` (new)** | Phase III |
 | `horizon_external` | external | sadeghiyeh2020temporal, somerville2017charting, feng2021dynamics | **`families/horizon_external.py` (new; reuses `psych101_v2.parse_horizon`)** | Phase III |
 | `bandit2`, `srl3`, `horizon`, `casino`, `wpt` | secondary | Phase II | Phase II parsers | Phase II |
-| `spatial_bandit` | secondary (optional) | schulz2020finding | **not written** (time; see §6) | Phase III |
+| `spatial_bandit` | secondary (optional) | schulz2020finding exp1–5 | **`families/spatial_bandit.py` (new; K = 8, needs `k_max: 8`)** | Phase III |
 
 Validation command (dev/tune only; writes `reports/phase3/baselines/validation/<family>_<partition>.json`):
 
@@ -124,6 +124,15 @@ Parsed 72/72 (dev) and 37/37 (tune); instructed trials are kept as inputs (`forc
 thesis, models for the external-replication analysis are fitted on `horizon` (wilson2014) only; this lane did not
 fit anything on `horizon_external`.
 
+## 4b. `spatial_bandit` — validation on dev
+
+Schulz et al. (2020), 8 options, 30 rounds × 10 trials, rewards in the stated range 0–50 → `/50`; action index =
+position in the instruction's option list (digits 1–8, identical order in every dev transcript); block = round.
+Parsed 214/214 (dev) and 106/106 (tune), 300 choices each
+(`reports/phase3/baselines/validation/spatial_bandit_{dev,tune}.json`). Mean normalised reward on dev 0.686–0.749
+per file; P(option 1) is 0.28–0.33 in exp1–4 and 0.07 in exp5 (a different reward structure, not a parse
+difference: all five files list the options in the same order). No model was fitted on this family (time).
+
 `restless4` (director's parser) was re-validated on dev for completeness: 348/348 parsed, 14–150 choices
 (median 148), `reports/phase3/baselines/validation/restless4_dev.json`.
 
@@ -167,7 +176,7 @@ director's decision and licence confirmation.
 
 ## 7. Known gaps
 
-* `spatial_bandit` (schulz2020finding, K = 8) adapter not written.
+* `spatial_bandit` parsed and validated but no model fitted on it.
 * The −4…+5 / 0…9 outcome ranges of the Kool one-stage tasks were not checked against the original papers.
 * Validation shows the parser reproduces known design features and behavioural signatures; it cannot prove
   that every Psych-101 rendering matches the original raw data (we have no access to the raw files).
