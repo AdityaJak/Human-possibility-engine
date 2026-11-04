@@ -6,15 +6,15 @@
 | `SCIENTIFIC_GAP_ANALYSIS.md` | written (from committed Phase I artifacts) | Stage 1 |
 | `CANDIDATE_ARCHITECTURES.md` | written (A–E + stronger baselines) | Stage 1–2 |
 | `EXPERIMENT_REGISTRY.md` | written; partitions frozen (`reports/phase2/partitions/`) | Stage 1, updated continuously |
-| `HUMAN_VALIDATION_V2.md` | **not yet produced** | Stage 5 (human-validation lane) |
+| `HUMAN_VALIDATION_V2.md` | written (nine families, equal grids, dev pilot; test locked) | Stage 5 (human-validation lane) |
 | `CAUSAL_VALIDITY_REPORT.md` | written (estimator validation, HTE dev/test, OPE; Gate E not started) | Stage 4–5 (causal lane) |
-| `AFFECTIVE_MODEL_REPORT.md` | **not yet produced** | Stage 4–5 (affective lane) |
-| `RESEARCH_RESULTS_V2.md` | **not yet produced** | Stage 5 (director, from confirmatory ledger) |
+| `AFFECTIVE_MODEL_REPORT.md` | written — **not executed** (lane stopped by the usage-credit limit); plan and permitted claims (none) stated | Stage 4–5 (affective lane) |
+| `RESEARCH_RESULTS_V2.md` | written (compiled from the ledgers; X-010 pending) | Stage 5 (director, from confirmatory ledger) |
 | `INDEPENDENT_REVIEW_V2.md` | written — design review (blocking findings acted on, see registry/thesis); results review pending | Stage 2 and 6 (critic) |
-| `SCIENTIFIC_LIMITATIONS.md` | **not yet produced** | Stage 7 |
-| `INVESTOR_TECHNICAL_BRIEF.md` | **not yet produced** | Stage 7 |
+| `SCIENTIFIC_LIMITATIONS.md` | written | Stage 7 |
+| `INVESTOR_TECHNICAL_BRIEF.md` | written (decision pending X-010) | Stage 7 |
 | `BREAKTHROUGH_STATUS.md` | written (no breakthrough claimed; gate table) | updated at each stage |
-| `STATE_OF_THE_ART_BENCHMARK.md` (added requirement: Centaur, Simile, cognitive foundation models; reproduced vs published figures) | **not yet produced** | Stage 4–5 (human-validation lane) |
+| `STATE_OF_THE_ART_BENCHMARK.md` (added requirement: Centaur, Simile, cognitive foundation models; reproduced vs published figures) | written — Centaur/Minitaur not runnable here, published figures non-comparable, no SOTA claim | Stage 4–5 (human-validation lane) |
 | `specs/IMPLEMENTATION_NOTES_GATE_AB.md` | written (composition family, Gate A controls, dev results; exploratory) | Stage 3–4 (evaluation-v2 lane) |
 | `COGNITIVE_ARCHITECTURE_NOTES.md` | written (Candidate A mechanism, dev results, abandoned attempts; exploratory) | Stage 3–4 (cognitive-architecture lane) |
 
