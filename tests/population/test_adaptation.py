@@ -19,7 +19,8 @@ class CountAdapter(AdaptiveBase):
     name = "count_adapter"
     update_every = 3
 
-    def __init__(self) -> None:
+    def __init__(self, record: bool = False) -> None:
+        self.record = record
         self.seen_lengths: list[int] = []
 
     def fit(self, train, *, seed, threads, budget_s):  # type: ignore[no-untyped-def]
@@ -29,7 +30,8 @@ class CountAdapter(AdaptiveBase):
         return np.ones(4)
 
     def update_state(self, state: Any, history: EncodedSeq) -> Any:
-        self.seen_lengths.append(history.T)
+        if self.record:  # instrumentation for the schedule test only; a real model must not mutate here
+            self.seen_lengths.append(history.T)
         c = np.ones(4)
         np.add.at(c, history.actions[history.scored], 1.0)
         return c
@@ -51,7 +53,7 @@ class CountAdapter(AdaptiveBase):
 def test_schedules_are_causal_and_length_matched():
     s = encode(_participant(20, 1), "toy", 4)
     d = encode(_participant(8, 2), "toy", 4)
-    m = CountAdapter()
+    m = CountAdapter(record=True)
     ad = schedule(m, s, mode="adapt", donor=None)
     assert [st for st, _ in ad] == [0, 3, 6, 9, 12, 15, 18]
     assert m.seen_lengths == [3, 6, 9, 12, 15, 18]  # own prefix strictly before each start row
@@ -60,4 +62,5 @@ def test_schedules_are_causal_and_length_matched():
     schedule(m, s, mode="adapt", donor=d)
     assert m.seen_lengths == [3, 6, 8, 8, 8, 8]  # donor prefix of equal length, capped at the donor's length
     assert not overrides_harness(m)
-    assert check_causal(m, s) == []  # type: ignore[arg-type]
+    assert check_causal(CountAdapter(), [s, d]) == []  # type: ignore[arg-type]
+    assert any("mutated" in p for p in check_causal(m, s))  # the recording variant mutates state: flagged

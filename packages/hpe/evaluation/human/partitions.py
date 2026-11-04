@@ -97,6 +97,12 @@ def check_partition_access(
         raise ValueError(f"unknown partition {partition!r}; expected one of {PARTITIONS}")
     if partition != "test":
         return
+    if Path(freeze_dir).resolve() == DEFAULT_FREEZE_DIR.resolve():
+        # Phase II ended (PIVOT) without any human test freeze; the test partitions of the families Phase III
+        # reuses are governed by Phase III's stricter lock (hpe.population.core.freeze). Critic finding T-4.
+        raise TestPartitionLocked(
+            "Phase II is closed: its test partitions cannot be unlocked through Phase II tooling"
+        )
     if experiment_id is None or freeze_record(experiment_id, freeze_dir) is None:
         raise TestPartitionLocked(
             "the test partition is locked: no freeze record "
