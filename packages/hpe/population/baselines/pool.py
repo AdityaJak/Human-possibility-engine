@@ -83,8 +83,14 @@ def aggregate(dirs: list[Path]) -> dict[str, Any]:
                     "n_skipped": sum(1 for f in r["fits"] if f.get("skipped")),
                     "fit_cpu_s": round(sum(f.get("fit_cpu_s", 0.0) for f in r["fits"]), 1),
                     "report_cpu_s_all_variants": r.get("report_cpu_s"),
+                    "predict_ms_per_trial": r.get("predict_ms_per_trial"),
                     "n_variants": len(r["variants"]),
+                    "fits_at_epoch_cap": sum(
+                        1 for f in r["fits"] if (f.get("fit_log") or {}).get("stopped") == "max_epochs"
+                    ),
+                    "fits_budget_stopped": sum(1 for f in r["fits"] if f.get("nondeterministic_budget_stop")),
                     "causal": not r["causality_violations"],
+                    "violations": r["causality_violations"],
                 }
                 per_all[(fam, label)] = per.get((fam, label), {})
     if len(seeds) > 1 or len(partitions) > 1:
@@ -124,7 +130,28 @@ def aggregate(dirs: list[Path]) -> dict[str, Any]:
                         key=(fam, lab, other),
                     )
                     contrasts.append({"first": lab, "second": other, "kind": f"adapt_vs_{v}", **c})
-        out["families"][fam] = {"best_comparator": best, "models": models, "contrasts": contrasts}
+        out["families"][fam] = {
+            "best_comparator": best,
+            "models": models,
+            "contrasts": contrasts,
+            "adequacy": _adequacy(models, best),
+        }
+    return out
+
+
+def _adequacy(models: dict[str, dict[str, Any]], best: str | None) -> dict[str, Any]:
+    """Amendment A3-1 item 6 (comparator adequacy before any freeze), as far as these runs can tell."""
+    out: dict[str, Any] = {}
+    g, p2 = models.get("pop_gru"), models.get("ref_gru_p2")
+    if g and p2:
+        out["pop_gru_tune_nll"] = g["select_nll"]
+        out["ref_gru_p2_tune_nll"] = p2["select_nll"]
+        out["pop_gru_le_phase2_gru"] = bool(g["select_nll"] <= p2["select_nll"])
+    if best:
+        b = models[best]
+        n_fit = b["n_configs"] - b["n_skipped"]
+        out["best_fits_at_epoch_cap_fraction"] = (b["fits_at_epoch_cap"] / n_fit) if n_fit else None
+        out["best_at_grid_edge"] = list(b["grid_edges"])
     return out
 
 
@@ -133,8 +160,11 @@ def _f(x: Any, nd: int = 4) -> str:
 
 
 def _per(m: dict[str, Any]) -> str:
+    ms = m.get("predict_ms_per_trial")
+    if ms is not None:
+        return f"{ms:.3f}"
     c, n, v = m.get("report_cpu_s_all_variants"), m.get("n"), m.get("n_variants") or 1
-    return "—" if c is None or not n else f"{c / (n * v):.3f}"
+    return "—" if c is None or not n else f"{1000.0 * c / (n * v):.1f} / participant"
 
 
 def render(res: dict[str, Any]) -> str:
@@ -148,16 +178,19 @@ def render(res: dict[str, Any]) -> str:
     ]
     for fam, fd in res["families"].items():
         lines += [f"## {fam} — best comparator on tune: `{fd['best_comparator']}`", ""]
+        if fd.get("adequacy"):
+            lines += [f"Adequacy (A3-1 item 6): `{json.dumps(fd['adequacy'])}`", ""]
         lines += [
-            "| model | tune NLL [95% CI] | n | top-1 | params (pop / person) | configs (skipped) | lapse | grid edges | fit CPU s | predict CPU s / participant / variant | causal | source |",
-            "|---|---|---|---|---|---|---|---|---|---|---|---|",
+            "| model | tune NLL [95% CI] | n | top-1 | params (pop / person) | configs (skipped) | fits at epoch cap | lapse | grid edges | fit CPU s | predict ms / trial | causal | source |",
+            "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
         ]
         for lab, m in sorted(fd["models"].items(), key=lambda kv: (kv[1]["report_nll"] or 9.0, kv[0])):
             ci = m["ci"] or [None, None]
             lines.append(
                 f"| {lab} | {_f(m['report_nll'])} [{_f(ci[0])}, {_f(ci[1])}] | {m['n']} | {_f(m['top1'], 3)} | "
                 f"{m['params']} / {m['per_person_params'] if m['per_person_params'] is not None else '—'} | "
-                f"{m['n_configs']} ({m['n_skipped']}) | {m['lapse']} | {', '.join(m['grid_edges']) or '—'} | "
+                f"{m['n_configs']} ({m['n_skipped']}) | {m['fits_at_epoch_cap']} | {m['lapse']} | "
+                f"{', '.join(m['grid_edges']) or '—'} | "
                 f"{m['fit_cpu_s']} | {_per(m)} | {'ok' if m['causal'] else 'VIOLATION'} | `{m['experiment_id']}` |"
             )
         if fd["contrasts"]:
