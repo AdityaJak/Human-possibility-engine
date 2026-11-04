@@ -1,0 +1,84 @@
+# Experiment 7a — held-out human choice prediction (Gate 4: external human validity).
+# Preregistered 2026-11-04 BEFORE any model was fitted to these data. Only parse-validation
+# descriptives (participant/trial counts, overall accuracy, deck choice shares) had been inspected.
+# The runner computes preregistration_hash over this file's content and writes it before analysis.
+kind: human_heldout
+experiment_id: exp07_human_heldout
+title: Do our policy classes predict held-out human learning choices (Psych-101 MCPL and IGT)?
+hypothesis: >-
+  A developmental learner (Tier-2 policy, hpe.development) predicts held-out human choices in
+  multiple-cue probability learning better than the strongest non-developmental model, including
+  static models fitted to other participants and the memory-only / plain-RL baselines.
+falsification_criterion: >-
+  The hypothesis fails if the paired 95% bootstrap CI over held-out participants for
+  (developmental NLL - best non-developmental NLL) excludes improvements of at least 0.02 nats per
+  choice (ci_low > -0.02), or if the developmental learner is worse (ci_low > 0).
+dataset: psych101_learning_subset
+paradigms:
+  - {paradigm: mcpl, role: primary, experiments_prefix: "collsiöö2023MCPL/"}
+  - {paradigm: igt, role: secondary, experiments_prefix: "steingroever2015data/"}
+models:
+  - random
+  - static_persona
+  - memory_only
+  - plain_rl
+  - developmental
+  - ref_bias
+  - ref_population_static
+  - ref_delta_rule
+  - ref_instance_based
+model_groups:
+  static: [static_persona, ref_bias, ref_population_static]
+  adaptive: [memory_only, plain_rl, developmental, ref_delta_rule, ref_instance_based]
+grids:
+  ref_bias:
+    mcpl: {smoothing: [1.0]}
+    igt: {smoothing: [1.0]}
+  ref_population_static:
+    mcpl: {smoothing: [0.5, 1.0, 2.0]}
+  ref_delta_rule:
+    mcpl: {alpha: [0.01, 0.03, 0.1, 0.3], sigma: [0.75, 1.0, 1.5, 2.0, 3.0]}
+    igt: {alpha: [0.05, 0.1, 0.2, 0.4], beta: [1.0, 3.0, 6.0, 12.0]}
+  ref_instance_based:
+    mcpl: {h: [0.5, 1.0, 2.0], s: [0.5, 1.0, 1.5], kappa: [0.05]}
+    igt: {decay: [0.5, 0.8, 0.95, 1.0], beta: [1.0, 3.0, 6.0, 12.0]}
+  # Registry policy classes (static_persona, memory_only, plain_rl, developmental) run with their
+  # default policy_params; only the shared lapse (and IGT reward scale) is fitted. Adding
+  # class-specific grids requires amending this file, which changes the preregistration hash.
+lapse_grid: [0.0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3]
+igt_reward_scale_grid: [250.0, 500.0, 1250.0]
+age_years: 25.0
+split:
+  unit: participant
+  train_fraction: 0.7
+  stratify_by: experiment
+  seed: 20261104
+  robustness_seeds: [1, 2]
+analysis:
+  primary_metric: heldout_nll_per_choice_mcpl
+  primary_metric_definition: >-
+    Mean over held-out MCPL participants of each participant's mean negative log-likelihood
+    (natural log) of their actual choices under teacher forcing, after lapse mixing. Lower is better.
+    Chance = ln 9 = 2.1972 (MCPL), ln 4 = 1.3863 (IGT).
+  test: paired_bootstrap
+  alpha: 0.05
+  n_bootstrap: 2000
+  minimum_effect_of_interest: 0.02
+  primary_contrast: >-
+    developmental - best_non_developmental, where best_non_developmental is the available model
+    (excluding random and developmental) with the lowest TRAIN objective; paired over held-out MCPL participants.
+  secondary_contrasts:
+    - best_adaptive - best_static (each chosen on TRAIN), MCPL
+    - developmental - best_non_developmental, IGT
+    - best_adaptive - best_static, IGT
+    - each model - chance
+    - "robustness: primary and secondary contrasts repeated on split seeds 1 and 2"
+  status_rule: >-
+    passed if ci_high < 0 and estimate <= -0.02; failed if ci_low > -0.02; inconclusive otherwise,
+    or if the developmental class is not available in the build.
+validity_notes:
+  - Teacher-forced one-step-ahead likelihood measures predictive fit to human choice sequences, not generative realism.
+  - Registry classes are not tuned beyond lapse/reward scale; reference cognitive models get small grids. This favours the reference models.
+  - Participants are adults in short laboratory tasks; this says nothing about life-course development or the simulator's world.
+  - Psych-101 transcripts were used to train the Centaur language model; irrelevant here because no language model is used, noted for context.
+  - MCPL cue encoding (one-hot + scalar, 12 features) is a modelling choice shared by all models.

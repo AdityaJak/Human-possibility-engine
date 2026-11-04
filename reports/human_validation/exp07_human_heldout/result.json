@@ -1,0 +1,307 @@
+{
+  "ablations": [],
+  "arms": [
+    {
+      "arm": "igt:random",
+      "metrics": {
+        "heldout_nll_per_choice_igt": {
+          "ci_high": 1.3862943611198908,
+          "ci_low": 1.3862943611198908,
+          "mean": 1.3862943611198906,
+          "n": 153.0,
+          "sd": 9.86459044048525e-17
+        },
+        "heldout_top1_igt": {
+          "ci_high": 0.25,
+          "ci_low": 0.25,
+          "mean": 0.25,
+          "n": 153.0,
+          "sd": 0.0
+        }
+      },
+      "n_runs": 153
+    },
+    {
+      "arm": "igt:ref_bias",
+      "metrics": {
+        "heldout_nll_per_choice_igt": {
+          "ci_high": 1.3593418785862645,
+          "ci_low": 1.341045148446018,
+          "mean": 1.3504043538966408,
+          "n": 153.0,
+          "sd": 0.06134790983175029
+        },
+        "heldout_top1_igt": {
+          "ci_high": 0.32653047242288735,
+          "ci_low": 0.28364611283109736,
+          "mean": 0.30435156518747847,
+          "n": 153.0,
+          "sd": 0.1420288588003207
+        }
+      },
+      "n_runs": 153
+    },
+    {
+      "arm": "igt:ref_delta_rule",
+      "metrics": {
+        "heldout_nll_per_choice_igt": {
+          "ci_high": 1.3238579180816716,
+          "ci_low": 1.284295875643897,
+          "mean": 1.304081308321647,
+          "n": 153.0,
+          "sd": 0.12494878254383784
+        },
+        "heldout_top1_igt": {
+          "ci_high": 0.402207325230287,
+          "ci_low": 0.35472373198792184,
+          "mean": 0.3778055842219929,
+          "n": 153.0,
+          "sd": 0.15060164521133038
+        }
+      },
+      "n_runs": 153
+    },
+    {
+      "arm": "igt:ref_instance_based",
+      "metrics": {
+        "heldout_nll_per_choice_igt": {
+          "ci_high": 1.306597056487601,
+          "ci_low": 1.2532415355263913,
+          "mean": 1.2808536480540471,
+          "n": 153.0,
+          "sd": 0.16477256279860977
+        },
+        "heldout_top1_igt": {
+          "ci_high": 0.4124839061843061,
+          "ci_low": 0.36312685615181745,
+          "mean": 0.3872511753239307,
+          "n": 153.0,
+          "sd": 0.15434383629546197
+        }
+      },
+      "n_runs": 153
+    },
+    {
+      "arm": "mcpl:random",
+      "metrics": {
+        "heldout_nll_per_choice_mcpl": {
+          "ci_high": 2.197224577336219,
+          "ci_low": 2.197224577336219,
+          "mean": 2.197224577336219,
+          "n": 69.0,
+          "sd": 4.473426541494861e-16
+        },
+        "heldout_top1_mcpl": {
+          "ci_high": 0.11111111111111112,
+          "ci_low": 0.11111111111111112,
+          "mean": 0.11111111111111112,
+          "n": 69.0,
+          "sd": 1.397945794217144e-17
+        }
+      },
+      "n_runs": 69
+    },
+    {
+      "arm": "mcpl:ref_bias",
+      "metrics": {
+        "heldout_nll_per_choice_mcpl": {
+          "ci_high": 1.9652029831658744,
+          "ci_low": 1.906720026331842,
+          "mean": 1.9362793421576823,
+          "n": 69.0,
+          "sd": 0.127231073043165
+        },
+        "heldout_top1_mcpl": {
+          "ci_high": 0.31257032586191374,
+          "ci_low": 0.2724767830887869,
+          "mean": 0.29182944759504303,
+          "n": 69.0,
+          "sd": 0.08632240815497834
+        }
+      },
+      "n_runs": 69
+    },
+    {
+      "arm": "mcpl:ref_delta_rule",
+      "metrics": {
+        "heldout_nll_per_choice_mcpl": {
+          "ci_high": 1.885821340890187,
+          "ci_low": 1.7219177041494775,
+          "mean": 1.802014678274954,
+          "n": 69.0,
+          "sd": 0.34556038500574454
+        },
+        "heldout_top1_mcpl": {
+          "ci_high": 0.5051296621358058,
+          "ci_low": 0.3905508109040718,
+          "mean": 0.44798361688720856,
+          "n": 69.0,
+          "sd": 0.2518878708188703
+        }
+      },
+      "n_runs": 69
+    },
+    {
+      "arm": "mcpl:ref_instance_based",
+      "metrics": {
+        "heldout_nll_per_choice_mcpl": {
+          "ci_high": 1.6162205395777574,
+          "ci_low": 1.3876378283509032,
+          "mean": 1.505236878259803,
+          "n": 69.0,
+          "sd": 0.4956621201361461
+        },
+        "heldout_top1_mcpl": {
+          "ci_high": 0.6197889994932371,
+          "ci_low": 0.511132564145521,
+          "mean": 0.5656163004304151,
+          "n": 69.0,
+          "sd": 0.23072274826871048
+        }
+      },
+      "n_runs": 69
+    },
+    {
+      "arm": "mcpl:ref_population_static",
+      "metrics": {
+        "heldout_nll_per_choice_mcpl": {
+          "ci_high": 1.6927084815948965,
+          "ci_low": 1.5158190298110967,
+          "mean": 1.6022641547576624,
+          "n": 69.0,
+          "sd": 0.37580680134763134
+        },
+        "heldout_top1_mcpl": {
+          "ci_high": 0.4107066530140728,
+          "ci_low": 0.35883891064302215,
+          "mean": 0.3845013052479971,
+          "n": 69.0,
+          "sd": 0.10928164006423643
+        }
+      },
+      "n_runs": 69
+    }
+  ],
+  "created_at": "2026-11-04T04:19:49.831254Z",
+  "effects": [
+    {
+      "ci_high": -0.04553782003725604,
+      "ci_level": 0.95,
+      "ci_low": -0.09487166197710468,
+      "contrast": "ref_instance_based - ref_bias",
+      "estimate": -0.06955070584259362,
+      "method": "paired bootstrap over held-out participants (2000 resamples)",
+      "metric": "heldout_nll_per_choice_igt",
+      "n_units": 153,
+      "p_value": 0.0005,
+      "passed_minimum_effect": true,
+      "standardized_effect": -0.4501106416625766,
+      "unit_of_analysis": "participant"
+    },
+    {
+      "ci_high": -0.05451893998657971,
+      "ci_level": 0.95,
+      "ci_low": -0.13588412722620805,
+      "contrast": "ref_instance_based - ref_population_static",
+      "estimate": -0.0970272764978598,
+      "method": "paired bootstrap over held-out participants (2000 resamples)",
+      "metric": "heldout_nll_per_choice_mcpl",
+      "n_units": 69,
+      "p_value": 0.0005,
+      "passed_minimum_effect": true,
+      "standardized_effect": -0.5425075435121556,
+      "unit_of_analysis": "participant"
+    }
+  ],
+  "experiment_id": "exp07_human_heldout",
+  "figures": [
+    "figures/heldout_nll_mcpl.png",
+    "figures/heldout_nll_igt.png"
+  ],
+  "generated_from": "fits.json + outcomes.jsonl.gz (derived per-participant held-out metrics)",
+  "limitations": [
+    "Teacher-forced one-step-ahead likelihood measures predictive fit to human choice sequences, not generative realism.",
+    "Registry classes are not tuned beyond lapse/reward scale; reference cognitive models get small grids. This favours the reference models.",
+    "Participants are adults in short laboratory tasks; this says nothing about life-course development or the simulator's world.",
+    "Psych-101 transcripts were used to train the Centaur language model; irrelevant here because no language model is used, noted for context.",
+    "MCPL cue encoding (one-hot + scalar, 12 features) is a modelling choice shared by all models."
+  ],
+  "preregistration_hash": "f30610430c3b847f",
+  "run_ids": [
+    "split1",
+    "split2",
+    "split20261104"
+  ],
+  "schema_version": "0.1.0",
+  "sensitivity": [
+    {
+      "igt": [
+        {
+          "ci_high": -0.05967473033172261,
+          "ci_low": -0.10259951511321312,
+          "cohen_dz": -0.625935450836903,
+          "contrast": "ref_instance_based - ref_bias",
+          "estimate": -0.0809271616553393,
+          "label": "best_adaptive - best_static",
+          "metric": "heldout_nll_per_choice_igt",
+          "n_participants": 153,
+          "p_value": 0.0005,
+          "role": "secondary",
+          "status": "passed"
+        }
+      ],
+      "mcpl": [
+        {
+          "ci_high": -0.03752138319352348,
+          "ci_low": -0.12322148755515511,
+          "cohen_dz": -0.4474091489447435,
+          "contrast": "ref_instance_based - ref_population_static",
+          "estimate": -0.08007760858480088,
+          "label": "best_adaptive - best_static",
+          "metric": "heldout_nll_per_choice_mcpl",
+          "n_participants": 69,
+          "p_value": 0.0005,
+          "role": "secondary",
+          "status": "passed"
+        }
+      ],
+      "split_seed": 1
+    },
+    {
+      "igt": [
+        {
+          "ci_high": -0.0692184197508097,
+          "ci_low": -0.12587482287334958,
+          "cohen_dz": -0.5464604580165298,
+          "contrast": "ref_instance_based - ref_bias",
+          "estimate": -0.0972685047547226,
+          "label": "best_adaptive - best_static",
+          "metric": "heldout_nll_per_choice_igt",
+          "n_participants": 153,
+          "p_value": 0.0005,
+          "role": "secondary",
+          "status": "passed"
+        }
+      ],
+      "mcpl": [
+        {
+          "ci_high": -0.05276760127270283,
+          "ci_low": -0.1443633636706471,
+          "cohen_dz": -0.49577605504831623,
+          "contrast": "ref_instance_based - ref_population_static",
+          "estimate": -0.09814990624014468,
+          "label": "best_adaptive - best_static",
+          "metric": "heldout_nll_per_choice_mcpl",
+          "n_participants": 69,
+          "p_value": 0.0005,
+          "role": "secondary",
+          "status": "passed"
+        }
+      ],
+      "split_seed": 2
+    }
+  ],
+  "status": "inconclusive",
+  "status_reason": "Primary contrast not evaluated: the 'developmental' policy class is not available in this build (see per-model notes). Reference and baseline models were evaluated; see secondary contrasts.",
+  "synthetic_disclaimer": "Result on real, externally sourced human data (Psych-101, Apache-2.0; Binz et al. 2024). It measures held-out one-step-ahead predictive fit to adult choices in short laboratory learning tasks. It is not a validation of the simulator's world, not a causal claim, and not evidence about any individual's future."
+}

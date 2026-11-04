@@ -1,0 +1,227 @@
+{
+  "ablations": [],
+  "arms": [],
+  "created_at": "2026-11-04T03:52:59.822732Z",
+  "effects": [
+    {
+      "ci_high": 0.24231238842015548,
+      "ci_level": 0.95,
+      "ci_low": -0.004556179099241317,
+      "contrast": "any_suggestion vs no suggestion",
+      "estimate": 0.11543820267208231,
+      "method": "WCLS (centred least squares), participant-cluster bootstrap (2000 resamples); sandwich t(36) p-value",
+      "metric": "log(jbsteps30.zero + 0.5)",
+      "n_units": 37,
+      "p_value": 0.0831258212591737,
+      "passed_minimum_effect": null,
+      "standardized_effect": null,
+      "unit_of_analysis": "participant (cluster)"
+    },
+    {
+      "ci_high": 0.350811951847188,
+      "ci_level": 0.95,
+      "ci_low": 0.0414523789982903,
+      "contrast": "walking_suggestion vs no suggestion",
+      "estimate": 0.19213131140185047,
+      "method": "WCLS (centred least squares), participant-cluster bootstrap (2000 resamples); sandwich t(36) p-value",
+      "metric": "log(jbsteps30.zero + 0.5)",
+      "n_units": 37,
+      "p_value": 0.023517345966288395,
+      "passed_minimum_effect": null,
+      "standardized_effect": null,
+      "unit_of_analysis": "participant (cluster)"
+    },
+    {
+      "ci_high": 0.18884610283518757,
+      "ci_level": 0.95,
+      "ci_low": -0.14274174351167,
+      "contrast": "antisedentary_suggestion vs no suggestion",
+      "estimate": 0.014119971009551351,
+      "method": "WCLS (centred least squares), participant-cluster bootstrap (2000 resamples); sandwich t(36) p-value",
+      "metric": "log(jbsteps30.zero + 0.5)",
+      "n_units": 37,
+      "p_value": 0.8692379284340012,
+      "passed_minimum_effect": null,
+      "standardized_effect": null,
+      "unit_of_analysis": "participant (cluster)"
+    }
+  ],
+  "experiment_id": "exp07b_causal_grounding",
+  "figures": [
+    "figures/effects_vs_published.png",
+    "figures/effect_by_study_day.png"
+  ],
+  "generated_from": "estimates.json (computed directly from the verified HeartSteps V1 suggestions.csv)",
+  "limitations": [
+    "The public dataset contains 37 participants; the paper reports a 6-week MRT with 44 adults. The analysed samples may differ.",
+    "The paper's exact control covariates and outcome transform are not verified from its full text in this session (only the abstract was accessible).",
+    "This is the only real causal estimate in the repository. It is not mixed with, and does not validate, any simulation result."
+  ],
+  "preregistration_hash": "db680486f77f864f",
+  "run_ids": [
+    "heartsteps_v1_suggestions"
+  ],
+  "schema_version": "0.1.0",
+  "sensitivity": [
+    {
+      "terms": [
+        {
+          "ci_high_bootstrap": 0.28401701291540554,
+          "ci_high_sandwich": 0.2945663515363663,
+          "ci_low_bootstrap": 0.02008333978971697,
+          "ci_low_sandwich": 0.004697848201603905,
+          "df": 36,
+          "estimate": 0.1496320998689851,
+          "n_bootstrap": 2000,
+          "p_value": 0.04337970599449956,
+          "percent_effect": 16.14068823759509,
+          "se_cluster_robust": 0.07146328108919754,
+          "t": 2.0938319314253206,
+          "term": "any_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.3633148815842111,
+          "ci_high_sandwich": 0.3692302246703256,
+          "ci_low_bootstrap": 0.04826042723401535,
+          "ci_low_sandwich": 0.03449259196219531,
+          "df": 36,
+          "estimate": 0.20186140831626045,
+          "n_bootstrap": 2000,
+          "p_value": 0.019460284405619373,
+          "percent_effect": 22.367840470835475,
+          "se_cluster_robust": 0.0825251769756004,
+          "t": 2.4460584722640863,
+          "term": "walking_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.27057241386132497,
+          "ci_high_sandwich": 0.27240962447256856,
+          "ci_low_bootstrap": -0.1078210034170403,
+          "ci_low_sandwich": -0.11853175374666759,
+          "df": 36,
+          "estimate": 0.07693893536295048,
+          "n_bootstrap": 2000,
+          "p_value": 0.42994563672596176,
+          "percent_effect": 7.9976126028845185,
+          "se_cluster_robust": 0.09638147394308194,
+          "t": 0.798275147860747,
+          "term": "antisedentary_suggestion"
+        }
+      ],
+      "variant": "complete_case"
+    },
+    {
+      "terms": [
+        {
+          "ci_high_bootstrap": 0.22999337097768544,
+          "ci_high_sandwich": 0.2387944252658721,
+          "ci_low_bootstrap": -0.031158717363743767,
+          "ci_low_sandwich": -0.04207177145679494,
+          "df": 36,
+          "estimate": 0.09836132690453858,
+          "n_bootstrap": 2000,
+          "p_value": 0.16406416817974395,
+          "percent_effect": 10.33613872459738,
+          "se_cluster_robust": 0.06924388035931438,
+          "t": 1.4205057023686491,
+          "term": "any_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.32388852927627687,
+          "ci_high_sandwich": 0.3407395996121735,
+          "ci_low_bootstrap": 0.006641722772009125,
+          "ci_low_sandwich": 0.013892810096105157,
+          "df": 36,
+          "estimate": 0.17731620485413932,
+          "n_bootstrap": 2000,
+          "p_value": 0.0342713392076761,
+          "percent_effect": 19.400858475203407,
+          "se_cluster_robust": 0.08057979298742055,
+          "t": 2.2005045965037473,
+          "term": "walking_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.2076439510926781,
+          "ci_high_sandwich": 0.2067628651948974,
+          "ci_low_bootstrap": -0.20247501633724774,
+          "ci_low_sandwich": -0.2221266793554348,
+          "df": 36,
+          "estimate": -0.007681907080268705,
+          "n_bootstrap": 2000,
+          "p_value": 0.9424859855952242,
+          "percent_effect": -0.7652476640925279,
+          "se_cluster_robust": 0.10573709708302284,
+          "t": -0.07265101172805048,
+          "term": "antisedentary_suggestion"
+        }
+      ],
+      "variant": "no_controls"
+    },
+    {
+      "terms": [
+        {
+          "ci_high_bootstrap": 0.24123274734203018,
+          "ci_high_sandwich": 0.2467915662402869,
+          "ci_low_bootstrap": -0.004198542807209292,
+          "ci_low_sandwich": -0.015915160896122243,
+          "df": 36,
+          "estimate": 0.11543820267208232,
+          "n_bootstrap": 2000,
+          "p_value": 0.0831258212591929,
+          "percent_effect": 12.236515323771155,
+          "se_cluster_robust": 0.06476690109270272,
+          "t": 1.782364150893252,
+          "term": "any_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.3503916495624293,
+          "ci_high_sandwich": 0.3568640690363952,
+          "ci_low_bootstrap": 0.04370915636412471,
+          "ci_low_sandwich": 0.02739855376730599,
+          "df": 36,
+          "estimate": 0.1921313114018506,
+          "n_bootstrap": 2000,
+          "p_value": 0.02351734596630542,
+          "percent_effect": 21.18296335657476,
+          "se_cluster_robust": 0.08122540550630648,
+          "t": 2.3654090761902467,
+          "term": "walking_suggestion"
+        },
+        {
+          "ci_high_bootstrap": 0.18379516041509414,
+          "ci_high_sandwich": 0.1868324657177938,
+          "ci_low_bootstrap": -0.14160584280208685,
+          "ci_low_sandwich": -0.15859252369869095,
+          "df": 36,
+          "estimate": 0.014119971009551433,
+          "n_bootstrap": 2000,
+          "p_value": 0.8692379284340009,
+          "percent_effect": 1.4220128652669035,
+          "se_cluster_robust": 0.08516000472598767,
+          "t": 0.1658051928834915,
+          "term": "antisedentary_suggestion"
+        }
+      ],
+      "variant": "nominal_centring"
+    },
+    {
+      "comparisons_with_published": [
+        {
+          "inside_ci": true,
+          "published_log_effect": 0.1310282624064041,
+          "same_sign": true,
+          "term": "any_suggestion"
+        },
+        {
+          "inside_ci": true,
+          "published_log_effect": 0.2151113796169455,
+          "same_sign": true,
+          "term": "walking_suggestion"
+        }
+      ]
+    }
+  ],
+  "status": "passed",
+  "status_reason": "any_suggestion: estimate +12.2% (95% cluster bootstrap CI [-0.5%, +27.4%]); published +14% (p = .06) lies inside the CI. Rule: consistent if log(1 + published_percent/100) lies inside our 95% cluster-bootstrap CI for the corresponding term; the primary comparison is any_suggestion.",
+  "synthetic_disclaimer": "Real randomised-trial data (HeartSteps V1, CC-BY-4.0; Klasnja et al. 2019). Causal excursion effect of a mobile-health activity suggestion under the stated identification assumptions. Unrelated to, and not a validation of, any simulation result in this repository."
+}

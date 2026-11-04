@@ -1,0 +1,30 @@
+{
+  "checks": {
+    "analysis_sample": 6590,
+    "analysis_users": 37,
+    "available_decision_points": 6590,
+    "complete_case_n": 5801,
+    "max_study_day": 61,
+    "mean_steps30_complete_case": 242.71108429581108,
+    "mean_steps30_zero_imputed": 213.65204855842185,
+    "p_sedentary_given_available": 0.2620637329286798,
+    "p_send_given_available": 0.5940819423368741,
+    "p_walking_given_available": 0.33186646433990896,
+    "rows": 8274,
+    "sent_with_unknown_or_inconsistent_type": 0,
+    "users": 37
+  },
+  "dataset": {
+    "citation": "Klasnja, P., Smith, S., Seewald, N. J., Lee, A., Hall, K., Luers, B., Hekler, E. B., & Murphy, S. A. (2019). Efficacy of Contextually Tailored Suggestions for Physical Activity: A Micro-randomized Optimization Trial of HeartSteps. Annals of Behavioral Medicine, 53(6), 573-582. doi:10.1093/abm/kay067",
+    "hash_verified": true,
+    "licence": "CC-BY-4.0",
+    "licence_evidence": "LICENSE file in github.com/klasnja/HeartStepsV1 is 'Attribution 4.0 International'",
+    "local_path": null,
+    "name": "heartsteps_v1_suggestions",
+    "observed_sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+    "retrieved": "2026-11-04",
+    "sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+    "size_bytes": 4371854,
+    "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/main/data_files/suggestions.csv"
+  }
+}
