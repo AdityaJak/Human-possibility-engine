@@ -86,7 +86,7 @@ tasks:
     owner: science/human-validation
     depends_on: [T10-dev-learner, T30-baselines]
     acceptance: "license verified and documented; held-out NLL report; or explicit unpassed gate"
-    status: todo
+    status: in_progress
   - id: T80-audit
     title: Independent audit (reproducibility, leakage, claims, privacy, accessibility, security)
     owner: audit/review
