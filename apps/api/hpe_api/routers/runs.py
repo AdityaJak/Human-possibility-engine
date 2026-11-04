@@ -22,7 +22,7 @@ from hpe.contracts.api import (
 from hpe.contracts.schemas import WorldTick
 from hpe_api.assembly import agent_detail, agent_summary, timeline
 from hpe_api.context import AppContext, get_ctx
-from hpe_api.deps import rate_limited
+from hpe_api.deps import rate_limited, writes_allowed
 from hpe_api.errors import BadRequest, NotFound
 
 router = APIRouter(tags=["runs"])
@@ -38,7 +38,12 @@ def _parse_types(types: list[str] | None) -> list[str] | None:
 
 
 # ---------------------------------------------------------------------------------------- runs
-@router.post("/runs", response_model=RunInfo, status_code=201, dependencies=[Depends(rate_limited("runs"))])
+@router.post(
+    "/runs",
+    response_model=RunInfo,
+    status_code=201,
+    dependencies=[Depends(writes_allowed), Depends(rate_limited("runs"))],
+)
 def create_run(body: RunCreate, ctx: AppContext = Depends(get_ctx)) -> RunInfo:
     """Start a background job or an interactive in-memory world. No API keys involved."""
     return ctx.runs.create(body)
@@ -54,12 +59,12 @@ def get_run(run_id: str, ctx: AppContext = Depends(get_ctx)) -> RunInfo:
     return ctx.runs.info(run_id)
 
 
-@router.post("/runs/{run_id}/step", response_model=WorldTick)
+@router.post("/runs/{run_id}/step", response_model=WorldTick, dependencies=[Depends(writes_allowed)])
 def step_run(run_id: str, body: StepRequest | None = None, ctx: AppContext = Depends(get_ctx)) -> WorldTick:
     return ctx.runs.step(run_id, body or StepRequest())
 
 
-@router.post("/runs/{run_id}/control", response_model=RunInfo)
+@router.post("/runs/{run_id}/control", response_model=RunInfo, dependencies=[Depends(writes_allowed)])
 def control_run(run_id: str, body: RunControl, ctx: AppContext = Depends(get_ctx)) -> RunInfo:
     return ctx.runs.control(run_id, body)
 
@@ -174,7 +179,12 @@ def download_run(run_id: str, ctx: AppContext = Depends(get_ctx)) -> StreamingRe
 
 
 # ---------------------------------------------------------------------------------------- aliases (spec §21)
-@router.post("/worlds", response_model=RunInfo, status_code=201, dependencies=[Depends(rate_limited("runs"))])
+@router.post(
+    "/worlds",
+    response_model=RunInfo,
+    status_code=201,
+    dependencies=[Depends(writes_allowed), Depends(rate_limited("runs"))],
+)
 def create_world(body: RunCreate, ctx: AppContext = Depends(get_ctx)) -> RunInfo:
     """Alias of POST /runs."""
     return ctx.runs.create(body)
@@ -186,7 +196,7 @@ def get_world(run_id: str, ctx: AppContext = Depends(get_ctx)) -> RunInfo:
     return ctx.runs.info(run_id)
 
 
-@router.post("/worlds/{run_id}/run", response_model=RunInfo)
+@router.post("/worlds/{run_id}/run", response_model=RunInfo, dependencies=[Depends(writes_allowed)])
 def run_world(run_id: str, ctx: AppContext = Depends(get_ctx)) -> RunInfo:
     """Alias: resume an interactive world (background runs already advance on their own)."""
     info = ctx.runs.info(run_id)
