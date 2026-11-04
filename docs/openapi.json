@@ -4461,6 +4461,30 @@
         ]
       }
     },
+    "/research/phase3": {
+      "get": {
+        "description": "Phase III results exactly as committed under reports/phase3/ and the Phase III registry.",
+        "operationId": "research_phase3_research_phase3_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Research Phase3 Research Phase3 Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Research Phase3",
+        "tags": [
+          "research"
+        ]
+      }
+    },
     "/runs": {
       "get": {
         "operationId": "list_runs_runs_get",
