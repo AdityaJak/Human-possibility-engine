@@ -163,6 +163,32 @@ def main() -> None:
         },
         "per_seed": per_seed,
         "worlds": meta,
+        # the operator matters: with a conjunction r1 (25% positive) AND / IMPLIES leave a linear shortcut
+        # on balanced eval sets (predict r1 / not-r1), XOR leaves none; so the ceiling is reported per op too
+        "by_op": {
+            v: {
+                pr: {
+                    f: {
+                        op: {
+                            "mean": float(
+                                np.mean(
+                                    [
+                                        x
+                                        for x, m in zip(per_seed[v][pr][f], meta[v], strict=True)
+                                        if m["op"] == op
+                                    ]
+                                )
+                            ),
+                            "n_seeds": sum(m["op"] == op for m in meta[v]),
+                        }
+                        for op in sorted({m["op"] for m in meta[v]})
+                    }
+                    for f in COMPOSITION_FAMILIES
+                }
+                for pr in PROBES
+            }
+            for v in WORLDS
+        },
         "ceiling_linear_raw_composition": {
             v: {
                 "mean_of_best_linear_probe": max(
@@ -193,6 +219,13 @@ def main() -> None:
                     for f in COMPOSITION_FAMILIES
                 )
             )
+        log(
+            "  composition by op (logistic_raw): "
+            + ", ".join(
+                f"{op}={d['mean']:.3f} (n={d['n_seeds']})"
+                for op, d in out["by_op"][v]["logistic_raw"]["composition"].items()
+            )
+        )
     log(f"wrote {OUT} (cpu {out['cpu_s']} s)")
 
 
