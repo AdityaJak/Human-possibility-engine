@@ -1,0 +1,46 @@
+# Phase II exploratory tuning grids for the human DEV-partition comparison (Candidate A).
+# Equal-budget protocol (EXPERIMENT_REGISTRY §1): every model gets <= 24 configurations, selected on
+# TUNE participants only, then scored once on DEV participants. Lapse and IGT reward scale are fitted
+# the same way for every model (shared post-hoc grids, as in Phase I). Test participants are never read.
+lapse_grid: [0.0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3]
+igt_reward_scale_grid: [250.0, 500.0, 1250.0]
+age_years: 25.0
+models:
+  hybrid_exemplar:
+    flags: {}
+    mcpl: {kernel_width: [0.5, 1.0, 2.0], ordinal_spread: [0.5, 1.0], gate_lr: [0.05, 0.2]}
+    igt: {recency_decay: [0.9, 0.98, 1.0], exemplar_beta: [3.0, 6.0, 12.0], gate_lr: [0.05, 0.2]}
+  hybrid_fixed_gate:
+    class: hybrid_exemplar
+    flags: {use_learned_gate: false, fixed_gate: 0.5}
+    mcpl: {kernel_width: [0.5, 1.0, 2.0], ordinal_spread: [0.5, 1.0]}
+    igt: {recency_decay: [0.9, 0.98, 1.0], exemplar_beta: [3.0, 6.0, 12.0]}
+  hybrid_exemplar_only:
+    class: hybrid_exemplar
+    flags: {use_parametric: false}
+    mcpl: {kernel_width: [0.5, 1.0, 2.0], ordinal_spread: [0.5, 1.0]}
+    igt: {recency_decay: [0.9, 0.98, 1.0], exemplar_beta: [3.0, 6.0, 12.0]}
+  hybrid_no_ordinal:
+    class: hybrid_exemplar
+    flags: {use_ordinal: false}
+    mcpl: {kernel_width: [0.5, 1.0, 2.0], gate_lr: [0.05, 0.2]}
+  developmental:
+    flags: {}
+    mcpl: {}
+    igt: {}
+  plain_rl:
+    flags: {}
+    mcpl: {}
+    igt: {}
+  memory_only:
+    flags: {}
+    mcpl: {}
+    igt: {}
+  ref_instance_based:
+    flags: {}
+    mcpl: {h: [0.5, 1.0, 2.0], s: [0.5, 1.0, 1.5], kappa: [0.05]}
+    igt: {decay: [0.5, 0.8, 0.95, 1.0], beta: [1.0, 3.0, 6.0, 12.0]}
+  ref_delta_rule:
+    flags: {}
+    mcpl: {alpha: [0.01, 0.03, 0.1, 0.3], sigma: [0.75, 1.0, 1.5, 2.0, 3.0]}
+    igt: {alpha: [0.05, 0.1, 0.2, 0.4], beta: [1.0, 3.0, 6.0, 12.0]}
