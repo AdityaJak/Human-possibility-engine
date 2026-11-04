@@ -164,6 +164,76 @@ def _scale_claims() -> list[ClaimRecord]:
     return out
 
 
+def _phase2_claims() -> list[ClaimRecord]:
+    """Phase II ledger rows from docs/phase2/EXPERIMENT_REGISTRY.md (exploratory X- and confirmatory C- tables).
+
+    The registry is the versioned record of Phase II; each row cites the artifact directory it was computed
+    from, which is carried into ``config_ref``. Exploratory rows are never 'supported' (dev/tune only).
+    """
+    reg = ROOT / "docs/phase2/EXPERIMENT_REGISTRY.md"
+    if not reg.exists():
+        return []
+    out: list[ClaimRecord] = []
+    for line in reg.read_text().splitlines():
+        if not line.startswith("| X-") and not line.startswith("| C-"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 6:
+            continue
+        rid = cells[0]
+        confirmatory = rid.startswith("C-")
+        if confirmatory:
+            question, verdict, artifact = (
+                cells[2] + " — " + cells[4],
+                cells[5],
+                cells[6] if len(cells) > 6 else "",
+            )
+            low = verdict.lower()
+            status = (
+                "supported"
+                if "passed" in low
+                else "not_supported"
+                if "not supported" in low or "failed" in low
+                else "inconclusive"
+            )
+            kind = "human_dataset"
+        else:
+            _lane, question, partition, verdict, artifact = (
+                cells[2],
+                cells[3],
+                cells[4],
+                cells[5],
+                cells[6] if len(cells) > 6 else "",
+            )
+            status = "inconclusive"  # exploratory, dev/tune only: never a supported claim
+            kind = (
+                "human_dataset"
+                if ("Psych-101" in partition or "HeartSteps" in partition or "participants" in partition)
+                else "synthetic_simulation"
+            )
+            question = f"[EXPLORATORY, {partition}] {question}"
+        out.append(
+            ClaimRecord(
+                claim_id=f"phase2:{rid}",
+                claim=question.replace("**", ""),
+                status=status,  # type: ignore[arg-type]
+                evidence_kind=kind,  # type: ignore[arg-type]
+                metric="see registry row",
+                value=verdict.replace("**", "")[:600],
+                config_ref=artifact.replace("`", "")[:300],
+                limitations=[
+                    "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding"
+                    if not confirmatory
+                    else "Confirmatory on a frozen test partition; see registry for recorded protocol deviations",
+                    "Synthetic rows: simulated world, not evidence about people"
+                    if kind == "synthetic_simulation"
+                    else "Real human data (licensed); not a validation of the simulator",
+                ],
+            )
+        )
+    return out
+
+
 def _prohibited_claims() -> list[ClaimRecord]:
     rows = [
         ("validated_human_prediction", "The system is validated for predicting individual human futures."),
@@ -197,6 +267,7 @@ def build_claims() -> list[ClaimRecord]:
         + _run_claims()
         + _contamination_claim()
         + _scale_claims()
+        + _phase2_claims()
         + _prohibited_claims()
     )
 

@@ -358,6 +358,160 @@
     ]
   },
   {
+    "claim_id": "phase2:X-001",
+    "claim": "[EXPLORATORY, committed artifacts] Stage 1 reproduction of all Phase I results",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "every `result.json` byte-identical on re-analysis",
+    "config_ref": "reports/phase2/stage1_reproduction.json",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-003",
+    "claim": "[EXPLORATORY, Psych-101 dev participants (MCPL 93, IGT 204); tuned on tune] Candidate A (`hybrid_exemplar`) vs references on human MCPL/IGT",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "MCPL: hybrid 1.436 vs instance-based 1.476, paired \u22120.040 [\u22120.062, \u22120.016], 62% better; fixed-gate control +0.009 [\u22120.011, +0.027] and no-ordinal \u22120.002 [\u22120.048, +0.044] lose the advantage; exemplar-only \u22120.027 [\u22120.054, +0.000]. IGT: hybrid 1.151 vs developmental 1.153 (\u22120.002 [\u22120.005, +0.001]), vs instance-based \u22120.127. Grids unequal (12 vs 9 MCPL; 48 for one IGT reference) \u2014 re-tune to parity before any freeze",
+    "config_ref": "reports/phase2/cognitive/human_dev/{mcpl,igt}/",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Real human data (licensed); not a validation of the simulator"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-004",
+    "claim": "[EXPLORATORY, dev seeds, 5 \u00d7 6 agents] Candidate A on synthetic v2 families (conjunction, context_switch, nonstationary, delayed, ordinal_cue)",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "beats developmental/plain_rl on 4/5 families (conjunction +0.127 [+0.108, +0.142]) but \u2264 best exemplar baseline on 3/5 (conjunction \u22120.027, context_switch \u22120.032, ordinal_cue \u22120.122 [\u22120.183, \u22120.064]); `delayed` best (0.919); regime recovery 0.342 \u2192 0.614; no architecture exceeds 0.68 on conjunction. Gate B would fail on synthetic",
+    "config_ref": "reports/phase2/cognitive/synthetic_dev/",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-009",
+    "claim": "[EXPLORATORY, dev+tune] Nine Psych-101 learning families, all registry classes + 8 references, equal grids (\u2264 24), fit dev / select tune / report tune",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "A population-fitted GRU is the best reference in 8/9 families; developmental vs best reference: MCPL +0.445, described +0.283, garcia +0.194, bandit2 +0.172, horizon +0.169, srl3 +0.113, IGT +0.083, casino +0.067 (all CIs exclude 0); wpt tie (n = 5). Developmental competitive with classical cognitive models on bandit-style tasks, weak on cue-combination. `hybrid_exemplar` not registered in that build (run separately, X-010). Centaur/Minitaur not runnable here; published figures non-comparable; \"Simile\" undocumented",
+    "config_ref": "reports/phase2/human/p2_human_dev_pilot/, docs/phase2/{HUMAN_VALIDATION_V2,STATE_OF_THE_ART_BENCHMARK}.md",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-007",
+    "claim": "[EXPLORATORY, dev seeds] Gate A controls on v1 families, 20 agents \u00d7 10 dev seeds",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "frozen-copy gain: developmental +0.388 [+0.372, +0.404], hybrid +0.386, plain_rl +0.369; permuted-feedback gain \u2248 0 (\u22120.007, \u22120.011, +0.001); age-script-only gain \u2248 frozen gain. Caveat: `age_script_only` equals `static_persona` on accuracy (temperature cannot move an argmax) \u2014 the H2 null must also be judged on log-loss",
+    "config_ref": "reports/phase2/evaluation_v2/gate_a_dev/",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-008",
+    "claim": "[EXPLORATORY, dev seeds] Is the `composition` family informative?",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "linear-probe ceiling 0.672 [0.612, 0.745] (operator-dependent: AND 0.80, IMPLIES 0.76, OR 0.61, XOR 0.60); abstracted-primitive probe 1.000. No learner's CI exceeds the ceiling (plain_rl 0.701, memory_only 0.684, developmental 0.704, hybrid 0.709); the parity primitive is learned by none (\u2264 0.63). Family uninformative at this budget; recorded as a negative finding about all current architectures",
+    "config_ref": "reports/phase2/evaluation_v2/composition_dev/, composition_ceiling.json",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-005",
+    "claim": "[EXPLORATORY, synthetic MRTs, 500 replicates \u00d7 6 scenarios] Is the WCLS estimator valid at HeartSteps scale?",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "bias \u2264 0.003; 95% coverage 0.932\u20130.962; type I 0.044; power 0.71 at \u03b2\u2080 = 0.115, 0.26 at 0.06; moderators of 0.20 detected 50\u201374%",
+    "config_ref": "reports/phase2/causal/simulation_validation.json",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-006",
+    "claim": "[EXPLORATORY, dev] HTE on HeartSteps dev (22 participants)",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "marginal +0.080 [\u22120.085, +0.288]; no moderator survives Holm; `weekend` selected by the pre-fixed rule (\u03b2\u2081 = \u22120.366, raw p 0.099)",
+    "config_ref": "reports/phase2/causal/hte_dev.json",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase2:X-002",
+    "claim": "[EXPLORATORY, Phase I exp07 per-participant metrics, dev+tune participants only (125 MCPL, 274 IGT participant\u00d7split rows)] Where does the Phase I learner lose/gain likelihood vs the instance-based model?",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "MCPL gap +0.237 (sd 0.262), developmental better for 16%; gap grows with participant predictability (r = +0.77; top tercile +0.488, bottom +0.031). IGT gap \u22120.123, developmental better for 64%, all terciles, largest for least predictable (\u22120.166)",
+    "config_ref": "reports/phase2/diagnostics/exp07_dev_diagnosis.json",
+    "limitations": [
+      "Phase II exploratory result on dev/tune partitions; selection-optimistic; not a confirmatory finding",
+      "Real human data (licensed); not a validation of the simulator"
+    ]
+  },
+  {
+    "claim_id": "phase2:C-001",
+    "claim": "(causal validity; not a gate) \u2014 HeartSteps test (15 participants; partition sha `02bd974e\u2026`)",
+    "status": "not_supported",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "not supported: `weekend` \u03b2\u2081 = \u22120.088, Holm p 0.667, CI [\u22120.443, +0.306]; marginal +0.149 (+16.1%) [\u22120.007, +0.310]",
+    "config_ref": "reports/phase2/causal/hte_test.json",
+    "limitations": [
+      "Confirmatory on a frozen test partition; see registry for recorded protocol deviations",
+      "Real human data (licensed); not a validation of the simulator"
+    ]
+  },
+  {
+    "claim_id": "phase2:C-002",
+    "claim": "(causal validity; not Gate E) \u2014 HeartSteps test, doubly robust, participant-clustered bootstrap",
+    "status": "supported",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "passed as pre-specified (contextual \u2212 never +0.188 [+0.066, +0.324]); always \u2212 never +0.167 [+0.018, +0.320]; contextual \u2212 always +0.021 [\u22120.107, +0.156]: tailoring adds nothing over always-send",
+    "config_ref": "reports/phase2/causal/ope_test.json",
+    "limitations": [
+      "Confirmatory on a frozen test partition; see registry for recorded protocol deviations",
+      "Real human data (licensed); not a validation of the simulator"
+    ]
+  },
+  {
     "claim_id": "validated_human_prediction",
     "claim": "The system is validated for predicting individual human futures.",
     "status": "not_supported",
