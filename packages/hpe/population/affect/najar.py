@@ -82,7 +82,9 @@ def key_of(exp: str, expid: str) -> str:
 def data_dir() -> Path:
     p = os.environ.get(DATA_ENV)
     if not p or not Path(p).is_dir():
-        raise NajarDataUnavailable(f"set {DATA_ENV} to a folder with task1.csv and task2.csv ({SOURCE['repository']})")
+        raise NajarDataUnavailable(
+            f"set {DATA_ENV} to a folder with task1.csv and task2.csv ({SOURCE['repository']})"
+        )
     return Path(p)
 
 
@@ -183,7 +185,9 @@ def _social(events: list[tuple[int, int, int]], own: list[tuple[int, int]], n_st
     return out
 
 
-def shuffle_events(events: list[tuple[int, int, int]], key: str, seed: int = SHUFFLE_SEED) -> list[tuple[int, int, int]]:
+def shuffle_events(
+    events: list[tuple[int, int, int]], key: str, seed: int = SHUFFLE_SEED
+) -> list[tuple[int, int, int]]:
     """Causal within-participant resampling: event ``k >= 1`` takes the action of a random earlier event."""
     rng = stream(seed, "social_past_shuffle", key)
     out: list[tuple[int, int, int]] = []
@@ -207,7 +211,9 @@ def encode_participant(key: str, rows: list[dict[str, str]]) -> EncodedSeq:
         return int(cgb) ^ flip[state]
 
     sessions = sorted({int(r["session"]) for r in rows})
-    states_by_session = {s: sorted({int(r["state"]) for r in rows if int(r["session"]) == s}) for s in sessions}
+    states_by_session = {
+        s: sorted({int(r["state"]) for r in rows if int(r["session"]) == s}) for s in sessions
+    }
     T = len(own_rows)
     x = np.zeros((T, D_BASE + 2 * N_EXTRA), dtype=np.float32)
     actions = np.zeros(T, dtype=np.int64)
@@ -274,7 +280,7 @@ def load_najar(
     rows = _read(folder or data_dir())
     out: dict[str, list[EncodedSeq]] = {p: [] for p in partitions}
     for key in sorted(rows):
-        part = assign.get(key)
+        part = assign.get(key, "")
         if part not in out:
             continue  # other partitions (incl. test) are dropped before encoding
         out[part].append(encode_participant(key, rows[key]))

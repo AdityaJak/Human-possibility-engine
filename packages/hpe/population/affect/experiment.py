@@ -1,10 +1,11 @@
-"""Exploratory Gate F run on the GBE data: fit on dev, select (config, lapse) on tune, report on tune.
+"""Exploratory Gate F run (GBE affect or Najar social data): fit on dev, select (config, lapse) on tune,
+report on tune.
 
-Never touches the test partition (``gbe.load_gbe`` refuses it without a freeze record). Same metric and
+Never touches the test partition (the loaders refuse it without a freeze record). Same metric and
 statistics as the Phase III runner (``core.evaluate``): per-participant mean NLL per free choice after
 lapse mixing, lapse and configuration chosen by tune mean NLL, paired percentile bootstrap.
 
-    python -m hpe.population.affect.experiment --out reports/phase3/affect/<run> [--n-fit N] [--resume]
+    python -m hpe.population.affect.experiment --dataset gbe|najar --out reports/phase3/affect/<run> [--resume]
 """
 
 from __future__ import annotations
@@ -21,7 +22,7 @@ from typing import Any
 import numpy as np
 
 from hpe.core.rng import derive_seed
-from hpe.population.affect import gbe
+from hpe.population.affect import gbe, najar
 from hpe.population.core import evaluate
 from hpe.population.core.conformance import check_causal
 from hpe.population.core.encoding import EncodedSeq
@@ -42,6 +43,23 @@ CONTRASTS = (
     ("affect_gru_aux", "affect_gru_aux_shuf", "latent-mood readout: observed vs permuted rating targets"),
     ("affect_gru_aux", "affect_gru_base", "latent-mood readout vs plain GRU"),
 )
+SOCIAL_MODELS = ("social_gru_base", "social_gru_obs", "social_gru_shuf")
+SOCIAL_CONTRASTS = (
+    (
+        "social_gru_obs",
+        "social_gru_shuf",
+        "Gate F contrast: observed demonstrations vs matched-complexity control",
+    ),
+    ("social_gru_obs", "social_gru_base", "observed demonstrations vs no social input"),
+    ("social_gru_shuf", "social_gru_base", "control vs no social input"),
+)
+
+
+def subset_mask(dataset: str, s: EncodedSeq) -> np.ndarray:
+    """GBE: choices right after a new rating. Najar: choices on a pair that has been demonstrated."""
+    if dataset == "gbe":
+        return np.asarray(s.x[:, gbe.D_BASE + 1] > 0.5)
+    return np.asarray(s.x[:, najar.D_BASE + 0] > 0.5)
 
 
 def configs_of(grid: dict[str, list[Any]], fixed: dict[str, Any], cap: int = 24) -> list[dict[str, Any]]:
@@ -66,13 +84,13 @@ def score_all(
 
 
 def subset_nll(
-    seqs: list[EncodedSeq], logps: dict[str, np.ndarray], lam: float, fresh: bool
+    seqs: list[EncodedSeq], logps: dict[str, np.ndarray], lam: float, fresh: bool, dataset: str = "gbe"
 ) -> dict[str, float]:
-    """Per-participant mean NLL on rows right after a new rating (``fresh``) or on the other rows."""
+    """Per-participant mean NLL on rows inside (``fresh``) or outside :func:`subset_mask`."""
     out: dict[str, float] = {}
     for s in seqs:
         lp = evaluate.apply_lapse(logps[s.key], s.avail, lam)
-        m = s.scored & ((s.x[:, gbe.D_BASE + 1] > 0.5) == fresh)
+        m = s.scored & (subset_mask(dataset, s) == fresh)
         idx = np.flatnonzero(m)
         if idx.size:
             out[s.key] = float(-lp[idx, s.actions[idx]].mean())
@@ -90,15 +108,22 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     out = Path(args.out)
     (out / "parts").mkdir(parents=True, exist_ok=True)
     t_load = time.process_time()
-    data, notes = gbe.load_gbe(["dev", "tune"], experiment_id=args.run_id, max_plays=args.max_plays)
+    if args.dataset == "gbe":
+        data, notes = gbe.load_gbe(["dev", "tune"], experiment_id=args.run_id, max_plays=args.max_plays)
+        mod: Any = gbe
+        contrasts_spec: tuple[tuple[str, str, str], ...] = CONTRASTS
+    else:
+        data, notes = najar.load_najar(["dev", "tune"], experiment_id=args.run_id)
+        mod = najar
+        contrasts_spec = SOCIAL_CONTRASTS
     fit = gbe.subsample(data["dev"], args.n_fit, args.seed, "fit")
     tune = gbe.subsample(data["tune"], args.n_tune, args.seed, "tune")
     load_s = time.process_time() - t_load
     lapses = list(evaluate.LAPSE_GRID)
     data_info = {
-        "dataset": gbe.DATASET,
-        "source": gbe.SOURCE,
-        "partition_file": str(gbe.PARTITION_FILE.relative_to(gbe.REPO_ROOT)),
+        "dataset": mod.DATASET,
+        "source": mod.SOURCE,
+        "partition_file": str(mod.PARTITION_FILE.relative_to(gbe.REPO_ROOT)),
         "dev_available": len(data["dev"]),
         "tune_available": len(data["tune"]),
         "n_fit": len(fit),
@@ -142,7 +167,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             if budget_left <= 0:
                 rows.append({"config": cfg, "skipped": "budget exhausted"})
                 continue
-            model = spec.factory(cfg, gbe.K, gbe.D_BASE)
+            model = spec.factory(cfg, mod.K, mod.D_BASE)
             seed = derive_seed(args.seed, "affect_fit", name, repr(sorted(cfg.items()))) % (2**31 - 1)
             t0 = time.process_time()
             log = model.fit(fit, seed=seed, threads=args.threads, budget_s=budget_left)
@@ -179,8 +204,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         probe = sorted(tune, key=lambda s: (-s.T, s.key))[:2] + tune[:1]
         violations = [v for s in probe for v in check_causal(model, s, seed=args.seed)]
         fresh_nll[name] = {
-            "fresh": subset_nll(tune, best_logps, lam, True),
-            "other": subset_nll(tune, best_logps, lam, False),
+            "fresh": subset_nll(tune, best_logps, lam, True, args.dataset),
+            "other": subset_nll(tune, best_logps, lam, False, args.dataset),
         }
         scores = by_lapse[lam]
         result = {
@@ -216,7 +241,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         part.write_bytes(gzip.compress(json.dumps(rec).encode()))
         print(f"== {name}: tune NLL {nll:.5f} λ={lam} causal_violations={len(violations)}", flush=True)
     contrasts: list[dict[str, Any]] = []
-    for a, b, label in CONTRASTS:
+    for a, b, label in contrasts_spec:
         if a not in best_scores or b not in best_scores:
             continue
         c = evaluate.paired(best_scores[a], best_scores[b], seed=args.seed, key=("affect", a, b))
@@ -228,7 +253,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "b": b,
                 "label": label,
                 "all_choices": c,
-                "choices_right_after_a_rating": c_f,
+                "choices_in_subset": c_f,
                 "other_choices": c_o,
                 "meets_gate_f_margin_if_confirmatory": bool(
                     float(c["estimate"]) <= -0.02 and float(c["ci_high"]) < 0
@@ -245,6 +270,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "budget_s_per_model": args.budget_s,
         "lapse_grid": lapses,
         "data": data_info,
+        "subset": "choices right after a new rating"
+        if args.dataset == "gbe"
+        else "choices on a demonstrated pair",
         "models": results,
         "contrasts": contrasts,
     }
@@ -255,8 +283,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--dataset", choices=("gbe", "najar"), default="gbe")
     ap.add_argument("--run-id", default="affect_gbe_explore")
-    ap.add_argument("--models", nargs="+", default=list(DEFAULT_MODELS))
+    ap.add_argument("--models", nargs="+", default=None)
     ap.add_argument("--n-fit", type=int, default=0, help="dev participants used for fitting (0 = all)")
     ap.add_argument("--n-tune", type=int, default=0, help="tune participants scored (0 = all)")
     ap.add_argument("--max-plays", type=int, default=gbe.MAX_PLAYS)
@@ -266,7 +295,10 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--threads", type=int, default=1)
     ap.add_argument("--budget-s", type=float, default=2700.0)
     ap.add_argument("--resume", action="store_true")
-    run(ap.parse_args(argv))
+    args = ap.parse_args(argv)
+    if args.models is None:
+        args.models = list(DEFAULT_MODELS if args.dataset == "gbe" else SOCIAL_MODELS)
+    run(args)
 
 
 if __name__ == "__main__":

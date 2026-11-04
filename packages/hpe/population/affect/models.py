@@ -28,7 +28,7 @@ import torch
 from torch import nn
 
 from hpe.core.rng import stream
-from hpe.population.affect import gbe
+from hpe.population.affect import gbe, najar
 from hpe.population.core import nets
 from hpe.population.core.encoding import EncodedSeq, Layout
 from hpe.population.core.interface import ModelSpec, register_model
@@ -65,14 +65,21 @@ def permute_ratings(ratings: np.ndarray, key: str, seed: int = SHUFFLE_SEED) -> 
     return out
 
 
-def _view(seq: EncodedSeq, d_base: int, extra_mode: str, seed: int) -> EncodedSeq:
+def _view(
+    seq: EncodedSeq, d_base: int, extra_mode: str, seed: int, n_extra: int = gbe.N_EXTRA, offset: int = 0
+) -> EncodedSeq:
+    """The model's input: the v3 columns plus (unless ``extra_mode == "none"``) ``n_extra`` appended
+    columns starting ``offset`` columns after the v3 layout; ``past_shuffle`` resamples GBE ratings."""
     base = seq.x[:, :d_base]
     if extra_mode == "none":
         x = base
     else:
-        extra = seq.x[:, d_base : d_base + gbe.N_EXTRA]
-        if extra.shape[1] != gbe.N_EXTRA:
-            raise ValueError(f"{seq.key}: expected {gbe.N_EXTRA} affect columns after the v3 layout")
+        lo = d_base + offset
+        extra = seq.x[:, lo : lo + n_extra]
+        if extra.shape[1] != n_extra:
+            raise ValueError(
+                f"{seq.key}: expected {n_extra} extra columns at offset {offset} after the v3 layout"
+            )
         if extra_mode == "past_shuffle":
             extra = past_shuffle(extra, seq.key, seed)
         x = np.concatenate([base, extra], axis=1)
@@ -103,13 +110,23 @@ class AffectGRU:
 
     adaptive = False
 
-    def __init__(self, name: str, extra_mode: str, config: dict[str, Any], k_max: int, d_in: int) -> None:
+    def __init__(
+        self,
+        name: str,
+        extra_mode: str,
+        config: dict[str, Any],
+        k_max: int,
+        d_in: int,
+        n_extra: int = gbe.N_EXTRA,
+        offset: int = 0,
+    ) -> None:
         if extra_mode not in EXTRA_MODES:
             raise ValueError(f"unknown extra_mode {extra_mode!r}")
         self.name, self.extra_mode = name, extra_mode
         self.config = dict(config)
         self.k_max, self.d_in = k_max, d_in
-        self.n_extra = 0 if extra_mode == "none" else gbe.N_EXTRA
+        self.n_extra = 0 if extra_mode == "none" else n_extra
+        self.offset = offset
         self.shuffle_seed = int(config.get("shuffle_seed", SHUFFLE_SEED))
         self.net = self._build()
 
@@ -123,7 +140,7 @@ class AffectGRU:
         )
 
     def view(self, seq: EncodedSeq) -> EncodedSeq:
-        return _view(seq, self.d_in, self.extra_mode, self.shuffle_seed)
+        return _view(seq, self.d_in, self.extra_mode, self.shuffle_seed, self.n_extra, self.offset)
 
     def fit(self, train: list[EncodedSeq], *, seed: int, threads: int, budget_s: float) -> dict[str, Any]:
         nets.setup_torch(seed, threads, self.name, repr(sorted(self.config.items())))
@@ -340,5 +357,47 @@ register_model(
         "comparator",
         GRID,
         note="control for affect_gru_aux: auxiliary targets permuted within participant",
+    )
+)
+
+
+# --------------------------------------------------------------------------- social (Najar et al. 2020)
+
+
+def _social_factory(name: str, mode: str, offset: int):  # type: ignore[no-untyped-def]
+    def f(config: dict[str, Any], k: int, d: int) -> AffectGRU:
+        return AffectGRU(name, mode, config, k, d, n_extra=najar.N_EXTRA, offset=offset)
+
+    return f
+
+
+register_model(
+    ModelSpec(
+        "social_gru_base",
+        _social_factory("social_gru_base", "none", 0),
+        "affect",
+        "comparator",
+        GRID,
+        note="population GRU, own choices and outcomes only (Najar 2020)",
+    )
+)
+register_model(
+    ModelSpec(
+        "social_gru_obs",
+        _social_factory("social_gru_obs", "observed", 0),
+        "affect",
+        "candidate",
+        GRID,
+        note="Gate F social mechanism: demonstrator choices observed before each own choice",
+    )
+)
+register_model(
+    ModelSpec(
+        "social_gru_shuf",
+        _social_factory("social_gru_shuf", "observed", najar.N_EXTRA),
+        "affect",
+        "comparator",
+        GRID,
+        note="matched-complexity control: demonstrator actions resampled from the person's earlier demonstrations",
     )
 )
