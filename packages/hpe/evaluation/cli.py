@@ -7,7 +7,12 @@ import json
 import sys
 from pathlib import Path
 
-from hpe.evaluation.spec import load_spec, scaled_for_pipeline_validation
+from hpe.evaluation.spec import (
+    is_simulation_spec_file,
+    load_spec,
+    scaled_for_pipeline_validation,
+    simulation_spec_files,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -77,9 +82,12 @@ def main(argv: list[str] | None = None) -> int:
         print(txt)
         return 0 if rep["clean"] else 1
     if args.cmd == "list":
-        for p in sorted(Path("experiments").glob("*.yaml")):
+        for p in simulation_spec_files("experiments"):
             s = load_spec(p)
             print(f"{p}  [{s.protocol.kind}]  {s.definition.title}")
+        for p in sorted(Path("experiments").glob("*.yaml")):
+            if not is_simulation_spec_file(p):
+                print(f"{p}  [human dataset — run with python -m hpe.evaluation.human]")
         return 0
     return 1
 

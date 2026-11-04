@@ -118,6 +118,17 @@ class ExperimentSpec(_M):
         )
 
 
+def is_simulation_spec_file(path: str | Path) -> bool:
+    """True for simulation/learning-lab specs (top-level ``protocol``); False for human-dataset
+    preregistrations (top-level ``kind``, run by ``hpe.evaluation.human``)."""
+    data = yaml.safe_load(Path(path).read_text())
+    return isinstance(data, dict) and "protocol" in data
+
+
+def simulation_spec_files(directory: str | Path = "experiments") -> list[Path]:
+    return [p for p in sorted(Path(directory).glob("*.yaml")) if is_simulation_spec_file(p)]
+
+
 def load_spec(path: str | Path) -> ExperimentSpec:
     data = yaml.safe_load(Path(path).read_text())
     return ExperimentSpec.model_validate(data)

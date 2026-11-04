@@ -134,7 +134,9 @@ def test_raw_logs_contain_zero_leakage(tmp_path, tiny_spec):
 def test_all_experiment_yamls_load_and_hash():
     from pathlib import Path
 
-    files = sorted(Path("experiments").glob("*.yaml"))
+    from hpe.evaluation.spec import simulation_spec_files
+
+    files = simulation_spec_files(Path("experiments"))
     assert len(files) >= 8
     hashes = {load_spec(f).preregistration_hash() for f in files}
     assert len(hashes) == len(files)
