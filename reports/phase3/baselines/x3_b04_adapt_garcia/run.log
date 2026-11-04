@@ -1,0 +1,33 @@
+=== Wed Nov  4 17:12:27 UTC 2026 start x3_b03_pop_garcia
+[garcia] pop_gru: 24 config(s), 138 dev participants
+[garcia] pop_gru: select NLL 0.4509 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.2, 'hidden': 16, 'lr': 0.01} lapse 0.02 causal=ok
+[garcia] ref_gru_p2: 4 config(s), 138 dev participants
+[garcia] ref_gru_p2: select NLL 0.4403 config {'max_epochs': 15, 'patience': 4, 'window': 64, 'max_steps_per_epoch': 60000, 'hidden': 8, 'lr': 0.003} lapse 0.0 causal=ok
+[garcia] pop_gru_ens: 8 config(s), 138 dev participants
+[garcia] pop_gru_ens: select NLL 0.4403 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.2, 'hidden': 32, 'lr': 0.01, 'members': 5} lapse 0.0 causal=ok
+[garcia] pop_tf: 8 config(s), 138 dev participants
+[garcia] pop_tf: select NLL 0.4339 config {'d_model': 32, 'layers': 2, 'heads': 4, 'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.1, 'lr': 0.003, 'window': 32} lapse 0.02 causal=ok
+[garcia] pop_lstm: 24 config(s), 138 dev participants
+[garcia] pop_lstm: select NLL 0.4596 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.2, 'hidden': 128, 'lr': 0.01} lapse 0.02 causal=ok
+wrote reports/phase3/baselines/x3_b03_pop_garcia
+=== Wed Nov  4 17:43:03 UTC 2026 end x3_b03_pop_garcia exit 0
+wrote experiments/phase3/x3_b04_adapt_garcia.yaml backbone {hidden: 16, lr: 0.01, dropout: 0.2, max_epochs: 150, patience: 10, batch_size: 8} seed 607939523
+=== Wed Nov  4 17:43:03 UTC 2026 start x3_b04_adapt_garcia
+[garcia] ft_head: 12 config(s), 138 dev participants
+[garcia] ft_head: select NLL 0.4448 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'lr': 0.003, 'm': 10, 'n': 20} lapse 0.02 causal=ok
+[garcia] ft_full: 8 config(s), 138 dev participants
+[garcia] ft_full: select NLL 0.4380 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'l2': 1.0, 'lr': 0.003, 'n': 10} lapse 0.02 causal=ok
+[garcia] bayes_head: 12 config(s), 138 dev participants
+[garcia] bayes_head: select NLL 0.4392 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'm': 10, 'predictive': 'map', 'prior_var': 0.03} lapse 0.01 causal=ok
+[garcia] exemplar_mix: 12 config(s), 138 dev participants
+[garcia] exemplar_mix: select NLL 0.4489 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'decay': 0.98, 'bw': 0.25, 'w': 0.1} lapse 0.0 causal=ok
+[garcia] reptile_gru: 4 config(s), 138 dev participants
+[garcia] reptile_gru: select NLL 0.4454 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'lr': 0.003, 'n': 3} lapse 0.02 causal=ok
+[garcia] cavia_gru: 4 config(s), 138 dev participants
+[garcia] cavia_gru: select NLL 0.4501 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'c_dim': 4, 'inner_lr': 1.0} lapse 0.02 causal=ok
+[garcia] hb_cog: 6 config(s), 138 dev participants
+[garcia] hb_cog: select NLL 0.5803 config {'c': 0.1, 'tau': 0.5} lapse 0.05 causal=ok
+[garcia] gru_hb_mix: 8 config(s), 138 dev participants
+[garcia] gru_hb_mix: select NLL 0.4505 config {'backbone': {'hidden': 16, 'lr': 0.01, 'dropout': 0.2, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 607939523, 'c': 1.0, 'w': 0.05} lapse 0.01 causal=ok
+wrote reports/phase3/baselines/x3_b04_adapt_garcia
+=== Wed Nov  4 18:32:48 UTC 2026 end x3_b04_adapt_garcia exit 0

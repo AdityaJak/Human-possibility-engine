@@ -1,0 +1,810 @@
+{
+ "experiment_id": "x3_007_gbe_personalization",
+ "report_partition": "tune",
+ "families": {
+  "gbe_risk": {
+   "role": "external",
+   "models": {
+    "bayes_head": {
+     "report_nll": 0.4935318519946088,
+     "ci": [
+      0.4853226959791192,
+      0.502121833122158
+     ],
+     "n": 1000,
+     "top1": 0.7628611111111111,
+     "ece": 0.11547649164784275,
+     "quarters": [
+      0.5525952303462227,
+      0.5022914184745594,
+      0.47202505154435165,
+      0.4400981270972675
+     ],
+     "select_nll": 0.4935318519946088,
+     "lapse0_nll": 0.4935501213644106,
+     "params": 6978,
+     "role": "comparator",
+     "config": {
+      "backbone": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8
+      },
+      "backbone_seed": 1,
+      "m": 10,
+      "predictive": "laplace",
+      "prior_var": "eb"
+     },
+     "lapse": 0.01,
+     "grid_edges": [],
+     "fit_cpu_s": 141.5,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4041,
+     "describe": {
+      "population_params": 6978,
+      "per_person_params": 66,
+      "update_every": 10,
+      "config": {
+       "backbone": {
+        "hidden": 32,
+        "lr": 0.01,
+        "dropout": 0.0,
+        "max_epochs": 150,
+        "patience": 10,
+        "batch_size": 8
+       },
+       "backbone_seed": 1,
+       "m": 10,
+       "predictive": "laplace",
+       "prior_var": "eb"
+      },
+      "backbone_cpu_s": 136.95,
+      "backbone_cached": "no"
+     }
+    },
+    "bayes_head[frozen]": {
+     "report_nll": 0.49553023790462397,
+     "ci": [
+      0.48713983064056393,
+      0.5038891004005089
+     ],
+     "n": 1000,
+     "top1": 0.7611194444444445,
+     "ece": 0.11743088641833248,
+     "quarters": [
+      0.5525770314023518,
+      0.5034058529491365,
+      0.4739121896074382,
+      0.4454347906224383
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.49546600355159864,
+     "params": 6978,
+     "role": "comparator",
+     "config": {
+      "backbone": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8
+      },
+      "backbone_seed": 1,
+      "m": 10,
+      "predictive": "laplace",
+      "prior_var": "eb"
+     },
+     "lapse": 0.01,
+     "grid_edges": [],
+     "fit_cpu_s": 141.5,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4041,
+     "describe": {
+      "population_params": 6978,
+      "per_person_params": 66,
+      "update_every": 10,
+      "config": {
+       "backbone": {
+        "hidden": 32,
+        "lr": 0.01,
+        "dropout": 0.0,
+        "max_epochs": 150,
+        "patience": 10,
+        "batch_size": 8
+       },
+       "backbone_seed": 1,
+       "m": 10,
+       "predictive": "laplace",
+       "prior_var": "eb"
+      },
+      "backbone_cpu_s": 136.95,
+      "backbone_cached": "no"
+     }
+    },
+    "bayes_head[mismatched]": {
+     "report_nll": 0.49785727802650453,
+     "ci": [
+      0.4896512773053774,
+      0.5061375721985031
+     ],
+     "n": 1000,
+     "top1": 0.7602805555555555,
+     "ece": 0.11728329957164035,
+     "quarters": [
+      0.5528279186519389,
+      0.5054506676946809,
+      0.47579079278844444,
+      0.4508260521780377
+     ],
+     "select_nll": null,
+     "lapse0_nll": null,
+     "params": 6978,
+     "role": "comparator",
+     "config": {
+      "backbone": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "max_epochs": 150,
+       "patience": 10,
+       "batch_size": 8
+      },
+      "backbone_seed": 1,
+      "m": 10,
+      "predictive": "laplace",
+      "prior_var": "eb"
+     },
+     "lapse": 0.01,
+     "grid_edges": [],
+     "fit_cpu_s": 141.5,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4041,
+     "describe": {
+      "population_params": 6978,
+      "per_person_params": 66,
+      "update_every": 10,
+      "config": {
+       "backbone": {
+        "hidden": 32,
+        "lr": 0.01,
+        "dropout": 0.0,
+        "max_epochs": 150,
+        "patience": 10,
+        "batch_size": 8
+       },
+       "backbone_seed": 1,
+       "m": 10,
+       "predictive": "laplace",
+       "prior_var": "eb"
+      },
+      "backbone_cpu_s": 136.95,
+      "backbone_cached": "no"
+     }
+    },
+    "f1_bolt": {
+     "report_nll": 0.4936325913753826,
+     "ci": [
+      0.4854876189991042,
+      0.5019121453345982
+     ],
+     "n": 1000,
+     "top1": 0.7637083333333333,
+     "ece": 0.11766754392093624,
+     "quarters": [
+      0.5523272299381189,
+      0.49905155721435096,
+      0.4722516792604623,
+      0.4442379407401003
+     ],
+     "select_nll": 0.4936325913753826,
+     "lapse0_nll": 0.4936325913753826,
+     "params": 7434,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "m": 10
+     },
+     "lapse": 0.0,
+     "grid_edges": [],
+     "fit_cpu_s": 0.0,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.2385,
+     "describe": {
+      "population_params": 7434,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": false,
+      "update_every": 10,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "m": 10,
+       "meta": false
+      }
+     }
+    },
+    "f1_bolt[frozen]": {
+     "report_nll": 0.4940218432679126,
+     "ci": [
+      0.4851195368786143,
+      0.5022284999228329
+     ],
+     "n": 1000,
+     "top1": 0.7635722222222223,
+     "ece": 0.11794367597730875,
+     "quarters": [
+      0.552350665791878,
+      0.49934788203612646,
+      0.4726392107676277,
+      0.44513976283735396
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.4940218432679126,
+     "params": 7434,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "m": 10
+     },
+     "lapse": 0.0,
+     "grid_edges": [],
+     "fit_cpu_s": 0.0,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.2385,
+     "describe": {
+      "population_params": 7434,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": false,
+      "update_every": 10,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "m": 10,
+       "meta": false
+      }
+     }
+    },
+    "f1_bolt[mismatched]": {
+     "report_nll": 0.49403396959391344,
+     "ci": [
+      0.4853823800977391,
+      0.5026332261358959
+     ],
+     "n": 1000,
+     "top1": 0.7634027777777779,
+     "ece": 0.11696815309224216,
+     "quarters": [
+      0.5523475765668491,
+      0.49936648673238637,
+      0.47258951176259734,
+      0.4452392596383291
+     ],
+     "select_nll": null,
+     "lapse0_nll": null,
+     "params": 7434,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "m": 10
+     },
+     "lapse": 0.0,
+     "grid_edges": [],
+     "fit_cpu_s": 0.0,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 1.2385,
+     "describe": {
+      "population_params": 7434,
+      "per_person_params": 4,
+      "per_person_state": "latent z = [z_trait, z_ctx] re-inferred every m trials",
+      "inner_loop": "k_inner Gauss-Newton steps (forward-difference Jacobian)",
+      "meta_gradient": "first-order",
+      "meta_trained": false,
+      "update_every": 10,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "m": 10,
+       "meta": false
+      }
+     }
+    },
+    "f3_arbiter": {
+     "report_nll": 0.4934014755075687,
+     "ci": [
+      0.48511366087697916,
+      0.5015254784769427
+     ],
+     "n": 1000,
+     "top1": 0.7639333333333334,
+     "ece": 0.11735526284870543,
+     "quarters": [
+      0.5518117576532845,
+      0.49878848990420543,
+      0.4717540367561941,
+      0.4445949780506991
+     ],
+     "select_nll": 0.4934014755075687,
+     "lapse0_nll": 0.4934014755075687,
+     "params": 6984,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "bandwidth": 0.3
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "bandwidth"
+     ],
+     "fit_cpu_s": 137.7,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4609,
+     "describe": {
+      "population_params": 6984,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.3302217064008563,
+       0.19794679360595932,
+       -0.10126886376907053,
+       0.1291983865529902,
+       -0.09729515370838462
+      ],
+      "gate_b": -2.8874830694489924,
+      "fixed_g": null,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "bandwidth": 0.3
+      }
+     }
+    },
+    "f3_arbiter[frozen]": {
+     "report_nll": 0.4940218427585013,
+     "ci": [
+      0.4852834317403155,
+      0.5026994959471565
+     ],
+     "n": 1000,
+     "top1": 0.7635722222222223,
+     "ece": 0.11794367609833532,
+     "quarters": [
+      0.5523506651793562,
+      0.49934788114722406,
+      0.4726392107441498,
+      0.44513976237287817
+     ],
+     "select_nll": null,
+     "lapse0_nll": 0.4940218427585013,
+     "params": 6984,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "bandwidth": 0.3
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "bandwidth"
+     ],
+     "fit_cpu_s": 137.7,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4609,
+     "describe": {
+      "population_params": 6984,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.3302217064008563,
+       0.19794679360595932,
+       -0.10126886376907053,
+       0.1291983865529902,
+       -0.09729515370838462
+      ],
+      "gate_b": -2.8874830694489924,
+      "fixed_g": null,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "bandwidth": 0.3
+      }
+     }
+    },
+    "f3_arbiter[mismatched]": {
+     "report_nll": 0.49587509530292223,
+     "ci": [
+      0.48810238614198115,
+      0.5041606124012977
+     ],
+     "n": 1000,
+     "top1": 0.7622305555555556,
+     "ece": 0.11870753200020621,
+     "quarters": [
+      0.5539403692481077,
+      0.5010219630689329,
+      0.47410521693905955,
+      0.4478215136113148
+     ],
+     "select_nll": null,
+     "lapse0_nll": null,
+     "params": 6984,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "bandwidth": 0.3
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "bandwidth"
+     ],
+     "fit_cpu_s": 137.7,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4609,
+     "describe": {
+      "population_params": 6984,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.3302217064008563,
+       0.19794679360595932,
+       -0.10126886376907053,
+       0.1291983865529902,
+       -0.09729515370838462
+      ],
+      "gate_b": -2.8874830694489924,
+      "fixed_g": null,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "bandwidth": 0.3
+      }
+     }
+    },
+    "f3_arbiter[twin]": {
+     "report_nll": 0.49089569816308554,
+     "ci": [
+      0.4821550187453824,
+      0.49950364778582657
+     ],
+     "n": 1000,
+     "top1": 0.7652222222222221,
+     "ece": 0.115556750125492,
+     "quarters": [
+      0.5490705909889729,
+      0.4985486788002225,
+      0.47049418407285293,
+      0.4386648946420883
+     ],
+     "select_nll": 0.49089569816308554,
+     "lapse0_nll": 0.49165888416561454,
+     "params": 6978,
+     "role": "candidate",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "bandwidth": 0.3
+     },
+     "lapse": 0.0,
+     "grid_edges": [
+      "bandwidth"
+     ],
+     "fit_cpu_s": 137.7,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.4609,
+     "describe": {
+      "population_params": 6984,
+      "per_person_params": 0,
+      "per_person_state": "episodic memory of (backbone hidden state, chosen action) + reliability statistics",
+      "arbiter": "gate",
+      "update_every": 1,
+      "gate_w": [
+       -0.3302217064008563,
+       0.19794679360595932,
+       -0.10126886376907053,
+       0.1291983865529902,
+       -0.09729515370838462
+      ],
+      "gate_b": -2.8874830694489924,
+      "fixed_g": null,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "bandwidth": 0.3
+      }
+     }
+    },
+    "pop_gru": {
+     "report_nll": 0.489195540445592,
+     "ci": [
+      0.48057226000833686,
+      0.49813013355797703
+     ],
+     "n": 1000,
+     "top1": 0.765588888888889,
+     "ece": 0.11505457528763972,
+     "quarters": [
+      0.5480972079520668,
+      0.49611775288504256,
+      0.4698220068853952,
+      0.4359668726846337
+     ],
+     "select_nll": 0.489195540445592,
+     "lapse0_nll": 0.48940006576387224,
+     "params": 2722,
+     "role": "comparator",
+     "config": {
+      "lr": 0.01,
+      "dropout": 0.0,
+      "hidden": 16
+     },
+     "lapse": 0.02,
+     "grid_edges": [
+      "hidden"
+     ],
+     "fit_cpu_s": 411.8,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.0838,
+     "describe": {
+      "population_params": 2722,
+      "per_person_params": 0,
+      "config": {
+       "lr": 0.01,
+       "dropout": 0.0,
+       "hidden": 16
+      }
+     }
+    },
+    "pop_gru_ens": {
+     "report_nll": 0.482563405128148,
+     "ci": [
+      0.4738855583044729,
+      0.49106149362160084
+     ],
+     "n": 1000,
+     "top1": 0.7699333333333332,
+     "ece": 0.11371182277281082,
+     "quarters": [
+      0.5465437486418662,
+      0.4881058074571564,
+      0.46096407740964296,
+      0.4274038097621057
+     ],
+     "select_nll": 0.482563405128148,
+     "lapse0_nll": 0.482563405128148,
+     "params": 34890,
+     "role": "comparator",
+     "config": {
+      "hidden": 32,
+      "lr": 0.01,
+      "dropout": 0.0,
+      "members": 5
+     },
+     "lapse": 0.0,
+     "grid_edges": [],
+     "fit_cpu_s": 707.1,
+     "causality_violations": [],
+     "excluded": false,
+     "predict_ms_per_trial": 0.3037,
+     "describe": {
+      "population_params": 34890,
+      "per_person_params": 0,
+      "config": {
+       "hidden": 32,
+       "lr": 0.01,
+       "dropout": 0.0,
+       "members": 5
+      }
+     }
+    }
+   },
+   "contrasts": [
+    {
+     "first": "f1_bolt",
+     "second": "pop_gru_ens",
+     "kind": "vs_best_comparator",
+     "estimate": 0.011069186247234561,
+     "ci_low": 0.009374564325066483,
+     "ci_high": 0.012709960456494132,
+     "p_one_sided": 1.0,
+     "sd": 0.0272263540864721,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_bolt",
+     "second": "f1_bolt[frozen]",
+     "kind": "vs_frozen",
+     "estimate": -0.0003892518925299437,
+     "ci_low": -0.000525682092783098,
+     "ci_high": -0.0002572982496602977,
+     "p_one_sided": 0.0005,
+     "sd": 0.00208556887307981,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_bolt",
+     "second": "f1_bolt[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -0.00040137821853083013,
+     "ci_low": -0.0005749223771727513,
+     "ci_high": -0.00023290178890194232,
+     "p_one_sided": 0.0005,
+     "sd": 0.002836910406527678,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_bolt",
+     "second": "bayes_head",
+     "kind": "vs_comparator",
+     "estimate": 0.00010073938077373893,
+     "ci_low": -0.001983169148317167,
+     "ci_high": 0.002059353081483058,
+     "p_one_sided": 0.5455,
+     "sd": 0.033891589529379096,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f1_bolt",
+     "second": "pop_gru",
+     "kind": "vs_comparator",
+     "estimate": 0.0044370509297906695,
+     "ci_low": 0.0023290844783446217,
+     "ci_high": 0.006526806474605431,
+     "p_one_sided": 1.0,
+     "sd": 0.03449474150252107,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "pop_gru_ens",
+     "kind": "vs_best_comparator",
+     "estimate": 0.010838070379420615,
+     "ci_low": 0.00925673706509249,
+     "ci_high": 0.012463745310285313,
+     "p_one_sided": 1.0,
+     "sd": 0.026527335946080883,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "f3_arbiter[twin]",
+     "kind": "vs_twin",
+     "estimate": 0.0025057773444831445,
+     "ci_low": 0.000274292259445709,
+     "ci_high": 0.004658257494635958,
+     "p_one_sided": 0.9885,
+     "sd": 0.035863194061842005,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "f3_arbiter[frozen]",
+     "kind": "vs_frozen",
+     "estimate": -0.0006203672509326601,
+     "ci_low": -0.0010174142264394836,
+     "ci_high": -0.00020341875496748298,
+     "p_one_sided": 0.002,
+     "sd": 0.0066910251331317085,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "f3_arbiter[mismatched]",
+     "kind": "vs_mismatched",
+     "estimate": -0.0024736197953535645,
+     "ci_low": -0.003102467824142837,
+     "ci_high": -0.0018390131747285782,
+     "p_one_sided": 0.0005,
+     "sd": 0.010266134018629015,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "bayes_head",
+     "kind": "vs_comparator",
+     "estimate": -0.00013037648704020688,
+     "ci_low": -0.002220455690105315,
+     "ci_high": 0.0018125933053841354,
+     "p_one_sided": 0.4325,
+     "sd": 0.03315932006087796,
+     "n": 1000,
+     "n_unpaired": 0
+    },
+    {
+     "first": "f3_arbiter",
+     "second": "pop_gru",
+     "kind": "vs_comparator",
+     "estimate": 0.004205935061976723,
+     "ci_low": 0.0021015556891046624,
+     "ci_high": 0.00615691175456949,
+     "p_one_sided": 1.0,
+     "sd": 0.03398225218459915,
+     "n": 1000,
+     "n_unpaired": 0
+    }
+   ],
+   "excluded_models": [],
+   "best_comparator": "pop_gru_ens"
+  }
+ },
+ "candidate_vs_best_comparator": {
+  "f1_bolt": {
+   "gbe_risk": {
+    "estimate": 0.011069186247234561,
+    "ci_low": 0.009374564325066483,
+    "ci_high": 0.012709960456494132,
+    "p_one_sided": 1.0,
+    "sd": 0.0272263540864721,
+    "n": 1000,
+    "n_unpaired": 0,
+    "p_holm": null,
+    "meets_0.02": false
+   }
+  },
+  "f3_arbiter": {
+   "gbe_risk": {
+    "estimate": 0.010838070379420615,
+    "ci_low": 0.00925673706509249,
+    "ci_high": 0.012463745310285313,
+    "p_one_sided": 1.0,
+    "sd": 0.026527335946080883,
+    "n": 1000,
+    "n_unpaired": 0,
+    "p_holm": null,
+    "meets_0.02": false
+   }
+  }
+ }
+}

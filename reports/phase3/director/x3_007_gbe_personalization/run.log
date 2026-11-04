@@ -1,0 +1,13 @@
+=== Wed Nov  4 18:02:12 UTC 2026 start x3_007
+[gbe_risk] pop_gru: 2 config(s), 2000 dev participants
+[gbe_risk] pop_gru: select NLL 0.4892 config {'lr': 0.01, 'dropout': 0.0, 'hidden': 16} lapse 0.02 causal=ok
+[gbe_risk] pop_gru_ens: 1 config(s), 2000 dev participants
+[gbe_risk] pop_gru_ens: select NLL 0.4826 config {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'members': 5} lapse 0.0 causal=ok
+[gbe_risk] bayes_head: 1 config(s), 2000 dev participants
+[gbe_risk] bayes_head: select NLL 0.4935 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 1, 'm': 10, 'predictive': 'laplace', 'prior_var': 'eb'} lapse 0.01 causal=ok
+[gbe_risk] f3_arbiter: 2 config(s), 2000 dev participants
+[gbe_risk] f3_arbiter: select NLL 0.4934 config {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'bandwidth': 0.3} lapse 0.0 causal=ok
+[gbe_risk] f1_bolt: 1 config(s), 2000 dev participants
+[gbe_risk] f1_bolt: select NLL 0.4936 config {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'm': 10} lapse 0.0 causal=ok
+wrote reports/phase3/director/x3_007_gbe_personalization
+=== Wed Nov  4 18:20:59 UTC 2026 end x3_007 exit 0

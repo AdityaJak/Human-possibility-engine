@@ -1,0 +1,22 @@
+{
+ "invocations": [
+  {
+   "code_version": "1c345db81de47927ff95f272b91e89a06f1ba178",
+   "hardware": "x86_64 python 3.13.18",
+   "threads": 2,
+   "families": [
+    "gbe_risk"
+   ],
+   "wall_s": 1124.8,
+   "cpu_s": 1957.8,
+   "llm_calls": 0,
+   "exclusions": {
+    "gbe_risk": {
+     "dev": [],
+     "tune": [],
+     "encoding_leak_check": []
+    }
+   }
+  }
+ ]
+}

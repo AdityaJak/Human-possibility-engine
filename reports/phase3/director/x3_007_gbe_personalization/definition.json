@@ -1,0 +1,120 @@
+{
+ "experiment_id": "x3_007_gbe_personalization",
+ "title": "External dataset (Great Brain Experiment risky choice) \u2014 population GRU, seed ensemble, F3, F1 bolt-on latent, Bayesian head",
+ "lane": "director",
+ "hypothesis": "(Exploratory.) With stable individual risk preferences and repeated plays, explicit individual adaptation adds more over the population GRU than on the Psych-101 learning tasks (where it added 0.004-0.009 nats/choice).",
+ "families": [
+  "gbe_risk"
+ ],
+ "fit_partition": "dev",
+ "select_partition": "tune",
+ "report_partition": "tune",
+ "seed": 20261110,
+ "threads": 2,
+ "k_max": 2,
+ "lapse_grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.3
+ ],
+ "max_configs": 24,
+ "budget_s_per_model_family": 2700.0,
+ "models": {
+  "pop_gru": {
+   "model": null,
+   "grid": {
+    "hidden": [
+     16,
+     32
+    ]
+   },
+   "fixed": {
+    "lr": 0.01,
+    "dropout": 0.0
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "pop_gru_ens": {
+   "model": null,
+   "grid": {},
+   "fixed": {
+    "hidden": 32,
+    "lr": 0.01,
+    "dropout": 0.0,
+    "members": 5
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "bayes_head": {
+   "model": null,
+   "grid": {},
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 1,
+    "m": 10,
+    "predictive": "laplace",
+    "prior_var": "eb"
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "f3_arbiter": {
+   "model": null,
+   "grid": {
+    "bandwidth": [
+     0.3,
+     1.0
+    ]
+   },
+   "fixed": {
+    "hidden": 32,
+    "lr": 0.01,
+    "dropout": 0.0
+   },
+   "role": "candidate",
+   "variants": [
+    "twin",
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "f1_bolt": {
+   "model": null,
+   "grid": {},
+   "fixed": {
+    "hidden": 32,
+    "lr": 0.01,
+    "dropout": 0.0,
+    "m": 10
+   },
+   "role": "candidate",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  }
+ },
+ "notes": [],
+ "preregistration_hash": "fcb9996567e9138f"
+}
