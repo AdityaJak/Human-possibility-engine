@@ -1,0 +1,33 @@
+# X3-B03 (exploratory, evaluation team): population-only comparators on two_step, tune partition.
+# Supersedes X3-B01 (12-configuration RNN grids, stopped after its first family): the critic's design review asked
+# for the full 24-configuration cap for pop_gru / pop_lstm. Trainer defaults per director commit 8a3d72cb.
+# Budget 2700 CPU-s per model and family; configurations past the budget are recorded as skipped (grid order is
+# dropout-major, so any skipped configurations are the high-dropout / large-hidden corner).
+experiment_id: x3_b03_pop_two_step
+title: Population-only comparators (pop_gru, pop_lstm 24 configs; pop_tf; ref_gru_p2) on two_step, tune partition
+lane: science/validation-v3
+hypothesis: (Exploratory.) Tune NLL of the population-only pool members under equal caps on two_step.
+families: [two_step]
+report_partition: tune
+seed: 20261108
+threads: 2
+models:
+  pop_gru:
+    role: comparator
+    grid: {hidden: [16, 32, 64, 128], lr: [0.003, 0.01], dropout: [0.0, 0.2, 0.4]}
+    fixed: {max_epochs: 150, patience: 10, batch_size: 8}
+  ref_gru_p2:
+    role: comparator
+    grid: {hidden: [8, 12], lr: [0.003, 0.01]}
+    fixed: {max_epochs: 15, patience: 4, window: 64, max_steps_per_epoch: 60000}
+  pop_tf:
+    role: comparator
+    grid: {window: [32, 128], lr: [0.001, 0.003], dropout: [0.0, 0.1]}
+    fixed: {d_model: 32, layers: 2, heads: 4, max_epochs: 150, patience: 10, batch_size: 8}
+  pop_lstm:
+    role: comparator
+    grid: {hidden: [16, 32, 64, 128], lr: [0.003, 0.01], dropout: [0.0, 0.2, 0.4]}
+    fixed: {max_epochs: 150, patience: 10, batch_size: 8}
+notes:
+  - "ref_gru_p2: the Phase II numpy GRU refitted on Phase III dev with its Phase II grid; max_steps_per_epoch 60000 (Phase II used it for described/horizon) bounds its numpy training cost and binds only when an epoch exceeds 60,000 steps."
+  - "numpy BLAS threads pinned to 1 (OPENBLAS_NUM_THREADS=1): multi-threaded BLAS on small matrices was ~600x slower on the shared 4-core machine."
