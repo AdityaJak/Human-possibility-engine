@@ -30,7 +30,7 @@ import type {
   TimeSeriesResponse,
   WorldTick,
 } from "../types/contracts";
-import { apiBaseUrl, isMockMode } from "./config";
+import { apiBaseUrl, isMockMode, isStaticMode } from "./config";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -134,6 +134,10 @@ async function resolveTransport(): Promise<Transport> {
   if (isMockMode()) {
     const mod = await import("./mocks");
     return mod.mockTransport;
+  }
+  if (isStaticMode()) {
+    const mod = await import("./static/transport");
+    return mod.staticTransport;
   }
   return fetchTransport;
 }

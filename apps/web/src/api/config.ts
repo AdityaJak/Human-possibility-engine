@@ -12,3 +12,19 @@ export function apiBaseUrl(): string {
 export function isMockMode(): boolean {
   return import.meta.env.VITE_USE_MOCKS === "1";
 }
+
+/**
+ * Static mode (VITE_API_MODE=static): no backend. GET endpoints read JSON pre-rendered from the
+ * committed stored real outputs by scripts/export_static_api.py; Future Self runs the repository's own
+ * Python engine (hpe.futures) in the browser via Pyodide; user-private data stays in the browser.
+ * Endpoints that start simulations or experiments are unavailable (405). Never a mock.
+ */
+export function isStaticMode(): boolean {
+  return import.meta.env.VITE_API_MODE === "static";
+}
+
+/** Base path of the pre-rendered JSON, honouring Vite's base (e.g. "/Human-possibility-engine/"). */
+export function staticApiBase(): string {
+  const base = ((import.meta.env.BASE_URL as string | undefined) ?? "/").replace(/\/+$/, "");
+  return `${base}/api`;
+}
