@@ -1,0 +1,37 @@
+{
+ "decision": "NO-GO for H3 as preregistered; programme pivots to new preregistered questions",
+ "summary": "No candidate met a preregistered stop rule, so no test partition was opened. On the primary family a 5-seed population GRU ensemble (tune NLL 0.7102) beat the best personalisation candidate (F3, 0.7237; +0.0135 [+0.0082, +0.0183]); with matched ensembles the candidate's gain shrank to -0.0014 [-0.0048, +0.0019]. Explicit personalisation added at most 0.009 nats/choice to a single model on single-session tasks, within seed noise. Earlier-session history is worth +0.0145 to +0.0195 when in-context state is lost between sessions (external GBE data) - the pivot question. All numbers exploratory (tune partitions).",
+ "gates": {
+  "A": {
+   "status": "not evaluated",
+   "note": "own-history adaptation beats a donor's (exploratory); A1 not run; no joint freeze"
+  },
+  "B": {
+   "status": "failed",
+   "note": "B1 nominal tune pass vs a biased single-seed twin; B2 fails on the primary family (-0.0034 vs 0.005 margin)"
+  },
+  "C": {
+   "status": "failed",
+   "note": "best candidate behind or level with the strongest comparator in every counted family (tune)"
+  },
+  "D": {
+   "status": "failed",
+   "note": "cross-family pretraining helps at k = 16 but the meta-learned candidate is no better than plain pretraining"
+  },
+  "E": {
+   "status": "failed",
+   "note": "F4 earns the most reward but shows no savings on return to a seen context (development seeds)"
+  },
+  "F": {
+   "status": "failed",
+   "note": "observed happiness ratings worsen choice prediction slightly: +0.0010 [+0.0005, +0.0015], n = 9,413"
+  },
+  "G": {
+   "status": "not started",
+   "note": "requires an ethically reviewed prospective randomised study"
+  }
+ },
+ "evidence_level": "exploratory (tune partitions / development seeds); critic recomputed central contrasts",
+ "issued": "2026-11-04",
+ "document": "docs/phase3/BREAKTHROUGH_VERDICT.md"
+}

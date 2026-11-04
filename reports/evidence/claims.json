@@ -526,6 +526,104 @@
     ]
   },
   {
+    "claim_id": "phase3:X3-013",
+    "claim": "[EXPLORATORY, GBE risky choice (CC0) 2,000 dev / 1,000 tune people; plays 2\u20134 scored] How much does earlier-session history help when the in-context state would be lost between sessions? (bounds what a persistent person-level state could add in session-based deployments)",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "Large headroom: a GRU trained and evaluated per session is worse than one that sees earlier sessions by +0.0145 [+0.0092, +0.0199]; the same weights with the state reset lose +0.0195 [+0.0146, +0.0243] (n = 318 people with \u2265 2 plays in the scored subset). This is the largest person-specific effect measured in Phase III and motivates the pivot question (cross-session person representation); it is not a candidate result",
+    "config_ref": "reports/phase3/director/x3_008_session_headroom/, scripts/phase3_x008_session_headroom.py",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Real human data (Psych-101, Apache-2.0); not evidence about any individual's future"
+    ]
+  },
+  {
+    "claim_id": "phase3:X3-007",
+    "claim": "[EXPLORATORY, restless4 dev / tune] Does explicit adaptation add value on top of the variance reduction of a 5-seed ensemble? (matched ensemble size; tune-selected configs fixed)",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "Mostly no. tune NLL: bayes_head ensemble 0.7096, F3 ensemble 0.7113, pop_gru ensemble 0.7127; F3-ens \u2212 pop_gru-ens \u22120.0014 [\u22120.0048, +0.0018]; F3-ens \u2212 its frozen \u22120.0009 [\u22120.0056, +0.0025]; own \u2212 donor \u22120.0069 [\u22120.0110, \u22120.0037] (personalisation is person-specific but small). The single-model F3 gain (\u22120.0085 vs same-size pop_gru) shrinks to \u22120.0014 once both arms are ensembled",
+    "config_ref": "reports/phase3/director/x3_e01_ensemble_restless4/",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase3:X3-008",
+    "claim": "[EXPLORATORY, described dev / tune] Candidates on described gambles (Phase II pristine family)",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "No candidate beats the same-size pop_gru (0.3550): F1 0.3568, F3 0.3571 (F3's learned gate \u2248 off: F3 \u2212 frozen +0.0001), F3 fixed-share 0.3674, F2 0.3811. F1 \u2212 twin \u22120.0034 [\u22120.0055, \u22120.0016], F3 \u2212 twin \u22120.0027",
+    "config_ref": "reports/phase3/candidates/x3_c05_described/",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Real human data (Psych-101, Apache-2.0); not evidence about any individual's future"
+    ]
+  },
+  {
+    "claim_id": "phase3:X3-009",
+    "claim": "[EXPLORATORY, garcia dev / tune] Population pool and adaptive comparators on garcia",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "pool: pop_tf (causal transformer) 0.4339, pop_gru_ens 0.4403, ref_gru_p2 0.4403, pop_gru (24 configs) 0.4509, pop_lstm 0.4596. Adapters on the selected backbone (frozen 0.4509): ft_full 0.4380, bayes_head 0.4392, ft_head 0.4448, reptile 0.4454, exemplar 0.4489, cavia 0.4501, gru_hb_mix 0.4505, hb_cog 0.5803. Candidate F3 0.4348 (X3-006) \u2248 pop_tf (+0.0009)",
+    "config_ref": "reports/phase3/baselines/x3_b03_pop_garcia/, x3_b04_adapt_garcia/",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Real human data (Psych-101, Apache-2.0); not evidence about any individual's future"
+    ]
+  },
+  {
+    "claim_id": "phase3:X3-010",
+    "claim": "[EXPLORATORY, GBE risky choice (CC0), 2,000 dev / 1,000 tune people, 4 plays each] External dataset (not Psych-101): does explicit adaptation help where individuals have stable risk preferences?",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "No. tune NLL: pop_gru_ens 0.4826, pop_gru 0.4892, F3 0.4934, bayes_head 0.4935, F1 bolt-on 0.4936. Adaptation vs own frozen: F3 \u22120.0006, F1 \u22120.0004, bayes_head \u22120.0020; own vs donor \u22120.0004 to \u22120.0044. The in-context GRU already captures stable preferences within 120 choices",
+    "config_ref": "reports/phase3/director/x3_007_gbe_personalization/, packages/hpe/population/families/gbe_risk.py",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Real human data (Psych-101, Apache-2.0); not evidence about any individual's future"
+    ]
+  },
+  {
+    "claim_id": "phase3:X3-011",
+    "claim": "[EXPLORATORY, development seeds 160-199 (report); confirmatory 3000-3049 untouched] Gate E development suite: F4 meta-learned GRU vs online fine-tuning, EWC, replay (synthetic switching; oracle and Bayes-filter references)",
+    "status": "inconclusive",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "reward/oracle: F4 0.829, Bayes filter 0.814, fine-tuning 0.740, replay 0.708, EWC 0.687. Savings on return: F4 \u22120.024, replay +0.033, Bayes filter +0.047, fine-tuning \u22120.003, EWC \u22120.003 \u2014 F4 does not remember returning contexts (\u22120.021 vs fine-tuning, \u22120.057 vs replay); Gate E stop rule not met",
+    "config_ref": "reports/phase3/continual/x3_gate_e_dev/",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Synthetic rows: simulated world, not evidence about people"
+    ]
+  },
+  {
+    "claim_id": "phase3:X3-012",
+    "claim": "[EXPLORATORY, GBE risky choice + happiness (CC0): 18,827 dev / 9,413 tune people, 4 plays] Gate F exploratory: do observed momentary happiness ratings improve choice prediction beyond a matched-complexity control?",
+    "status": "inconclusive",
+    "evidence_kind": "human_dataset",
+    "run_ids": [],
+    "metric": "see registry row",
+    "value": "No (slightly worse). observed \u2212 causal shuffled control +0.0010 [+0.0005, +0.0015]; observed \u2212 no affect +0.0013; latent-mood readout \u2212 plain GRU +0.0019. Gate F stop rule not met. Social data (Najar 2020, MIT, 68 people) adapted but not run",
+    "config_ref": "reports/phase3/affect/gbe_explore_01/, docs/phase3/AFFECTIVE_SOCIAL_VALIDATION.md",
+    "limitations": [
+      "Phase III exploratory result (dev/tune or development seeds); selection-optimistic",
+      "Real human data (Psych-101, Apache-2.0); not evidence about any individual's future"
+    ]
+  },
+  {
     "claim_id": "phase3:X3-003",
     "claim": "[EXPLORATORY, restless4 dev / tune] Population-only comparator pool on the primary family under equal caps (24-config pop_gru / pop_lstm, 5-seed pop_gru_ens, causal transformer, Phase II numpy GRU)",
     "status": "inconclusive",
