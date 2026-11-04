@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: |
-          uv venv .venv
+          uv venv --allow-existing .venv
           uv pip install --python .venv/bin/python -e ".[dev,parquet]"
       - name: Lint
         run: |
