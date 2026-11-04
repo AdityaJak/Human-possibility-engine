@@ -170,6 +170,10 @@ def _fmt(x: float | None, nd: int = 4) -> str:
     return "—" if x is None or (isinstance(x, float) and math.isnan(x)) else f"{x:.{nd}f}"
 
 
+def _p(p: float, n_boot: int) -> str:
+    return f"≤{1 / n_boot:.4g} (bootstrap floor)" if p <= 1.0 / n_boot else f"{p:.3g}"
+
+
 def render_exp07(
     outdir: Path, defn: HumanHeldoutDefinition, result: dict[str, Any], summary: dict[str, Any]
 ) -> str:
@@ -195,9 +199,13 @@ def render_exp07(
         f"Primary metric: {defn.analysis.primary_metric_definition}",
         "",
     ]
-    for split_key, ssum in summary["splits"].items():
+    order = [str(defn.split.seed)] + [k for k in summary["splits"] if k != str(defn.split.seed)]
+    paradigm_order = [pp.paradigm for pp in defn.paradigms]
+    for split_key in order:
+        ssum = summary["splits"][split_key]
         tag = "primary split" if int(split_key) == defn.split.seed else "robustness split"
-        for paradigm, s in ssum.items():
+        for paradigm in [p for p in paradigm_order if p in ssum]:
+            s = ssum[paradigm]
             L += [
                 f"## {paradigm.upper()} — split seed {split_key} ({tag}); {s['n_train']} train / {s['n_test']} held-out participants",
                 "",
@@ -225,7 +233,7 @@ def render_exp07(
                 for c in s["contrasts"]:
                     L.append(
                         f"| {c['contrast']} ({c.get('label', c['role'])}) | {c['estimate']:+.4f} [{c['ci_low']:+.4f}, {c['ci_high']:+.4f}] | "
-                        f"{c['p_value']:.3g} | {_fmt(c['cohen_dz'], 2)} | {c['n_participants']} | {c['status']} |"
+                        f"{_p(c['p_value'], defn.analysis.n_bootstrap)} | {_fmt(c['cohen_dz'], 2)} | {c['n_participants']} | {c['status']} |"
                     )
                 L.append("")
             if not s["developmental_available"]:

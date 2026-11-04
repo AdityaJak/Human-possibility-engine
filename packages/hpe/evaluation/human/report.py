@@ -61,7 +61,8 @@ def bootstrap_mean(x: np.ndarray, n_boot: int, seed: int, *key: str) -> tuple[fl
     idx = rng.integers(0, len(x), size=(n_boot, len(x)))
     means = x[idx].mean(axis=1)
     lo, hi = np.quantile(means, [0.025, 0.975])
-    p = float(min(1.0, 2 * min((means <= 0).mean(), (means >= 0).mean())))
+    # two-sided bootstrap p, floored at 1/n_boot (a bootstrap cannot resolve smaller p-values)
+    p = float(min(1.0, max(1.0 / n_boot, 2 * min((means <= 0).mean(), (means >= 0).mean()))))
     return float(x.mean()), float(lo), float(hi), p
 
 
@@ -292,6 +293,7 @@ def plot_exp07(summary: dict[str, Any], primary_split: int, figdir: Path) -> lis
                 for r in rows
             ]
         ).T
+        err = np.clip(err, 0.0, None)  # constant-NLL models (random) give ~1e-16 negative widths
         ax.errorbar(means, y, xerr=err, fmt="o", color="#1f5f8b", capsize=3)
         ax.axvline(
             s["chance_nll"],
@@ -304,7 +306,7 @@ def plot_exp07(summary: dict[str, Any], primary_split: int, figdir: Path) -> lis
         ax.invert_yaxis()
         ax.set_xlabel("held-out NLL per choice (lower is better), 95% bootstrap CI")
         ax.set_title(f"{paradigm.upper()}: held-out human participants (n={s['n_test']}) — real human data")
-        ax.legend(loc="lower right", fontsize=8)
+        ax.legend(loc="lower left", fontsize=8)
         fig.tight_layout()
         p = figdir / f"heldout_nll_{paradigm}.png"
         fig.savefig(p)
@@ -332,7 +334,7 @@ def plot_exp07b(estimates: dict[str, Any], figdir: Path) -> list[Path]:
     ax.errorbar(
         ests,
         y,
-        xerr=[np.array(ests) - np.array(los), np.array(his) - np.array(ests)],
+        xerr=np.clip([np.array(ests) - np.array(los), np.array(his) - np.array(ests)], 0.0, None),
         fmt="o",
         color="#1f5f8b",
         capsize=3,

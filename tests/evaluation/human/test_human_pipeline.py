@@ -116,3 +116,12 @@ def test_committed_reports_regenerate_identically(tmp_path: Path):
         shutil.copytree(src, dst)
         fn(dst)
         assert json.loads((dst / "result.json").read_text()) == json.loads((src / "result.json").read_text())
+
+
+def test_plot_tolerates_float_noise_in_constant_nll_ci(tmp_path: Path):
+    from hpe.evaluation.human.report import plot_exp07
+
+    m = 2.1972245773362196
+    row = {"model": "random", "test_nll_mean": m, "test_nll_ci_low": m + 1e-16, "test_nll_ci_high": m - 1e-16}
+    summary = {"splits": {"1": {"mcpl": {"models": [row], "chance_nll": m, "n_test": 3}}}}
+    assert plot_exp07(summary, 1, tmp_path)[0].exists()
