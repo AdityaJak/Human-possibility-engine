@@ -1,0 +1,246 @@
+{
+  "jobs": [
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_control",
+      "run_id": "exp04_midlife_education__main__dev_control__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "dev_midlife",
+      "run_id": "exp04_midlife_education__main__dev_midlife__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "static_control",
+      "run_id": "exp04_midlife_education__main__static_control__s9",
+      "seed": 9,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s0",
+      "seed": 0,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s1",
+      "seed": 1,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s2",
+      "seed": 2,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s3",
+      "seed": 3,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s4",
+      "seed": 4,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s5",
+      "seed": 5,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s6",
+      "seed": 6,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s7",
+      "seed": 7,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s8",
+      "seed": 8,
+      "variant": "main"
+    },
+    {
+      "arm": "static_midlife",
+      "run_id": "exp04_midlife_education__main__static_midlife__s9",
+      "seed": 9,
+      "variant": "main"
+    }
+  ],
+  "preregistration_hash": "1b9968b99bb0f28beb5e89b64e7ff752",
+  "skipped_arms": {}
+}

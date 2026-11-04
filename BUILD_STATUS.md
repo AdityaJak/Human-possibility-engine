@@ -56,6 +56,7 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | Ablations: learning necessary | passed | +0.409 [+0.395, +0.426] |
 | Exp 2 twin tutoring | passed; manipulation check failed as defined | +0.029 [+0.022, +0.037]; non-learning society 0.000 |
 | Exp 3 social influence (H2) | **FAILED** | connected − isolated −0.004 [−0.007, −0.000]; developmental agents form 0.018 friends on average (mechanism gap) |
+| Exp 4 midlife education | **FAILED** | −0.003 [−0.015, +0.007]; balance and mechanism checks passed; uptake not measured (design weakness) |
 | Exp 7b HeartSteps causal grounding (real data) | passed (weak rule, see audit) | +12.2% [−0.5%, +27.4%] vs published +14% |
 | Exp 7 Psych-101 held-out choices (real data, all 5 classes + 4 references) | **FAILED** primary (MCPL); secondary (IGT) passed | MCPL: +0.229 nats worse than instance-based [+0.171, +0.289]; IGT: best model, −0.110 [−0.140, −0.083] |
 

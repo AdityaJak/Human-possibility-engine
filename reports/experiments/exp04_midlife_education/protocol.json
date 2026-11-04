@@ -1,0 +1,103 @@
+{
+  "kind": "society",
+  "params": {
+    "metrics": [
+      {
+        "name": "midlife_cohort_accuracy_pre",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 38,
+          "age_max": 45
+        },
+        "at_year": 10
+      },
+      {
+        "name": "midlife_cohort_accuracy_post",
+        "fn": "cohort_mean_accuracy",
+        "args": {
+          "age_min": 43,
+          "age_max": 50
+        },
+        "at_year": 15
+      },
+      {
+        "name": "midlife_cohort_size_post",
+        "fn": "cohort_size",
+        "args": {
+          "age_min": 43,
+          "age_max": 50
+        },
+        "at_year": 15
+      },
+      {
+        "name": "midlife_employment_post",
+        "fn": "employment_rate",
+        "args": {
+          "age_min": 43,
+          "age_max": 50
+        },
+        "at_year": 15
+      }
+    ]
+  },
+  "contrasts": [
+    {
+      "name": "midlife_education_effect_developmental",
+      "treatment": "dev_midlife",
+      "control": "dev_control",
+      "metric": "midlife_cohort_accuracy_post",
+      "kind": "superiority",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": 0.02,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": true,
+      "description": ""
+    },
+    {
+      "name": "pre_period_balance",
+      "treatment": "dev_midlife",
+      "control": "dev_control",
+      "metric": "midlife_cohort_accuracy_pre",
+      "kind": "equivalence",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": 0.01,
+      "primary": false,
+      "description": "before the intervention starts the cloned societies must be balanced"
+    },
+    {
+      "name": "mechanism_check_static_persona",
+      "treatment": "static_midlife",
+      "control": "static_control",
+      "metric": "midlife_cohort_accuracy_post",
+      "kind": "equivalence",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": 0.02,
+      "primary": false,
+      "description": ""
+    },
+    {
+      "name": "midlife_employment",
+      "treatment": "dev_midlife",
+      "control": "dev_control",
+      "metric": "midlife_employment_post",
+      "kind": "exploratory",
+      "paired": true,
+      "direction": "greater",
+      "min_effect": null,
+      "min_effect_kind": "absolute",
+      "margin": null,
+      "primary": false,
+      "description": ""
+    }
+  ],
+  "sensitivity": [],
+  "pipeline_validation": false
+}

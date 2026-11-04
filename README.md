@@ -32,6 +32,8 @@ pretending to predict fate.
 * **Social context — not supported as built.** Connected and isolated societies learn the same
   (−0.004 [−0.007, −0.000]), because developmental agents form almost no friendships (0.02 on average
   over 15 years). A mechanism gap, recorded as a failed preregistered test.
+* **Midlife education — no effect.** Opening adult education at 38–45 changed nothing measurable in
+  five years (−0.003 [−0.015, +0.007]); the design did not measure uptake. Recorded as failed.
 * **Real human choices — mixed.** On held-out participants from Psych-101, the developmental learner
   predicts Iowa Gambling Task choices better than every other model tested (−0.110 nats vs the
   instance-based reference), but on the preregistered primary task (multiple-cue learning) it is clearly

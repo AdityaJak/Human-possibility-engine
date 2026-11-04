@@ -24,6 +24,10 @@ noise. Candidate causes, each a falsifiable experiment:
    demonstrations never arrive. Fix the mechanism (social-connection term in the activity reward,
    friendship formation thresholds, demonstration volume), confirm friendships form at a plausible
    rate, then re-test H2 and misinformation robustness under a new preregistration.
+6. **Midlife adaptation is unmeasured, not disproven (Exp 4 failed).** Adults sat at 0.80 accuracy with
+   little headroom and the design had no uptake metric. Re-run with (a) an uptake manipulation check
+   (education episodes per treated adult), (b) a non-stationary task family whose rules change at year
+   10 so adults have something new to learn, (c) a longer window.
 
 ## 2. Gate 4 — real human validity
 

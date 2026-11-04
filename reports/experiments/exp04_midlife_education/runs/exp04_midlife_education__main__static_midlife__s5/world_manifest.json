@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.1.0",
+  "run_id": "exp04_midlife_education__main__static_midlife__s5",
+  "created_at": "2026-11-04T05:31:24.635923Z",
+  "status": "completed",
+  "code_version": "5978540",
+  "contract_version": "0.1.0",
+  "config": {
+    "schema_version": "0.1.0",
+    "seed": 5,
+    "population_seed": 5,
+    "task_seed": 5,
+    "n_agents": 100,
+    "years": 15.0,
+    "dt_days": 30,
+    "policy_class": "static_persona",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [
+      {
+        "name": "adult_education",
+        "kind": "midlife_education",
+        "target": {
+          "age_min": 38.0,
+          "age_max": 45.0,
+          "fraction": 1.0,
+          "household_ids": null,
+          "agent_ids": null
+        },
+        "start_year": 10.0,
+        "end_year": 15.0,
+        "params": {}
+      }
+    ],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": "society:main:static_midlife"
+  },
+  "config_hash": "84da304e6401acb1",
+  "experiment_id": null,
+  "arm": null,
+  "policy_class": "static_persona",
+  "policy_version": "1.0.0",
+  "task_world_hash": "aa91d4a578b95dce",
+  "dataset_hashes": {
+    "event_stream_sha256_chain": "c81bc3eceeece8919c4d80bce7ad51273962bd0ebc0d632a0a6f5d62ee75efd5"
+  },
+  "event_log_path": null,
+  "event_log_sha256": null,
+  "n_events": 6215,
+  "final_state_hash": "7493bc17e9cb569961a35196485eeab0",
+  "checkpoints": [],
+  "compute": {
+    "wall_time_s": 15.2058,
+    "cpu_time_s": 15.0588,
+    "peak_rss_mb": 150.41,
+    "ticks": 183,
+    "agent_years": 1596.2218,
+    "events": 6215,
+    "llm_calls": 0,
+    "llm_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "cost_assumptions": "local CPU only; no paid model calls",
+    "hardware": "Intel(R) Xeon(R) Processor @ 2.80GHz; 4 logical CPUs; Linux x86_64; Python 3.13.18"
+  },
+  "nondeterminism": [],
+  "error": null
+}

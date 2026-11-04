@@ -1,0 +1,313 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp04_midlife_education",
+  "preregistration_hash": "1b9968b99bb0f28beb5e89b64e7ff752",
+  "status": "failed",
+  "status_reason": "primary contrast 'midlife_education_effect_developmental' (superiority): dev_midlife vs dev_control on midlife_cohort_accuracy_post: estimate -0.0031 (95% CI [-0.0145, +0.0073], n=10 seeds; relative -0.4%); threshold 0.0200 -> failed",
+  "arms": [
+    {
+      "arm": "dev_control",
+      "n_runs": 10,
+      "metrics": {
+        "agent_accuracy@10": {
+          "mean": 0.7831295159562731,
+          "sd": 0.0321640062698997,
+          "ci_low": 0.7657618822652231,
+          "ci_high": 0.8032257804354245,
+          "n": 10.0
+        },
+        "agent_accuracy@15": {
+          "mean": 0.8063677776076223,
+          "sd": 0.03602920260252621,
+          "ci_low": 0.7876510223707954,
+          "ci_high": 0.8288410453629472,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_post": {
+          "mean": 0.8061266017932684,
+          "sd": 0.04410709275553412,
+          "ci_low": 0.7834673651194485,
+          "ci_high": 0.8335575947971781,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_pre": {
+          "mean": 0.801907589324256,
+          "sd": 0.04344309120377553,
+          "ci_low": 0.7791545214045213,
+          "ci_high": 0.8295367569930071,
+          "n": 10.0
+        },
+        "midlife_cohort_size_post": {
+          "mean": 12.3,
+          "sd": 4.522781838156198,
+          "ci_low": 9.7,
+          "ci_high": 14.9,
+          "n": 10.0
+        },
+        "midlife_employment_post": {
+          "mean": 0.6773649961149961,
+          "sd": 0.1311819722523535,
+          "ci_low": 0.6044341249028751,
+          "ci_high": 0.7557692307692307,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "dev_midlife",
+      "n_runs": 10,
+      "metrics": {
+        "agent_accuracy@10": {
+          "mean": 0.78302599622891,
+          "sd": 0.03196715494663977,
+          "ci_low": 0.7653974417463251,
+          "ci_high": 0.8028041615815718,
+          "n": 10.0
+        },
+        "agent_accuracy@15": {
+          "mean": 0.8058566188874096,
+          "sd": 0.03745030771040708,
+          "ci_low": 0.7858769374660792,
+          "ci_high": 0.8299580645721222,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_post": {
+          "mean": 0.8029913766788767,
+          "sd": 0.04476069150436245,
+          "ci_low": 0.7789735195360196,
+          "ci_high": 0.8315953951719577,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_pre": {
+          "mean": 0.801501310417977,
+          "sd": 0.04217446559569306,
+          "ci_low": 0.7785454441391942,
+          "ci_high": 0.8283546947651115,
+          "n": 10.0
+        },
+        "midlife_cohort_size_post": {
+          "mean": 12.3,
+          "sd": 4.522781838156198,
+          "ci_low": 9.7,
+          "ci_high": 15.0,
+          "n": 10.0
+        },
+        "midlife_employment_post": {
+          "mean": 0.7057405094905094,
+          "sd": 0.12576563347313804,
+          "ci_low": 0.6295324259074259,
+          "ci_high": 0.7799603625541126,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "static_control",
+      "n_runs": 10,
+      "metrics": {
+        "agent_accuracy@10": {
+          "mean": 0.44123095288226033,
+          "sd": 0.0063538584513610575,
+          "ci_low": 0.437558287507831,
+          "ci_high": 0.44478045496725005,
+          "n": 10.0
+        },
+        "agent_accuracy@15": {
+          "mean": 0.44367986705242257,
+          "sd": 0.006304619986906677,
+          "ci_low": 0.44008979838069573,
+          "ci_high": 0.4472164326587847,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_post": {
+          "mean": 0.4432887822054489,
+          "sd": 0.022624346470900787,
+          "ci_low": 0.42928890553890553,
+          "ci_high": 0.4559882280528114,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_pre": {
+          "mean": 0.44472562930896264,
+          "sd": 0.022393258543399592,
+          "ci_low": 0.43059020562770556,
+          "ci_high": 0.45694721967846974,
+          "n": 10.0
+        },
+        "midlife_cohort_size_post": {
+          "mean": 12.3,
+          "sd": 4.522781838156198,
+          "ci_low": 9.79750000000001,
+          "ci_high": 15.1,
+          "n": 10.0
+        },
+        "midlife_employment_post": {
+          "mean": 0.7020755633255633,
+          "sd": 0.0955124153631551,
+          "ci_low": 0.6389643793706294,
+          "ci_high": 0.7497222222222222,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "static_midlife",
+      "n_runs": 10,
+      "metrics": {
+        "agent_accuracy@10": {
+          "mean": 0.44123095288226033,
+          "sd": 0.0063538584513610575,
+          "ci_low": 0.4374046089066747,
+          "ci_high": 0.4448314264315168,
+          "n": 10.0
+        },
+        "agent_accuracy@15": {
+          "mean": 0.44367986705242257,
+          "sd": 0.006304619986906677,
+          "ci_low": 0.43988115745675577,
+          "ci_high": 0.44720750009524685,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_post": {
+          "mean": 0.4432887822054489,
+          "sd": 0.022624346470900787,
+          "ci_low": 0.4293001654980822,
+          "ci_high": 0.45613374017957353,
+          "n": 10.0
+        },
+        "midlife_cohort_accuracy_pre": {
+          "mean": 0.44472562930896264,
+          "sd": 0.022393258543399592,
+          "ci_low": 0.43073959790209787,
+          "ci_high": 0.45727144159852495,
+          "n": 10.0
+        },
+        "midlife_cohort_size_post": {
+          "mean": 12.3,
+          "sd": 4.522781838156198,
+          "ci_low": 9.5,
+          "ci_high": 14.902500000000009,
+          "n": 10.0
+        },
+        "midlife_employment_post": {
+          "mean": 0.7020755633255633,
+          "sd": 0.0955124153631551,
+          "ci_low": 0.6387749854312355,
+          "ci_high": 0.7487891414141414,
+          "n": 10.0
+        }
+      }
+    }
+  ],
+  "effects": [
+    {
+      "metric": "midlife_cohort_accuracy_post",
+      "contrast": "midlife_education_effect_developmental: dev_midlife - dev_control",
+      "estimate": -0.003135225114391782,
+      "ci_low": -0.014506396901709448,
+      "ci_high": 0.007291288283475859,
+      "ci_level": 0.95,
+      "p_value": 0.599609375,
+      "standardized_effect": -0.1692454989376169,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": false
+    },
+    {
+      "metric": "midlife_cohort_accuracy_pre",
+      "contrast": "pre_period_balance: dev_midlife - dev_control",
+      "estimate": -0.00040627890627888965,
+      "ci_low": -0.0018828763828763312,
+      "ci_high": 0.000888500388500435,
+      "ci_level": 0.95,
+      "p_value": null,
+      "standardized_effect": -0.17226633120269094,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.01",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "midlife_cohort_accuracy_post",
+      "contrast": "mechanism_check_static_persona: static_midlife - static_control",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": null,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.02",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "midlife_employment_post",
+      "contrast": "midlife_employment: dev_midlife - dev_control",
+      "estimate": 0.02837551337551336,
+      "ci_low": -0.0349659090909091,
+      "ci_high": 0.10226440226440225,
+      "ci_level": 0.95,
+      "p_value": 0.46875,
+      "standardized_effect": 0.23862970919214282,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    }
+  ],
+  "run_ids": [
+    "exp04_midlife_education__main__dev_control__s0",
+    "exp04_midlife_education__main__dev_control__s1",
+    "exp04_midlife_education__main__dev_control__s2",
+    "exp04_midlife_education__main__dev_control__s3",
+    "exp04_midlife_education__main__dev_control__s4",
+    "exp04_midlife_education__main__dev_control__s5",
+    "exp04_midlife_education__main__dev_control__s6",
+    "exp04_midlife_education__main__dev_control__s7",
+    "exp04_midlife_education__main__dev_control__s8",
+    "exp04_midlife_education__main__dev_control__s9",
+    "exp04_midlife_education__main__dev_midlife__s0",
+    "exp04_midlife_education__main__dev_midlife__s1",
+    "exp04_midlife_education__main__dev_midlife__s2",
+    "exp04_midlife_education__main__dev_midlife__s3",
+    "exp04_midlife_education__main__dev_midlife__s4",
+    "exp04_midlife_education__main__dev_midlife__s5",
+    "exp04_midlife_education__main__dev_midlife__s6",
+    "exp04_midlife_education__main__dev_midlife__s7",
+    "exp04_midlife_education__main__dev_midlife__s8",
+    "exp04_midlife_education__main__dev_midlife__s9",
+    "exp04_midlife_education__main__static_control__s0",
+    "exp04_midlife_education__main__static_control__s1",
+    "exp04_midlife_education__main__static_control__s2",
+    "exp04_midlife_education__main__static_control__s3",
+    "exp04_midlife_education__main__static_control__s4",
+    "exp04_midlife_education__main__static_control__s5",
+    "exp04_midlife_education__main__static_control__s6",
+    "exp04_midlife_education__main__static_control__s7",
+    "exp04_midlife_education__main__static_control__s8",
+    "exp04_midlife_education__main__static_control__s9",
+    "exp04_midlife_education__main__static_midlife__s0",
+    "exp04_midlife_education__main__static_midlife__s1",
+    "exp04_midlife_education__main__static_midlife__s2",
+    "exp04_midlife_education__main__static_midlife__s3",
+    "exp04_midlife_education__main__static_midlife__s4",
+    "exp04_midlife_education__main__static_midlife__s5",
+    "exp04_midlife_education__main__static_midlife__s6",
+    "exp04_midlife_education__main__static_midlife__s7",
+    "exp04_midlife_education__main__static_midlife__s8",
+    "exp04_midlife_education__main__static_midlife__s9"
+  ],
+  "sensitivity": [],
+  "ablations": [],
+  "figures": [
+    "figures/primary_metric.png"
+  ],
+  "limitations": [
+    "Adult plasticity is a modelling assumption of the developmental learner (plasticity schedule); results inherit it.",
+    "Depends on hpe.world semantics for midlife_education."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T05:32:00.796744Z"
+}

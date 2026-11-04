@@ -29,7 +29,8 @@ figure from raw logs. Unit of analysis is the seed (10 seeds). Primary test: pai
 | Ablations `exp_ablations` | Is held-out skill caused by learning rather than scripts? | freezing learning: −0.409 [−0.425, −0.394] | passed | `reports/experiments/exp_ablations` |
 | Exp 2 `exp02_twin_tutoring` | Twin societies: does tutoring access raise held-out skill through learning? | +0.029 [+0.022, +0.037]; non-learning society: exactly 0 | passed (manipulation check **failed** as defined, §4) | `reports/experiments/exp02_twin_tutoring` |
 | Exp 3 `exp03_social_influence` (H2) | Do connected societies out-learn isolated ones; does misinformation hurt? | connected − isolated = −0.004 [−0.007, −0.000]; misinformation −0.002 (CI includes 0) | **FAILED** | `reports/experiments/exp03_social_influence` |
-| Exp 4–5 | midlife education, multigenerational | running at time of writing | pending | — |
+| Exp 4 `exp04_midlife_education` | Do adults adapt when education opens at 38–45? | −0.003 [−0.015, +0.007] after 5 years; non-learners exactly 0 | **FAILED** | `reports/experiments/exp04_midlife_education` |
+| Exp 5 `exp05_multigenerational` | inherited initial conditions vs acquired behaviour (cross-fostering) | running at time of writing | pending | — |
 | Exp 7b `exp07b_causal_grounding` | Can our estimator recover a randomised human effect (HeartSteps V1)? | +12.2% [−0.5%, +27.4%]; published +14% inside CI | passed (see caveat §5) | `reports/human_validation/exp07b_causal_grounding` |
 | Exp 7 `exp07_human_heldout` | Do our policy classes predict held-out human choices (Psych-101)? | MCPL (primary): developmental **worse** than instance-based, +0.229 nats [+0.171, +0.289]; IGT (secondary): developmental **best** of 8 models, −0.110 [−0.140, −0.083] | **FAILED** (primary); secondary passed | `reports/human_validation/exp07_human_heldout` |
 
@@ -156,6 +157,32 @@ demonstrations, and the social-learning pathway — which the learning-lab ablat
 never engages. H2 is therefore **not supported as built**; the next step is a mechanism fix (social
 reward shaping, friendship formation rates), re-tested under a new preregistration, not a re-analysis.
 70 main + 10 sensitivity runs, 1,681 s, 0 LLM calls.
+
+### Exp 4 — midlife education (failed)
+
+100 agents, 15 years, 10 paired seeds. Adult education opens for agents aged 38–45 from year 10 to
+year 15; primary metric is the cohort's held-out accuracy at year 15 (ages 43–50).
+
+| Arm | Accuracy before (year 10) | Accuracy after (year 15) | Cohort size | Employment after |
+|---|---|---|---|---|
+| dev_control | 0.802 [0.779, 0.830] | 0.806 [0.783, 0.834] | 12.3 | 0.677 |
+| dev_midlife | 0.802 [0.779, 0.828] | 0.803 [0.779, 0.832] | 12.3 | 0.706 |
+| static_control | 0.445 | 0.443 | 12.3 | 0.702 |
+| static_midlife | 0.445 | 0.443 | 12.3 | 0.702 |
+
+* Primary (dev_midlife − dev_control, threshold 0.02): **−0.0031 [−0.0145, +0.0073]**, p = 0.60 →
+  failed (the CI upper bound excludes the threshold, so this is a negative result, not an inconclusive one).
+* Pre-period balance (twins identical before the opportunity): −0.0004 [−0.0019, +0.0009] → passed.
+* Mechanism check (non-learning society): +0.0000 → passed.
+* Employment: +0.028 [−0.035, +0.102], exploratory, uninformative.
+
+**Reading.** In this world, adults do not measurably adapt to a late-life educational opportunity
+within five years. Two explanations cannot be separated by this design: (a) little headroom — the
+cohort already sits at 0.80, close to the within-family plateau of the learners (H1: 0.84–0.85 after
+300 episodes); (b) no uptake — whether treated adults actually chose to study was **not preregistered
+as a metric**, a design weakness. A follow-up needs an uptake manipulation check and a harder,
+non-stationary task where adults have something new to learn. 40 main runs plus sensitivity, 403 s,
+0 LLM calls.
 
 ## 5. Real human data
 
