@@ -102,6 +102,14 @@ rewarded-common > rewarded-rare, after unrewarded-rare > unrewarded-common) appe
 A mis-assigned action index or planet would destroy these patterns. The tune partition parses without exclusion
 and shows the same patterns (`two_step_tune.json`).
 
+**Amendment A3-1 §11 item 8 — the three conditions for counting `two_step`:**
+
+| Condition | Status | Source |
+|---|---|---|
+| parser reaches ≥ 95 % parse rate on dev | **met: 274 / 275 = 99.6 %** | `two_step_dev.json` (`parse_rate` 0.99636) |
+| encoding-leak check (`core.conformance.check_encoding_leak`, every input slot, threshold 0.98) is clean on dev | **met: no slot flagged** (also clean for restless4, garcia, described, horizon_external, spatial_bandit on dev) | `two_step_dev.json` (`encoding_leak_check: []`); the runner repeats the check per family in `run_info.json` |
+| the critic signs off | **open** — not this lane's to give | — |
+
 **Verdict of this lane: the `two_step` parser passes validation on dev** (one transcript excluded for corrupt
 outcome values). Whether `two_step` becomes a counted family is the director's decision, to be recorded before any
 freeze (thesis §3). Caveats for that decision: (i) the family mixes a one-stage and a two-stage design (one vs two

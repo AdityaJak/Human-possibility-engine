@@ -29,9 +29,11 @@
    }
   }
  },
+ "encoding_leak_check": [],
  "excluded": 0,
  "exclusion_notes": [],
  "family": "restless4",
+ "parse_rate": 1.0,
  "participants_parsed": 348,
  "partition": "dev",
  "per_experiment": {

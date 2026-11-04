@@ -20,7 +20,9 @@ import numpy as np
 
 from hpe.evaluation.human.psych101 import Participant
 from hpe.evaluation.human.psych101_v2 import GenericTrial, validate_generic
+from hpe.population.core.conformance import check_encoding_leak
 from hpe.population.core.data import load_participants
+from hpe.population.core.encoding import encode
 from hpe.population.core.families import get_family
 
 
@@ -99,13 +101,17 @@ def validate(family: str, partition: str) -> dict[str, Any]:
         raise ValueError("parser validation uses dev or tune only")
     spec = get_family(family)
     parts, excluded = load_participants(family, partition, experiment_id=f"validation_{family}")
+    n_total = len(parts) + len(excluded)
+    k_max = max(4, spec.n_actions)
     out: dict[str, Any] = {
         "family": family,
         "role": spec.role,
         "partition": partition,
         "participants_parsed": len(parts),
         "excluded": len(excluded),
+        "parse_rate": len(parts) / n_total if n_total else None,
         "exclusion_notes": excluded,
+        "encoding_leak_check": check_encoding_leak([encode(p, family, k_max) for p in parts]),
         "per_experiment": validate_generic(parts) if parts else {},
     }
     by_exp: dict[str, list[Participant]] = defaultdict(list)

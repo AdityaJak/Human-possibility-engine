@@ -394,11 +394,13 @@
    }
   }
  },
+ "encoding_leak_check": [],
  "excluded": 1,
  "exclusion_notes": [
   "kool2017cost/exp2.csv#43: outcome -165.0 outside the fixed range [0.0, 1.0]"
  ],
  "family": "two_step",
+ "parse_rate": 0.9963636363636363,
  "participants_parsed": 274,
  "partition": "dev",
  "per_experiment": {

@@ -85,9 +85,11 @@
    }
   }
  },
+ "encoding_leak_check": [],
  "excluded": 0,
  "exclusion_notes": [],
  "family": "horizon_external",
+ "parse_rate": 1.0,
  "participants_parsed": 72,
  "partition": "dev",
  "per_experiment": {

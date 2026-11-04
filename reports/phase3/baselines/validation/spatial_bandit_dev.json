@@ -141,9 +141,11 @@
    }
   }
  },
+ "encoding_leak_check": [],
  "excluded": 0,
  "exclusion_notes": [],
  "family": "spatial_bandit",
+ "parse_rate": 1.0,
  "participants_parsed": 214,
  "partition": "dev",
  "per_experiment": {
