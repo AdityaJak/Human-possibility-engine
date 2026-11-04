@@ -113,6 +113,7 @@ BB = {"hidden": 6, "lr": 0.01, "dropout": 0.0, "max_epochs": 3, "patience": 10, 
             },
         ),
         ("hb_cog", {"c": 0.1, "tau": 1.0, "state_features": [0]}),
+        ("gru_hb_mix", {"backbone": BB, "backbone_seed": 3, "w": 0.3, "c": 0.1, "state_features": [0]}),
         ("ref_gru_p2", {"hidden": 4, "lr": 0.01, "max_epochs": 2, "patience": 2}),
     ],
 )
