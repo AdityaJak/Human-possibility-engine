@@ -17,6 +17,22 @@ Live simulation jobs and experiment runs are **intentionally not exposed** on an
 are CPU-heavy, unauthenticated, and would let anyone write to research state. Reviewers who want live
 runs clone the repository and run `make demo` (one command, no API keys).
 
+## Status (2026-11-04)
+
+* **Static site: built and verified, publication blocked by one repository setting.** The `pages`
+  workflow run #1 built the site (57 MB) but failed at `actions/configure-pages`:
+  *"Create Pages site failed. Error: Resource not accessible by integration"* — the workflow token
+  cannot enable Pages. **Founder action:** repo **Settings → Pages → Build and deployment → Source:
+  "GitHub Actions"**, then re-run the `pages` workflow (Actions → pages → Re-run jobs) or push any
+  commit. The site will be at `https://adityajak.github.io/Human-possibility-engine/`.
+* **Verified locally on the exact static build** (`make static-site`, `vite preview`, Playwright):
+  9/9 routes render stored real outputs with 0 console errors and 0 failed requests; the Future Self
+  flow (consent → decision → three illustrative scenarios) completes in 9.2 s on first visit with the
+  repository's own Python engine running in the browser (Pyodide 0.27.7 + numpy 2.0.2 + pydantic
+  2.10.5 + our wheel, ≈10 MB downloaded once, then cached); no probability language in any scenario.
+* **Live API (Render) and Vercel front end: configuration verified, not deployed** — both need your
+  account (sections B and C).
+
 ## A. GitHub Pages — static site (automatic)
 
 The workflow `.github/workflows/pages.yml` (lane *static-site*) builds the web app in static mode on

@@ -21,6 +21,15 @@ Legend: **implemented** (code exists) · **tested** (tests pass in the integrate
 | 8 | NEXT_STEPS.md | implemented | `NEXT_STEPS.md` |
 | 9 | No invented results | enforced | evidence ledger generated from artifacts (`python -m hpe.ledger`); independent audit `reports/audit/AUDIT.md` |
 
+## Deployment (2026-11-04)
+
+| Target | Status | Evidence / blocker |
+|---|---|---|
+| GitHub Pages static site (dashboard + in-browser Future Self) | **built, verified locally; publication blocked by a repo setting** | `pages` workflow run #1: build OK (57 MB), `configure-pages` failed "Resource not accessible by integration". Founder: Settings → Pages → Source "GitHub Actions", re-run. Local verification of the exact build: 9/9 routes, 0 errors; Future Self end-to-end 9.2 s with real Pyodide engine (`docs/DEPLOYMENT.md`) |
+| Render (API, read-only) | config verified, **not deployed** (needs account) | `render.yaml`, `HPE_READ_ONLY=1` tested (405 on job endpoints), Dockerfile `$PORT`/healthcheck exercised outside Docker |
+| Vercel (web) | config verified, **not deployed** (needs account) | `apps/web/vercel.json` |
+| Local full stack | works | `make demo`, `make demo-check` 14/14 |
+
 ## Components
 
 | Component | Status | Notes |

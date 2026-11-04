@@ -65,6 +65,24 @@ Independent audit: [`reports/audit/AUDIT.md`](reports/audit/AUDIT.md).
 |---|---|
 | ![Evidence](docs/screenshots/evidence.png) | ![Future Self](docs/screenshots/future_self_welcome.png) |
 
+## Deployment
+
+* **Static site (GitHub Pages).** The whole research dashboard runs with no backend: every read
+  endpoint is pre-rendered from the committed stored real outputs by the real API code
+  (`scripts/export_static_api.py`), and Future Self runs the repository's own Python engine
+  (`hpe.futures`) in the browser via Pyodide, keeping user data in the browser. Built by
+  `.github/workflows/pages.yml`; URL `https://adityajak.github.io/Human-possibility-engine/` **once Pages
+  is enabled for the repository** (Settings → Pages → Source: GitHub Actions — the workflow token
+  cannot do this itself). Verified on the exact build locally: 9/9 routes, Future Self end to end in
+  9.2 s, zero errors (`docs/DEPLOYMENT.md`).
+* **Live API + web app** (interactive simulations, experiment runs): `render.yaml` and
+  `apps/web/vercel.json` are ready; they need your Render/Vercel accounts. Public deployments run the
+  API in read-only mode (`HPE_READ_ONLY=1`): no simulation or experiment jobs are exposed.
+
+| Future Self on the static build (real engine in the browser) |
+|---|
+| ![Future Self scenarios](docs/screenshots/future_self_scenarios.png) |
+
 ## Install and run (one machine, no API keys, works offline)
 
 Requirements: Python ≥ 3.12, [uv](https://docs.astral.sh/uv/), Node 22.
