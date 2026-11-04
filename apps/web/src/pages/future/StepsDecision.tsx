@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/client";
 import type { Calculation, DecisionOption, DecisionRequest } from "../../types/contracts";
 import { ErrorState } from "../../components/AsyncState";
+import { EngineStatus } from "../../components/EngineStatus";
 import { EvidenceChip, EvidenceLegend, EvidenceTable } from "../../components/Evidence";
 import { IllustrativeBadge } from "../../components/Badges";
 import { GuardedText, ScenarioCard } from "../../components/ScenarioCard";
@@ -246,6 +247,7 @@ export function DecisionStudio() {
         </button>
       </div>
       {!valid && <small>Write a question and name at least two options.</small>}
+      <EngineStatus active={busy} />
       {err && <ErrorState error={err} title="Scenarios could not be generated" />}
     </form>
   );
