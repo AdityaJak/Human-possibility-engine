@@ -79,15 +79,24 @@ Budgets are updated by each lane in its handoff from measured wall/CPU time.
 | X-001 | 2026-11-04 | director | Stage 1 reproduction of all Phase I results | committed artifacts | every `result.json` byte-identical on re-analysis | `reports/phase2/stage1_reproduction.json` |
 | X-003 | 2026-11-04 | cognitive-architecture | Candidate A (`hybrid_exemplar`) vs references on human MCPL/IGT | Psych-101 **dev** participants (MCPL 93, IGT 204); tuned on tune | MCPL: hybrid 1.436 vs instance-based 1.476, paired −0.040 [−0.062, −0.016], 62% better; fixed-gate control +0.009 [−0.011, +0.027] and no-ordinal −0.002 [−0.048, +0.044] lose the advantage; exemplar-only −0.027 [−0.054, +0.000]. IGT: hybrid 1.151 vs developmental 1.153 (−0.002 [−0.005, +0.001]), vs instance-based −0.127. **Grids unequal (12 vs 9 MCPL; 48 for one IGT reference)** — re-tune to parity before any freeze | `reports/phase2/cognitive/human_dev/{mcpl,igt}/` |
 | X-004 | 2026-11-04 | cognitive-architecture | Candidate A on synthetic v2 families (conjunction, context_switch, nonstationary, delayed, ordinal_cue) | dev seeds, 5 × 6 agents | beats developmental/plain_rl on 4/5 families (conjunction +0.127 [+0.108, +0.142]) but ≤ best exemplar baseline on 3/5 (conjunction −0.027, context_switch −0.032, ordinal_cue −0.122 [−0.183, −0.064]); `delayed` best (0.919); regime recovery 0.342 → 0.614; no architecture exceeds 0.68 on conjunction. **Gate B would fail on synthetic** | `reports/phase2/cognitive/synthetic_dev/` |
+| X-005 | 2026-11-04 | causal | Is the WCLS estimator valid at HeartSteps scale? | synthetic MRTs, 500 replicates × 6 scenarios | bias ≤ 0.003; 95% coverage 0.932–0.962; type I 0.044; power 0.71 at β₀ = 0.115, 0.26 at 0.06; moderators of 0.20 detected 50–74% | `reports/phase2/causal/simulation_validation.json` |
+| X-006 | 2026-11-04 | causal | HTE on HeartSteps **dev** (22 participants) | dev | marginal +0.080 [−0.085, +0.288]; no moderator survives Holm; `weekend` selected by the pre-fixed rule (β₁ = −0.366, raw p 0.099) | `reports/phase2/causal/hte_dev.json` |
 | X-002 | 2026-11-04 | director | Where does the Phase I learner lose/gain likelihood vs the instance-based model? | Phase I exp07 per-participant metrics, **dev+tune participants only** (125 MCPL, 274 IGT participant×split rows) | MCPL gap +0.237 (sd 0.262), developmental better for 16%; gap grows with participant predictability (r = +0.77; top tercile +0.488, bottom +0.031). IGT gap −0.123, developmental better for 64%, all terciles, largest for least predictable (−0.166) | `reports/phase2/diagnostics/exp07_dev_diagnosis.json` |
 
 ## 4. Confirmatory ledger
 
 | id | preregistration hash | gate | frozen on | evaluated on | verdict | artifact |
 |---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — |
+| C-001 | `experiments/phase2/causal/hte_confirm.yaml` | (causal validity; not a gate) | 2026-11-04, before the test run | HeartSteps **test** (15 participants; partition sha `02bd974e…`) | **not supported**: `weekend` β₁ = −0.088, Holm p 0.667, CI [−0.443, +0.306]; marginal +0.149 (+16.1%) [−0.007, +0.310] | `reports/phase2/causal/hte_test.json` |
+| C-002 | `experiments/phase2/causal/ope_confirm.yaml` | (causal validity; not Gate E) | 2026-11-04, before the test run | HeartSteps **test**, doubly robust, participant-clustered bootstrap | passed as pre-specified (contextual − never +0.188 [+0.066, +0.324]); always − never +0.167 [+0.018, +0.320]; **contextual − always +0.021 [−0.107, +0.156]**: tailoring adds nothing over always-send | `reports/phase2/causal/ope_test.json` |
 
-No confirmatory evaluation has been run in Phase II.
+**Protocol deviations recorded for C-001/C-002.** Both were run by the causal lane itself (rule 5
+requires the director to run and the critic to reproduce); the critic's re-run is pending. The OPE
+test evaluation was executed twice (`--force`, recorded) to add the vs-always contrast; all numbers
+reproduced exactly under the fixed seed. Neither row bears on Gates A–F; Gate E (prospective
+improvement) has not started and cannot be inferred from retrospective OPE.
+
+No gate-bearing confirmatory evaluation has been run in Phase II.
 
 Drafts (not frozen; no test access permitted): `experiments/phase2/confirmatory/gateD_v2.yaml` —
 Gate D for Candidate A with a **pristine primary family** (`experience_based_choice`), secondary
