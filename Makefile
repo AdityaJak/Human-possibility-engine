@@ -113,5 +113,9 @@ audit: ## Dependency vulnerability audit (Python locked deps + npm production de
 	uvx pip-audit==2.9.0 --disable-pip --require-hashes -r data/requirements.lock.txt
 	cd $(WEB) && $(NPM) audit --omit=dev --audit-level=high
 
+e2e-deployed: ## Browser e2e against a deployed site: make e2e-deployed BASE=https://adityajak.github.io/Human-possibility-engine/
+	NODE_PATH=$$(npm root -g) node scripts/e2e/routes.js $(BASE)
+	NODE_PATH=$$(npm root -g) node scripts/e2e/future_self.js $(BASE)
+
 clean: ## Remove runtime data and caches (never touches reports/)
 	rm -rf data .pytest_cache .mypy_cache .ruff_cache $(WEB)/dist

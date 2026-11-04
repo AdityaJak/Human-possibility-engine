@@ -64,7 +64,33 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
       - run: echo "Deployed to ${{ steps.deployment.outputs.page_url }}"
+
+  # Browser end-to-end verification of the LIVE deployment (read-only routes + the Future Self flow
+  # running the real in-browser engine). Fails loudly if the published site does not work.
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright
+        run: |
+          mkdir -p /tmp/pw && cd /tmp/pw && npm init -y >/dev/null && npm i playwright@1.49.1 --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Wait for the site to serve the new build
+        run: |
+          for i in $(seq 1 30); do
+            curl -fsS -o /dev/null "${{ needs.deploy.outputs.page_url }}api/health.json" && break; sleep 10; done
+      - name: Read-only routes
+        run: NODE_PATH=/tmp/pw/node_modules node scripts/e2e/routes.js "${{ needs.deploy.outputs.page_url }}"
+      - name: Future Self flow (real engine in the browser)
+        run: NODE_PATH=/tmp/pw/node_modules node scripts/e2e/future_self.js "${{ needs.deploy.outputs.page_url }}"
