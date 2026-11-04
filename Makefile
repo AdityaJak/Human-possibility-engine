@@ -84,6 +84,7 @@ demo: ## Full local stack: API + built web app (Ctrl-C to stop); OFFLINE=1 for n
 static-site: ## Pre-render the read-only API + build the static web app (GitHub Pages deployment; BASE=/path/ optional)
 	$(PY) scripts/export_static_api.py --out $(WEB)/public/api
 	cd $(WEB) && VITE_API_MODE=static VITE_BASE_PATH=$(or $(BASE),/) $(NPM) run build && cp dist/index.html dist/404.html
+	$(PY) scripts/static_routes.py --dist $(WEB)/dist --web $(WEB)
 	@echo "static site built in $(WEB)/dist — preview: cd $(WEB) && npx vite preview --port 4173"
 
 demo-check: ## Headless full-stack smoke: start API + web, walk the demo endpoints, shut down

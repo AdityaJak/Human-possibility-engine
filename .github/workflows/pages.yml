@@ -49,6 +49,7 @@ jobs:
           npm ci --no-audit --no-fund
           npm run build
           cp dist/index.html dist/404.html
+          ../../.venv/bin/python ../../scripts/static_routes.py --dist dist --web .
           du -sh dist
       - uses: actions/configure-pages@v5
         with:
