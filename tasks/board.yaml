@@ -1,7 +1,7 @@
 # Machine-readable task board (spec §47C). Status: todo | in_progress | review | done | blocked
 # Owner = lane branch. "done" requires the acceptance test to pass in the integrated branch.
 version: 1
-updated: 2026-11-04
+updated: 2026-11-04 (dev, backend, evaluation, frontend merged)
 tasks:
   - id: T00-contracts
     title: Freeze v0.1 contracts (schemas, Policy protocol, World/Sink protocols, registry, TS/JSON export)
@@ -20,7 +20,7 @@ tasks:
     owner: research/development
     depends_on: [T00-contracts, T01-tasks]
     acceptance: "pytest tests/development; conformance with check_learning=True; parameters change only with learning enabled"
-    status: in_progress
+    status: review
   - id: T20-world
     title: Society kernel (households, lifecycle, school, tutoring, jobs, economy, social net, shocks, interventions, map frames, assessments, snapshots, determinism)
     owner: sim/world
@@ -32,13 +32,13 @@ tasks:
     owner: science/evaluation
     depends_on: [T00-contracts, T01-tasks]
     acceptance: "pytest tests/evaluation -k baselines"
-    status: in_progress
+    status: review
   - id: T31-stats-runner
     title: Statistics (paired bootstrap, permutation, effect sizes, Holm, calibration), preregistered experiment runner, report regeneration from raw logs
     owner: science/evaluation
     depends_on: [T30-baselines]
     acceptance: "pytest tests/evaluation; report regenerated from raw outcomes equals stored result"
-    status: in_progress
+    status: review
   - id: T32-learning-lab
     title: Exp1 acquired learning, Exp6 transfer (+ orthogonal control), baseline comparison and ablations in controlled learning lab
     owner: science/evaluation
@@ -56,7 +56,7 @@ tasks:
     owner: platform/backend
     depends_on: [T00-contracts]
     acceptance: "pytest tests/storage"
-    status: in_progress
+    status: review
   - id: T41-api
     title: FastAPI endpoints per docs/INTERFACES.md §4, job queue, interactive runs, quotas/rate limits, OpenAPI export
     owner: platform/backend
@@ -68,13 +68,13 @@ tasks:
     owner: platform/backend
     depends_on: [T00-contracts]
     acceptance: "pytest tests/futures; import-boundary test (no hpe.world/development/evaluation imports)"
-    status: in_progress
+    status: review
   - id: T50-web
     title: Research dashboard (live society map, agent inspector, proof of learning, twin experiment, evidence, benchmarks) + Future Self app + investor demo route
     owner: product/frontend
     depends_on: [T00-contracts]
     acceptance: "npm run lint && npm run typecheck && npm test && npm run build; e2e against real API"
-    status: in_progress
+    status: review
   - id: T60-infra
     title: CI (python+web), Dockerfiles + docker-compose, make demo, scale benchmarks (1k, 10k) with disclosed hardware
     owner: infra/release
