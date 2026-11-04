@@ -31,6 +31,7 @@ import type {
   WorldTick,
 } from "../types/contracts";
 import { apiBaseUrl, isMockMode, isStaticMode } from "./config";
+import { staticDownloadUrl } from "./static/get";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -199,7 +200,7 @@ export const api = {
     request<FramesResponse>("GET", `/runs/${enc(id)}/frames`, { query: { ...p }, signal }),
   getTimeseries: (id: string, signal?: AbortSignal) =>
     request<TimeSeriesResponse>("GET", `/runs/${enc(id)}/timeseries`, { signal }),
-  downloadUrl: (id: string) => `${apiBaseUrl()}/runs/${enc(id)}/download`,
+  downloadUrl: (id: string) => (isStaticMode() ? staticDownloadUrl(id) : `${apiBaseUrl()}/runs/${enc(id)}/download`),
 
   // ---- experiments --------------------------------------------------------------
   listExperiments: (signal?: AbortSignal) => request<ExperimentInfo[]>("GET", "/experiments", { signal }),

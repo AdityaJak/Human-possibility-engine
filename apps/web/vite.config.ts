@@ -1,8 +1,11 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+// VITE_BASE_PATH="/Human-possibility-engine/" for GitHub Pages; "/" (default) elsewhere.
+// loadEnv also picks up VITE_-prefixed process.env variables, so no Node typings are needed.
+export default defineConfig(({ mode }) => ({
+  base: loadEnv(mode, ".", "VITE_").VITE_BASE_PATH || "/",
   plugins: [react()],
   server: { host: "127.0.0.1", port: 5173, strictPort: true },
   preview: { host: "127.0.0.1", port: 4173 },
@@ -26,4 +29,4 @@ export default defineConfig({
     restoreMocks: true,
     unstubEnvs: true,
   },
-});
+}));

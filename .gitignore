@@ -26,6 +26,8 @@ datasets/external/
 # Node / web
 node_modules/
 apps/web/dist/
+apps/web/public/api/
+apps/web/public/wheels/
 apps/web/.vite/
 *.tsbuildinfo
 
