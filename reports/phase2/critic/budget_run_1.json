@@ -1,0 +1,49 @@
+{
+ "check": "budget",
+ "registry": "docs/phase2/EXPERIMENT_REGISTRY.md",
+ "lanes": [
+  {
+   "lane": "affective",
+   "budget_cpu_h": 6.0,
+   "spent_cpu_h": 0.0,
+   "sources": 0,
+   "over": false
+  },
+  {
+   "lane": "causal",
+   "budget_cpu_h": 3.0,
+   "spent_cpu_h": 0.0,
+   "sources": 0,
+   "over": false
+  },
+  {
+   "lane": "cognitive-architecture",
+   "budget_cpu_h": 12.0,
+   "spent_cpu_h": 0.0,
+   "sources": 0,
+   "over": false
+  },
+  {
+   "lane": "critic",
+   "budget_cpu_h": 6.0,
+   "spent_cpu_h": 0.0,
+   "sources": 0,
+   "over": false
+  },
+  {
+   "lane": "human-validation",
+   "budget_cpu_h": 8.0,
+   "spent_cpu_h": 0.0,
+   "sources": 0,
+   "over": false
+  },
+  {
+   "lane": "social-developmental",
+   "budget_cpu_h": 8.0,
+   "spent_cpu_h": 0.0,
+   "sources": 0,
+   "over": false
+  }
+ ],
+ "ok": true
+}

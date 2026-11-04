@@ -1,0 +1,122 @@
+{
+ "mcpl": {
+  "terciles": {
+   "low": {
+    "developmental": 2.098076521862915,
+    "ref_instance_based": 2.066711062429955,
+    "memory_only": 2.2061557816406006,
+    "plain_rl": 2.020481660995885,
+    "n": 43,
+    "mean_ref_top1": 0.3153376292658396
+   },
+   "mid": {
+    "developmental": 1.596260286873712,
+    "ref_instance_based": 1.4028488434231157,
+    "memory_only": 1.4460192351665557,
+    "plain_rl": 1.6107087729146066,
+    "n": 40,
+    "mean_ref_top1": 0.5901236484932137
+   },
+   "high": {
+    "developmental": 1.468954644909086,
+    "ref_instance_based": 0.9807955574523624,
+    "memory_only": 0.8472984405861241,
+    "plain_rl": 1.657244770920537,
+    "n": 42,
+    "mean_ref_top1": 0.8263626666447579
+   }
+  },
+  "corr_gap_vs_ref_top1": 0.7748085975758683,
+  "corr_gap_vs_independent_predictability": 0.663783016277354,
+  "alt_model": "ref_population_static",
+  "corr_gap_vs_dev_own_top1": 0.4866840466730725,
+  "fitted_lapse_by_split": {
+   "1": {
+    "developmental": 0.3,
+    "ref_instance_based": 0.1
+   },
+   "2": {
+    "developmental": 0.3,
+    "ref_instance_based": 0.1
+   },
+   "20261104": {
+    "developmental": 0.3,
+    "ref_instance_based": 0.1
+   }
+  },
+  "nll_floor_for_perfectly_predictable_participant": {
+   "1": {
+    "developmental": 0.3101549283038396,
+    "ref_instance_based": 0.09309042306601198
+   },
+   "2": {
+    "developmental": 0.3101549283038396,
+    "ref_instance_based": 0.09309042306601198
+   },
+   "20261104": {
+    "developmental": 0.3101549283038396,
+    "ref_instance_based": 0.09309042306601198
+   }
+  }
+ },
+ "igt": {
+  "terciles": {
+   "low": {
+    "developmental": 1.2378732283347518,
+    "ref_instance_based": 1.403644061838924,
+    "memory_only": 1.3445010481424726,
+    "plain_rl": 1.3710610536608403,
+    "n": 92,
+    "mean_ref_top1": 0.24557176455631832
+   },
+   "mid": {
+    "developmental": 1.2274925485214325,
+    "ref_instance_based": 1.2932140796922473,
+    "memory_only": 1.3252651597378458,
+    "plain_rl": 1.3434064228409985,
+    "n": 91,
+    "mean_ref_top1": 0.37457971852708694
+   },
+   "high": {
+    "developmental": 0.9741541422002876,
+    "ref_instance_based": 1.110688396567349,
+    "memory_only": 1.1145334157648144,
+    "plain_rl": 1.272609813883079,
+    "n": 91,
+    "mean_ref_top1": 0.5946306471306472
+   }
+  },
+  "corr_gap_vs_ref_top1": -0.11159033159272702,
+  "corr_gap_vs_independent_predictability": 0.3796517656905307,
+  "alt_model": "ref_bias",
+  "corr_gap_vs_dev_own_top1": -0.7822840121012923,
+  "fitted_lapse_by_split": {
+   "1": {
+    "developmental": 0.0,
+    "ref_instance_based": 0.3
+   },
+   "2": {
+    "developmental": 0.01,
+    "ref_instance_based": 0.3
+   },
+   "20261104": {
+    "developmental": 0.0,
+    "ref_instance_based": 0.3
+   }
+  },
+  "nll_floor_for_perfectly_predictable_participant": {
+   "1": {
+    "developmental": -0.0,
+    "ref_instance_based": 0.25489224962879015
+   },
+   "2": {
+    "developmental": 0.007528266420791636,
+    "ref_instance_based": 0.25489224962879015
+   },
+   "20261104": {
+    "developmental": -0.0,
+    "ref_instance_based": 0.25489224962879015
+   }
+  }
+ }
+}
