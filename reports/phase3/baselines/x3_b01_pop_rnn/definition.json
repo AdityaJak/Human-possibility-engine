@@ -1,0 +1,84 @@
+{
+ "experiment_id": "x3_b01_pop_rnn",
+ "title": "Population RNN comparators (pop_gru, pop_lstm) on the counted families, tune partition",
+ "lane": "science/validation-v3",
+ "hypothesis": "(Exploratory.) Establish the tune NLL of the core population RNN comparators under equal caps.",
+ "families": [
+  "restless4",
+  "garcia",
+  "described"
+ ],
+ "fit_partition": "dev",
+ "select_partition": "tune",
+ "report_partition": "tune",
+ "seed": 20261108,
+ "threads": 2,
+ "k_max": 4,
+ "lapse_grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.3
+ ],
+ "max_configs": 24,
+ "budget_s_per_model_family": 2700.0,
+ "models": {
+  "pop_gru": {
+   "grid": {
+    "hidden": [
+     16,
+     32,
+     64
+    ],
+    "lr": [
+     0.003,
+     0.01
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  },
+  "pop_lstm": {
+   "grid": {
+    "hidden": [
+     16,
+     32,
+     64
+    ],
+    "lr": [
+     0.003,
+     0.01
+    ],
+    "dropout": [
+     0.0,
+     0.2
+    ]
+   },
+   "fixed": {
+    "max_epochs": 150,
+    "patience": 10,
+    "batch_size": 8
+   },
+   "role": "comparator",
+   "variants": [],
+   "families": null
+  }
+ },
+ "notes": [
+  "Trainer defaults per director commit 8a3d72cb; budget 2700 CPU-s per model and family (configurations past the budget are recorded as skipped)."
+ ],
+ "preregistration_hash": "1fdee043df77ef13"
+}

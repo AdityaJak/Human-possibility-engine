@@ -1,0 +1,234 @@
+{
+ "details": {
+  "schulz2020finding/exp1.csv": {
+   "free_steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   },
+   "normalised_reward": {
+    "max": 0.973628210506,
+    "mean": 0.7492741480793483,
+    "median": 0.831745346378,
+    "min": 0.028451536798000002,
+    "q25": 0.715865946588,
+    "q75": 0.895362705507
+   },
+   "p_action0": 0.3314393939393939,
+   "participants": 44,
+   "steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   }
+  },
+  "schulz2020finding/exp2.csv": {
+   "free_steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   },
+   "normalised_reward": {
+    "max": 0.979304401654,
+    "mean": 0.708942453650934,
+    "median": 0.8100322787199999,
+    "min": 0.0321893781,
+    "q25": 0.63505825869,
+    "q75": 0.8754291449030001
+   },
+   "p_action0": 0.2786206896551724,
+   "participants": 29,
+   "steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   }
+  },
+  "schulz2020finding/exp3.csv": {
+   "free_steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   },
+   "normalised_reward": {
+    "max": 0.9753768966799999,
+    "mean": 0.6856041993982656,
+    "median": 0.803583641023,
+    "min": 0.027171546916,
+    "q25": 0.5454242258475,
+    "q75": 0.874028252527
+   },
+   "p_action0": 0.3025925925925926,
+   "participants": 45,
+   "steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   }
+  },
+  "schulz2020finding/exp4.csv": {
+   "free_steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   },
+   "normalised_reward": {
+    "max": 0.973848207578,
+    "mean": 0.7200773707148634,
+    "median": 0.817730773927,
+    "min": 0.030790820702,
+    "q25": 0.637490400652,
+    "q75": 0.8839583895444999
+   },
+   "p_action0": 0.27825,
+   "participants": 40,
+   "steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   }
+  },
+  "schulz2020finding/exp5.csv": {
+   "free_steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   },
+   "normalised_reward": {
+    "max": 0.972164504772172,
+    "mean": 0.7409955086176184,
+    "median": 0.811639835719726,
+    "min": 0.029178082168701002,
+    "q25": 0.6986342788689395,
+    "q75": 0.867544301638227
+   },
+   "p_action0": 0.07154761904761905,
+   "participants": 56,
+   "steps_per_participant": {
+    "max": 300.0,
+    "mean": 300.0,
+    "median": 300.0,
+    "min": 300.0,
+    "q25": 300.0,
+    "q75": 300.0
+   }
+  }
+ },
+ "encoding_leak_check": [],
+ "excluded": 0,
+ "exclusion_notes": [],
+ "family": "spatial_bandit",
+ "parse_rate": 1.0,
+ "participants_parsed": 214,
+ "partition": "dev",
+ "per_experiment": {
+  "schulz2020finding/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 13200
+   },
+   "free_trials_per_participant": [
+    300,
+    300
+   ],
+   "mean_normalised_reward": 0.7492741480793483,
+   "n_blocks": 30,
+   "participants": 44,
+   "trials_per_participant": [
+    300,
+    300
+   ]
+  },
+  "schulz2020finding/exp2.csv": {
+   "feedback_modes": {
+    "bandit": 8700
+   },
+   "free_trials_per_participant": [
+    300,
+    300
+   ],
+   "mean_normalised_reward": 0.708942453650934,
+   "n_blocks": 30,
+   "participants": 29,
+   "trials_per_participant": [
+    300,
+    300
+   ]
+  },
+  "schulz2020finding/exp3.csv": {
+   "feedback_modes": {
+    "bandit": 13500
+   },
+   "free_trials_per_participant": [
+    300,
+    300
+   ],
+   "mean_normalised_reward": 0.6856041993982656,
+   "n_blocks": 30,
+   "participants": 45,
+   "trials_per_participant": [
+    300,
+    300
+   ]
+  },
+  "schulz2020finding/exp4.csv": {
+   "feedback_modes": {
+    "bandit": 12000
+   },
+   "free_trials_per_participant": [
+    300,
+    300
+   ],
+   "mean_normalised_reward": 0.7200773707148634,
+   "n_blocks": 30,
+   "participants": 40,
+   "trials_per_participant": [
+    300,
+    300
+   ]
+  },
+  "schulz2020finding/exp5.csv": {
+   "feedback_modes": {
+    "bandit": 16800
+   },
+   "free_trials_per_participant": [
+    300,
+    300
+   ],
+   "mean_normalised_reward": 0.7409955086176184,
+   "n_blocks": 30,
+   "participants": 56,
+   "trials_per_participant": [
+    300,
+    300
+   ]
+  }
+ },
+ "role": "secondary"
+}

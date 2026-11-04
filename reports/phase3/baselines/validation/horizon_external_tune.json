@@ -1,0 +1,144 @@
+{
+ "details": {
+  "feng2021dynamics/exp1.csv": {
+   "free_steps_per_participant": {
+    "max": 1120.0,
+    "mean": 1120.0,
+    "median": 1120.0,
+    "min": 1120.0,
+    "q25": 1120.0,
+    "q75": 1120.0
+   },
+   "normalised_reward": {
+    "max": 0.99,
+    "mean": 0.5238208333333334,
+    "median": 0.52,
+    "min": 0.01,
+    "q25": 0.4,
+    "q75": 0.64
+   },
+   "p_action0": 0.49142857142857144,
+   "participants": 5,
+   "steps_per_participant": {
+    "max": 2400.0,
+    "mean": 2400.0,
+    "median": 2400.0,
+    "min": 2400.0,
+    "q25": 2400.0,
+    "q75": 2400.0
+   }
+  },
+  "sadeghiyeh2020temporal/exp1.csv": {
+   "free_steps_per_participant": {
+    "max": 430.0,
+    "mean": 315.1875,
+    "median": 322.5,
+    "min": 196.0,
+    "q25": 288.25,
+    "q75": 348.5
+   },
+   "normalised_reward": {
+    "max": 0.99,
+    "mean": 0.5123781784558483,
+    "median": 0.51,
+    "min": 0.01,
+    "q25": 0.4,
+    "q75": 0.63
+   },
+   "p_action0": 0.47808843942097956,
+   "participants": 16,
+   "steps_per_participant": {
+    "max": 910.0,
+    "mean": 675.9375,
+    "median": 700.0,
+    "min": 440.0,
+    "q25": 591.25,
+    "q75": 758.75
+   }
+  },
+  "somerville2017charting/exp1.csv": {
+   "free_steps_per_participant": {
+    "max": 560.0,
+    "mean": 560.0,
+    "median": 560.0,
+    "min": 560.0,
+    "q25": 560.0,
+    "q75": 560.0
+   },
+   "normalised_reward": {
+    "max": 0.99,
+    "mean": 0.5255562500000001,
+    "median": 0.53,
+    "min": 0.01,
+    "q25": 0.4,
+    "q75": 0.65
+   },
+   "p_action0": 0.5239955357142857,
+   "participants": 16,
+   "steps_per_participant": {
+    "max": 1200.0,
+    "mean": 1200.0,
+    "median": 1200.0,
+    "min": 1200.0,
+    "q25": 1200.0,
+    "q75": 1200.0
+   }
+  }
+ },
+ "excluded": 0,
+ "exclusion_notes": [],
+ "family": "horizon_external",
+ "participants_parsed": 37,
+ "partition": "tune",
+ "per_experiment": {
+  "feng2021dynamics/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 12000
+   },
+   "free_trials_per_participant": [
+    1120,
+    1120
+   ],
+   "mean_normalised_reward": 0.5238208333333334,
+   "n_blocks": 320,
+   "participants": 5,
+   "trials_per_participant": [
+    2400,
+    2400
+   ]
+  },
+  "sadeghiyeh2020temporal/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 10815
+   },
+   "free_trials_per_participant": [
+    196,
+    430
+   ],
+   "mean_normalised_reward": 0.5123781784558483,
+   "n_blocks": 120,
+   "participants": 16,
+   "trials_per_participant": [
+    440,
+    910
+   ]
+  },
+  "somerville2017charting/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 19200
+   },
+   "free_trials_per_participant": [
+    560,
+    560
+   ],
+   "mean_normalised_reward": 0.5255562500000001,
+   "n_blocks": 160,
+   "participants": 16,
+   "trials_per_participant": [
+    1200,
+    1200
+   ]
+  }
+ },
+ "role": "external"
+}

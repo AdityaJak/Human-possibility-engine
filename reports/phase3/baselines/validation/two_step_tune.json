@@ -1,0 +1,488 @@
+{
+ "details": {
+  "kool2016when/exp1.csv": {
+   "common_transition_fraction": {
+    "max": 1.0,
+    "mean": 1.0,
+    "median": 1.0,
+    "min": 1.0,
+    "q25": 1.0,
+    "q75": 1.0
+   },
+   "days_seen": {
+    "max": 125.0,
+    "mean": 125.0,
+    "median": 125.0,
+    "min": 125.0,
+    "q25": 125.0,
+    "q75": 125.0
+   },
+   "design": [
+    "one_stage"
+   ],
+   "free_steps_per_participant": {
+    "max": 125.0,
+    "mean": 119.55555555555556,
+    "median": 122.0,
+    "min": 98.0,
+    "q25": 119.0,
+    "q75": 123.25
+   },
+   "missed_stage1_per_participant": {
+    "max": 27.0,
+    "mean": 5.444444444444445,
+    "median": 3.0,
+    "min": 0.0,
+    "q25": 1.75,
+    "q75": 6.0
+   },
+   "missed_stage2_per_participant": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 0.0
+   },
+   "normalised_reward": {
+    "max": 1.0,
+    "mean": 0.5308498554316399,
+    "median": 0.5555555555555556,
+    "min": 0.0,
+    "q25": 0.3333333333333333,
+    "q75": 0.7777777777777778
+   },
+   "p_action0": 0.4888475836431227,
+   "participants": 36,
+   "stay_signature": {
+    "one_stage:same_pair|prev_neg": {
+     "mean_stay": 0.37023769809822216,
+     "participants": 36
+    },
+    "one_stage:same_pair|prev_pos": {
+     "mean_stay": 0.8332723920848607,
+     "participants": 36
+    },
+    "one_stage:same_pair|prev_zero": {
+     "mean_stay": 0.6118125701459035,
+     "participants": 36
+    }
+   },
+   "steps_per_participant": {
+    "max": 125.0,
+    "mean": 119.55555555555556,
+    "median": 122.0,
+    "min": 98.0,
+    "q25": 119.0,
+    "q75": 123.25
+   }
+  },
+  "kool2016when/exp2.csv": {
+   "common_transition_fraction": {
+    "max": 0.8846153846153846,
+    "mean": 0.6967914516421717,
+    "median": 0.696969696969697,
+    "min": 0.5185185185185185,
+    "q25": 0.6592405618964003,
+    "q75": 0.7402548725637181
+   },
+   "days_seen": {
+    "max": 125.0,
+    "mean": 125.0,
+    "median": 125.0,
+    "min": 125.0,
+    "q25": 125.0,
+    "q75": 125.0
+   },
+   "design": [
+    "two_stage"
+   ],
+   "free_steps_per_participant": {
+    "max": 250.0,
+    "mean": 246.44736842105263,
+    "median": 248.0,
+    "min": 205.0,
+    "q25": 246.0,
+    "q75": 250.0
+   },
+   "missed_stage1_per_participant": {
+    "max": 22.0,
+    "mean": 1.3157894736842106,
+    "median": 0.5,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 1.0
+   },
+   "missed_stage2_per_participant": {
+    "max": 4.0,
+    "mean": 0.9210526315789473,
+    "median": 0.5,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 1.0
+   },
+   "normalised_reward": {
+    "max": 1.0,
+    "mean": 0.5091103965702036,
+    "median": 1.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 1.0
+   },
+   "p_action0": 0.5080619327282435,
+   "participants": 38,
+   "stay_signature": {
+    "two_stage:prev_r0|common": {
+     "mean_stay": 0.6138744854948195,
+     "participants": 38
+    },
+    "two_stage:prev_r0|rare": {
+     "mean_stay": 0.6403714629328954,
+     "participants": 38
+    },
+    "two_stage:prev_r1|common": {
+     "mean_stay": 0.7386410392454563,
+     "participants": 38
+    },
+    "two_stage:prev_r1|rare": {
+     "mean_stay": 0.6986652364332915,
+     "participants": 38
+    }
+   },
+   "steps_per_participant": {
+    "max": 250.0,
+    "mean": 246.44736842105263,
+    "median": 248.0,
+    "min": 205.0,
+    "q25": 246.0,
+    "q75": 250.0
+   }
+  },
+  "kool2017cost/exp1.csv": {
+   "common_transition_fraction": {
+    "max": 1.0,
+    "mean": 1.0,
+    "median": 1.0,
+    "min": 1.0,
+    "q25": 1.0,
+    "q75": 1.0
+   },
+   "days_seen": {
+    "max": 200.0,
+    "mean": 200.0,
+    "median": 200.0,
+    "min": 200.0,
+    "q25": 200.0,
+    "q75": 200.0
+   },
+   "design": [
+    "one_stage"
+   ],
+   "free_steps_per_participant": {
+    "max": 200.0,
+    "mean": 193.94736842105263,
+    "median": 196.0,
+    "min": 153.0,
+    "q25": 195.0,
+    "q75": 198.0
+   },
+   "missed_stage1_per_participant": {
+    "max": 47.0,
+    "mean": 6.052631578947368,
+    "median": 4.0,
+    "min": 0.0,
+    "q25": 2.0,
+    "q75": 5.0
+   },
+   "missed_stage2_per_participant": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 0.0
+   },
+   "normalised_reward": {
+    "max": 1.0,
+    "mean": 0.5351726217397859,
+    "median": 0.5555555555555556,
+    "min": 0.0,
+    "q25": 0.3333333333333333,
+    "q75": 0.7777777777777778
+   },
+   "p_action0": 0.519674355495251,
+   "participants": 19,
+   "stay_signature": {
+    "one_stage:same_pair|prev_pos": {
+     "mean_stay": 0.6705093436333733,
+     "participants": 19
+    },
+    "one_stage:same_pair|prev_zero": {
+     "mean_stay": 0.40217209690893896,
+     "participants": 19
+    }
+   },
+   "steps_per_participant": {
+    "max": 200.0,
+    "mean": 193.94736842105263,
+    "median": 196.0,
+    "min": 153.0,
+    "q25": 195.0,
+    "q75": 198.0
+   }
+  },
+  "kool2017cost/exp2.csv": {
+   "common_transition_fraction": {
+    "max": 0.7857142857142857,
+    "mean": 0.7108035573590054,
+    "median": 0.7227443609022557,
+    "min": 0.5714285714285714,
+    "q25": 0.681002331002331,
+    "q75": 0.7478932584269663
+   },
+   "days_seen": {
+    "max": 200.0,
+    "mean": 200.0,
+    "median": 200.0,
+    "min": 200.0,
+    "q25": 200.0,
+    "q75": 200.0
+   },
+   "design": [
+    "two_stage"
+   ],
+   "free_steps_per_participant": {
+    "max": 400.0,
+    "mean": 394.6666666666667,
+    "median": 398.0,
+    "min": 370.0,
+    "q25": 391.0,
+    "q75": 400.0
+   },
+   "missed_stage1_per_participant": {
+    "max": 15.0,
+    "mean": 2.6666666666666665,
+    "median": 1.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 4.5
+   },
+   "missed_stage2_per_participant": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 0.0
+   },
+   "normalised_reward": {
+    "max": 1.0,
+    "mean": 0.5115427927927928,
+    "median": 1.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 1.0
+   },
+   "p_action0": 0.4978885135135135,
+   "participants": 18,
+   "stay_signature": {
+    "two_stage:prev_r0|common": {
+     "mean_stay": 0.6369322094529662,
+     "participants": 18
+    },
+    "two_stage:prev_r0|rare": {
+     "mean_stay": 0.6500427180943508,
+     "participants": 18
+    },
+    "two_stage:prev_r1|common": {
+     "mean_stay": 0.7243276575421516,
+     "participants": 18
+    },
+    "two_stage:prev_r1|rare": {
+     "mean_stay": 0.6779833376431448,
+     "participants": 18
+    }
+   },
+   "steps_per_participant": {
+    "max": 400.0,
+    "mean": 394.6666666666667,
+    "median": 398.0,
+    "min": 370.0,
+    "q25": 391.0,
+    "q75": 400.0
+   }
+  },
+  "zorowitz2023data/exp1.csv": {
+   "common_transition_fraction": {
+    "max": 0.85,
+    "mean": 0.705395748205776,
+    "median": 0.7091312344476901,
+    "min": 0.6,
+    "q25": 0.6789021164021164,
+    "q75": 0.7335937499999999
+   },
+   "days_seen": {
+    "max": 201.0,
+    "mean": 201.0,
+    "median": 201.0,
+    "min": 201.0,
+    "q25": 201.0,
+    "q75": 201.0
+   },
+   "design": [
+    "two_stage"
+   ],
+   "free_steps_per_participant": {
+    "max": 402.0,
+    "mean": 402.0,
+    "median": 402.0,
+    "min": 402.0,
+    "q25": 402.0,
+    "q75": 402.0
+   },
+   "missed_stage1_per_participant": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 0.0
+   },
+   "missed_stage2_per_participant": {
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 0.0
+   },
+   "normalised_reward": {
+    "max": 1.0,
+    "mean": 0.43941009239516704,
+    "median": 0.0,
+    "min": 0.0,
+    "q25": 0.0,
+    "q75": 1.0
+   },
+   "p_action0": 0.5038201847903341,
+   "participants": 28,
+   "stay_signature": {
+    "two_stage:prev_r0|common": {
+     "mean_stay": 0.7106042574406339,
+     "participants": 28
+    },
+    "two_stage:prev_r0|rare": {
+     "mean_stay": 0.7297790374388119,
+     "participants": 28
+    },
+    "two_stage:prev_r1|common": {
+     "mean_stay": 0.7680008541308901,
+     "participants": 28
+    },
+    "two_stage:prev_r1|rare": {
+     "mean_stay": 0.7271826485851556,
+     "participants": 28
+    }
+   },
+   "steps_per_participant": {
+    "max": 402.0,
+    "mean": 402.0,
+    "median": 402.0,
+    "min": 402.0,
+    "q25": 402.0,
+    "q75": 402.0
+   }
+  }
+ },
+ "excluded": 0,
+ "exclusion_notes": [],
+ "family": "two_step",
+ "participants_parsed": 139,
+ "partition": "tune",
+ "per_experiment": {
+  "kool2016when/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 4304
+   },
+   "free_trials_per_participant": [
+    98,
+    125
+   ],
+   "mean_normalised_reward": 0.5308498554316399,
+   "n_blocks": 1,
+   "participants": 36,
+   "trials_per_participant": [
+    98,
+    125
+   ]
+  },
+  "kool2016when/exp2.csv": {
+   "feedback_modes": {
+    "bandit": 4665,
+    "none": 4700
+   },
+   "free_trials_per_participant": [
+    205,
+    250
+   ],
+   "mean_normalised_reward": 0.5091103965702036,
+   "n_blocks": 1,
+   "participants": 38,
+   "trials_per_participant": [
+    205,
+    250
+   ]
+  },
+  "kool2017cost/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 3685
+   },
+   "free_trials_per_participant": [
+    153,
+    200
+   ],
+   "mean_normalised_reward": 0.5351726217397859,
+   "n_blocks": 1,
+   "participants": 19,
+   "trials_per_participant": [
+    153,
+    200
+   ]
+  },
+  "kool2017cost/exp2.csv": {
+   "feedback_modes": {
+    "bandit": 3552,
+    "none": 3552
+   },
+   "free_trials_per_participant": [
+    370,
+    400
+   ],
+   "mean_normalised_reward": 0.5115427927927928,
+   "n_blocks": 1,
+   "participants": 18,
+   "trials_per_participant": [
+    370,
+    400
+   ]
+  },
+  "zorowitz2023data/exp1.csv": {
+   "feedback_modes": {
+    "bandit": 5628,
+    "none": 5628
+   },
+   "free_trials_per_participant": [
+    402,
+    402
+   ],
+   "mean_normalised_reward": 0.43941009239516704,
+   "n_blocks": 1,
+   "participants": 28,
+   "trials_per_participant": [
+    402,
+    402
+   ]
+  }
+ },
+ "role": "counted_if_validated"
+}

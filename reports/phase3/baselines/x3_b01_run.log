@@ -1,0 +1,3 @@
+[restless4] pop_gru: 12 config(s), 348 dev participants
+[restless4] pop_gru: select NLL 0.7325 config {'max_epochs': 150, 'patience': 10, 'batch_size': 8, 'dropout': 0.0, 'hidden': 32, 'lr': 0.01} lapse 0.01 causal=ok
+[restless4] pop_lstm: 12 config(s), 348 dev participants
