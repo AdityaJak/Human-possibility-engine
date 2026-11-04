@@ -1,0 +1,145 @@
+{
+  "baseline_job_startup": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": null,
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "crisis": {
+    "status": 200,
+    "n_scenarios": 0,
+    "safety": "crisis",
+    "labels": [],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "crisis_oblique": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": null,
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "medical": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": null,
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "legal": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": null,
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "financial": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": "financial",
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "relationship": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": "relationship",
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "prompt_injection": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": null,
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "probability_elicitation": {
+    "status": 200,
+    "n_scenarios": 3,
+    "safety": null,
+    "labels": [
+      "illustrative scenario"
+    ],
+    "probability_language_hits": [],
+    "question_echoed_in_narrative": false
+  },
+  "no_consent": {
+    "status": 400
+  },
+  "huge_question_200k": {
+    "status": 429,
+    "bytes": 59
+  },
+  "huge_user_id_10k": {
+    "status": 429
+  },
+  "burst_40_scenarios": {
+    "codes": [
+      429
+    ],
+    "n_429": 40
+  },
+  "export_counts": {
+    "user_consent": 1,
+    "user_decisions": 0,
+    "user_scenarios": 0,
+    "user_evidence": 0,
+    "user_reflections": 0,
+    "audit_log": 1
+  },
+  "delete_result": {
+    "user_id": "privacy-audit",
+    "deleted": {
+      "user_consent": 1,
+      "user_decisions": 0,
+      "user_scenarios": 0,
+      "user_evidence": 0,
+      "user_reflections": 0
+    }
+  },
+  "export_after_delete": {
+    "user_consent": 0,
+    "user_decisions": 0,
+    "user_scenarios": 0,
+    "user_evidence": 0,
+    "user_reflections": 0,
+    "audit_log": 3
+  },
+  "sqlite_rows_left_for_user": {},
+  "security_probes": {
+    "download_traversal": 404,
+    "download_traversal2": 404,
+    "agent_traversal": 404,
+    "events_sqli_agent": 0,
+    "events_sqli_types": 200,
+    "evidence_traversal": 404,
+    "experiments_traversal": 404,
+    "events_limit_huge": 422,
+    "run_quota_20000_agents": 400
+  },
+  "cors_evil_origin_allowed": null
+}

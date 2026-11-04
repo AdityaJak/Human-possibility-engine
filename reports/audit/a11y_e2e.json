@@ -1,0 +1,315 @@
+{
+  "base": "http://127.0.0.1:5199",
+  "routes": {
+    "light /": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 1,
+          "sample": [
+            ".chip"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 3009
+    },
+    "light /lab/society?run=demo_developmental_100a_80y_s42": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 2,
+          "sample": [
+            ".row > .chip--ok.chip",
+            "span > .chip--ok.chip"
+          ]
+        },
+        {
+          "id": "empty-table-header",
+          "impact": "minor",
+          "help": "Table header text should not be empty",
+          "nodes": 1,
+          "sample": [
+            "th:nth-child(5)"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 5541
+    },
+    "light /lab/runs/demo_developmental_100a_80y_s42/agents/a00010": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 2,
+          "sample": [
+            "nav[aria-label=\"Breadcrumb\"] > a[data-discover=\"true\"]",
+            ".chip--ok"
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "help": "Scrollable region must have keyboard access",
+          "nodes": 1,
+          "sample": [
+            "ol"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 15772
+    },
+    "light /lab/learning": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 8,
+          "sample": [
+            "p:nth-child(4) > a[href$=\"society\"][data-discover=\"true\"]",
+            ".row > .chip--ok.chip"
+          ]
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "help": "Scrollable region must have keyboard access",
+          "nodes": 2,
+          "sample": [
+            "section[aria-labelledby=\"arms-title\"] > .table-wrap",
+            ".stack > .table-wrap"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 14085
+    },
+    "light /lab/experiment": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 1,
+          "sample": [
+            ".chip"
+          ]
+        },
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "nodes": 1,
+          "sample": [
+            "h3"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 1238
+    },
+    "light /lab/evidence": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 1,
+          "sample": [
+            ".chip"
+          ]
+        },
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "nodes": 1,
+          "sample": [
+            "h3"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 1081
+    },
+    "light /lab/benchmarks": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 3,
+          "sample": [
+            "tr:nth-child(1) > td:nth-child(12) > .chip.chip--ok",
+            "tr:nth-child(2) > td:nth-child(12) > .chip.chip--ok"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2326
+    },
+    "light /future/welcome": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 1,
+          "sample": [
+            ".chip"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2183
+    },
+    "light /demo": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": 1,
+          "sample": [
+            ".chip--ok"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2024
+    },
+    "dark /": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 3009
+    },
+    "dark /lab/society?run=demo_developmental_100a_80y_s42": {
+      "violations": [
+        {
+          "id": "empty-table-header",
+          "impact": "minor",
+          "help": "Table header text should not be empty",
+          "nodes": 1,
+          "sample": [
+            "th:nth-child(5)"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 5541
+    },
+    "dark /lab/runs/demo_developmental_100a_80y_s42/agents/a00010": {
+      "violations": [
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "help": "Scrollable region must have keyboard access",
+          "nodes": 1,
+          "sample": [
+            "ol"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 15772
+    },
+    "dark /lab/learning": {
+      "violations": [
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "help": "Scrollable region must have keyboard access",
+          "nodes": 2,
+          "sample": [
+            "section[aria-labelledby=\"arms-title\"] > .table-wrap",
+            ".stack > .table-wrap"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 14085
+    },
+    "dark /lab/experiment": {
+      "violations": [
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "nodes": 1,
+          "sample": [
+            "h3"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 1238
+    },
+    "dark /lab/evidence": {
+      "violations": [
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "nodes": 1,
+          "sample": [
+            "h3"
+          ]
+        }
+      ],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 1081
+    },
+    "dark /lab/benchmarks": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2326
+    },
+    "dark /future/welcome": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2183
+    },
+    "dark /demo": {
+      "violations": [],
+      "problems": [],
+      "mockBanner": false,
+      "chars": 2024
+    }
+  },
+  "mobile_overflow": {
+    "/": 0,
+    "/lab/society?run=demo_developmental_100a_80y_s42": 0,
+    "/lab/runs/demo_developmental_100a_80y_s42/agents/a00010": 0,
+    "/lab/learning": 0,
+    "/lab/experiment": 0,
+    "/lab/evidence": 0,
+    "/lab/benchmarks": 0,
+    "/future/welcome": 0,
+    "/demo": 0
+  }
+}
