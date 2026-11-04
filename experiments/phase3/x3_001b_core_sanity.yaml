@@ -1,0 +1,14 @@
+# X3-001b (exploratory, director): torch pop_gru (encoding v3, fixed trainer) vs the Phase II numpy ref_gru on tune.
+# Phase II ref_gru tune NLL (X-009/X-010): bandit2 0.389, garcia 0.447, described 0.372. Required by ADR-0009.
+experiment_id: x3_001b_core_sanity
+title: Torch population GRU (encoding v3, trainer v2) vs the Phase II numpy GRU, tune partition
+lane: director
+hypothesis: (Exploratory.) pop_gru with the v3 encoding is at least as good as the Phase II ref_gru on tune.
+families: [garcia, described, bandit2, restless4]
+report_partition: tune
+seed: 20261107
+threads: 2
+models:
+  pop_gru:
+    role: comparator
+    grid: {hidden: [12, 32], lr: [0.003, 0.01], dropout: [0.0, 0.2]}

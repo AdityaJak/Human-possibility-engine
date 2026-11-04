@@ -155,3 +155,32 @@ def encode(p: Participant, family: str, k_max: int) -> EncodedSeq:
         scored[t] = not tr.forced
         prev, prev_block = tr, tr.block
     return EncodedSeq(p.key, family, k_max, p.n_actions, x, actions, avail, scored)
+
+
+def truncate(seq: EncodedSeq, n: int, *, key: str | None = None) -> EncodedSeq:
+    """Copy holding only the first ``n`` trials (the only data an adapter may see at row ``n``)."""
+    n = max(0, min(int(n), seq.T))
+    return EncodedSeq(
+        key if key is not None else seq.key,
+        seq.family,
+        seq.k_max,
+        seq.n_actions,
+        seq.x[:n].copy(),
+        seq.actions[:n].copy(),
+        seq.avail[:n].copy(),
+        seq.scored[:n].copy(),
+    )
+
+
+def rekey(seq: EncodedSeq, key: str) -> EncodedSeq:
+    """Copy with an opaque key: models never see participant or experiment identifiers at prediction."""
+    return EncodedSeq(
+        key,
+        seq.family,
+        seq.k_max,
+        seq.n_actions,
+        seq.x.copy(),
+        seq.actions.copy(),
+        seq.avail.copy(),
+        seq.scored.copy(),
+    )

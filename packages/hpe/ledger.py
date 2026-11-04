@@ -234,6 +234,66 @@ def _phase2_claims() -> list[ClaimRecord]:
     return out
 
 
+def _phase3_claims() -> list[ClaimRecord]:
+    """Phase III rows from docs/phase3/EXPERIMENT_REGISTRY_V3.md.
+
+    Exploratory ``X3-`` rows (| ID | Date | Lane | Question | Partition | Result | Artifacts |) are never
+    'supported'. Confirmatory ``C3-`` rows (| ID | Date | Gate | Preregistration | Freeze record | Result |
+    Verdict | Artifacts |) take their status from the Verdict cell.
+    """
+    reg = ROOT / "docs/phase3/EXPERIMENT_REGISTRY_V3.md"
+    if not reg.exists():
+        return []
+    out: list[ClaimRecord] = []
+    for line in reg.read_text().splitlines():
+        if not (line.startswith("| X3-") or line.startswith("| C3-")):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        rid = cells[0]
+        if rid.startswith("C3-"):
+            if len(cells) < 8:
+                continue
+            gate, prereg, result, verdict, artifact = cells[2], cells[3], cells[5], cells[6], cells[7]
+            low = verdict.lower()
+            status = (
+                "supported"
+                if low.startswith("pass")
+                else "not_supported"
+                if ("not supported" in low or low.startswith("fail"))
+                else "inconclusive"
+            )
+            claim = f"[CONFIRMATORY, Gate {gate}] {prereg}"
+            value = f"{result} — {verdict}"
+            limitation = "Confirmatory on a frozen held-out partition; see the registry for deviations"
+        else:
+            if len(cells) < 7:
+                continue
+            _lane, question, partition, result, artifact = cells[2], cells[3], cells[4], cells[5], cells[6]
+            status = "inconclusive"
+            claim = f"[EXPLORATORY, {partition}] {question}"
+            value = result
+            limitation = "Phase III exploratory result (dev/tune or development seeds); selection-optimistic"
+        synthetic = "synthetic" in claim.lower() or "seed" in claim.lower()
+        out.append(
+            ClaimRecord(
+                claim_id=f"phase3:{rid}",
+                claim=claim.replace("**", "")[:600],
+                status=status,  # type: ignore[arg-type]
+                evidence_kind="synthetic_simulation" if synthetic else "human_dataset",  # type: ignore[arg-type]
+                metric="see registry row",
+                value=value.replace("**", "")[:600],
+                config_ref=artifact.replace("`", "")[:300],
+                limitations=[
+                    limitation,
+                    "Synthetic rows: simulated world, not evidence about people"
+                    if synthetic
+                    else "Real human data (Psych-101, Apache-2.0); not evidence about any individual's future",
+                ],
+            )
+        )
+    return out
+
+
 def _prohibited_claims() -> list[ClaimRecord]:
     rows = [
         ("validated_human_prediction", "The system is validated for predicting individual human futures."),
@@ -268,6 +328,7 @@ def build_claims() -> list[ClaimRecord]:
         + _contamination_claim()
         + _scale_claims()
         + _phase2_claims()
+        + _phase3_claims()
         + _prohibited_claims()
     )
 
