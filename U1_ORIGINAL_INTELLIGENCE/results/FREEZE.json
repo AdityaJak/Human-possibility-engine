@@ -1,0 +1,23 @@
+{
+ "frozen_at_utc": "2026-11-04T20:37:14Z",
+ "hashes": {
+  "U1_IMPLEMENTATION/u1/__init__.py": "fa279a7a04645d16af5b83010f7f721148e0d9a84911246cf7019a493a3caa0a",
+  "U1_IMPLEMENTATION/u1/baselines.py": "e0305183e9ef928d16fdd711c00d761a5b0f52a58cda37f228260538856a5645",
+  "U1_IMPLEMENTATION/u1/env.py": "6b1f999651da05bfd4140d1eff49b7ece12bbe7fb65686105ab04bd61046adef",
+  "U1_IMPLEMENTATION/u1/experiment.py": "29133a9c662863831dafb363c57721882df018965e212b2f648dbcc6a481d2ac",
+  "U1_IMPLEMENTATION/u1/ira.py": "2b5737b9ce9e3c72c996d54af8d2a93eab581e4aece86968f554d3632a70d97f",
+  "U1_IMPLEMENTATION/u1/metarl.py": "ac61d5644e6e5673345f0cb96585f2736ef0b624ee8e8039658c104a76a449f4",
+  "U1_IMPLEMENTATION/u1/play.py": "db7841d53247899a2e9b14f807c31274b054b18679c249456efb293e480de8c1",
+  "U1_IMPLEMENTATION/u1/recluster.py": "dec3886daa17e14322a4ef6785dbc7e66c92d2f52c9df2920ea118fe6d958219",
+  "U1_IMPLEMENTATION/u1/stats.py": "c536536d9f8ef401686bad37ba057db6a9b0a3b9c68372007cf54d6e044cef4e",
+  "U1_IMPLEMENTATION/u1/train.py": "1a14f9dcdf66140a2277b15ef4917beed7d9e07d7c3bed31a94345957544ce83",
+  "EXPERIMENTS_AND_BASELINES.md": "8ab8fd9842dc8605e8542c9aa89d6442907ecc6ce9af777c0bc20e8e711ba1c1"
+ },
+ "settings": {
+  "beta": 1.0,
+  "metarl_greedy": true,
+  "metarl_hidden": 128,
+  "metarl_lr": 0.001,
+  "metarl_updates": 20000
+ }
+}

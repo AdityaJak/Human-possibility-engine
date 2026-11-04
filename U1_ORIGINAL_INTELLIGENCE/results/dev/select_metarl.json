@@ -1,0 +1,10 @@
+{
+ "rule": "EXPERIMENTS_AND_BASELINES.md section 3: select on universe 0, condition iid, seeds 0-199 only",
+ "h128_lr0.001_greedy": 0.931,
+ "h128_lr0.001_sample": 0.925,
+ "h256_lr0.0005_greedy": 0.925,
+ "h256_lr0.0005_sample": 0.918,
+ "selected": {"hidden": 128, "lr": 0.001, "updates": 20000, "greedy": true},
+ "adequacy": "0.931 >= 0.85 x IRA dev iid 0.899 -> adequate; no extra training",
+ "source": "results/dev/logs/metarl_u0_*.log (script results/dev/metarl_dev_select_script.py.txt)"
+}

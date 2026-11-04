@@ -59,6 +59,16 @@ vs ≈ 2–3 CPU-min per universe); IRA uses more computation per decision (exac
   Adequacy check: if the selected meta-RL scores < 0.85 × IRA's dev `iid` score, train 3× longer once.
 * The selected settings are written to `results/settings.json` before the freeze.
 
+**Selected (dev `iid`, 200 worlds; `results/dev/select_ira.json`, `results/dev/select_metarl.json`):**
+
+| | candidates (dev `iid` normalized return) | selected |
+|---|---|---|
+| IRA β | 0.5 → 0.887; **1.0 → 0.899**; 2.0 → 0.834 | β = 1.0 |
+| meta-RL | **h128/lr 1e-3 greedy 0.931**; h128 sampled 0.925; h256/lr 5e-4 greedy 0.925; h256 sampled 0.918 | hidden 128, lr 1e-3, 20,000 updates, greedy actions |
+
+Adequacy check passed: 0.931 ≥ 0.85 × 0.899. **Note: the selected meta-RL agent is better than IRA in-distribution
+on dev (0.931 vs 0.899).**
+
 ## 4. Hypotheses and decision thresholds (confirmatory universes 1, 2, 3; seeds 10000–10199 per condition)
 
 **H1 (primary).** For each shift condition $c$ ∈ {cue_reversed, recombined, novel_role, role_switch}, the paired
@@ -119,5 +129,24 @@ curves, every dev run, and every abandoned design.
   cue_reversed (0.73) in one diagnostic, i.e. strong knowledge made novelty harder to detect. No design choice was
   tuned on these numbers; the CRP concentration and thresholds were left at their a-priori values. The meta-RL
   agent was **not** evaluated on any shift condition before this document.
+* **D-5 (full dev evaluation of IRA, its ablations and the non-neural baselines before the freeze).** Universe 0,
+  dev seeds 0–199, selected β = 1.0 library (`results/u0/dev/`, log `results/dev/logs/dev_eval_u0.log`):
+
+  | agent | iid | cue_reversed | recombined | novel_role | role_switch |
+  |---|---|---|---|---|---|
+  | ira | 0.899 | 0.854 | 0.863 | 0.839 | 0.681 |
+  | ira_noactive | 0.618 | 0.581 | 0.576 | 0.616 | 0.476 |
+  | ira_closed | 0.897 | 0.850 | 0.865 | 0.832 | 0.679 |
+  | ira_nocuetrack | 0.883 | 0.849 | 0.851 | 0.833 | 0.659 |
+  | ira_nochange | 0.908 | 0.868 | 0.879 | 0.868 | 0.510 |
+  | ira_nolibrary | 0.804 | 0.831 | 0.790 | 0.805 | 0.443 |
+  | entity_bayes | 0.524 | 0.537 | 0.514 | 0.535 | 0.357 |
+  | ucb | 0.465 | 0.478 | 0.432 | 0.466 | 0.256 |
+  | random | 0.227 | 0.224 | 0.209 | 0.229 | 0.264 |
+
+  On dev, M1 (cue tracking) and M2 (open concept set) look **inert** (differences ≤ 0.007) and are expected to
+  fail; M3, M4, M5, M6 look large. These observations did **not** change any threshold, margin or mechanism; they
+  are recorded so that no later reader mistakes a predicted failure for a surprise or a predicted pass for a
+  discovery. The meta-RL agent was still not evaluated on any shift condition before the freeze.
 * **D-4 (speed).** Prediction skips assignments more than 14 nats below the best (each < 1e-6 of the mass);
   measured differences from unpruned inference on 40 dev worlds per condition were ≤ 0.02.

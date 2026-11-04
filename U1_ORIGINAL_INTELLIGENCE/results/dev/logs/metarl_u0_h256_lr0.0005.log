@@ -7,3 +7,17 @@ update 6000: mean return (last 1000) 15.639 (559s)
 update 7000: mean return (last 1000) 15.809 (650s)
 update 8000: mean return (last 1000) 15.929 (741s)
 update 9000: mean return (last 1000) 16.027 (836s)
+update 10000: mean return (last 1000) 16.117 (928s)
+update 11000: mean return (last 1000) 16.157 (1019s)
+update 12000: mean return (last 1000) 16.213 (1109s)
+update 13000: mean return (last 1000) 16.239 (1198s)
+update 14000: mean return (last 1000) 16.279 (1290s)
+update 15000: mean return (last 1000) 16.304 (1382s)
+update 16000: mean return (last 1000) 16.346 (1471s)
+update 17000: mean return (last 1000) 16.369 (1560s)
+update 18000: mean return (last 1000) 16.361 (1651s)
+update 19000: mean return (last 1000) 16.425 (1745s)
+update 20000: mean return (last 1000) 16.437 (1836s)
+{'config': {'hidden': 256, 'lr': 0.0005, 'batch': 128, 'updates': 20000, 'ent_start': 0.05, 'ent_end': 0.003, 'gamma': 1.0, 'lam': 0.95, 'value_coef': 0.5, 'clip': 1.0, 'seed': 0}, 'train_return_last1000': 16.43678125, 'seconds': 1835.7312638759613, 'parameters': 409872}
+greedy iid dev 0-199 0.925
+sample iid dev 0-199 0.918
