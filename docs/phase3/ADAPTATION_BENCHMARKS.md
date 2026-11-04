@@ -89,6 +89,12 @@ particle's value learning runs in context. Grid: c {0.01, 0.1, 1} × τ {0.5, 1}
 none; garcia options = letter codes (features 0–3, 4–7); described options = described gambles (features 0–5,
 6–11); two_step state = (stage, start pair, planet) (features 0, 2, 3) with `mb: true`.
 
+### 2.3b Mixture `gru_hb_mix` (`baselines/mixture.py`; critic F-5)
+
+`p_t = (1 − w) p_gru,t + w p_hb,t` with the backbone GRU (as in §2.2) and `hb_cog` (as in §2.3, τ = 1); the weight
+w ∈ {0.05, 0.1, 0.2, 0.3, 0.5} and hb_cog's pseudo-count c ∈ {0.1, 1} are grid hyper-parameters, i.e. chosen on tune
+(10 configurations). Person-level state: hb_cog's posterior over particles (harness-owned modes).
+
 ### 2.4 Per-person Phase II models (reference only)
 
 The Phase II per-person models (PVL-Delta, exemplar, developmental, hybrid exemplar) are reported in Phase II
@@ -130,5 +136,15 @@ _Filled from committed result directories (see §5 for the paths)._
 ## 6. Best comparator per family (tune)
 
 ## 7. Failures, deviations and known gaps
+
+* **X3-B01 (abandoned, superseded).** First population-RNN run with 12-configuration grids (hidden {16, 32, 64} ×
+  lr × dropout {0, 0.2}); stopped by this lane during restless4/`pop_lstm` after the director relayed the critic's
+  request for the full 24-configuration cap. The one completed part (restless4 `pop_gru`, 12 configurations, all
+  fitted within budget, 1,190 CPU-s in total; tune NLL 0.7325 at hidden 32, lr 0.01, dropout 0, λ = 0.01) is kept in
+  `reports/phase3/baselines/x3_b01_pop_rnn/` as an artifact; it is not part of the pool.
+* **X3-B02 (never run).** Its definition (adapters with model-owned adaptation modes) was withdrawn when adaptation
+  modes moved to the core harness (critic G-1); the adapters were re-implemented on `AdaptiveBase` before any run.
+* **Zero-initialised CAVIA context weights are a saddle** (∇_c = 0 and the outer gradient on the context weights is
+  0); caught by the unit test "adaptation had no effect" and fixed by N(0, 0.1²) initialisation before any run.
 
 ## 8. Compute notes
