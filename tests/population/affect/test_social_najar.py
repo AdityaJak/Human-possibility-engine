@@ -100,7 +100,8 @@ def test_partition_and_lock(tmp_path: Path) -> None:
     f = tmp_path / "p.json"
     f.write_text(json.dumps(rec))
     assert len(najar.load_partition(f)) == 68
-    assert najar.load_partition()  # the committed file verifies
+    committed = najar.load_partition()  # the committed file verifies
+    assert najar.EXPOSED <= set(committed)
     with pytest.raises(partitions.TestPartitionLocked):
         najar.load_najar(["test"], experiment_id="no_such_freeze", folder=tmp_path)
 

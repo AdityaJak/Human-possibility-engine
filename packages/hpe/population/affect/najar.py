@@ -69,6 +69,10 @@ D_BASE = input_dim(K)
 N_EXTRA = 5
 LABEL_SEED = 20261108
 SHUFFLE_SEED = 20261108
+# Deviation DA-1 (docs/phase3/AFFECTIVE_SOCIAL_VALIDATION.md): while inspecting the CSV layout, before the
+# partition existed, the first 12 rows (6 own choices with outcomes, 6 demonstrations) of these participants
+# were printed. One of them fell into the test partition; it is never scored in a confirmatory run.
+EXPOSED = frozenset({"najar2020_imitation#exp1_3"})
 
 
 class NajarDataUnavailable(RuntimeError):
@@ -279,12 +283,18 @@ def load_najar(
     assign = load_partition(partition_file)
     rows = _read(folder or data_dir())
     out: dict[str, list[EncodedSeq]] = {p: [] for p in partitions}
+    notes: list[str] = []
     for key in sorted(rows):
         part = assign.get(key, "")
         if part not in out:
             continue  # other partitions (incl. test) are dropped before encoding
+        if part == "test" and key in EXPOSED:
+            notes.append(
+                f"{key}: rows displayed before the partition was written (deviation DA-1); not scored"
+            )
+            continue
         out[part].append(encode_participant(key, rows[key]))
-    return out, []
+    return out, notes
 
 
 if __name__ == "__main__":  # pragma: no cover
