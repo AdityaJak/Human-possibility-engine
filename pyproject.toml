@@ -41,7 +41,7 @@ include = ["hpe*", "hpe_api*"]
 [tool.pytest.ini_options]
 pythonpath = ["packages", "apps/api"]
 testpaths = ["tests"]
-addopts = "-q --strict-markers"
+addopts = "--strict-markers"
 markers = [
   "slow: long-running simulation or benchmark tests (deselect with -m 'not slow')",
   "integration: cross-package integration tests",

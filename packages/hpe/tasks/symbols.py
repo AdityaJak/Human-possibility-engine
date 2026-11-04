@@ -120,6 +120,9 @@ class SymbolWorld:
     readouts: dict[str, np.ndarray] = field(init=False)
     biases: dict[str, np.ndarray] = field(init=False)
     _eval_cache: dict[tuple[str, Split, int], list[TaskItem]] = field(init=False)
+    _ctx32: np.ndarray = field(init=False)
+    _sort_scores: np.ndarray = field(init=False)
+    _values: dict[str, np.ndarray] = field(init=False)
 
     def __post_init__(self) -> None:
         cfg = self.config
@@ -150,6 +153,13 @@ class SymbolWorld:
         self.biases = {f: np.zeros(FAMILY_SPECS[f]["n_actions"] if f == "sort" else 1) for f in ALL_FAMILIES}
         self._balance_rules()
         self._eval_cache = {}
+        # Hot-path caches (pure functions of the rules above; identical results, ~3x faster sampling).
+        self._ctx32 = self.symbols.astype(np.float32)
+        self._sort_scores = np.stack([self._sort_score_row(i) for i in range(n_total)])
+        self._values = {
+            f: np.array([float(self._value(f, self.symbols[[i]])[0]) for i in range(n_total)])
+            for f in ("signal", "compare", "barter")
+        }
 
     # ------------------------------------------------------------------ construction
     @staticmethod
@@ -188,20 +198,24 @@ class SymbolWorld:
         out: np.ndarray = (z @ self.readouts[family].T)[..., 0] + self.biases[family][0]
         return out
 
+    def _sort_score_row(self, i: int) -> np.ndarray:
+        z = self._latent("sort", self.symbols[[i]].astype(np.float64))
+        row: np.ndarray = (z @ self.readouts["sort"].T + self.biases["sort"])[0]
+        return row
+
     def score(self, family: str, symbol_ids: tuple[int, ...]) -> tuple[int, float]:
         """Return (correct_action, margin) under the hidden rule. Never exposed to policies."""
-        x = self.symbols[list(symbol_ids)]
         if family == "sort":
-            z = self._latent(family, x.astype(np.float64))
-            s = (z @ self.readouts["sort"].T + self.biases["sort"])[0]
+            s = self._sort_scores[symbol_ids[0]]
             top = np.sort(s)[::-1]
             return int(np.argmax(s)), float(top[0] - top[1])
         if family == "signal":
-            sv = float(self._value(family, x)[0])
+            sv = float(self._values["signal"][symbol_ids[0]])
             return int(sv > 0), abs(sv)
         if family in ("compare", "barter"):
-            pv = self._value(family, x)
-            return int(pv[1] > pv[0]), float(abs(pv[1] - pv[0]))
+            vals = self._values[family]
+            a, b = float(vals[symbol_ids[0]]), float(vals[symbol_ids[1]])
+            return int(b > a), abs(b - a)
         raise KeyError(family)
 
     # ------------------------------------------------------------------ sampling
@@ -217,7 +231,7 @@ class SymbolWorld:
         n_cand = 1 if difficulty is None else 12
         cands = []
         for _ in range(n_cand):
-            ids = tuple(int(i) for i in rng.choice(pool, size=n_slots, replace=False))
+            ids = tuple(rng.choice(pool, size=n_slots, replace=False).tolist())
             correct, margin = self.score(family, ids)
             cands.append((ids, correct, margin))
         if difficulty is not None:
@@ -229,7 +243,7 @@ class SymbolWorld:
         return TaskItem(
             family=family,
             symbol_ids=ids,
-            context=self.symbols[list(ids)].astype(np.float32),
+            context=self._ctx32[list(ids)],
             correct_action=correct,
             n_actions=FAMILY_SPECS[family]["n_actions"],
             margin=margin,
