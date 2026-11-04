@@ -1,0 +1,70 @@
+# Experiment 4 — Midlife change: does opening education at ages 38-45 produce genuine adaptation?
+protocol:
+  kind: society
+  params:
+    metrics:
+      - {name: midlife_cohort_accuracy_pre, fn: cohort_mean_accuracy, args: {age_min: 38, age_max: 45}, at_year: 10}
+      - {name: midlife_cohort_accuracy_post, fn: cohort_mean_accuracy, args: {age_min: 43, age_max: 50}, at_year: 15}
+      - {name: midlife_cohort_size_post, fn: cohort_size, args: {age_min: 43, age_max: 50}, at_year: 15}
+      - {name: midlife_employment_post, fn: employment_rate, args: {age_min: 43, age_max: 50}, at_year: 15}
+  contrasts:
+    - name: midlife_education_effect_developmental
+      primary: true
+      treatment: dev_midlife
+      control: dev_control
+      metric: midlife_cohort_accuracy_post
+      kind: superiority
+      min_effect: 0.02
+    - name: pre_period_balance
+      treatment: dev_midlife
+      control: dev_control
+      metric: midlife_cohort_accuracy_pre
+      kind: equivalence
+      margin: 0.01
+      description: "before the intervention starts the cloned societies must be balanced"
+    - name: mechanism_check_static_persona
+      treatment: static_midlife
+      control: static_control
+      metric: midlife_cohort_accuracy_post
+      kind: equivalence
+      margin: 0.02
+    - name: midlife_employment
+      treatment: dev_midlife
+      control: dev_control
+      metric: midlife_employment_post
+      kind: exploratory
+definition:
+  experiment_id: exp04_midlife_education
+  title: "Exp 4: midlife education opportunity (ages 38-45, years 10-15)"
+  hypothesis: >-
+    Developmental agents adapt to a late-life educational opportunity: the targeted cohort's held-out accuracy at year
+    15 exceeds the cloned control cohort, which a deterministic age script could not produce; non-learners show no effect.
+  falsification_criterion: >-
+    Not supported if dev_midlife - dev_control on midlife_cohort_accuracy_post is < 0.02 or its paired 95% CI includes 0.
+  arms:
+    - {name: dev_control, policy_class: developmental}
+    - name: dev_midlife
+      policy_class: developmental
+      interventions: [{name: adult_education, kind: midlife_education, target: {age_min: 38, age_max: 45, fraction: 1.0}, start_year: 10.0, end_year: 15.0}]
+    - {name: static_control, policy_class: static_persona}
+    - name: static_midlife
+      policy_class: static_persona
+      interventions: [{name: adult_education, kind: midlife_education, target: {age_min: 38, age_max: 45, fraction: 1.0}, start_year: 10.0, end_year: 15.0}]
+  control_arm: dev_control
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  base_config:
+    seed: 0
+    n_agents: 100
+    years: 15
+    log: {frames_every_ticks: 0, decision_sample_rate: 0.0, log_learning_episodes: false, assessment_interval_years: 1.0, checkpoint_every_years: null}
+  analysis:
+    primary_metric: midlife_cohort_accuracy_post
+    primary_metric_definition: "Year 15: mean held-out accuracy of alive agents aged 43-50 (aged 38-45 when the opportunity opened)."
+    comparison: "dev_midlife - dev_control, paired by seed"
+    test: paired_bootstrap
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.02
+    secondary_metrics: [midlife_cohort_accuracy_pre, midlife_cohort_size_post, midlife_employment_post]
+  validity_notes:
+    - "Adult plasticity is a modelling assumption of the developmental learner (plasticity schedule); results inherit it."
+    - "Depends on hpe.world semantics for midlife_education."

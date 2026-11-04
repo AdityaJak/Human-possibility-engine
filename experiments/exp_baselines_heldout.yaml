@@ -1,0 +1,113 @@
+# H1 — Development matters: the investor's decisive question (spec §44).
+# Run: python -m hpe.evaluation run experiments/exp_baselines_heldout.yaml --workers 4
+protocol:
+  kind: learning_lab
+  params:
+    n_agents: 20
+    episodes_per_family: 300
+    block: 10
+    checkpoint_every: 30
+    feedback_mode: bandit
+    full_feedback_fraction: 0.25     # school-like mix: mostly outcome-only feedback, some instruction
+    label_noise: 0.05
+    age_start: 8.0
+    age_end: 18.0
+    enable_gate: true
+    criterion: 0.7
+    retention_gap_years: 2.0
+    transfer_modes: [shared, orthogonal]
+    transfer_shots: [0, 4, 8, 16, 32, 64]
+  contrasts:
+    - name: developmental_vs_strongest_baseline
+      primary: true
+      treatment: developmental
+      control: {strongest_of: [static_persona, memory_only, plain_rl]}
+      metric: final_heldout_accuracy
+      kind: superiority
+      min_effect: 0.10
+      min_effect_kind: relative
+      description: ">=10% relative improvement over the strongest baseline (chosen post hoc as the best-scoring baseline, which is conservative), with the paired 95% CI excluding 0."
+    - name: calibration_not_degraded
+      treatment: developmental
+      control: {strongest_of: [static_persona, memory_only, plain_rl]}
+      metric: final_log_loss
+      direction: less
+      kind: non_inferiority
+      margin: 0.05
+      description: "held-out log loss no more than 0.05 nats worse than the best-calibrated baseline"
+    - name: developmental_vs_plain_rl
+      treatment: developmental
+      control: plain_rl
+      metric: final_heldout_accuracy
+      kind: superiority
+    - name: developmental_vs_memory_only
+      treatment: developmental
+      control: memory_only
+      metric: final_heldout_accuracy
+      kind: superiority
+    - name: developmental_vs_static_persona
+      treatment: developmental
+      control: static_persona
+      metric: final_heldout_accuracy
+      kind: superiority
+    - name: memory_only_vs_static_persona
+      treatment: memory_only
+      control: static_persona
+      metric: final_heldout_accuracy
+      kind: exploratory
+    - name: practice_efficiency_vs_plain_rl
+      treatment: developmental
+      control: plain_rl
+      metric: episodes_to_criterion/compare
+      direction: less
+      kind: exploratory
+  sensitivity:
+    - name: high_label_noise
+      params: {label_noise: 0.15}
+      contrasts: [developmental_vs_strongest_baseline]
+    - name: low_data_100_episodes
+      params: {episodes_per_family: 100, checkpoint_every: 20}
+      contrasts: [developmental_vs_strongest_baseline]
+    - name: no_age_gate
+      params: {enable_gate: false}
+      contrasts: [developmental_vs_strongest_baseline]
+    - name: bandit_only_feedback
+      params: {full_feedback_fraction: 0.0}
+      contrasts: [developmental_vs_strongest_baseline]
+definition:
+  experiment_id: exp_baselines_heldout
+  title: "H1: developmental learner vs static persona, memory-only and plain-RL baselines on held-out tasks"
+  hypothesis: >-
+    Agents whose policy develops from experience (developmental learner) reach higher accuracy on held-out
+    symbols (never seen in practice) than equally-resourced static-persona, memory-only, or plain-RL agents
+    given an identical item and feedback stream.
+  falsification_criterion: >-
+    H1 is NOT supported if the developmental learner's mean held-out accuracy fails to exceed the strongest
+    baseline by >=10% (relative) with a paired 95% bootstrap CI excluding zero across 10 independent seeds;
+    it is refuted (failed) if the CI upper bound lies below the 10% threshold.
+  arms:
+    - {name: static_persona, policy_class: static_persona}
+    - {name: memory_only, policy_class: memory_only}
+    - {name: plain_rl, policy_class: plain_rl}
+    - {name: developmental, policy_class: developmental}
+  control_arm: plain_rl
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  base_config: {seed: 0, n_agents: 20, years: 10}
+  analysis:
+    primary_metric: final_heldout_accuracy
+    primary_metric_definition: >-
+      Per agent: mean over the three training families (sort, compare, signal) of greedy accuracy on the fixed
+      60-item held-out set (holdout symbols only, learning disabled, ties credited fractionally) after
+      300 practice episodes per family; averaged over 20 agents per seed; one value per seed.
+    comparison: "developmental - strongest baseline, paired by seed"
+    test: paired_bootstrap
+    alpha: 0.05
+    n_bootstrap: 4000
+    minimum_effect_of_interest: 0.10
+    secondary_metrics: [final_log_loss, heldout_ece, generalization_gap, retention_change, zero_shot/barter,
+                        transfer_auc/shared/trained, transfer_gain/shared, transfer_gain/orthogonal, self_estimate_gap]
+  validity_notes:
+    - "Synthetic task world; held-out = unseen symbols under the same hidden rules, not unseen humans."
+    - "Baseline hyperparameters (plain_rl lr=0.05) were tuned on task seeds 1001-1003, never on evaluation seeds 0-9."
+    - "The developmental learner's hyperparameters are owned by the research/development lane; if they were tuned on evaluation seeds this result is optimistic."
+    - "Age gate (perceptual feature access) is a scripted assumption applied identically to all arms; the no_age_gate sensitivity variant removes it."
