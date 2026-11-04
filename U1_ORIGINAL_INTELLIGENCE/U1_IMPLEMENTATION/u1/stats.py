@@ -118,7 +118,11 @@ def summarize(root: Path, phase: str) -> dict[str, Any]:
     ira = {c: load(root, phase, "ira", c, strict=strict) for c in EVAL_CONDITIONS}
     primary: dict[str, Any] = {}
     for comp in COMPARATORS:
-        present = any((root / f"u{u}" / phase).glob(f"{comp}__*.jsonl") for u in UNIVERSES[phase])
+        # deviation R1-X1 (fixed after the R1 run, before any R1 result was read): the frozen line applied any() to
+        # generator objects, which are always truthy, so an unrun stage-2 comparator was never recognised
+        present = any(
+            any(True for _ in (root / f"u{u}" / phase).glob(f"{comp}__*.jsonl")) for u in UNIVERSES[phase]
+        )
         if not present and comp != COMPARATORS[0]:
             primary[comp] = {"status": "not run (stage 2 runs only if H1 holds against gru_narrow)"}
             continue

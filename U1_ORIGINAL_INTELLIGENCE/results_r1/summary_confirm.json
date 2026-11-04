@@ -1,0 +1,374 @@
+{
+ "phase": "confirm",
+ "universes": [
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "table": {
+  "ira": {
+   "iid": 0.9051,
+   "cue_reversed": 0.8161,
+   "recombined": 0.8807,
+   "novel_role": 0.7467,
+   "role_switch": 0.7123
+  },
+  "ira_beta1": {
+   "iid": 0.8478,
+   "cue_reversed": 0.7383,
+   "recombined": 0.8341,
+   "novel_role": 0.6558,
+   "role_switch": 0.6533
+  },
+  "ira_noactive": {
+   "iid": 0.9121,
+   "cue_reversed": 0.8222,
+   "recombined": 0.8813,
+   "novel_role": 0.806,
+   "role_switch": 0.7172
+  },
+  "ira_closed": {
+   "iid": 0.8994,
+   "cue_reversed": 0.8159,
+   "recombined": 0.8868,
+   "novel_role": 0.7417,
+   "role_switch": 0.7063
+  },
+  "ira_nocuetrack": {
+   "iid": 0.8998,
+   "cue_reversed": 0.6959,
+   "recombined": 0.8728,
+   "novel_role": 0.7103,
+   "role_switch": 0.7007
+  },
+  "ira_nochange": {
+   "iid": 0.9298,
+   "cue_reversed": 0.8309,
+   "recombined": 0.9032,
+   "novel_role": 0.7654,
+   "role_switch": 0.4916
+  },
+  "ira_nolibrary": {
+   "iid": 0.7697,
+   "cue_reversed": 0.7747,
+   "recombined": 0.7907,
+   "novel_role": 0.7802,
+   "role_switch": 0.4226
+  },
+  "gru_narrow": {
+   "iid": 0.9356,
+   "cue_reversed": 0.7325,
+   "recombined": 0.8866,
+   "novel_role": 0.7912,
+   "role_switch": 0.4985
+  },
+  "entity_bayes": {
+   "iid": 0.5535,
+   "cue_reversed": 0.5605,
+   "recombined": 0.5657,
+   "novel_role": 0.5727,
+   "role_switch": 0.3596
+  },
+  "ucb": {
+   "iid": 0.4435,
+   "cue_reversed": 0.445,
+   "recombined": 0.4667,
+   "novel_role": 0.4582,
+   "role_switch": 0.2442
+  },
+  "random": {
+   "iid": 0.2072,
+   "cue_reversed": 0.2145,
+   "recombined": 0.2218,
+   "novel_role": 0.2209,
+   "role_switch": 0.2365
+  }
+ },
+ "primary": {
+  "gru_narrow": {
+   "contrasts": {
+    "iid": {
+     "estimate": -0.0305,
+     "per_universe": {
+      "4": -0.0501,
+      "5": -0.0082,
+      "6": -0.0435,
+      "7": 0.0036,
+      "8": -0.0542
+     },
+     "n_universes_positive": 1,
+     "t": -2.588,
+     "p_universe_t": 0.9695832137536929,
+     "world_level_ci95": [
+      -0.047,
+      -0.0141
+     ],
+     "n_worlds": 500
+    },
+    "cue_reversed": {
+     "estimate": 0.0836,
+     "per_universe": {
+      "4": 0.1788,
+      "5": -0.0588,
+      "6": -0.0334,
+      "7": -0.0404,
+      "8": 0.3718
+     },
+     "n_universes_positive": 2,
+     "t": 0.994,
+     "p_universe_t": 0.18822538609807568,
+     "world_level_ci95": [
+      0.0574,
+      0.1101
+     ],
+     "n_worlds": 500,
+     "p_holm": 0.564676158294227,
+     "passes": false
+    },
+    "recombined": {
+     "estimate": -0.0059,
+     "per_universe": {
+      "4": -0.0327,
+      "5": -0.0242,
+      "6": -0.0513,
+      "7": -0.0555,
+      "8": 0.1343
+     },
+     "n_universes_positive": 1,
+     "t": -0.165,
+     "p_universe_t": 0.5617046847630122,
+     "world_level_ci95": [
+      -0.0249,
+      0.0137
+     ],
+     "n_worlds": 500,
+     "p_holm": 1.0,
+     "passes": false
+    },
+    "novel_role": {
+     "estimate": -0.0444,
+     "per_universe": {
+      "4": 0.0344,
+      "5": -0.1863,
+      "6": 0.0123,
+      "7": -0.0284,
+      "8": -0.0543
+     },
+     "n_universes_positive": 2,
+     "t": -1.149,
+     "p_universe_t": 0.8427099861332246,
+     "world_level_ci95": [
+      -0.07,
+      -0.0188
+     ],
+     "n_worlds": 500,
+     "p_holm": 1.0,
+     "passes": false
+    },
+    "role_switch": {
+     "estimate": 0.2138,
+     "per_universe": {
+      "4": 0.2891,
+      "5": 0.2248,
+      "6": 0.147,
+      "7": 0.1845,
+      "8": 0.2235
+     },
+     "n_universes_positive": 5,
+     "t": 9.036,
+     "p_universe_t": 0.0004154242089962505,
+     "world_level_ci95": [
+      0.2008,
+      0.2266
+     ],
+     "n_worlds": 500,
+     "p_holm": 0.001661696835985002,
+     "passes": true
+    }
+   },
+   "shift_conditions_passed": 1,
+   "iid_noninferior": true,
+   "H1_vs_this_comparator": false
+  },
+  "gru_broad": {
+   "status": "not run (stage 2 runs only if H1 holds against gru_narrow)"
+  },
+  "rel_broad": {
+   "status": "not run (stage 2 runs only if H1 holds against gru_narrow)"
+  }
+ },
+ "H1_supported": false,
+ "stage2_warranted": false,
+ "mechanisms": [
+  {
+   "estimate": 0.1202,
+   "per_universe": {
+    "4": 0.0311,
+    "5": 0.0838,
+    "6": 0.0313,
+    "7": 0.0045,
+    "8": 0.4504
+   },
+   "n_universes_positive": 5,
+   "t": 1.439,
+   "p_universe_t": 0.11176363884291439,
+   "world_level_ci95": [
+    0.0951,
+    0.146
+   ],
+   "n_worlds": 500,
+   "mechanism": "M1 cue-validity tracking",
+   "comparator": "ira_nocuetrack",
+   "conditions": [
+    "cue_reversed"
+   ],
+   "margin": 0.05,
+   "p_holm": 0.33529091652874315,
+   "passes": false
+  },
+  {
+   "estimate": 0.0051,
+   "per_universe": {
+    "4": 0.0117,
+    "5": 0.0346,
+    "6": -0.0052,
+    "7": -0.0019,
+    "8": -0.0137
+   },
+   "n_universes_positive": 2,
+   "t": 0.603,
+   "p_universe_t": 0.28959808102901535,
+   "world_level_ci95": [
+    -0.0044,
+    0.0151
+   ],
+   "n_worlds": 500,
+   "mechanism": "M2 open concept set",
+   "comparator": "ira_closed",
+   "conditions": [
+    "novel_role"
+   ],
+   "margin": 0.05,
+   "p_holm": 0.5791961620580307,
+   "passes": false
+  },
+  {
+   "estimate": 0.2207,
+   "per_universe": {
+    "4": 0.3036,
+    "5": 0.1911,
+    "6": 0.1564,
+    "7": 0.2073,
+    "8": 0.2451
+   },
+   "n_universes_positive": 5,
+   "t": 8.775,
+   "p_universe_t": 0.0004650685564721035,
+   "world_level_ci95": [
+    0.2084,
+    0.2324
+   ],
+   "n_worlds": 500,
+   "mechanism": "M3 re-identification",
+   "comparator": "ira_nochange",
+   "conditions": [
+    "role_switch"
+   ],
+   "margin": 0.05,
+   "p_holm": 0.001860274225888414,
+   "passes": true
+  },
+  {
+   "estimate": -0.0156,
+   "per_universe": {
+    "4": -0.0302,
+    "5": -0.0402,
+    "6": -0.0036,
+    "7": -0.0024,
+    "8": -0.0014
+   },
+   "n_universes_positive": 0,
+   "t": -1.903,
+   "p_universe_t": 0.9351398383327825,
+   "world_level_ci95": [
+    -0.0207,
+    -0.0106
+   ],
+   "n_worlds": 500,
+   "mechanism": "M4 active identification (information gain)",
+   "comparator": "ira_noactive",
+   "conditions": [
+    "iid",
+    "cue_reversed",
+    "recombined",
+    "novel_role",
+    "role_switch"
+   ],
+   "margin": 0.03,
+   "p_holm": 0.9351398383327825,
+   "passes": false
+  },
+  {
+   "estimate": 0.1354,
+   "per_universe": {
+    "4": 0.1092,
+    "5": 0.1291,
+    "6": 0.1259,
+    "7": 0.1509,
+    "8": 0.1621
+   },
+   "n_universes_positive": 5,
+   "t": 14.41,
+   "p_universe_t": 6.739843204197322e-05,
+   "world_level_ci95": [
+    0.1143,
+    0.1567
+   ],
+   "n_worlds": 500,
+   "mechanism": "M5 cross-world library",
+   "comparator": "ira_nolibrary",
+   "conditions": [
+    "iid"
+   ],
+   "margin": 0.03,
+   "p_holm": 0.00033699216020986614,
+   "passes": true
+  }
+ ],
+ "accumulation": {
+  "estimate": 0.0059,
+  "per_universe": {
+   "4": -0.0053,
+   "5": -0.0118,
+   "6": 0.0248,
+   "7": 0.0509,
+   "8": -0.0289
+  },
+  "n_universes_positive": 2,
+  "t": 0.418,
+  "p_universe_t": 0.34869889314960845,
+  "world_level_ci95": [
+   -0.0268,
+   0.0388
+  ],
+  "n_worlds": 125,
+  "passes": false
+ },
+ "diagnostics": {
+  "ira post-switch norm": 0.5525,
+  "ira_nochange post-switch norm": 0.1043,
+  "gru_narrow post-switch norm": 0.102,
+  "ira iid probes per world": 0.16,
+  "ira cue_reversed probes per world": 0.4,
+  "ira recombined probes per world": 0.28,
+  "ira novel_role probes per world": 0.94,
+  "ira role_switch probes per world": 0.15,
+  "gru_narrow iid probes per world": 0.0,
+  "gru_narrow cue_reversed probes per world": 0.0,
+  "gru_narrow recombined probes per world": 0.0,
+  "gru_narrow novel_role probes per world": 0.0,
+  "gru_narrow role_switch probes per world": 0.0
+ }
+}

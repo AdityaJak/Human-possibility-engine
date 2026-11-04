@@ -1,0 +1,47 @@
+{
+ "4": {
+  "novel_role worlds with a new concept": 0.02,
+  "iid worlds with a new concept": 0.0,
+  "library ARI": 0.277,
+  "K": 7,
+  "K after accumulation": 8,
+  "probe readings in library": 357.0,
+  "train_norm_mean": 0.866
+ },
+ "5": {
+  "novel_role worlds with a new concept": 0.0,
+  "iid worlds with a new concept": 0.0,
+  "library ARI": 0.426,
+  "K": 8,
+  "K after accumulation": 8,
+  "probe readings in library": 273.0,
+  "train_norm_mean": 0.872
+ },
+ "6": {
+  "novel_role worlds with a new concept": 0.0,
+  "iid worlds with a new concept": 0.0,
+  "library ARI": 0.468,
+  "K": 6,
+  "K after accumulation": 6,
+  "probe readings in library": 273.0,
+  "train_norm_mean": 0.874
+ },
+ "7": {
+  "novel_role worlds with a new concept": 0.0,
+  "iid worlds with a new concept": 0.0,
+  "library ARI": 0.241,
+  "K": 7,
+  "K after accumulation": 7,
+  "probe readings in library": 99.0,
+  "train_norm_mean": 0.893
+ },
+ "8": {
+  "novel_role worlds with a new concept": 0.0,
+  "iid worlds with a new concept": 0.0,
+  "library ARI": 0.53,
+  "K": 6,
+  "K after accumulation": 6,
+  "probe readings in library": 138.0,
+  "train_norm_mean": 0.895
+ }
+}

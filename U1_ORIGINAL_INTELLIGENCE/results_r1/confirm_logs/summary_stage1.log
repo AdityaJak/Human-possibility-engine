@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 321, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/experiment.py", line 309, in main
+    summarize(Path(a.out), a.phase)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/stats.py", line 127, in summarize
+    c: contrast(ira[c], load(root, phase, comp, c, strict=strict), seed=11)
+                        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/Human-possibility-engine/U1_ORIGINAL_INTELLIGENCE/U1_IMPLEMENTATION/u1/stats.py", line 60, in load
+    raise IncompleteResults(f"missing {p}")
+u1.stats.IncompleteResults: missing ../results_r1/u4/confirm/gru_broad__iid.jsonl
