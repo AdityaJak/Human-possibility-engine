@@ -1,0 +1,39 @@
+=== Wed Nov  4 18:47:21 UTC 2026 start x3_008
+{
+ "n_dev": 2000,
+ "n_tune": 1000,
+ "full_fit": {
+  "cpu_s": 196.8,
+  "epochs": 35,
+  "stopped": "early_stop"
+ },
+ "session_fit": {
+  "cpu_s": 133.7,
+  "epochs": 36,
+  "stopped": "early_stop"
+ },
+ "means": {
+  "full_history": 0.46640130876247743,
+  "session_only": 0.4809497154405831,
+  "full_weights_state_reset": 0.4858633869496981
+ },
+ "contrasts": {
+  "session_only \u2212 full_history": {
+   "estimate": 0.014548406678105634,
+   "ci": [
+    0.009160040227408454,
+    0.019936984929857397
+   ],
+   "n": 318
+  },
+  "full_weights_state_reset \u2212 full_history": {
+   "estimate": 0.019462078187220573,
+   "ci": [
+    0.014617016849344916,
+    0.02433887217667532
+   ],
+   "n": 318
+  }
+ }
+}
+=== Wed Nov  4 18:51:15 UTC 2026 end x3_008 exit 0
