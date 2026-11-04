@@ -1,0 +1,80 @@
+{
+ "positive": {
+  "phase2_partitions": {
+   "file": "reports/phase2/partitions/psych101.json",
+   "file_sha256": "854054b4052bb8933f459c0fd4541c99398053d38ed3dbb5d499bee29597c15d",
+   "split_seed": 20261105,
+   "test_digest_recorded": "7dc2e7798f57d3fa9ac3c73c2e334f6002c177506541617e2675bc8b0e508e4e",
+   "test_digest_recomputed": "7dc2e7798f57d3fa9ac3c73c2e334f6002c177506541617e2675bc8b0e508e4e",
+   "digest_ok": true,
+   "n_test_keys": 726,
+   "overlaps": [],
+   "split_reproduced": true,
+   "mismatches": [],
+   "matches_registry_prefix": true
+  },
+  "phase3_partitions": {
+   "file": "reports/phase3/partitions/psych101_p3.json",
+   "file_sha256": "bfd0c52e1e4d27b29ed6ab0de78cb162b02f98ea2ceee68cdb82ac919c33b832",
+   "split_seed": 20261106,
+   "test_digest_recorded": "eb14a4d94ead03653dc49e2985c8dbad156e38afff3462ab78b5fb8006bd13b5",
+   "test_digest_recomputed": "eb14a4d94ead03653dc49e2985c8dbad156e38afff3462ab78b5fb8006bd13b5",
+   "digest_ok": true,
+   "n_test_keys": 907,
+   "overlaps": [],
+   "split_reproduced": true,
+   "mismatches": [],
+   "matches_registry_prefix": true
+  },
+  "exposed_list": {
+   "entries": 18,
+   "experiment_files": 18,
+   "studies": 12,
+   "in_test_experiment_files": [
+    "kool2016when/exp2.csv",
+    "kool2017cost/exp1.csv",
+    "sadeghiyeh2020temporal/exp1.csv",
+    "schulz2020finding/exp4.csv",
+    "zorowitz2023data/exp1.csv"
+   ],
+   "disagreements": [],
+   "registry_text": "D3-1 says 'the first transcript of 16 study files' (EXPERIMENT_REGISTRY_V3.md:19)"
+  }
+ },
+ "negative": {
+  "L1_forged_freeze_record": {
+   "without_record": "locked (expected)",
+   "forged_record_outside_repo": "UNLOCKED: an uncommitted 4-field file in a temp dir opens test",
+   "fields_checked": "presence of experiment_id, preregistration_hash, code_version, frozen_at only",
+   "record_accepted": {
+    "experiment_id": "anything",
+    "preregistration_hash": "not-a-hash",
+    "code_version": "none",
+    "frozen_at": "never"
+   },
+   "experiment_id_in_record_matches_file_name": false,
+   "load_family_accepts_freeze_dir_argument": true
+  },
+  "L3_tampered_partitions": {
+   "tampered_file_accepted_by_Partitions.load": true,
+   "a_test_participant_now_assigned_to": "dev",
+   "expected_digests_pinned_in_code": false,
+   "alias_family_registration": "accepted: same studies, different partition file, no warning"
+  },
+  "L4_exposed_file_fail_open": {
+   "missing_file_result": [],
+   "raises": false,
+   "note": "fails open: no exclusion, no error"
+  },
+  "L7_guard_blind_to_phase3_keys": {
+   "KEY_RE": "([A-Za-z0-9_.\\-À-ɏ]+/exp\\d+\\.csv)#([A-Za-z0-9_\\-]+)",
+   "matches": {
+    "bahrami2020four/exp.csv#99999": false,
+    "kool2016when/exp1.csv#99999": true,
+    "garcia2023experiential/exp1.csv#99999": true
+   },
+   "default_partitions_file": "reports/phase2/partitions/psych101.json",
+   "phase3_guard_scripts": []
+  }
+ }
+}
