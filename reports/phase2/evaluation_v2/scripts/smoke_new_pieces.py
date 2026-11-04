@@ -15,7 +15,14 @@ from hpe.tasks.v2.composition import COMPOSITION_FAMILIES, CompositionWorld
 
 for seed in (1000, 1001, 1002):
     w = CompositionWorld(seed)
-    print(seed, w.describe(), "shares", {k: round(v, 3) for k, v in w.class_shares().items()}, "clean", w.leakage_report()["clean"])
+    print(
+        seed,
+        w.describe(),
+        "shares",
+        {k: round(v, 3) for k, v in w.class_shares().items()},
+        "clean",
+        w.leakage_report()["clean"],
+    )
     for f in COMPOSITION_FAMILIES:
         items = w.eval_set(f)
         rng = stream(0, "s")
@@ -58,7 +65,12 @@ p = resolve_params(
 )
 out = run_learning_lab(get_factory("plain_rl"), LabContext("t", "rl", 1000, "r", p))
 mets = sorted({o.metric for o in out})
-print("composition lab:", len(out), [m for m in mets if "final" in m or "leak" in m][:8], f"{time.time() - t0:.1f}s")
+print(
+    "composition lab:",
+    len(out),
+    [m for m in mets if "final" in m or "leak" in m][:8],
+    f"{time.time() - t0:.1f}s",
+)
 p2 = resolve_params(
     {
         "n_agents": 2,

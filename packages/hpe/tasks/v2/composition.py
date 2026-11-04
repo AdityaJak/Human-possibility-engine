@@ -107,8 +107,8 @@ class Primitives:
 @dataclass(frozen=True, slots=True)
 class CompositionConfig:
     n_features: int = 12
-    n_train_symbols: int = 128
-    n_holdout_symbols: int = 64
+    n_train_symbols: int = 64
+    n_holdout_symbols: int = 32
     shared_structure: bool = True
     n_literals: int = 2
     parity_size: int = 3
