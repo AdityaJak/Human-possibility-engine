@@ -1,0 +1,53 @@
+# CONFIRMATORY preregistration — Gate D: held-out human choice prediction (revised after the critic's
+# design review; supersedes gateD_mcpl_igt_v1.yaml, which is withdrawn because MCPL/IGT test participants
+# have per-participant scores in Phase I artifacts and cannot be a primary family).
+# STATUS: DRAFT — not frozen. Model configurations are filled ONLY at the freeze step from tune-partition
+# selection logs. Until a freeze record exists under reports/phase2/freeze/, the test partition may not be
+# evaluated by anyone (scripts/phase2_guard.py check-freeze / check-test-access enforce this).
+id: gateD_v2
+gate: D
+families:
+  primary:
+    name: experience_based_choice        # plonsky2018when + garcia2023experiential; pristine (never used in Phase I)
+    rationale: largest pristine family (n=562; test 227), chosen before any model was run on it
+  secondary:
+    - name: two_armed_bandit             # gershman2018deconstructing + gershman2020reward; pristine (n=154; test 61)
+    - name: mcpl                         # contact-disclosed (Phase I); secondary only
+    - name: igt                          # contact-disclosed (Phase I); secondary only; report lambda=0 NLL and extended reference grids
+  minimum_n: {test: 30, tune: 15}
+hypothesis: >-
+  The hybrid parametric+exemplar learner (Candidate A) predicts held-out human choices better than the
+  comparator model in at least two of the counted families, including the primary, and is not worse
+  than the comparator by more than 0.02 nats/choice in any counted family.
+comparator: >-
+  Per family, the baseline with the best TUNE-partition NLL among: ref_instance_based, memory_only,
+  plain_rl, developmental, ref_delta_rule, ref_gru_sequence, ref_pvl_delta (IGT), ref_bayesian_rule
+  (MCPL/ordinal), and the Phase I winner for that family. Chosen on tune, fixed at freeze.
+falsification:
+  primary_family: FAILED if (candidate - comparator) paired 95% bootstrap CI upper bound > -0.02 nats/choice on the primary family's test participants.
+  overall: FAILED if fewer than two counted families (including the primary) pass, or any counted family shows candidate worse by > 0.02 (CI lower bound > +0.02).
+metric:
+  name: nll_per_choice
+  definition: >-
+    Mean over held-out participants of per-participant mean negative log-likelihood of actual choices
+    under teacher forcing, lapse fixed at the frozen value; chance = ln(n_actions). Also reported:
+    lambda=0 NLL, ECE, top-1 accuracy, per-experiment-file breakdown, predictability terciles (proxy
+    computed from a model NOT under test), CPU seconds, parameter counts.
+partitions:
+  file: reports/phase2/partitions/psych101.json
+  split_seed: 20261105
+  evaluate_on: test
+  test_partition_sha256: 7dc2e7798f57d3fa9ac3c73c2e334f6002c177506541617e2675bc8b0e508e4e
+tuning:
+  rule: fit on dev, select on tune (hyper-parameters, lapse, ablation flags), score on test once
+  grids: authored and hashed by the human-validation lane before any candidate development on these families; extended when a chosen value sits at a grid edge; equal size (<= 24) per model
+frozen_configs: null
+analysis:
+  test: paired percentile bootstrap over participants, 4000 resamples, seed 20261105
+  corrections: Holm across counted families
+  results_must_list: participant keys scored (checked against the partition file by phase2_guard)
+controls_required_before_freeze:
+  - factorial controls on dev for the candidate (fixed gate x exemplar-only x no-ordinal)
+  - critic sign-off on grids, leakage (check-test-access clean) and independent re-run of dev results
+execution: {run_by: research director, reproduced_by: independent critic, one_shot: true}
+freeze_record: null

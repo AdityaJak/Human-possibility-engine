@@ -22,9 +22,14 @@ retrieves stored episodes by learned similarity with recency/consolidation weigh
 unit (a small learned gate conditioned on retrieval density, parametric confidence and recent
 prediction errors) mixes the two. Consolidation moves regularities from exemplars into parameters;
 forgetting prunes exemplars. Uncertainty-aware action selection from the mixture.
-**Must beat.** exemplar kNN, plain RL, GRU on human MCPL and on v2 synthetic families.
-**Control.** Fixed 50/50 mixture (no learned arbitration) and exemplar-only ablation: if these match
+**Must beat.** exemplar kNN, **`memory_only`** (which already scores 0.847 on the most predictable MCPL
+participants, better than the instance-based reference's 0.981 — critic finding), plain RL, GRU, on
+human families and on v2 synthetic families.
+**Control.** Fixed 50/50 mixture (no learned arbitration), exemplar-only, and **no-ordinal** ablations,
+run factorially so the ordinal-head effect is separated from the exemplar effect: if the controls match
 the hybrid, the "learning when to rely on examples" claim is false.
+**Dev status (X-003/X-004).** MCPL −0.040 vs instance-based with the gate and ordinal controls losing
+the advantage; synthetic v2: ≤ best exemplar baseline on 3/5 families. Not yet confirmatory.
 **Abandon if.** On the human dev partition the hybrid is not within 0.02 nats of the exemplar model on
 MCPL *and* within 0.02 of the Phase I learner on IGT after budget.
 

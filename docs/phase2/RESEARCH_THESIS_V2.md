@@ -55,10 +55,17 @@ Gate F margin, or if the orthogonal-structure control shows the same "benefit".
 
 | Gate | Test | Pass threshold | Partition |
 |---|---|---|---|
-| A — genuine learning | per candidate: parameters change only with experience; held-out gain vs frozen copy | ≥ 0.10 accuracy, CI excl. 0, 10 seeds | synthetic dev → confirmatory seeds 500–509 |
-| B — strong-baseline advantage | candidate − strongest of {plain RL, exemplar kNN, GRU sequence model, Bayesian rule learner}, chosen post hoc (conservative) | ≥ 0.05 absolute (or ≥ 10% relative) held-out accuracy, paired 95% CI excl. 0, in ≥ 2 of 3 v2 families; not worse by > 0.02 in any family | synthetic confirmatory seeds 500–509, families frozen in the registry |
+| A — genuine learning | per candidate: held-out gain vs a frozen copy **and** vs two controls that can fail it: a permuted-feedback copy (same updates, shuffled outcomes) and an age-script-only null | gain vs frozen ≥ 0.10 **and** permuted-feedback gain ≤ 0.02 **and** gain vs age-script-only ≥ 0.10, CIs excl. 0, 10 seeds | synthetic dev → confirmatory seeds 500–509 |
+| B — strong-baseline advantage | candidate − strongest of {plain RL, exemplar kNN, `memory_only`, GRU sequence model, Bayesian rule learner}, chosen post hoc by test score (conservative) | ≥ **max(0.05 absolute, 10% relative)** held-out accuracy, paired 95% CI excl. 0, in ≥ 2 of the 3 families **named below before any result on them was viewed**; not worse by > 0.02 in any | synthetic confirmatory seeds 500–509 |
 | C — transfer | few-shot AUC on an unseen family, shared vs orthogonal structure | ≥ 0.03 AUC advantage where shared; negative transfer quantified where orthogonal | as B |
-| D — human correspondence | held-out participants, ≥ 3 task families from ≥ 2 datasets | candidate NLL ≤ best fitted cognitive/exemplar/sequence model − 0.02 nats/choice, CI excl. 0, in ≥ 2 of 3 families; not worse by > 0.02 in any; ECE reported | frozen human test partitions (registry) |
+| D — human correspondence | held-out participants, ≥ 3 task families from ≥ 2 datasets; **primary family must be pristine** (never scored in Phase I); comparator = the model with the best **tune**-partition NLL among the baselines, which always include the Phase I winner for that family and `memory_only` | candidate NLL ≤ comparator − 0.02 nats/choice, CI excl. 0, in ≥ 2 of 3 families; not worse by > 0.02 in any; ECE and λ = 0 (no-lapse) NLL reported; a family counts only with pooled test n ≥ 30 and tune n ≥ 15 | frozen human test partitions (registry) |
+
+**Gate B families (fixed 2026-11-04 by the director and the critic, after the cognitive lane's dev
+pilot but before any confirmatory run; the pilot's family set is therefore NOT the gate set).**
+(1) `conjunction` and (2) `nonstationary` from `hpe.tasks.v2`, retained because they are the two
+families the candidate did **not** win on dev, and (3) a new family authored by a candidate-free lane
+(human-validation or infrastructure) from a written spec the cognitive lane never sees before the
+freeze: a *compositional rule-of-rules* family. Each with its specialist-should-win control variant.
 | E — causal decision improvement | prospective study | out of scope for this phase (needs participants and ethics review); never inferred from D | — |
 | F — cross-domain generalisation | representation trained on family set A evaluated few-shot on domain B (synthetic→human bandits, bandits→cue learning) | ≥ 0.02 nats/choice better than training from scratch, CI excl. 0 | frozen human test partitions |
 

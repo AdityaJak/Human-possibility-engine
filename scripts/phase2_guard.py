@@ -96,6 +96,8 @@ def iter_files(paths: Iterable[Path]) -> Iterator[Path]:
             yield p
             continue
         for f in sorted(p.rglob("*")):
+            if f.name.startswith("guard_run") and f.parent.name == "critic":
+                continue  # the guard's own reports quote sample keys of disclosed Phase I contact (orchestrator, 2026-11-04)
             if any(part in SKIP_DIRS for part in f.relative_to(p).parts):
                 continue
             if f.is_file() and (
