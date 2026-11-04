@@ -14,7 +14,11 @@ Learner (one *particle* = one parameter vector θ = (α, ρ, β, κ, δ)):
   start when ``reset_on_block``;
 * choice: ``softmax_a(β Q[key_a] + κ · 1[a = last action in this state])`` over available actions.
 
-Hierarchy: a fixed grid of ``P`` particles (5 α × 3 ρ × 5 β × 4 κ × 2 δ = 600). Population prior = mixing weights
+Optional model-based hybrid (``mb: true``; meant for two_step): transitions from a (state, action) of a step
+without feedback to the next step's state are counted; the action's value becomes
+``w Σ_s' p(s'|s,a) max_a' Q[s', a'] + (1 − w) Q[s, a]`` with ``w`` a particle dimension {0, .5, 1}.
+
+Hierarchy: a fixed grid of ``P`` particles (5 α × 3 ρ × 5 β × 4 κ × 2 δ = 600; × 3 w with ``mb``). Population prior = mixing weights
 ``π`` over the particles, fitted on the dev participants by EM (non-parametric maximum likelihood of the mixing
 distribution, with ``c`` pseudo-counts per particle). Per person, the posterior over particles is updated online
 from the person's own scored choices (likelihood tempered by ``τ``); the prediction for step t is the
@@ -40,11 +44,14 @@ RHO = (0.0, 0.5, 1.0)
 BETA = (1.0, 3.0, 6.0, 10.0, 20.0)
 KAPPA = (-0.5, 0.0, 0.5, 1.5)
 DELTA = (0.0, 0.1)
+W_MB = (0.0, 0.5, 1.0)
 Q0 = 0.5
 
 
-def particle_grid() -> np.ndarray:
-    return np.array(list(itertools.product(ALPHA, RHO, BETA, KAPPA, DELTA)), dtype=np.float64)
+def particle_grid(mb: bool = False) -> np.ndarray:
+    """Particles (α, ρ, β, κ, δ, w_mb); w_mb ∈ {0, .5, 1} only for the model-based hybrid, else 0."""
+    dims = (ALPHA, RHO, BETA, KAPPA, DELTA, W_MB if mb else (0.0,))
+    return np.array(list(itertools.product(*dims)), dtype=np.float64)
 
 
 def _logsumexp(a: np.ndarray, axis: int) -> np.ndarray:
@@ -60,6 +67,7 @@ class _Spec:
         of = config.get("option_features")
         self.options = None if of is None else tuple(tuple(int(i) for i in o) for o in of)
         self.reset = bool(config.get("reset_on_block", False))
+        self.mb = bool(config.get("mb", False))
 
 
 def run_particles(seq: EncodedSeq, theta: np.ndarray, spec: _Spec) -> np.ndarray:
@@ -68,17 +76,28 @@ def run_particles(seq: EncodedSeq, theta: np.ndarray, spec: _Spec) -> np.ndarray
     T, K = seq.T, seq.k_max
     P = theta.shape[0]
     alpha, rho, beta, kappa, delta = (theta[:, i] for i in range(5))
+    w_mb = theta[:, 5] if theta.shape[1] > 5 else np.zeros(P)
     Q: dict[tuple, np.ndarray] = {}
     last: dict[tuple, int] = {}
+    trans: dict[
+        tuple, dict[tuple, int]
+    ] = {}  # (state, action) -> counts of the next state (model-based part)
+    avail_of: dict[tuple, tuple[int, ...]] = {}
     out = np.full((T, P, K), -np.inf)
     prev_keys: list[tuple] | None = None
+    prev_sk: tuple | None = None
     pending: tuple | None = None
     for t in range(T):
         x = seq.x[t].astype(np.float64)
+        sk = tuple(np.round(x[list(spec.state)], 3)) if spec.state else ()
         if t > 0 and spec.reset and x[L.block_start] > 0.5:
             Q.clear()
             last.clear()
-            prev_keys, pending = None, None
+            trans.clear()
+            prev_keys, prev_sk, pending = None, None, None
+        if spec.mb and t > 0 and prev_sk is not None and x[L.prev_feedback] < 0.5 and sk != prev_sk:
+            nxt = trans.setdefault((prev_sk, int(seq.actions[t - 1])), {})
+            nxt[sk] = nxt.get(sk, 0) + 1
         if t > 0 and prev_keys is not None:
             obs = x[L.prev_observed] > 0.5
             outs = x[L.prev_outcomes]
@@ -101,7 +120,6 @@ def run_particles(seq: EncodedSeq, theta: np.ndarray, spec: _Spec) -> np.ndarray
                 for k in list(Q):  # insertion order (deterministic); updates are independent per key
                     if k not in touched:
                         Q[k] = Q[k] + delta * (Q0 - Q[k])
-        sk = tuple(np.round(x[list(spec.state)], 3)) if spec.state else ()
         keys: list[tuple] = []
         for a in range(K):
             if spec.options is not None and a < len(spec.options):
@@ -109,16 +127,28 @@ def run_particles(seq: EncodedSeq, theta: np.ndarray, spec: _Spec) -> np.ndarray
             else:
                 keys.append((sk, a))
         av = seq.avail[t]
+        avail_of[sk] = tuple(int(a) for a in np.flatnonzero(av))
         util = np.full((P, K), -np.inf)
         la = last.get(sk)
         for a in range(K):
             if av[a]:
-                util[:, a] = beta * Q.get(keys[a], np.full(P, Q0)) + (kappa if la == a else 0.0)
+                v = Q.get(keys[a], np.full(P, Q0))
+                nxt = trans.get((sk, a)) if spec.mb else None
+                if nxt:
+                    tot = sum(nxt.values())
+                    vmb = np.zeros(P)
+                    for s2, n2 in sorted(nxt.items()):
+                        best = np.max(
+                            [Q.get((s2, a2), np.full(P, Q0)) for a2 in avail_of.get(s2, (0,))], axis=0
+                        )
+                        vmb = vmb + (n2 / tot) * best
+                    v = w_mb * vmb + (1.0 - w_mb) * v
+                util[:, a] = beta * v + (kappa if la == a else 0.0)
         m = util.max(axis=1, keepdims=True)
         lse = m[:, 0] + np.log(np.exp(util - m).sum(axis=1))
         out[t] = util - lse[:, None]
         last[sk] = int(seq.actions[t])
-        prev_keys = keys
+        prev_keys, prev_sk = keys, sk
     return out
 
 
@@ -136,7 +166,7 @@ class HBCog:
         self.config = dict(config)
         self.k_max = k_max
         self.spec = _Spec(config)
-        self.theta = particle_grid()
+        self.theta = particle_grid(self.spec.mb)
         self.log_pi = np.full(self.theta.shape[0], -np.log(self.theta.shape[0]))
 
     _CACHE: ClassVar[dict[str, np.ndarray]] = {}
@@ -146,7 +176,7 @@ class HBCog:
         for s in train:
             h.update(f"{s.key}:{s.T}".encode())
             h.update(np.ascontiguousarray(s.x).tobytes())
-        h.update(repr((self.spec.state, self.spec.options, self.spec.reset)).encode())
+        h.update(repr((self.spec.state, self.spec.options, self.spec.reset, self.spec.mb)).encode())
         key = h.hexdigest()
         if key not in HBCog._CACHE:
             HBCog._CACHE[key] = np.stack(
@@ -180,7 +210,11 @@ class HBCog:
             "dev_marginal_loglik": ll_hist[-1] if ll_hist else None,
             "n_particles": P,
             "prior_mean_theta": dict(
-                zip(("alpha", "rho", "beta", "kappa", "delta"), mean_theta.round(4).tolist(), strict=True)
+                zip(
+                    ("alpha", "rho", "beta", "kappa", "delta", "w_mb"),
+                    mean_theta.round(4).tolist(),
+                    strict=True,
+                )
             ),
             "prior_effective_particles": float(1.0 / (pi**2).sum()),
             "cpu_s": round(time.process_time() - t0, 2),

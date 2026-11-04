@@ -123,3 +123,19 @@ def test_ref_gru_p2_inputs_rebuild_phase2_layout() -> None:
     assert not xs[0, N_FEATURES:].any()  # nothing before the first choice
     # step 1 follows a full-feedback step (t=0): previous-correct one-hot and feedback flag are set
     assert xs[1, N_FEATURES + 3 + 1 : N_FEATURES + 2 * 3 + 1].sum() == 1.0 and xs[1, -1] == 1.0
+
+
+def test_hb_cog_model_based_hybrid_on_a_two_stage_toy() -> None:
+    from hpe.population.families.two_step import parse_two_step
+
+    from ..families.test_families import TWO_STAGE
+
+    p = parse_two_step(TWO_STAGE * 1, "kool2017cost/exp2.csv", "1")
+    seqs = []
+    for i in range(4):
+        s = encode(p, "two_step", K_MAX)
+        s.key = f"two#{i}"
+        seqs.append(s)
+    m = _fit("hb_cog", {"c": 1.0, "state_features": [0, 2, 3], "mb": True}, seqs)
+    assert m.theta.shape == (1800, 6)
+    assert check_causal(m, seqs[0]) == []
