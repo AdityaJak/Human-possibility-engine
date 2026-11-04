@@ -1,0 +1,183 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp02_twin_tutoring",
+  "title": "Exp 2: twin-society tutoring-access intervention (primary preregistered education experiment)",
+  "hypothesis": "In a society of developmental learners, giving every child aged 5-15 access to tutoring (extra instructional feedback episodes) raises held-out task accuracy at ages 16-20 relative to a cloned control society, and the effect appears only when agents can learn.",
+  "falsification_criterion": "Not supported if dev_tutoring - dev_control on cohort_accuracy_16_20 is < 0.02 or its paired 95% CI includes 0 across 10 seed pairs. The mechanism claim fails if static_tutoring - static_control falls outside +/-0.02.",
+  "arms": [
+    {
+      "name": "dev_control",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "dev_tutoring",
+      "policy_class": "developmental",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "child_tutoring",
+          "kind": "tutoring_access",
+          "target": {
+            "age_min": 5.0,
+            "age_max": 15.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    },
+    {
+      "name": "rl_control",
+      "policy_class": "plain_rl",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "rl_tutoring",
+      "policy_class": "plain_rl",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "child_tutoring",
+          "kind": "tutoring_access",
+          "target": {
+            "age_min": 5.0,
+            "age_max": 15.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    },
+    {
+      "name": "static_control",
+      "policy_class": "static_persona",
+      "policy_params": {},
+      "interventions": [],
+      "world_overrides": {}
+    },
+    {
+      "name": "static_tutoring",
+      "policy_class": "static_persona",
+      "policy_params": {},
+      "interventions": [
+        {
+          "name": "child_tutoring",
+          "kind": "tutoring_access",
+          "target": {
+            "age_min": 5.0,
+            "age_max": 15.0,
+            "fraction": 1.0,
+            "household_ids": null,
+            "agent_ids": null
+          },
+          "start_year": 0.0,
+          "end_year": null,
+          "params": {}
+        }
+      ],
+      "world_overrides": {}
+    }
+  ],
+  "control_arm": "dev_control",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "base_config": {
+    "schema_version": "0.1.0",
+    "seed": 0,
+    "population_seed": null,
+    "task_seed": null,
+    "n_agents": 100,
+    "years": 20.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": null
+  },
+  "analysis": {
+    "primary_metric": "cohort_accuracy_16_20",
+    "primary_metric_definition": "At simulated year 20: mean over alive agents aged 16-20 of their latest held-out assessment accuracy averaged over the training families (world-run hpe.tasks.assess, learning disabled); one value per society (seed).",
+    "comparison": "dev_tutoring - dev_control, paired by seed (clone societies)",
+    "test": "paired_bootstrap",
+    "alpha": 0.05,
+    "n_bootstrap": 4000,
+    "minimum_effect_of_interest": 0.02,
+    "secondary_metrics": [
+      "cohort_size_16_20",
+      "tutored_share_16_20",
+      "cohort_accuracy_8_12",
+      "cohort_barter_16_20",
+      "employment_18_30",
+      "education_years_16_20",
+      "resource_gini",
+      "population"
+    ]
+  },
+  "ablations": [],
+  "validity_notes": [
+    "Simulated effects reflect the simulator's assumption that tutoring = extra instructional-feedback episodes; they are not estimates of real tutoring effects.",
+    "Cohorts after year 0 include agents born during the run; births can differ between arms through downstream dynamics.",
+    "Depends on hpe.world semantics for tutoring_access and AgentState.tutored (sim/world lane)."
+  ],
+  "preregistration_hash": "7e540e467914fb1d3eb0c17891b379ba",
+  "created_at": "2026-11-04T04:17:27.651663Z"
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.1.0",
+  "run_id": "exp02_twin_tutoring__main__rl_tutoring__s5",
+  "created_at": "2026-11-04T04:27:50.070929Z",
+  "status": "completed",
+  "code_version": "d3e343c",
+  "contract_version": "0.1.0",
+  "config": {
+    "schema_version": "0.1.0",
+    "seed": 5,
+    "population_seed": 5,
+    "task_seed": 5,
+    "n_agents": 100,
+    "years": 20.0,
+    "dt_days": 30,
+    "policy_class": "plain_rl",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": true,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [
+      {
+        "name": "child_tutoring",
+        "kind": "tutoring_access",
+        "target": {
+          "age_min": 5.0,
+          "age_max": 15.0,
+          "fraction": 1.0,
+          "household_ids": null,
+          "agent_ids": null
+        },
+        "start_year": 0.0,
+        "end_year": null,
+        "params": {}
+      }
+    ],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": "society:main:rl_tutoring"
+  },
+  "config_hash": "64971a8b910ab414",
+  "experiment_id": null,
+  "arm": null,
+  "policy_class": "plain_rl",
+  "policy_version": "1.0.0",
+  "task_world_hash": "aa91d4a578b95dce",
+  "dataset_hashes": {
+    "event_stream_sha256_chain": "99cba4a926f9dfe6850f0d491980b8843629c1d8e55cedd3add7b135f1ebb28c"
+  },
+  "event_log_path": null,
+  "event_log_sha256": null,
+  "n_events": 8515,
+  "final_state_hash": "994947d3ba570220576cef68ff3b2e69",
+  "checkpoints": [],
+  "compute": {
+    "wall_time_s": 40.8004,
+    "cpu_time_s": 35.7846,
+    "peak_rss_mb": 163.34,
+    "ticks": 244,
+    "agent_years": 2159.3429,
+    "events": 8515,
+    "llm_calls": 0,
+    "llm_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "cost_assumptions": "local CPU only; no paid model calls",
+    "hardware": "Intel(R) Xeon(R) Processor @ 2.80GHz; 4 logical CPUs; Linux x86_64; Python 3.13.18"
+  },
+  "nondeterminism": [],
+  "error": null
+}

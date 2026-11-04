@@ -1,0 +1,923 @@
+{
+  "schema_version": "0.1.0",
+  "experiment_id": "exp02_twin_tutoring",
+  "preregistration_hash": "7e540e467914fb1d3eb0c17891b379ba",
+  "status": "passed",
+  "status_reason": "primary contrast 'tutoring_effect_developmental' (superiority): dev_tutoring vs dev_control on cohort_accuracy_16_20: estimate +0.0289 (95% CI [+0.0216, +0.0367], n=10 seeds; relative +3.5%); threshold 0.0200 -> passed",
+  "arms": [
+    {
+      "arm": "dev_control",
+      "n_runs": 10,
+      "metrics": {
+        "adult_accuracy_25_60": {
+          "mean": 0.8272296231156494,
+          "sd": 0.0315083772836549,
+          "ci_low": 0.810841107385666,
+          "ci_high": 0.847945476838352,
+          "n": 10.0
+        },
+        "agent_accuracy@20": {
+          "mean": 0.8109786254929136,
+          "sd": 0.02633323502182011,
+          "ci_low": 0.797322382541002,
+          "ci_high": 0.8280758295373386,
+          "n": 10.0
+        },
+        "cohort_accuracy_16_20": {
+          "mean": 0.8310390211640211,
+          "sd": 0.03476987749711917,
+          "ci_low": 0.8121037202380953,
+          "ci_high": 0.8528915674603175,
+          "n": 10.0
+        },
+        "cohort_accuracy_8_12": {
+          "mean": 0.7567438271604938,
+          "sd": 0.058002982487914086,
+          "ci_low": 0.7218506944444446,
+          "ci_high": 0.7910991512345679,
+          "n": 10.0
+        },
+        "cohort_barter_16_20": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "cohort_size_16_20": {
+          "mean": 7.3,
+          "sd": 1.9465068427541912,
+          "ci_low": 6.2,
+          "ci_high": 8.5,
+          "n": 10.0
+        },
+        "education_years_16_20": {
+          "mean": 11.454976575396824,
+          "sd": 0.2961214824406019,
+          "ci_low": 11.292698857142858,
+          "ci_high": 11.629715883333331,
+          "n": 10.0
+        },
+        "employment_18_30": {
+          "mean": 0.5844145772689073,
+          "sd": 0.06570404577843687,
+          "ci_low": 0.5476474477220532,
+          "ci_high": 0.6246998239371327,
+          "n": 10.0
+        },
+        "population": {
+          "mean": 117.7,
+          "sd": 3.7727090178455764,
+          "ci_low": 115.5,
+          "ci_high": 119.9,
+          "n": 10.0
+        },
+        "resource_gini": {
+          "mean": 0.8725676624561899,
+          "sd": 0.02304375850985746,
+          "ci_low": 0.8587393990360888,
+          "ci_high": 0.885916694058757,
+          "n": 10.0
+        },
+        "tutored_share_16_20": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "dev_tutoring",
+      "n_runs": 10,
+      "metrics": {
+        "adult_accuracy_25_60": {
+          "mean": 0.8313803355770191,
+          "sd": 0.030455655366555714,
+          "ci_low": 0.8158955175992292,
+          "ci_high": 0.8514379849915543,
+          "n": 10.0
+        },
+        "agent_accuracy@20": {
+          "mean": 0.8190847511609324,
+          "sd": 0.026931795353414573,
+          "ci_low": 0.8050359679396536,
+          "ci_high": 0.8362707600253221,
+          "n": 10.0
+        },
+        "cohort_accuracy_16_20": {
+          "mean": 0.8599874338624339,
+          "sd": 0.03371139211916524,
+          "ci_low": 0.8421690145502646,
+          "ci_high": 0.8810489914021165,
+          "n": 10.0
+        },
+        "cohort_accuracy_8_12": {
+          "mean": 0.7582253086419752,
+          "sd": 0.0696283971941685,
+          "ci_low": 0.7162345679012347,
+          "ci_high": 0.7966990740740741,
+          "n": 10.0
+        },
+        "cohort_barter_16_20": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "cohort_size_16_20": {
+          "mean": 7.3,
+          "sd": 1.9465068427541912,
+          "ci_low": 6.2,
+          "ci_high": 8.5,
+          "n": 10.0
+        },
+        "education_years_16_20": {
+          "mean": 11.454976575396824,
+          "sd": 0.2961214824406019,
+          "ci_low": 11.284943032539681,
+          "ci_high": 11.634742983928572,
+          "n": 10.0
+        },
+        "employment_18_30": {
+          "mean": 0.5873180530844728,
+          "sd": 0.05921447970436066,
+          "ci_low": 0.5511040121489496,
+          "ci_high": 0.6220809733018593,
+          "n": 10.0
+        },
+        "population": {
+          "mean": 117.3,
+          "sd": 4.762119042797837,
+          "ci_low": 114.6,
+          "ci_high": 120.2,
+          "n": 10.0
+        },
+        "resource_gini": {
+          "mean": 0.8771472409678445,
+          "sd": 0.0206635052336772,
+          "ci_low": 0.8655702594949384,
+          "ci_high": 0.8898596633504527,
+          "n": 10.0
+        },
+        "tutored_share_16_20": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "rl_control",
+      "n_runs": 10,
+      "metrics": {
+        "adult_accuracy_25_60": {
+          "mean": 0.8163103220026576,
+          "sd": 0.04243572643794496,
+          "ci_low": 0.7935588005467333,
+          "ci_high": 0.8428075748014932,
+          "n": 10.0
+        },
+        "agent_accuracy@20": {
+          "mean": 0.7965033382977187,
+          "sd": 0.03605399840414001,
+          "ci_low": 0.777024626029456,
+          "ci_high": 0.8184428968239418,
+          "n": 10.0
+        },
+        "cohort_accuracy_16_20": {
+          "mean": 0.8313110670194004,
+          "sd": 0.05116383844090486,
+          "ci_low": 0.8028195877425044,
+          "ci_high": 0.8621984126984126,
+          "n": 10.0
+        },
+        "cohort_accuracy_8_12": {
+          "mean": 0.7703935185185184,
+          "sd": 0.05181928379944357,
+          "ci_low": 0.7407395833333333,
+          "ci_high": 0.800765625,
+          "n": 10.0
+        },
+        "cohort_barter_16_20": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "cohort_size_16_20": {
+          "mean": 7.3,
+          "sd": 1.9465068427541912,
+          "ci_low": 6.2,
+          "ci_high": 8.4,
+          "n": 10.0
+        },
+        "education_years_16_20": {
+          "mean": 11.454976575396824,
+          "sd": 0.2961214824406019,
+          "ci_low": 11.280487456646824,
+          "ci_high": 11.633224433928572,
+          "n": 10.0
+        },
+        "employment_18_30": {
+          "mean": 0.5808888147039653,
+          "sd": 0.047522914756553465,
+          "ci_low": 0.5537812872922449,
+          "ci_high": 0.6088961131914611,
+          "n": 10.0
+        },
+        "population": {
+          "mean": 117.9,
+          "sd": 3.5103022978402048,
+          "ci_low": 115.8,
+          "ci_high": 120.0,
+          "n": 10.0
+        },
+        "resource_gini": {
+          "mean": 0.8343195983695901,
+          "sd": 0.015041233328136156,
+          "ci_low": 0.8261430004265654,
+          "ci_high": 0.8437620318090573,
+          "n": 10.0
+        },
+        "tutored_share_16_20": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "rl_tutoring",
+      "n_runs": 10,
+      "metrics": {
+        "adult_accuracy_25_60": {
+          "mean": 0.8245162701422322,
+          "sd": 0.040726224296716955,
+          "ci_low": 0.8023203533295086,
+          "ci_high": 0.8505651052880796,
+          "n": 10.0
+        },
+        "agent_accuracy@20": {
+          "mean": 0.8101858129036353,
+          "sd": 0.0337677534123153,
+          "ci_low": 0.7909823246013408,
+          "ci_high": 0.830792907995403,
+          "n": 10.0
+        },
+        "cohort_accuracy_16_20": {
+          "mean": 0.8504647266313932,
+          "sd": 0.04420622246338829,
+          "ci_low": 0.8245844356261024,
+          "ci_high": 0.8764578703703704,
+          "n": 10.0
+        },
+        "cohort_accuracy_8_12": {
+          "mean": 0.8061388888888888,
+          "sd": 0.039498601946245805,
+          "ci_low": 0.7829907407407408,
+          "ci_high": 0.8287319444444444,
+          "n": 10.0
+        },
+        "cohort_barter_16_20": {
+          "mean": 0.5,
+          "sd": 0.0,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "n": 10.0
+        },
+        "cohort_size_16_20": {
+          "mean": 7.3,
+          "sd": 1.9465068427541912,
+          "ci_low": 6.2,
+          "ci_high": 8.4,
+          "n": 10.0
+        },
+        "education_years_16_20": {
+          "mean": 11.454976575396824,
+          "sd": 0.2961214824406019,
+          "ci_low": 11.28589304206349,
+          "ci_high": 11.634047555357142,
+          "n": 10.0
+        },
+        "employment_18_30": {
+          "mean": 0.6557898572054434,
+          "sd": 0.0698201011481394,
+          "ci_low": 0.6140957465938836,
+          "ci_high": 0.6968129250014182,
+          "n": 10.0
+        },
+        "population": {
+          "mean": 118.2,
+          "sd": 3.6147844564602556,
+          "ci_low": 116.1,
+          "ci_high": 120.4,
+          "n": 10.0
+        },
+        "resource_gini": {
+          "mean": 0.8427722328965268,
+          "sd": 0.015937677773621626,
+          "ci_low": 0.8339969624150653,
+          "ci_high": 0.8524316553732788,
+          "n": 10.0
+        },
+        "tutored_share_16_20": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "static_control",
+      "n_runs": 10,
+      "metrics": {
+        "adult_accuracy_25_60": {
+          "mean": 0.4410977690227777,
+          "sd": 0.00747598408392462,
+          "ci_low": 0.43689871678333064,
+          "ci_high": 0.44557348333431146,
+          "n": 10.0
+        },
+        "agent_accuracy@20": {
+          "mean": 0.4435687019793095,
+          "sd": 0.005922527597821899,
+          "ci_low": 0.43998728358884803,
+          "ci_high": 0.4469186742033758,
+          "n": 10.0
+        },
+        "cohort_accuracy_16_20": {
+          "mean": 0.4510687830687831,
+          "sd": 0.028113237690150807,
+          "ci_low": 0.43454484126984133,
+          "ci_high": 0.46725555555555565,
+          "n": 10.0
+        },
+        "cohort_accuracy_8_12": {
+          "mean": 0.47188425925925925,
+          "sd": 0.04849726061216884,
+          "ci_low": 0.4432493055555556,
+          "ci_high": 0.49984814814814815,
+          "n": 10.0
+        },
+        "cohort_barter_16_20": {
+          "mean": 0.4662321428571429,
+          "sd": 0.04711373801732065,
+          "ci_low": 0.44104761904761913,
+          "ci_high": 0.4958068452380952,
+          "n": 10.0
+        },
+        "cohort_size_16_20": {
+          "mean": 7.3,
+          "sd": 1.9465068427541912,
+          "ci_low": 6.2,
+          "ci_high": 8.5,
+          "n": 10.0
+        },
+        "education_years_16_20": {
+          "mean": 11.454976575396824,
+          "sd": 0.2961214824406019,
+          "ci_low": 11.282588030952382,
+          "ci_high": 11.63076138859127,
+          "n": 10.0
+        },
+        "employment_18_30": {
+          "mean": 0.5773273145830322,
+          "sd": 0.06932966147599126,
+          "ci_low": 0.539294426591092,
+          "ci_high": 0.6196737737119083,
+          "n": 10.0
+        },
+        "population": {
+          "mean": 117.7,
+          "sd": 3.591656999213594,
+          "ci_low": 115.6,
+          "ci_high": 119.9,
+          "n": 10.0
+        },
+        "resource_gini": {
+          "mean": 0.7342547983531584,
+          "sd": 0.026129285733675626,
+          "ci_low": 0.7185681084969502,
+          "ci_high": 0.7489683785686532,
+          "n": 10.0
+        },
+        "tutored_share_16_20": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        }
+      }
+    },
+    {
+      "arm": "static_tutoring",
+      "n_runs": 10,
+      "metrics": {
+        "adult_accuracy_25_60": {
+          "mean": 0.4410977690227777,
+          "sd": 0.00747598408392462,
+          "ci_low": 0.4371126884098005,
+          "ci_high": 0.44548117724407227,
+          "n": 10.0
+        },
+        "agent_accuracy@20": {
+          "mean": 0.44367899406649675,
+          "sd": 0.0059075412364693975,
+          "ci_low": 0.4400441892743016,
+          "ci_high": 0.44693975540600955,
+          "n": 10.0
+        },
+        "cohort_accuracy_16_20": {
+          "mean": 0.4510687830687831,
+          "sd": 0.028113237690150807,
+          "ci_low": 0.434777380952381,
+          "ci_high": 0.4677042328042328,
+          "n": 10.0
+        },
+        "cohort_accuracy_8_12": {
+          "mean": 0.47188425925925925,
+          "sd": 0.04849726061216884,
+          "ci_low": 0.4434811342592593,
+          "ci_high": 0.5002969907407406,
+          "n": 10.0
+        },
+        "cohort_barter_16_20": {
+          "mean": 0.4662321428571429,
+          "sd": 0.04711373801732065,
+          "ci_low": 0.4403791666666667,
+          "ci_high": 0.49491220238095235,
+          "n": 10.0
+        },
+        "cohort_size_16_20": {
+          "mean": 7.3,
+          "sd": 1.9465068427541912,
+          "ci_low": 6.2,
+          "ci_high": 8.4,
+          "n": 10.0
+        },
+        "education_years_16_20": {
+          "mean": 11.454976575396824,
+          "sd": 0.2961214824406019,
+          "ci_low": 11.287630744543652,
+          "ci_high": 11.634510018253966,
+          "n": 10.0
+        },
+        "employment_18_30": {
+          "mean": 0.5789214772143464,
+          "sd": 0.07232741783862605,
+          "ci_low": 0.5371944690237195,
+          "ci_high": 0.6210655711633245,
+          "n": 10.0
+        },
+        "population": {
+          "mean": 117.7,
+          "sd": 4.164666186436128,
+          "ci_low": 115.4,
+          "ci_high": 120.2,
+          "n": 10.0
+        },
+        "resource_gini": {
+          "mean": 0.7356414013729993,
+          "sd": 0.019511133893729653,
+          "ci_low": 0.723695916245464,
+          "ci_high": 0.7466776553232894,
+          "n": 10.0
+        },
+        "tutored_share_16_20": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "n": 10.0
+        }
+      }
+    }
+  ],
+  "effects": [
+    {
+      "metric": "cohort_accuracy_16_20",
+      "contrast": "tutoring_effect_developmental: dev_tutoring - dev_control",
+      "estimate": 0.02894841269841274,
+      "ci_low": 0.02163888888888894,
+      "ci_high": 0.03673025793650795,
+      "ci_level": 0.95,
+      "p_value": 0.001953125,
+      "standardized_effect": 2.1786588929043433,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "cohort_accuracy_16_20",
+      "contrast": "mechanism_check_static_persona: static_tutoring - static_control",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": null,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; decided by 95% CI vs margin 0.02",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "tutored_share_16_20",
+      "contrast": "manipulation_check: dev_tutoring - dev_control",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": 1.0,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": false
+    },
+    {
+      "metric": "cohort_accuracy_16_20",
+      "contrast": "tutoring_effect_plain_rl: rl_tutoring - rl_control",
+      "estimate": 0.019153659611992956,
+      "ci_low": 0.0006185019841270405,
+      "ci_high": 0.03663759369488541,
+      "ci_level": 0.95,
+      "p_value": 0.16796875,
+      "standardized_effect": 0.6252041127389915,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz; Holm-adjusted p",
+      "passed_minimum_effect": true
+    },
+    {
+      "metric": "cohort_barter_16_20",
+      "contrast": "tutoring_effect_on_transfer_family: dev_tutoring - dev_control",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "ci_level": 0.95,
+      "p_value": 1.0,
+      "standardized_effect": 0.0,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "employment_18_30",
+      "contrast": "tutoring_effect_on_employment: dev_tutoring - dev_control",
+      "estimate": 0.002903475815565404,
+      "ci_low": -0.03209188155722149,
+      "ci_high": 0.038216283949477216,
+      "ci_level": 0.95,
+      "p_value": 0.859375,
+      "standardized_effect": 0.04763096188575537,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    },
+    {
+      "metric": "adult_accuracy_25_60",
+      "contrast": "spillover_to_adults: dev_tutoring - dev_control",
+      "estimate": 0.004150712461369543,
+      "ci_low": 0.0009598689891281795,
+      "ci_high": 0.007353777092673763,
+      "ci_level": 0.95,
+      "p_value": 0.037109375,
+      "standardized_effect": 0.776355682725427,
+      "n_units": 10,
+      "unit_of_analysis": "seed (independent task world + population)",
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "passed_minimum_effect": null
+    }
+  ],
+  "run_ids": [
+    "exp02_twin_tutoring__high_label_noise__dev_control__s0",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s1",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s2",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s3",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s4",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s5",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s6",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s7",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s8",
+    "exp02_twin_tutoring__high_label_noise__dev_control__s9",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s0",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s1",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s2",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s3",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s4",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s5",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s6",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s7",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s8",
+    "exp02_twin_tutoring__high_label_noise__dev_tutoring__s9",
+    "exp02_twin_tutoring__main__dev_control__s0",
+    "exp02_twin_tutoring__main__dev_control__s1",
+    "exp02_twin_tutoring__main__dev_control__s2",
+    "exp02_twin_tutoring__main__dev_control__s3",
+    "exp02_twin_tutoring__main__dev_control__s4",
+    "exp02_twin_tutoring__main__dev_control__s5",
+    "exp02_twin_tutoring__main__dev_control__s6",
+    "exp02_twin_tutoring__main__dev_control__s7",
+    "exp02_twin_tutoring__main__dev_control__s8",
+    "exp02_twin_tutoring__main__dev_control__s9",
+    "exp02_twin_tutoring__main__dev_tutoring__s0",
+    "exp02_twin_tutoring__main__dev_tutoring__s1",
+    "exp02_twin_tutoring__main__dev_tutoring__s2",
+    "exp02_twin_tutoring__main__dev_tutoring__s3",
+    "exp02_twin_tutoring__main__dev_tutoring__s4",
+    "exp02_twin_tutoring__main__dev_tutoring__s5",
+    "exp02_twin_tutoring__main__dev_tutoring__s6",
+    "exp02_twin_tutoring__main__dev_tutoring__s7",
+    "exp02_twin_tutoring__main__dev_tutoring__s8",
+    "exp02_twin_tutoring__main__dev_tutoring__s9",
+    "exp02_twin_tutoring__main__rl_control__s0",
+    "exp02_twin_tutoring__main__rl_control__s1",
+    "exp02_twin_tutoring__main__rl_control__s2",
+    "exp02_twin_tutoring__main__rl_control__s3",
+    "exp02_twin_tutoring__main__rl_control__s4",
+    "exp02_twin_tutoring__main__rl_control__s5",
+    "exp02_twin_tutoring__main__rl_control__s6",
+    "exp02_twin_tutoring__main__rl_control__s7",
+    "exp02_twin_tutoring__main__rl_control__s8",
+    "exp02_twin_tutoring__main__rl_control__s9",
+    "exp02_twin_tutoring__main__rl_tutoring__s0",
+    "exp02_twin_tutoring__main__rl_tutoring__s1",
+    "exp02_twin_tutoring__main__rl_tutoring__s2",
+    "exp02_twin_tutoring__main__rl_tutoring__s3",
+    "exp02_twin_tutoring__main__rl_tutoring__s4",
+    "exp02_twin_tutoring__main__rl_tutoring__s5",
+    "exp02_twin_tutoring__main__rl_tutoring__s6",
+    "exp02_twin_tutoring__main__rl_tutoring__s7",
+    "exp02_twin_tutoring__main__rl_tutoring__s8",
+    "exp02_twin_tutoring__main__rl_tutoring__s9",
+    "exp02_twin_tutoring__main__static_control__s0",
+    "exp02_twin_tutoring__main__static_control__s1",
+    "exp02_twin_tutoring__main__static_control__s2",
+    "exp02_twin_tutoring__main__static_control__s3",
+    "exp02_twin_tutoring__main__static_control__s4",
+    "exp02_twin_tutoring__main__static_control__s5",
+    "exp02_twin_tutoring__main__static_control__s6",
+    "exp02_twin_tutoring__main__static_control__s7",
+    "exp02_twin_tutoring__main__static_control__s8",
+    "exp02_twin_tutoring__main__static_control__s9",
+    "exp02_twin_tutoring__main__static_tutoring__s0",
+    "exp02_twin_tutoring__main__static_tutoring__s1",
+    "exp02_twin_tutoring__main__static_tutoring__s2",
+    "exp02_twin_tutoring__main__static_tutoring__s3",
+    "exp02_twin_tutoring__main__static_tutoring__s4",
+    "exp02_twin_tutoring__main__static_tutoring__s5",
+    "exp02_twin_tutoring__main__static_tutoring__s6",
+    "exp02_twin_tutoring__main__static_tutoring__s7",
+    "exp02_twin_tutoring__main__static_tutoring__s8",
+    "exp02_twin_tutoring__main__static_tutoring__s9",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s0",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s1",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s2",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s3",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s4",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s5",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s6",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s7",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s8",
+    "exp02_twin_tutoring__no_age_gate__dev_control__s9",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s0",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s1",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s2",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s3",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s4",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s5",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s6",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s7",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s8",
+    "exp02_twin_tutoring__no_age_gate__dev_tutoring__s9",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s0",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s1",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s2",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s3",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s4",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s5",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s6",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s7",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s8",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_control__s9",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s0",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s1",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s2",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s3",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s4",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s5",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s6",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s7",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s8",
+    "exp02_twin_tutoring__tutoring_episodes_2__dev_tutoring__s9",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s0",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s1",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s2",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s3",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s4",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s5",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s6",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s7",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s8",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_control__s9",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s0",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s1",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s2",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s3",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s4",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s5",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s6",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s7",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s8",
+    "exp02_twin_tutoring__tutoring_episodes_8__dev_tutoring__s9"
+  ],
+  "sensitivity": [
+    {
+      "contrast": "tutoring_effect_developmental",
+      "variant": "high_label_noise",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "superiority",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "control_selection": "",
+      "primary": true,
+      "verdict": "failed",
+      "estimate": 0.0012982804232804623,
+      "ci_low": -0.005821610449735333,
+      "ci_high": 0.011153835978835975,
+      "ci_level": 0.95,
+      "improvement": 0.0012982804232804623,
+      "relative_improvement": 0.0016678911274083529,
+      "threshold": 0.02,
+      "margin": null,
+      "treatment_mean": 0.7796946649029983,
+      "control_mean": 0.7783963844797178,
+      "p_value": 0.890625,
+      "standardized_effect": 0.08975866070703344,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "variant_params": {
+        "label_noise": 0.15
+      }
+    },
+    {
+      "contrast": "tutoring_effect_developmental",
+      "variant": "no_age_gate",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "superiority",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "control_selection": "",
+      "primary": true,
+      "verdict": "inconclusive",
+      "estimate": 0.01338844797178137,
+      "ci_low": 0.0045747905643739335,
+      "ci_high": 0.02375413359788367,
+      "ci_level": 0.95,
+      "improvement": 0.01338844797178137,
+      "relative_improvement": 0.015763446040371942,
+      "threshold": 0.02,
+      "margin": null,
+      "treatment_mean": 0.862723544973545,
+      "control_mean": 0.8493350970017637,
+      "p_value": 0.015625,
+      "standardized_effect": 0.8497125112015326,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "variant_params": {
+        "enable_age_gate": false
+      }
+    },
+    {
+      "contrast": "tutoring_effect_developmental",
+      "variant": "tutoring_episodes_2",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "superiority",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "control_selection": "",
+      "primary": true,
+      "verdict": "passed",
+      "estimate": 0.023242504409171128,
+      "ci_low": 0.013595723104056531,
+      "ci_high": 0.03323525132275138,
+      "ci_level": 0.95,
+      "improvement": 0.023242504409171128,
+      "relative_improvement": 0.027968006095087785,
+      "threshold": 0.02,
+      "margin": null,
+      "treatment_mean": 0.8542815255731921,
+      "control_mean": 0.8310390211640211,
+      "p_value": 0.00390625,
+      "standardized_effect": 1.382335971246166,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "variant_params": {
+        "tutoring_episodes_per_tick": 2
+      }
+    },
+    {
+      "contrast": "tutoring_effect_developmental",
+      "variant": "tutoring_episodes_8",
+      "metric": "cohort_accuracy_16_20",
+      "kind": "superiority",
+      "treatment": "dev_tutoring",
+      "control": "dev_control",
+      "control_selection": "",
+      "primary": true,
+      "verdict": "passed",
+      "estimate": 0.026492945326278706,
+      "ci_low": 0.017200837742504405,
+      "ci_high": 0.03482539682539687,
+      "ci_level": 0.95,
+      "improvement": 0.026492945326278706,
+      "relative_improvement": 0.03187930368079531,
+      "threshold": 0.02,
+      "margin": null,
+      "treatment_mean": 0.8575319664902998,
+      "control_mean": 0.8310390211640211,
+      "p_value": 0.00390625,
+      "standardized_effect": 1.7278569433686273,
+      "n_units": 10,
+      "method": "paired percentile bootstrap (n_boot=4000) over seeds; sign-flip permutation p; Cohen dz",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "variant_params": {
+        "tutoring_episodes_per_tick": 8
+      }
+    }
+  ],
+  "ablations": [],
+  "figures": [
+    "figures/primary_metric.png"
+  ],
+  "limitations": [
+    "Simulated effects reflect the simulator's assumption that tutoring = extra instructional-feedback episodes; they are not estimates of real tutoring effects.",
+    "Cohorts after year 0 include agents born during the run; births can differ between arms through downstream dynamics.",
+    "Depends on hpe.world semantics for tutoring_access and AgentState.tutored (sim/world lane)."
+  ],
+  "synthetic_disclaimer": "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects.",
+  "generated_from": "raw outcome logs: runs/*/outcomes.jsonl.gz (+ manifests)",
+  "created_at": "2026-11-04T04:57:15.242748Z"
+}

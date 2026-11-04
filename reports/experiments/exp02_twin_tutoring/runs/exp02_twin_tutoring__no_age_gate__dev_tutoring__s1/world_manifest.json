@@ -1,0 +1,99 @@
+{
+  "schema_version": "0.1.0",
+  "run_id": "exp02_twin_tutoring__no_age_gate__dev_tutoring__s1",
+  "created_at": "2026-11-04T04:54:47.146567Z",
+  "status": "completed",
+  "code_version": "89205d0",
+  "contract_version": "0.1.0",
+  "config": {
+    "schema_version": "0.1.0",
+    "seed": 1,
+    "population_seed": 1,
+    "task_seed": 1,
+    "n_agents": 100,
+    "years": 20.0,
+    "dt_days": 30,
+    "policy_class": "developmental",
+    "policy_params": {},
+    "world": {
+      "n_households": null,
+      "initial_age_distribution": "young_families",
+      "max_population": null,
+      "annual_birth_rate_per_couple": 0.18,
+      "mortality_gompertz_a": 0.00005,
+      "mortality_gompertz_b": 0.095,
+      "max_age_years": 105.0,
+      "school_start_age": 6.0,
+      "school_end_age": 18.0,
+      "school_episodes_per_tick": 6,
+      "school_full_feedback_fraction": 0.25,
+      "tutoring_episodes_per_tick": 4,
+      "self_study_episodes_per_tick": 4,
+      "work_episodes_per_tick": 4,
+      "caregiver_episodes_per_tick": 2,
+      "peer_demonstrations_per_social_tick": 2,
+      "baseline_tutoring_fraction": 0.0,
+      "shock_rate_per_year": 0.15,
+      "retirement_age": 67.0,
+      "enable_age_gate": false,
+      "label_noise": 0.05,
+      "n_jobs_per_100_agents": 45,
+      "wage_base": 1.0,
+      "consumption_per_member": 0.55
+    },
+    "interventions": [
+      {
+        "name": "child_tutoring",
+        "kind": "tutoring_access",
+        "target": {
+          "age_min": 5.0,
+          "age_max": 15.0,
+          "fraction": 1.0,
+          "household_ids": null,
+          "agent_ids": null
+        },
+        "start_year": 0.0,
+        "end_year": null,
+        "params": {}
+      }
+    ],
+    "log": {
+      "frames_every_ticks": 0,
+      "decision_sample_rate": 0.0,
+      "log_learning_episodes": false,
+      "assessment_interval_years": 1.0,
+      "checkpoint_every_years": null
+    },
+    "max_events": 5000000,
+    "label": "society:no_age_gate:dev_tutoring"
+  },
+  "config_hash": "ad529ca87d10a264",
+  "experiment_id": null,
+  "arm": null,
+  "policy_class": "developmental",
+  "policy_version": "0.1.0",
+  "task_world_hash": "c68dcbe1ceeef4bf",
+  "dataset_hashes": {
+    "event_stream_sha256_chain": "18b7ed89b993e261264bab5975ecb9a207eb0845cafa374d4f57c40aed2505ee"
+  },
+  "event_log_path": null,
+  "event_log_sha256": null,
+  "n_events": 8103,
+  "final_state_hash": "7c637c3c026b69caa96c4f195bbd5629",
+  "checkpoints": [],
+  "compute": {
+    "wall_time_s": 28.4237,
+    "cpu_time_s": 28.1735,
+    "peak_rss_mb": 166.4,
+    "ticks": 244,
+    "agent_years": 2135.8522,
+    "events": 8103,
+    "llm_calls": 0,
+    "llm_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "cost_assumptions": "local CPU only; no paid model calls",
+    "hardware": "Intel(R) Xeon(R) Processor @ 2.80GHz; 4 logical CPUs; Linux x86_64; Python 3.13.18"
+  },
+  "nondeterminism": [],
+  "error": null
+}

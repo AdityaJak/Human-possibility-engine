@@ -29,6 +29,36 @@
     ]
   },
   {
+    "claim_id": "exp02_twin_tutoring",
+    "claim": "In a society of developmental learners, giving every child aged 5-15 access to tutoring (extra instructional feedback episodes) raises held-out task accuracy at ages 16-20 relative to a cloned control society, and the effect appears only when agents can learn.",
+    "status": "supported",
+    "evidence_kind": "synthetic_simulation",
+    "run_ids": [
+      "exp02_twin_tutoring__high_label_noise__dev_control__s0",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s1",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s2",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s3",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s4",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s5",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s6",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s7",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s8",
+      "exp02_twin_tutoring__high_label_noise__dev_control__s9",
+      "exp02_twin_tutoring__high_label_noise__dev_tutoring__s0",
+      "exp02_twin_tutoring__high_label_noise__dev_tutoring__s1",
+      "... +128 more"
+    ],
+    "metric": "cohort_accuracy_16_20",
+    "value": "+0.0289 (95% CI [+0.0216, +0.0367], n=10 seeds) \u2014 primary contrast 'tutoring_effect_developmental' (superiority): dev_tutoring vs dev_control on cohort_accuracy_16_20: estimate +0.0289 (95% CI [+0.0216, +0.0367], n=10 seeds; relative +3.5%); threshold 0.0200 -> passed",
+    "config_ref": "reports/experiments/exp02_twin_tutoring/definition.json (preregistration 7e540e467914fb1d3eb0c17891b379ba)",
+    "limitations": [
+      "Simulated effects reflect the simulator's assumption that tutoring = extra instructional-feedback episodes; they are not estimates of real tutoring effects.",
+      "Cohorts after year 0 include agents born during the run; births can differ between arms through downstream dynamics.",
+      "Depends on hpe.world semantics for tutoring_access and AgentState.tutored (sim/world lane).",
+      "Simulated result from a synthetic world. Effects may simply reflect assumptions built into the simulator and are not estimates of real-world causal effects."
+    ]
+  },
+  {
     "claim_id": "exp06_transfer",
     "claim": "A learner with a shared representation trained on sort/compare/signal adapts faster to the never-practised 'barter' family than independently trained specialists when barter shares the latent structure, and shows no benefit (or negative transfer) when it does not.",
     "status": "supported",
