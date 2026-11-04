@@ -86,10 +86,19 @@ def paired(
     keys = sorted(set(da) & set(db))
     if not keys:
         raise ValueError("no common participants")
+    n_unpaired = len(set(da) ^ set(db))
     d = np.array([da[k] - db[k] for k in keys])
     est, lo, hi, p = bootstrap(d, seed=seed, key=key)
     sd = float(d.std(ddof=1)) if len(d) > 1 else float("nan")
-    return {"estimate": est, "ci_low": lo, "ci_high": hi, "p_one_sided": p, "sd": sd, "n": len(keys)}
+    return {
+        "estimate": est,
+        "ci_low": lo,
+        "ci_high": hi,
+        "p_one_sided": p,
+        "sd": sd,
+        "n": len(keys),
+        "n_unpaired": n_unpaired,
+    }
 
 
 def holm(pvals: dict[str, float]) -> dict[str, float]:

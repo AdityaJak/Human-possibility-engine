@@ -6,6 +6,7 @@ freeze) test. Resumable: each (family, model) result is checkpointed under ``<ou
 
 from __future__ import annotations
 
+import copy
 import gzip
 import hashlib
 import itertools
@@ -22,18 +23,19 @@ from pydantic import BaseModel, Field
 
 from hpe.core.rng import derive_seed, stream
 from hpe.population.core import evaluate
-from hpe.population.core.conformance import check_causal
+from hpe.population.core.adaptation import overrides_harness
+from hpe.population.core.conformance import check_causal, state_digest
 from hpe.population.core.data import load_family
-from hpe.population.core.encoding import EncodedSeq, input_dim
+from hpe.population.core.encoding import EncodedSeq, input_dim, rekey
 from hpe.population.core.families import get_family
-from hpe.population.core.interface import SequencePredictor, get_model
+from hpe.population.core.interface import get_model
 
 
 class ModelRun(BaseModel):
     grid: dict[str, list[Any]] = Field(default_factory=dict)
     fixed: dict[str, Any] = Field(default_factory=dict)
     role: Literal["comparator", "candidate", "reference"] = "comparator"
-    variants: list[Literal["frozen", "mismatched"]] = Field(default_factory=list)
+    variants: list[Literal["frozen", "mismatched", "twin"]] = Field(default_factory=list)
     families: list[str] | None = None  # restrict to these families (default: all)
 
 
@@ -108,32 +110,61 @@ def donors_for(seqs: list[EncodedSeq], seed: int, family: str) -> dict[str, Enco
     return {seqs[order[i]].key: seqs[order[(i + 1) % len(order)]] for i in range(len(order))}
 
 
+def _token(seed: int, *key: str) -> str:
+    return f"p{derive_seed(seed, 'phase3_rekey', *key) % (1 << 60):x}"
+
+
+def predict_isolated(
+    model: Any, seq: EncodedSeq, token: str, *, mode: str = "adapt", donor: EncodedSeq | None = None
+) -> np.ndarray:
+    """Predict one participant with a fresh copy of the model and an opaque key (critic findings L-2, L-3)."""
+    m = copy.deepcopy(model)
+    d = rekey(donor, token + "-donor") if donor is not None else None
+    return np.asarray(m.predict_logprobs(rekey(seq, token), mode=mode, donor=d))
+
+
+def score_variant(
+    model: Any, seqs: list[EncodedSeq], lam: float, seed: int, tag: str, **kw: Any
+) -> tuple[list[evaluate.ParticipantScore], list[evaluate.ParticipantScore]]:
+    """Scores at the selected lapse and at lapse 0 (critic finding S-6)."""
+    main, zero = [], []
+    for s in seqs:
+        lp = predict_isolated(model, s, _token(seed, tag, s.key), **kw)
+        main.append(evaluate.score(s, lp, lam))
+        zero.append(evaluate.score(s, lp, 0.0))
+    return main, zero
+
+
+def _fit_one(
+    spec: Any, cfg: dict[str, Any], defn: P3Definition, train: list[EncodedSeq], seed: int, budget: float
+) -> tuple[Any, dict[str, Any], float, float]:
+    model = spec.factory(cfg, defn.k_max, input_dim(defn.k_max))
+    t0, w0 = time.process_time(), time.time()
+    log = model.fit(train, seed=seed, threads=defn.threads, budget_s=budget)
+    return model, log, time.process_time() - t0, time.time() - w0
+
+
 def run_model_family(
     defn: P3Definition, family: str, name: str, run: ModelRun, data: dict[str, list[EncodedSeq]]
 ) -> dict[str, Any]:
     spec = get_model(name)
-    d = input_dim(defn.k_max)
     configs = grid_configs(run, defn.max_configs)
     fits: list[dict[str, Any]] = []
-    best: tuple[float, int, float, SequencePredictor] | None = None
+    best: tuple[float, int, float, Any] | None = None
     t_family = time.process_time()
+    sel_seqs = data[defn.select_partition]
     for ci, cfg in enumerate(configs):
         spent = time.process_time() - t_family
         if spent > defn.budget_s_per_model_family:
             fits.append({"config": cfg, "skipped": "budget exhausted"})
             continue
-        model = spec.factory(cfg, defn.k_max, d)
         seed = derive_seed(defn.seed, family, name, ci) % (2**31 - 1)
-        t0, w0 = time.process_time(), time.time()
-        log = model.fit(
-            data[defn.fit_partition],
-            seed=seed,
-            threads=defn.threads,
-            budget_s=max(60.0, defn.budget_s_per_model_family - spent),
+        model, log, fit_cpu, fit_wall = _fit_one(
+            spec, cfg, defn, data[defn.fit_partition], seed, max(60.0, defn.budget_s_per_model_family - spent)
         )
-        fit_cpu, fit_wall = time.process_time() - t0, time.time() - w0
-        sel_seqs = data[defn.select_partition]
-        lps = [model.predict_logprobs(s) for s in sel_seqs]
+        lps = [
+            predict_isolated(model, s, _token(defn.seed, "select", name, str(ci), s.key)) for s in sel_seqs
+        ]
         by_lapse: dict[str, float] = {}
         for lam in defn.lapse_grid:
             sc = [evaluate.score(s, lp, lam) for s, lp in zip(sel_seqs, lps, strict=True)]
@@ -149,6 +180,7 @@ def run_model_family(
                 "fit_cpu_s": round(fit_cpu, 2),
                 "fit_wall_s": round(fit_wall, 2),
                 "fit_log": log,
+                "nondeterministic_budget_stop": (log or {}).get("stopped") == "budget",
                 "params": model.param_count(),
             }
         )
@@ -157,26 +189,66 @@ def run_model_family(
     if best is None:
         raise RuntimeError(f"{family}/{name}: no configuration fitted within budget")
     sel_nll, ci, lam, model = best
-    causal = check_causal(model, data[defn.select_partition][0], seed=defn.seed)
+    violations: list[str] = []
+    if overrides_harness(model):
+        violations.append("adaptive model overrides the harness-owned predict_logprobs")
+    t_check = time.process_time()
+    violations += check_causal(model, sel_seqs[:20], seed=defn.seed)
+    check_cpu = time.process_time() - t_check
+    digest_before = state_digest(model)
     rep = data[defn.report_partition]
     t0 = time.process_time()
     variants: dict[str, list[dict[str, Any]]] = {}
-    variants["main"] = _scores_json([evaluate.score(s, model.predict_logprobs(s), lam) for s in rep])
+    lapse0: dict[str, float] = {}
+    main, zero = score_variant(model, rep, lam, defn.seed, f"report-{name}")
+    variants["main"] = _scores_json(main)
+    lapse0["main"] = evaluate.mean_nll(zero)
+    report_cpu = time.process_time() - t0
     adaptive = bool(spec.adaptive or getattr(model, "adaptive", False))
     if adaptive and "frozen" in run.variants:
-        variants["frozen"] = _scores_json(
-            [evaluate.score(s, model.predict_logprobs(s, mode="frozen"), lam) for s in rep]
-        )
+        sc, zero = score_variant(model, rep, lam, defn.seed, f"frozen-{name}", mode="frozen")
+        variants["frozen"], lapse0["frozen"] = _scores_json(sc), evaluate.mean_nll(zero)
     if adaptive and "mismatched" in run.variants:
         donors = donors_for(rep, defn.seed, family)
-        variants["mismatched"] = _scores_json(
-            [
-                evaluate.score(s, model.predict_logprobs(s, donor=donors[s.key]), lam)
-                for s in rep
-                if s.key in donors
-            ]
+        sc = []
+        for s in rep:
+            if s.key in donors:
+                lp = predict_isolated(
+                    model, s, _token(defn.seed, f"donor-{name}", s.key), donor=donors[s.key]
+                )
+                sc.append(evaluate.score(s, lp, lam))
+        variants["mismatched"] = _scores_json(sc)
+    twin_info: dict[str, Any] | None = None
+    tcfg = model.twin_config() if hasattr(model, "twin_config") else None
+    if adaptive and "twin" in run.variants and tcfg:
+        tspec = get_model("pop_gru")
+        tseed = derive_seed(defn.seed, family, name, ci, "twin") % (2**31 - 1)
+        twin, tlog, tcpu, _tw = _fit_one(
+            tspec, dict(tcfg), defn, data[defn.fit_partition], tseed, defn.budget_s_per_model_family
         )
+        tl = [predict_isolated(twin, s, _token(defn.seed, "twin-select", name, s.key)) for s in sel_seqs]
+        tby = {
+            str(lam_): evaluate.mean_nll(
+                [evaluate.score(s, lp, lam_) for s, lp in zip(sel_seqs, tl, strict=True)]
+            )
+            for lam_ in defn.lapse_grid
+        }
+        tlam = min(defn.lapse_grid, key=lambda v: (tby[str(v)], v))
+        sc, zero = score_variant(twin, rep, tlam, defn.seed, f"twin-{name}")
+        variants["twin"], lapse0["twin"] = _scores_json(sc), evaluate.mean_nll(zero)
+        twin_info = {
+            "config": tcfg,
+            "lapse": tlam,
+            "select_nll": tby[str(tlam)],
+            "fit_cpu_s": round(tcpu, 2),
+            "fit_log": tlog,
+            "params": twin.param_count(),
+            "causality_violations": check_causal(twin, sel_seqs[:5], seed=defn.seed),
+        }
+    if state_digest(model) != digest_before:
+        violations.append("model state changed while predicting the report partition")
     edges = [k for k, vals in run.grid.items() if len(vals) > 1 and configs[ci].get(k) in (vals[0], vals[-1])]
+    n_trials = sum(s.T for s in rep)
     return {
         "family": family,
         "model": name,
@@ -189,13 +261,18 @@ def run_model_family(
             "lapse": lam,
             "select_nll": sel_nll,
             "grid_edges": edges,
+            "n_configs_evaluated": sum(1 for f in fits if "skipped" not in f),
         },
         "describe": model.describe(),
         "params": model.param_count(),
         "fits": fits,
-        "causality_violations": causal,
+        "causality_violations": violations,
+        "causality_check_cpu_s": round(check_cpu, 2),
         "report_partition": defn.report_partition,
-        "report_cpu_s": round(time.process_time() - t0, 2),
+        "report_cpu_s": round(report_cpu, 2),
+        "predict_ms_per_trial": round(1000.0 * report_cpu / max(1, n_trials), 4),
+        "lapse0_nll": lapse0,
+        "twin": twin_info,
         "variants": variants,
     }
 
@@ -297,14 +374,21 @@ def analyze(outdir: Path) -> dict[str, Any]:
                     "top1": float(np.mean([x.top1 for x in s])),
                     "ece": float(np.mean([x.ece for x in s])),
                     "quarters": [float(np.nanmean([x.quarters[q] for x in s])) for q in range(4)],
-                    "select_nll": r["selected"]["select_nll"],
-                    "params": r["params"],
+                    "select_nll": r["selected"]["select_nll"]
+                    if var == "main"
+                    else ((r.get("twin") or {}).get("select_nll") if var == "twin" else None),
+                    "lapse0_nll": (r.get("lapse0_nll") or {}).get(var),
+                    "params": r["params"] if var != "twin" else (r.get("twin") or {}).get("params"),
                     "role": r["role"],
                     "config": r["selected"]["config"],
                     "lapse": r["selected"]["lapse"],
                     "grid_edges": r["selected"]["grid_edges"],
                     "fit_cpu_s": round(sum(f.get("fit_cpu_s", 0.0) for f in r["fits"]), 1),
-                    "causality_violations": r["causality_violations"],
+                    "causality_violations": r["causality_violations"]
+                    if var != "twin"
+                    else (r.get("twin") or {}).get("causality_violations", []),
+                    "excluded": bool(r["causality_violations"]) if var != "twin" else False,
+                    "predict_ms_per_trial": r.get("predict_ms_per_trial"),
                     "describe": r.get("describe", {}),
                 }
                 for x in s:
@@ -318,15 +402,17 @@ def analyze(outdir: Path) -> dict[str, Any]:
                             "top1": x.top1,
                         }
                     )
-        comps = [n for n, r in models.items() if r["role"] == "comparator"]
-        cands = [n for n, r in models.items() if r["role"] == "candidate"]
+        # models with any causality/state violation are excluded from every comparison (critic L-1)
+        comps = [n for n, r in models.items() if r["role"] == "comparator" and not r["causality_violations"]]
+        cands = [n for n, r in models.items() if r["role"] == "candidate" and not r["causality_violations"]]
+        fam["excluded_models"] = sorted(n for n, r in models.items() if r["causality_violations"])
         best_comp = min(comps, key=lambda n: models[n]["selected"]["select_nll"]) if comps else None
         fam["best_comparator"] = best_comp
         for c in cands:
             targets: list[tuple[str, str, str]] = []
             if best_comp:
                 targets.append((c, best_comp, "vs_best_comparator"))
-            for v in ("frozen", "mismatched"):
+            for v in ("twin", "frozen", "mismatched"):
                 if f"{c}[{v}]" in scores:
                     targets.append((c, f"{c}[{v}]", f"vs_{v}"))
             targets += [(c, comp, "vs_comparator") for comp in comps if comp != best_comp]

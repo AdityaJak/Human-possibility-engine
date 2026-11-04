@@ -84,7 +84,7 @@ def test_causality_check_passes_honest_and_catches_lookahead():
     s = encode(_participant(40, 3), "toy", 4)
     assert check_causal(_Honest(), s) == []  # type: ignore[arg-type]
     problems = check_causal(_Cheat(), s)  # type: ignore[arg-type]
-    assert problems and all("changed when the future changed" in p for p in problems)
+    assert problems and any("depend on data at or after" in p for p in problems)
 
 
 def test_lapse_score_and_quarters():
@@ -124,8 +124,67 @@ def test_test_partition_is_locked_without_a_freeze_record(tmp_path):
     from hpe.population.core import data
 
     os.environ.setdefault(data.DATA_ENV, str(tmp_path / "missing.jsonl"))
-    with pytest.raises(TestPartitionLocked):
-        data.load_family("restless4", "test", experiment_id="no_such_freeze", freeze_dir=tmp_path)
+    with pytest.raises(TestPartitionLocked, match="no freeze record"):
+        data.load_family("restless4", "test", experiment_id="no_such_freeze")
+
+
+def test_uncommitted_freeze_record_does_not_unlock(tmp_path):
+    """Critic T-1: a freeze record that is not committed (or lacks critic approval) never opens test."""
+    import json
+
+    from hpe.population.core.freeze import FREEZE_DIR, validate_freeze
+
+    FREEZE_DIR.mkdir(parents=True, exist_ok=True)
+    rec = FREEZE_DIR / "zz_uncommitted_probe.json"
+    fields = {
+        k: "x"
+        for k in (
+            "experiment_id",
+            "preregistration_hash",
+            "code_commit",
+            "frozen_at",
+            "counted_families",
+            "primary_family",
+            "comparator_pool",
+            "candidates",
+            "model_digests",
+        )
+    }
+    fields["experiment_id"] = "zz_uncommitted_probe"
+    rec.write_text(json.dumps(fields))
+    try:
+        with pytest.raises(TestPartitionLocked, match="not committed"):
+            validate_freeze("zz_uncommitted_probe")
+    finally:
+        rec.unlink()
+
+
+def test_phase2_tooling_can_no_longer_unlock_test():
+    from hpe.evaluation.human.partitions import check_partition_access
+
+    with pytest.raises(TestPartitionLocked, match="Phase II is closed"):
+        check_partition_access("test", "anything")
+
+
+def test_overlapping_family_registration_is_refused():
+    from hpe.population.core.families import FAMILIES, FamilySpec, register_family
+
+    spec = FAMILIES["garcia"]
+    with pytest.raises(ValueError, match="overlaps"):
+        register_family(
+            FamilySpec(
+                "garcia_alias", spec.prefixes, spec.n_actions, spec.partition_file, spec.parser, "counted"
+            )
+        )
+
+
+def test_unpinned_partition_file_is_refused(tmp_path):
+    from hpe.population.core import data
+
+    copy_path = tmp_path / "psych101_p3.json"
+    copy_path.write_bytes(data.P3_PARTITIONS.read_bytes())
+    with pytest.raises(data.DataUnavailable, match="not pinned"):
+        data._partitions(str(copy_path))
 
 
 def test_restless4_parser_on_a_synthetic_transcript():

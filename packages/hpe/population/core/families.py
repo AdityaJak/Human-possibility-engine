@@ -43,6 +43,11 @@ FAMILIES: dict[str, FamilySpec] = {}
 def register_family(spec: FamilySpec) -> None:
     if spec.name in FAMILIES and FAMILIES[spec.name] != spec:
         raise ValueError(f"family {spec.name!r} already registered differently")
+    for other in FAMILIES.values():  # critic finding T-2: no second name over the same studies
+        if other.name != spec.name and any(
+            a.startswith(b) or b.startswith(a) for a in spec.prefixes for b in other.prefixes
+        ):
+            raise ValueError(f"family {spec.name!r} overlaps the studies of {other.name!r}")
     FAMILIES[spec.name] = spec
 
 
