@@ -35,7 +35,7 @@ import numpy as np
 from hpe.core.rng import stream
 from hpe.evaluation.human.partitions import PARTITIONS, check_partition_access
 from hpe.population.core.data import P3_FREEZE_DIR
-from hpe.population.core.encoding import F, EncodedSeq, Layout, input_dim
+from hpe.population.core.encoding import EncodedSeq, F, Layout, input_dim
 from hpe.population.core.families import REPO_ROOT
 
 DATASET = "gbe_risk_happiness"
@@ -61,7 +61,7 @@ D_BASE = input_dim(K)
 N_EXTRA = 3
 MAX_PLAYS = 10  # plays per participant kept (in order); 99th percentile of plays is 12
 TRIALS_PER_PLAY = 30
-VALUE_SCALE = 150.0  # largest absolute amount in any design
+VALUE_SCALE = 220.0  # largest absolute amount in any design (ratio design 1-2: 55 x 4)
 
 # raw data columns (README table, 1-based in MATLAB -> 0-based here)
 C_SAFE, C_WIN, C_LOSS, C_CHOICE, C_OUTCOME, C_HAPPY = 2, 3, 4, 6, 7, 9
