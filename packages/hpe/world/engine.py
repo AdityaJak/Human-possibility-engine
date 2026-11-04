@@ -86,6 +86,7 @@ from hpe.tasks import ALL_FAMILIES, TRAINING_FAMILIES, SymbolWorld, assess, prac
 from hpe.tasks.assessment import PracticeStats
 from hpe.world import geography as geo
 from hpe.world import population as popmod
+from hpe.world import social as socialv2
 from hpe.world.records import EDGE_PRIORITY, FAMILY_EDGE_KINDS, AgentRec, EdgeRec, Household, Job
 
 SNAPSHOT_FORMAT = "hpe.world.snapshot/1"
@@ -182,6 +183,8 @@ class World:
         run_id: str | None = None,
     ) -> None:
         self.config = config
+        # Phase II social mechanism v2 (flag-guarded; None keeps Phase I behaviour bit-identical)
+        self._sv2 = socialv2.SocialV2Config.from_params(config.policy_params)
         self.factory = policy_factory
         self.sink = sink
         self.config_hash = stable_hash(config.model_dump(mode="json"))
@@ -222,6 +225,7 @@ class World:
         self._param_history: dict[str, list[dict[str, Any]]] = {}
         self._last_explanation: dict[str, Any] = {}
         self._compute = {"wall_time_s": 0.0, "cpu_time_s": 0.0, "agent_years": 0.0}
+        self._sv2_state = socialv2.SocialV2State()
         self._tick_events = 0
         self._births_tick = 0
         self._deaths_tick = 0
@@ -571,6 +575,9 @@ class World:
         source_label: str,
     ) -> None:
         """Teacher acts greedily on a train item; learner observes action + outcome (trust-weighted)."""
+        if self._sv2 is not None:
+            socialv2.demonstrate_v2(self, teacher_id, learner, family, rng, acc, source_label)
+            return
         teacher = self._agents[teacher_id]
         sw = self.symbol_world
         item = sw.sample_item(family, rng, split="train")
@@ -842,6 +849,8 @@ class World:
             self._job_market(initial=False)
             self._yearly_records()
             self._param_snapshot()
+            if self._sv2 is not None:
+                socialv2.yearly(self)
         if self.on_checkpoint is not None and self._interval_crossed(self.config.log.checkpoint_every_years):
             self.on_checkpoint(self.tick, self.snapshot())
 
@@ -1158,30 +1167,33 @@ class World:
         # (d) plaza / family meetings
         social = [aid for aid in sorted(scratch) if self._agents[aid].activity == "socialize"]
         pool = [aid for aid in social if not self._agents[aid].flags.get("isolated", False)]
-        order = [pool[i] for i in srng.permutation(len(pool))] if pool else []
-        matched: set[str] = set()
         pairs: list[tuple[str, str]] = []
-        pool_set = set(pool)
-        for aid in order:
-            if aid in matched:
-                continue
-            friends = [
-                b
-                for b, e in sorted(self._edges.get(aid, {}).items())
-                if e.kind == "friend" and b in pool_set and b not in matched and b != aid
-            ]
-            partner = None
-            if friends and srng.random() < 0.5:
-                partner = friends[int(srng.integers(0, len(friends)))]
-            else:
-                for b in order:
-                    if b != aid and b not in matched:
-                        partner = b
-                        break
-            if partner is None:
-                continue
-            matched.update((aid, partner))
-            pairs.append((aid, partner) if aid < partner else (partner, aid))
+        if self._sv2 is not None:
+            pairs = socialv2.plaza_pairs(self, pool, srng)
+        else:
+            order = [pool[i] for i in srng.permutation(len(pool))] if pool else []
+            matched: set[str] = set()
+            pool_set = set(pool)
+            for aid in order:
+                if aid in matched:
+                    continue
+                friends = [
+                    b
+                    for b, e in sorted(self._edges.get(aid, {}).items())
+                    if e.kind == "friend" and b in pool_set and b not in matched and b != aid
+                ]
+                partner = None
+                if friends and srng.random() < 0.5:
+                    partner = friends[int(srng.integers(0, len(friends)))]
+                else:
+                    for b in order:
+                        if b != aid and b not in matched:
+                            partner = b
+                            break
+                if partner is None:
+                    continue
+                matched.update((aid, partner))
+                pairs.append((aid, partner) if aid < partner else (partner, aid))
         for aid in social:
             if self._agents[aid].flags.get("isolated", False):
                 hh = self._households.get(self._agents[aid].household_id)
@@ -1189,7 +1201,10 @@ class World:
                 if fam:
                     pairs.append((aid, fam[int(srng.integers(0, len(fam)))]))
         for a_id, b_id in pairs:
-            self._meeting(a_id, b_id, scratch)
+            if self._sv2 is not None:
+                socialv2.meeting_v2(self, a_id, b_id, scratch)
+            else:
+                self._meeting(a_id, b_id, scratch)
 
     def _meeting(self, a_id: str, b_id: str, scratch: dict[str, dict[str, Any]]) -> None:
         a, b = self._agents[a_id], self._agents[b_id]
@@ -2209,6 +2224,7 @@ class World:
             "param_history": self._param_history,
             "last_explanation": _jsonable(self._last_explanation),
             "compute": dict(self._compute),
+            "social_v2": self._sv2_state.to_dict() if self._sv2 is not None else None,
         }
 
     def load_snapshot(self, snapshot: dict[str, Any]) -> None:
@@ -2251,3 +2267,5 @@ class World:
         self._param_history = {k: list(v) for k, v in snapshot["param_history"].items()}
         self._last_explanation = dict(snapshot["last_explanation"])
         self._compute = {k: float(v) for k, v in snapshot["compute"].items()}
+        if snapshot.get("social_v2") is not None:
+            self._sv2_state = socialv2.SocialV2State.from_dict(snapshot["social_v2"])
