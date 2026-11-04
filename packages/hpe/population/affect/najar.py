@@ -193,7 +193,7 @@ def shuffle_events(
     events: list[tuple[int, int, int]], key: str, seed: int = SHUFFLE_SEED
 ) -> list[tuple[int, int, int]]:
     """Causal within-participant resampling: event ``k >= 1`` takes the action of a random earlier event."""
-    rng = stream(seed, "social_past_shuffle", key)
+    rng = stream(seed, "social_past_shuffle")  # index-only schedule: key-independent (strict check)
     out: list[tuple[int, int, int]] = []
     for k, (pos, s, a) in enumerate(events):
         a2 = a if k == 0 else events[int(rng.integers(0, k))][2]

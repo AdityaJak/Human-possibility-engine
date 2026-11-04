@@ -45,7 +45,9 @@ def past_shuffle(extra: np.ndarray, key: str, seed: int = SHUFFLE_SEED) -> np.nd
     is fed instead and carried forward until the next event. Row ``t`` depends only on rows ``<= t``.
     """
     out = np.array(extra, dtype=np.float32, copy=True)
-    rng = stream(seed, "affect_past_shuffle", key)
+    # The draw schedule depends only on the event index (identical for every participant), so predictions
+    # cannot depend on the participant key (director fix for the strict check's key-independence rule).
+    rng = stream(seed, "affect_past_shuffle")
     past: list[float] = []
     cur = 0.0
     for t in range(out.shape[0]):
@@ -61,7 +63,7 @@ def permute_ratings(ratings: np.ndarray, key: str, seed: int = SHUFFLE_SEED) -> 
     """Permute the observed (finite) ratings across trials within one participant (auxiliary targets only)."""
     out = np.array(ratings, dtype=np.float64, copy=True)
     idx = np.flatnonzero(np.isfinite(out))
-    out[idx] = out[idx][stream(seed, "affect_target_perm", key).permutation(idx.size)]
+    out[idx] = out[idx][stream(seed, "affect_target_perm", idx.size).permutation(idx.size)]
     return out
 
 

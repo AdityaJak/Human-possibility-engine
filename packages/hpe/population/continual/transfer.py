@@ -38,7 +38,7 @@ import json
 import platform
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 import torch
@@ -426,7 +426,7 @@ def run_target(defn: GateDDefinition, target: str, outdir: Path, log: Any, resum
             keys = sorted(draws[0])
             scores = {key: float(np.mean([dd[key] for dd in draws])) for key in keys}
             # strict causality check of one selected fine-tuned model (draw 0)
-            m = copy.deepcopy(base)
+            m = cast(nets.PopRNN, copy.deepcopy(base))
             m.load_state_dict(states_d0[tag])
             viol = check_causal(HistoryOnlyPredictor(m, model), tune[:5], seed=defn.seed, donors=False)
             mrec["by_k"][str(k)] = {
