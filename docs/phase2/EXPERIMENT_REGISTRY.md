@@ -73,6 +73,10 @@ Budgets are updated by each lane in its handoff from measured wall/CPU time.
 
 No confirmatory evaluation has been run in Phase II.
 
+Drafts (not frozen; no test access permitted): `experiments/phase2/confirmatory/gateD_mcpl_igt_v1.yaml`
+— Gate D (partial) for Candidate A on MCPL + IGT; model configurations are filled only at the freeze
+step, after equal-grid re-tuning and the critic's sign-off on controls and leakage checks.
+
 ## 5. Rules
 
 1. A hypothesis, its falsifier, datasets, baselines and metrics are written down before data are touched.

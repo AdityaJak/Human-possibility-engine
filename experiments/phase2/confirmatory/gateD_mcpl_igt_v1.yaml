@@ -1,0 +1,52 @@
+# CONFIRMATORY preregistration — Gate D (partial): held-out human choice prediction, Psych-101 MCPL + IGT
+# STATUS: DRAFT — not frozen. Model configurations are filled in ONLY at the freeze step, from the
+# tuning logs committed by the lanes; until a freeze record exists under reports/phase2/freeze/, the
+# test partition may not be evaluated by anyone (scripts/phase2_guard.py check-freeze enforces this).
+id: gateD_mcpl_igt_v1
+gate: D
+scope: >-
+  Two of the three families Gate D requires (both from Psych-101). A pass here is a partial result:
+  Gate D also requires a third family and a second dataset. Every participant in these families was
+  touched in Phase I (fitted on or scored); the protection is procedural (EXPERIMENT_REGISTRY.md).
+hypothesis: >-
+  The hybrid parametric+exemplar learner (Candidate A) predicts held-out human choices better than the
+  strongest non-developmental model on MCPL, and no worse than it on IGT.
+falsification:
+  primary: >-
+    FAILED if (hybrid_exemplar NLL - strongest_baseline NLL) on MCPL test participants has a paired
+    95% bootstrap CI whose upper bound is above -0.02 nats/choice.
+  secondary: >-
+    FAILED if on IGT the same contrast's CI lower bound is above +0.02 (hybrid worse), where the
+    strongest baseline is chosen post hoc among the listed baselines by test NLL (conservative).
+metric:
+  name: nll_per_choice
+  definition: >-
+    Mean over held-out participants of each participant's mean negative log-likelihood (natural log)
+    of actual choices under teacher forcing, after lapse mixing, with hyperparameters and lapse fixed
+    at the frozen values. Chance = ln 9 (MCPL), ln 4 (IGT).
+partitions:
+  file: reports/phase2/partitions/psych101.json
+  split_seed: 20261105
+  evaluate_on: test
+  test_partition_sha256: 7dc2e7798f57d3fa9ac3c73c2e334f6002c177506541617e2675bc8b0e508e4e
+models:
+  candidate: hybrid_exemplar
+  baselines: [ref_instance_based, memory_only, plain_rl, developmental, ref_delta_rule, ref_gru_sequence, ref_pvl_delta, ref_bayesian_rule]
+  frozen_configs: null   # filled at freeze from reports/phase2/cognitive/**/tuning logs and reports/phase2/human/**/grids
+  equal_tuning: >-
+    Every model's configuration must come from a tune-partition grid of equal size (<= 24) committed
+    before tuning. Where a lane tuned with unequal grid sizes (MCPL dev pilot: 12 vs 9), the freeze
+    step re-tunes the smaller grids to parity on the tune partition BEFORE the test evaluation.
+analysis:
+  test: paired percentile bootstrap over participants, 4000 resamples, seed 20261105
+  reported: estimate, 95% CI, share of participants favouring the candidate, Cohen dz, calibration (ECE), per-experiment-file breakdown, predictability terciles, CPU seconds per model
+  corrections: Holm across the two families
+controls_required_before_freeze:
+  - hybrid_fixed_gate and hybrid_exemplar_only and hybrid_no_ordinal evaluated on dev with the same protocol (mechanism attribution)
+  - critic sign-off on leakage checks (test participants never loaded; scripts/phase2_guard.py check-test-access clean)
+  - independent re-run of the dev results by the critic from committed scripts
+execution:
+  run_by: research director
+  reproduced_by: independent critic
+  one_shot: true
+freeze_record: null
