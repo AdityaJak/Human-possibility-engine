@@ -1,0 +1,19 @@
+=== Wed Nov  4 15:41:18 UTC 2026 start x3_b04_adapt_restless4
+[restless4] ft_head: 12 config(s), 348 dev participants
+[restless4] ft_head: select NLL 0.7285 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'lr': 0.003, 'm': 10, 'n': 5} lapse 0.01 causal=ok
+[restless4] ft_full: 8 config(s), 348 dev participants
+[restless4] ft_full: select NLL 0.7297 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'l2': 1.0, 'lr': 0.001, 'n': 3} lapse 0.01 causal=ok
+[restless4] bayes_head: 12 config(s), 348 dev participants
+[restless4] bayes_head: select NLL 0.7275 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'm': 10, 'predictive': 'laplace', 'prior_var': 'eb'} lapse 0.01 causal=ok
+[restless4] exemplar_mix: 12 config(s), 348 dev participants
+[restless4] exemplar_mix: select NLL 0.7324 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'decay': 0.98, 'bw': 0.25, 'w': 0.05} lapse 0.0 causal=ok
+[restless4] reptile_gru: 4 config(s), 348 dev participants
+[restless4] reptile_gru: select NLL 0.7306 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'lr': 0.001, 'n': 3} lapse 0.02 causal=ok
+[restless4] cavia_gru: 4 config(s), 348 dev participants
+[restless4] cavia_gru: select NLL 0.7313 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'c_dim': 8, 'inner_lr': 1.0} lapse 0.01 causal=ok
+[restless4] hb_cog: 6 config(s), 348 dev participants
+[restless4] hb_cog: select NLL 0.8322 config {'c': 0.01, 'tau': 0.5} lapse 0.0 causal=ok
+[restless4] gru_hb_mix: 8 config(s), 348 dev participants
+[restless4] gru_hb_mix: select NLL 0.7270 config {'backbone': {'hidden': 32, 'lr': 0.01, 'dropout': 0.0, 'max_epochs': 150, 'patience': 10, 'batch_size': 8}, 'backbone_seed': 273911918, 'c': 1.0, 'w': 0.1} lapse 0.0 causal=ok
+wrote reports/phase3/baselines/x3_b04_adapt_restless4
+=== Wed Nov  4 16:38:03 UTC 2026 end x3_b04_adapt_restless4 exit 0

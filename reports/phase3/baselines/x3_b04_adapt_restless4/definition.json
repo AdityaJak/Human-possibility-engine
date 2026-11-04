@@ -1,0 +1,273 @@
+{
+ "experiment_id": "x3_b04_adapt_restless4",
+ "title": "Adaptive comparators on the selected pop_gru backbone (fine-tuning, Bayesian head, exemplar mixture, Reptile, CAVIA, hierarchical Bayesian cognitive model), restless4 tune",
+ "lane": "science/validation-v3",
+ "hypothesis": "(Exploratory.) Tune NLL of conventional individual-adaptation methods on the strongest population backbone; defines the Gate B2 comparator per family.",
+ "families": [
+  "restless4"
+ ],
+ "fit_partition": "dev",
+ "select_partition": "tune",
+ "report_partition": "tune",
+ "seed": 20261108,
+ "threads": 1,
+ "k_max": 4,
+ "lapse_grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.3
+ ],
+ "max_configs": 24,
+ "budget_s_per_model_family": 2700.0,
+ "models": {
+  "ft_head": {
+   "grid": {
+    "m": [
+     10,
+     25
+    ],
+    "n": [
+     5,
+     20
+    ],
+    "lr": [
+     0.003,
+     0.01,
+     0.03
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "ft_full": {
+   "grid": {
+    "n": [
+     3,
+     10
+    ],
+    "lr": [
+     0.001,
+     0.003
+    ],
+    "l2": [
+     0.0,
+     1.0
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "bayes_head": {
+   "grid": {
+    "prior_var": [
+     "eb",
+     0.03,
+     0.3
+    ],
+    "m": [
+     10,
+     25
+    ],
+    "predictive": [
+     "map",
+     "laplace"
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "exemplar_mix": {
+   "grid": {
+    "w": [
+     0.05,
+     0.1,
+     0.2,
+     0.4
+    ],
+    "bw": [
+     0.25,
+     1.0,
+     4.0
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918,
+    "decay": 0.98
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "reptile_gru": {
+   "grid": {
+    "lr": [
+     0.001,
+     0.003
+    ],
+    "n": [
+     3,
+     10
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "cavia_gru": {
+   "grid": {
+    "c_dim": [
+     4,
+     8
+    ],
+    "inner_lr": [
+     0.3,
+     1.0
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "hb_cog": {
+   "grid": {
+    "c": [
+     0.01,
+     0.1,
+     1.0
+    ],
+    "tau": [
+     0.5,
+     1.0
+    ]
+   },
+   "fixed": {},
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  },
+  "gru_hb_mix": {
+   "grid": {
+    "w": [
+     0.05,
+     0.1,
+     0.2,
+     0.3
+    ],
+    "c": [
+     0.1,
+     1.0
+    ]
+   },
+   "fixed": {
+    "backbone": {
+     "hidden": 32,
+     "lr": 0.01,
+     "dropout": 0.0,
+     "max_epochs": 150,
+     "patience": 10,
+     "batch_size": 8
+    },
+    "backbone_seed": 273911918
+   },
+   "role": "comparator",
+   "variants": [
+    "frozen",
+    "mismatched"
+   ],
+   "families": null
+  }
+ },
+ "notes": [],
+ "preregistration_hash": "ee0c47db7ccd817f"
+}

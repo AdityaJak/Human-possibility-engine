@@ -1,0 +1,44 @@
+=== Wed Nov  4 15:41:18 UTC 2026 start x3_c01_restless4
+[restless4] f2_world_policy: 8 config(s), 348 dev participants
+[restless4] f2_world_policy: select NLL 0.8306 config {'lr': 0.01, 'dropout': 0.0, 'hidden': 32, 'prior_scale': 1.0} lapse 0.0 causal=ok
+[restless4] f2_delta: 3 config(s), 348 dev participants
+[restless4] f2_delta: select NLL 0.8034 config {'prior_scale': 1.0, 'delta_alpha': 0.6} lapse 0.0 causal=ok
+[restless4] f1_latent: 4 config(s), 348 dev participants
+[restless4] f1_latent: select NLL 0.7280 config {'lr': 0.01, 'm': 10, 'dropout': 0.0, 'hidden': 32} lapse 0.02 causal=ok
+[restless4] f1_bolt: 4 config(s), 348 dev participants
+[restless4] f1_bolt: select NLL 0.7280 config {'lr': 0.01, 'm': 10, 'dropout': 0.0, 'hidden': 32} lapse 0.02 causal=ok
+wrote reports/phase3/candidates/x3_c01_restless4
+=== Wed Nov  4 16:23:00 UTC 2026 end x3_c01_restless4 exit 0
+=== Wed Nov  4 16:23:00 UTC 2026 start x3_c03_garcia
+[garcia] pop_gru: 4 config(s), 138 dev participants
+[garcia] pop_gru: select NLL 0.4438 config {'lr': 0.01, 'dropout': 0.2, 'hidden': 32} lapse 0.02 causal=ok
+[garcia] f3_arbiter: 8 config(s), 138 dev participants
+[garcia] f3_arbiter: select NLL 0.4348 config {'lr': 0.01, 'bandwidth': 0.3, 'dropout': 0.0, 'hidden': 12} lapse 0.0 causal=ok
+[garcia] f3_fixedmix: 4 config(s), 138 dev participants
+[garcia] f3_fixedmix: select NLL 0.4453 config {'lr': 0.01, 'bandwidth': 0.5, 'mix': 'learn', 'dropout': 0.0, 'hidden': 12} lapse 0.01 causal=ok
+[garcia] f3_fixedshare: 4 config(s), 138 dev participants
+[garcia] f3_fixedshare: select NLL 0.4419 config {'lr': 0.01, 'bandwidth': 0.5, 'share': 0.05, 'dropout': 0.0, 'hidden': 12} lapse 0.0 causal=ok
+[garcia] f3_gruepi: 4 config(s), 138 dev participants
+[garcia] f3_gruepi: select NLL 0.4367 config {'lr': 0.01, 'bandwidth': 0.5, 'dropout': 0.2, 'hidden': 12} lapse 0.02 causal=ok
+[garcia] f2_world_policy: 8 config(s), 138 dev participants
+[garcia] f2_world_policy: select NLL 0.5793 config {'lr': 0.01, 'dropout': 0.0, 'hidden': 32, 'prior_scale': 1.0} lapse 0.01 causal=ok
+[garcia] f2_delta: 3 config(s), 138 dev participants
+[garcia] f2_delta: select NLL 0.5732 config {'prior_scale': 1.0, 'delta_alpha': 0.1} lapse 0.02 causal=ok
+[garcia] f1_latent: 4 config(s), 138 dev participants
+[garcia] f1_latent: select NLL 0.4426 config {'lr': 0.01, 'm': 16, 'dropout': 0.0, 'hidden': 12} lapse 0.01 causal=ok
+[garcia] f1_bolt: 4 config(s), 138 dev participants
+[garcia] f1_bolt: select NLL 0.4426 config {'lr': 0.01, 'm': 16, 'dropout': 0.0, 'hidden': 12} lapse 0.01 causal=ok
+wrote reports/phase3/candidates/x3_c03_garcia
+=== Wed Nov  4 16:36:05 UTC 2026 end x3_c03_garcia exit 0
+=== Wed Nov  4 16:36:05 UTC 2026 start x3_c05_described
+[described] pop_gru: 4 config(s), 85 dev participants
+[described] pop_gru: select NLL 0.3550 config {'lr': 0.01, 'dropout': 0.0, 'hidden': 32} lapse 0.0 causal=ok
+[described] f3_arbiter: 8 config(s), 85 dev participants
+[described] f3_arbiter: select NLL 0.3571 config {'lr': 0.01, 'bandwidth': 0.3, 'dropout': 0.2, 'hidden': 32} lapse 0.0 causal=ok
+[described] f3_fixedmix: 4 config(s), 85 dev participants
+[described] f3_fixedmix: select NLL 0.3572 config {'lr': 0.01, 'bandwidth': 0.5, 'mix': 'learn', 'dropout': 0.2, 'hidden': 32} lapse 0.0 causal=ok
+[described] f3_fixedshare: 4 config(s), 85 dev participants
+[described] f3_fixedshare: select NLL 0.3674 config {'lr': 0.01, 'bandwidth': 0.5, 'share': 0.05, 'dropout': 0.0, 'hidden': 32} lapse 0.0 causal=ok
+[described] f3_gruepi: 4 config(s), 85 dev participants
+[described] f3_gruepi: select NLL 0.3571 config {'lr': 0.01, 'bandwidth': 0.5, 'dropout': 0.2, 'hidden': 32} lapse 0.0 causal=ok
+[described] f2_world_policy: 8 config(s), 85 dev participants
