@@ -39,4 +39,5 @@ artifact directory named in the row).
 
 | Date | Lane | What | Why abandoned | Artifacts |
 |---|---|---|---|---|
+| 2026-11-04 | director | X3-E01 first `f3_ens` run (5-member F3 ensemble) | **Invalid ensemble**: F3 seeds its population backbone from the config key `backbone_seed` (default 1), which the ensemble wrapper only shifts when present, so all 5 members were the same model (NLL 0.7237 = single F3). Rerun with `backbone_seed: 1` in the base config | `reports/phase3/director/x3_e01_abandoned/` |
 | 2026-11-04 | director | X3-001a: torch `pop_gru` (v3 encoding) sanity run, first trainer defaults (≤ 40 epochs, batch 16, no learning-rate decay) | **Under-converged comparator**: 3 of 4 restless4 fits stopped at the epoch cap while validation NLL was still falling; garcia tune 0.460 vs Phase II numpy GRU 0.447. Stopped after restless4 and garcia; trainer defaults changed (≤ 150 epochs, batch 8, plateau halving, patience 10, optional input dropout) before any lane ran an experiment | `reports/phase3/director/x3_001_core_sanity/` (restless4 tune 0.734, garcia 0.460) |

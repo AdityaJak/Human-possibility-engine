@@ -21,7 +21,7 @@ models:
     fixed:
       base: f3_arbiter
       members: 5
-      base_config: {lr: 0.01, bandwidth: 0.3, dropout: 0.0, hidden: 32}
+      base_config: {lr: 0.01, bandwidth: 0.3, dropout: 0.0, hidden: 32, backbone_seed: 1}  # F3 seeds its backbone from config; the wrapper shifts it per member (first attempt without it had 5 identical members)
     variants: [frozen, mismatched]
   bayes_head_ens:
     model: adaptive_ens
