@@ -1,46 +1,103 @@
 # BUILD_STATUS
 
-_Last updated: 2026-11-04 — 4 of 6 parallel lanes merged; world + human-validation lanes still running; full-budget learning-lab experiments executing._
+_Last updated: 2026-11-04 05:05 UTC. All 8 lanes merged into `claude/human-possibility-engine-yjujoc`;
+remote verified; CI green on the last completed run. Society experiments 3–5 and the Exp 7 rerun were
+still executing locally at the time of writing (not committed; nothing is implied to continue after
+the session ends)._
 
-Legend: **implemented** (code exists) · **tested** (tests pass in integrated branch) · **partial** · **not started**
+Legend: **implemented** (code exists) · **tested** (tests pass in the integrated branch) · **partial** · **not started**
 
-| Deliverable | Status | Evidence / location |
+## Deliverables (spec §31)
+
+| # | Deliverable | Status | Evidence |
+|---|---|---|---|
+| 1 | Monorepo with README and one-command setup (`make setup`, `make demo`) | implemented, tested | `make demo-check` 14/14 (infra lane + audit, ports 8790/8798) |
+| 2 | Test suite with actual output | tested | `pytest -m "not slow"` → **285 passed, 5 deselected** (95 s); web → **58 passed**; slow tier 5 tests (100×80y, 1,000×2y) passed in the world lane (176 s) |
+| 3 | Synthetic demo data, sample simulations, reproducible experiment configs | implemented, tested | `reports/runs/demo_developmental_100a_80y_s42` (replay verified), `experiments/*.yaml` with preregistration hashes |
+| 4 | Research dashboard + Future Self app with real navigation | implemented, tested, verified end-to-end against the real API (9 routes, 0 console errors, 0 failed requests) | `apps/web`, `docs/screenshots/` |
+| 5 | OpenAPI docs, schemas, architecture, DB design | implemented | `docs/openapi.json` (33 paths), `packages/hpe/contracts/schema/`, `ARCHITECTURE.md`, `packages/hpe/storage/migrations.py` |
+| 6 | Benchmark results, charts, assumptions, model cards, provenance, limitations | implemented (what was run) | `RESEARCH_RESULTS.md`, `reports/experiments/*/figures`, `docs/MODEL_CARDS.md`, `docs/DATA_SOURCES.md`, `docs/CLAIMS_AND_LIMITATIONS.md` |
+| 7 | BUILD_STATUS.md | this file | — |
+| 8 | NEXT_STEPS.md | implemented | `NEXT_STEPS.md` |
+| 9 | No invented results | enforced | evidence ledger generated from artifacts (`python -m hpe.ledger`); independent audit `reports/audit/AUDIT.md` |
+
+## Components
+
+| Component | Status | Notes |
 |---|---|---|
-| Contracts v0.1 (schemas, Policy protocol, World/Sink protocols, registry, JSON Schema + TS export) | implemented, tested | `packages/hpe/contracts`, `tests/contracts` |
-| Deterministic RNG streams + stable hashing | implemented, tested | `packages/hpe/core`, `tests/core` |
-| Novel-symbol task world, held-out splits, assessment, transfer probe, leakage checks | implemented, tested | `packages/hpe/tasks`, `tests/tasks` |
-| Developmental learner (shared encoder, plasticity, replay, forgetting, curriculum, trust-weighted social learning, skepticism, 9 ablation flags) | implemented, tested | `packages/hpe/development` (lane `research/development`) |
-| Baselines: static persona, memory-only, plain RL | implemented, tested (conformance) | `packages/hpe/evaluation/baselines.py` |
-| Statistics, preregistered runner, analysis-from-raw-logs, learning lab, contamination audit | implemented, tested | `packages/hpe/evaluation` (lane `science/evaluation`) |
-| Experiment definitions (8 YAML, 10 seeds each) | implemented | `experiments/` |
-| Full-budget learning-lab results (H1, Exp1, Exp6, ablations) | **running** — no result reported yet | `reports/experiments/` |
-| Society world kernel | not merged (lane running) | lane `sim/world` |
-| Society experiments (Exp2–5) | implemented against protocol; not executed (needs world) | `experiments/exp0[2-5]*.yaml` |
-| SQLite storage (namespaced, migrations), JSONL/SQLite sinks, checkpoints, stored-run loader | implemented, tested | `packages/hpe/storage` |
-| FastAPI service (all INTERFACES §4 endpoints + spec §21 aliases) | implemented, tested with a fake world; `POST /runs` returns 503 until world merges | `apps/api/hpe_api`, `docs/openapi.json` |
-| Future Self engine (templates, deterministic calculators, safety routing, no-probability validator, privacy) | implemented, tested | `packages/hpe/futures` |
-| Web app (live society, agent inspector, proof of learning, twin experiment, evidence, benchmarks, Future Self 10-step flow, /demo) | implemented, unit-tested, builds; **not yet run against real API** | `apps/web` |
-| CLI (`hpe info/smoke/run/demo-run`) | implemented; `smoke` falls back to learning smoke until world merges | `packages/hpe/cli.py` |
-| CI (python lint/type/tests/contracts/smoke + web lint/type/test/build) | implemented; first GitHub run pending | `.github/workflows/ci.yml` |
-| Docker / compose | not started | — |
-| External human validation (Psych-101 MCPL/IGT, HeartSteps V1) | in progress (lane running) | `docs/DATA_SOURCES.md` |
-| 1,000 / 10,000-agent benchmarks | not started | — |
-| GitHub remote | **verified**: `AdityaJak/Human-possibility-engine` branch `claude/human-possibility-engine-yjujoc` matches local HEAD (public; founder-authorised, ADR-0007) | `git rev-parse origin/...` |
+| Contracts v0.1 + JSON Schema/TS export | implemented, tested | 68 types; `--check` in CI |
+| RNG streams, hashing | implemented, tested | |
+| Novel-symbol task world + measurement protocol | implemented, tested | contamination audit clean |
+| Developmental learner (9 ablation flags) | implemented, tested | ~55 µs/episode (lane measurement) |
+| Baselines: static persona, memory-only, plain RL | implemented, tested | plain_rl tuned on seeds 1001–1003 |
+| Statistics, preregistered runner, analysis-from-raw-logs, learning lab | implemented, tested | re-analysis byte-identical for all 5 committed experiments |
+| Society kernel (`hpe.world`) | implemented, tested | 100×80y: 117 s; determinism + snapshot/resume bit-identical |
+| Storage (SQLite namespaces, sinks, checkpoints, stored-run loader) | implemented, tested | |
+| FastAPI service (all INTERFACES §4 endpoints + §21 aliases) | implemented, tested with real World | `POST /experiments/{id}/run` returns 501 (runner not wired to API) |
+| Future Self engine (templates, calculators, safety, privacy) | implemented, tested; audit findings H-1/M-1/M-2 fixed and re-tested | keyword classifier is not a risk detector |
+| Web app (9 routes, Future Self 10 steps, /demo) | implemented, tested, e2e verified | accessibility: light-mode contrast + scrollable-focus issues open (audit M-6) |
+| CLI (`info/smoke/run/demo-run/verify-replay`) | implemented, tested | |
+| CI (lint, types, contracts, openapi, unit, integration, smoke, demo-check, security, nightly slow) | implemented; **green** on run #13 (last completed), #14+ in progress at time of writing | `.github/workflows/ci.yml` |
+| Docker (api/web Dockerfiles, compose) | partial | `docker compose config` validates; **no image built** (no daemon in this environment) |
+| Human validation adapters (Psych-101, HeartSteps V1) | implemented, tested | licences verified; no raw data committed |
+| Evidence ledger / Evidence page | implemented | 18 claims; 9 supported, 6 not supported, 1 inconclusive, 2 not tested |
+| Investor assets | implemented | `docs/INVESTOR_DEMO.md`, `docs/INVESTOR_TECHNICAL_DILIGENCE.md`, screenshots, recording shot list |
+| 1,000 / 10,000-agent benchmarks | **not started** | harness ready (`make bench-1k`, `make bench-10k`); needs a quiet machine |
+| Society experiments 3–5 | **running / not committed** | Exp 2 committed |
+| Exp 7 rerun with all policy classes | **running / not committed** | first pass inconclusive (developmental not in that build) |
 
-## Last executed commands (orchestrator, integrated branch)
+## Experiments executed (10 seeds each unless stated)
+
+| Experiment | Verdict | Primary estimate (95% CI) |
+|---|---|---|
+| H1 developmental vs strongest baseline (plain RL) | **FAILED** | +0.012 [−0.008, +0.031] |
+| Exp 1 instructional vs no feedback | passed | +0.391 [+0.374, +0.410] |
+| Exp 6 transfer, shared vs specialists | passed | +0.090 [+0.050, +0.123]; orthogonal control −0.092 |
+| Ablations: learning necessary | passed | +0.409 [+0.395, +0.426] |
+| Exp 2 twin tutoring | passed; manipulation check failed as defined | +0.029 [+0.022, +0.037]; non-learning society 0.000 |
+| Exp 7b HeartSteps causal grounding (real data) | passed (weak rule, see audit) | +12.2% [−0.5%, +27.4%] vs published +14% |
+| Exp 7 Psych-101 held-out choices (real data) | inconclusive | developmental class absent in first pass; rerun in progress |
+
+## Gates
+
+| Gate | Verdict | Basis |
+|---|---|---|
+| §52 Gate 0 monorepo, contracts, ownership, local run | GO | audit |
+| §52 Gate 1 determinism, persistence, replay, coverage | GO | replay verified; branch coverage 91% (audit) |
+| §52 Gate 2 measurable learning, ablations, honest uncertainty | GO | preregistered results incl. a failed H1 |
+| §52 Gate 3 web/API integration, demo, accessibility, secrets | conditional | e2e verified; secrets scan clean; accessibility fixes open |
+| §52 Gate 4 external human evidence for the learner | **NO-GO** (partial) | pipeline validated on HeartSteps; learner not yet evaluated on held-out humans |
+| §52 Gate 5 performance to 10,000 agents | **NO-GO** | no benchmark record |
+| §42 Gate 1 `make demo` + 100-agent seeded run with replay | GO | |
+| §42 Gate 2 learned parameters change with experience; held-out skill; baselines | GO | |
+| §42 Gate 3 randomised simulated intervention reproduces, exports, flags model dependence | GO (Exp 2 committed after audit) | |
+| §42 Gate 4 Future Self functional, consent-based, no unsupported predictions | GO after fixes (audit H-1, M-1 re-tested) | |
+| §42 Gate 5 CI green, no credentials, remote verified | GO | |
+| §42 Gate 6 investor can follow the script and reproduce a result | GO | `docs/INVESTOR_DEMO.md`; Exp 6 from-scratch re-run 0/40 logs differ |
+
+## Last executed commands (integrated branch)
 
 ```
-.venv/bin/python -m pytest -q             → 207 passed
-.venv/bin/ruff check . && ruff format --check .  → clean
-.venv/bin/mypy                             → Success: no issues found in 63 source files
-python scripts/export_contracts.py --check → contracts up to date
-apps/web: npm run lint / typecheck / test / build → 0 warnings / ok / 58 passed / built
-python -m hpe.cli smoke                    → learning smoke: held-out compare accuracy 0.500 -> 0.883 (world not yet merged)
+.venv/bin/python -m pytest -q -m "not slow"       → 285 passed, 5 deselected in 95.14s
+.venv/bin/ruff check . / ruff format --check .     → clean (155 files)
+.venv/bin/mypy                                      → Success: no issues found in 79 source files
+python scripts/export_contracts.py --check          → contracts up to date
+python apps/api/export_openapi.py --check           → openapi up to date
+apps/web: npm run lint / typecheck / test / build   → 0 warnings / ok / 58 passed / built (react-router 7.18.5, npm audit 0)
+python -m hpe.cli verify-replay reports/runs/demo_developmental_100a_80y_s42 → "passed": true
+python -m hpe.evaluation run experiments/exp06_transfer.yaml --out data/rerun → 0 of 40 raw logs differ from committed
+AUDIT_RAISE_RATE_LIMIT=1 python reports/audit/scripts/adversarial_api.py ... → crisis_oblique routed to crisis; 200 KB input → 422
 ```
 
-## Pending contract v0.2 changes (one ADR, after running experiments finish)
+## Blockers / needs the founder
 
-1. Optional `OutcomeObservation.shots` (frontend: few-shot transfer curves).
-2. Optional `ExperimentDefinition.protocol` / `protocol_params` (evaluation: API-created learning-lab experiments).
-3. Exclude `schema_version` from `preregistration_hash` so contract bumps do not invalidate preregistrations.
-4. `GET /experiments/{id}/figures/{name}` endpoint (backend).
+* **License**: none assigned (ADR-0007). Choose one.
+* **Branch protection**: repository setting; requires owner.
+* **Docker images**: need a machine with a Docker daemon to build and smoke-test.
+* **Scale benchmarks**: need a quiet machine (`make bench-1k`, `make bench-10k`).
+
+## Pending contract v0.2 (one ADR, not yet applied)
+
+Optional `OutcomeObservation.shots`; `ExperimentDefinition.protocol` + a human-dataset variant; figures
+endpoint; exclude `schema_version` from preregistration hashes; `RunManifest.event_stream_hash`;
+`SocialEdgeKind.ACQUAINTANCE`; `FeedbackSource` caregiver/mentor; `WorldParams.prehistory_max_episodes`.
