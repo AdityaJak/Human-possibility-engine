@@ -236,7 +236,7 @@ class SymbolWorld:
             cands.append((ids, correct, margin))
         if difficulty is not None:
             cands.sort(key=lambda c: -c[2])  # easiest (largest margin) first
-            idx = min(len(cands) - 1, int(round(float(np.clip(difficulty, 0, 1)) * (len(cands) - 1))))
+            idx = min(len(cands) - 1, int(round(min(max(float(difficulty), 0.0), 1.0) * (len(cands) - 1))))
             ids, correct, margin = cands[idx]
         else:
             ids, correct, margin = cands[0]
@@ -263,7 +263,7 @@ class SymbolWorld:
         d = self.config.n_features
         if not enable_gate:
             return d
-        frac = float(np.clip(age_years / self.config.gate_full_age, 0.0, 1.0))
+        frac = min(max(float(age_years) / self.config.gate_full_age, 0.0), 1.0)  # == np.clip, ~10x cheaper
         return int(round(self.config.gate_min_features + (d - self.config.gate_min_features) * frac))
 
     def perceive(self, context: np.ndarray, age_years: float, enable_gate: bool = True) -> np.ndarray:
