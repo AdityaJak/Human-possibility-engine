@@ -82,6 +82,8 @@ def aggregate(dirs: list[Path]) -> dict[str, Any]:
                     "n_configs": len(r["fits"]),
                     "n_skipped": sum(1 for f in r["fits"] if f.get("skipped")),
                     "fit_cpu_s": round(sum(f.get("fit_cpu_s", 0.0) for f in r["fits"]), 1),
+                    "report_cpu_s_all_variants": r.get("report_cpu_s"),
+                    "n_variants": len(r["variants"]),
                     "causal": not r["causality_violations"],
                 }
                 per_all[(fam, label)] = per.get((fam, label), {})
@@ -130,6 +132,11 @@ def _f(x: Any, nd: int = 4) -> str:
     return "—" if x is None or (isinstance(x, float) and not np.isfinite(x)) else f"{x:.{nd}f}"
 
 
+def _per(m: dict[str, Any]) -> str:
+    c, n, v = m.get("report_cpu_s_all_variants"), m.get("n"), m.get("n_variants") or 1
+    return "—" if c is None or not n else f"{c / (n * v):.3f}"
+
+
 def render(res: dict[str, Any]) -> str:
     lines = [
         "# Phase III comparator pool — tune partition (exploratory, selection-optimistic)",
@@ -142,8 +149,8 @@ def render(res: dict[str, Any]) -> str:
     for fam, fd in res["families"].items():
         lines += [f"## {fam} — best comparator on tune: `{fd['best_comparator']}`", ""]
         lines += [
-            "| model | tune NLL [95% CI] | n | top-1 | params (pop / person) | configs (skipped) | lapse | grid edges | fit CPU s | causal | source |",
-            "|---|---|---|---|---|---|---|---|---|---|---|",
+            "| model | tune NLL [95% CI] | n | top-1 | params (pop / person) | configs (skipped) | lapse | grid edges | fit CPU s | predict CPU s / participant / variant | causal | source |",
+            "|---|---|---|---|---|---|---|---|---|---|---|---|",
         ]
         for lab, m in sorted(fd["models"].items(), key=lambda kv: (kv[1]["report_nll"] or 9.0, kv[0])):
             ci = m["ci"] or [None, None]
@@ -151,7 +158,7 @@ def render(res: dict[str, Any]) -> str:
                 f"| {lab} | {_f(m['report_nll'])} [{_f(ci[0])}, {_f(ci[1])}] | {m['n']} | {_f(m['top1'], 3)} | "
                 f"{m['params']} / {m['per_person_params'] if m['per_person_params'] is not None else '—'} | "
                 f"{m['n_configs']} ({m['n_skipped']}) | {m['lapse']} | {', '.join(m['grid_edges']) or '—'} | "
-                f"{m['fit_cpu_s']} | {'ok' if m['causal'] else 'VIOLATION'} | `{m['experiment_id']}` |"
+                f"{m['fit_cpu_s']} | {_per(m)} | {'ok' if m['causal'] else 'VIOLATION'} | `{m['experiment_id']}` |"
             )
         if fd["contrasts"]:
             lines += [
