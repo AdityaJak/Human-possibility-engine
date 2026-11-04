@@ -69,14 +69,18 @@ def contextual_greedy(model: OutcomeModel) -> Policy:
     return lambda frame: (model.cate(frame) > 0).astype(float)
 
 
+def _weights(frame: Frame, pi: np.ndarray, p: float) -> np.ndarray:
+    pi_a = np.where(frame.a == 1, pi, 1 - pi)
+    p_a = np.where(frame.a == 1, p, 1 - p)
+    return pi_a / p_a
+
+
 def _value(
     frame: Frame, pi: np.ndarray, p: float, q: OutcomeModel | None, idx: np.ndarray
 ) -> tuple[float, float]:
     a = frame.a[idx]
     y = frame.y[idx]
-    pi_a = np.where(a == 1, pi[idx], 1 - pi[idx])
-    p_a = np.where(a == 1, p, 1 - p)
-    w = pi_a / p_a
+    w = _weights(frame, pi, p)[idx]
     ipw = float(np.mean(w * y))
     if q is None:
         return ipw, float("nan")
@@ -88,6 +92,10 @@ def _value(
     return ipw, dr
 
 
+def _ci(x: np.ndarray) -> list[float]:
+    return [float(np.nanquantile(x, 0.025)), float(np.nanquantile(x, 0.975))]
+
+
 def evaluate_policies(
     frame: Frame,
     policies: dict[str, Policy],
@@ -97,7 +105,7 @@ def evaluate_policies(
     n_bootstrap: int = 2000,
     seed: int = 0,
 ) -> dict[str, dict]:
-    """IPW and DR values with participant-cluster bootstrap CIs, plus contrasts vs ``never``."""
+    """IPW and DR values with participant-cluster bootstrap CIs, plus contrasts vs never/always."""
     n = len(frame)
     uniq, inv = np.unique(frame.users, return_inverse=True)
     by_user = [np.flatnonzero(inv == c) for c in range(len(uniq))]
@@ -112,37 +120,24 @@ def evaluate_policies(
         for name, pi in pis.items():
             boots[name][b] = _value(frame, pi, p, q, idx)
     out: dict[str, dict] = {}
-    for name in pis:
+    for name, pi in pis.items():
         ipw, dr = point[name]
         bi, bd = boots[name][:, 0], boots[name][:, 1]
-        row = {
+        w = _weights(frame, pi, p)
+        row: dict = {
             "ipw": ipw,
-            "ipw_ci": [float(np.quantile(bi, 0.025)), float(np.quantile(bi, 0.975))],
+            "ipw_ci": _ci(bi),
             "dr": dr,
-            "dr_ci": [float(np.nanquantile(bd, 0.025)), float(np.nanquantile(bd, 0.975))] if q else None,
-            "share_send": float(pis[name].mean()),
-            "effective_sample_size_ipw": float(
-                (
-                    np.sum(
-                        np.where(frame.a == 1, pis[name], 1 - pis[name]) / np.where(frame.a == 1, p, 1 - p)
-                    )
-                    ** 2
-                )
-                / np.sum(
-                    (np.where(frame.a == 1, pis[name], 1 - pis[name]) / np.where(frame.a == 1, p, 1 - p)) ** 2
-                )
-            ),
+            "dr_ci": _ci(bd) if q else None,
+            "share_send": float(pi.mean()),
+            "effective_sample_size_ipw": float(w.sum() ** 2 / np.sum(w**2)),
         }
-        if "never" in pis and name != "never":
-            d_ipw = bi - boots["never"][:, 0]
-            row["ipw_minus_never"] = ipw - point["never"][0]
-            row["ipw_minus_never_ci"] = [float(np.quantile(d_ipw, 0.025)), float(np.quantile(d_ipw, 0.975))]
-            if q:
-                d_dr = bd - boots["never"][:, 1]
-                row["dr_minus_never"] = dr - point["never"][1]
-                row["dr_minus_never_ci"] = [
-                    float(np.nanquantile(d_dr, 0.025)),
-                    float(np.nanquantile(d_dr, 0.975)),
-                ]
+        for ref in ("never", "always"):
+            if ref in pis and name != ref:
+                row[f"ipw_minus_{ref}"] = ipw - point[ref][0]
+                row[f"ipw_minus_{ref}_ci"] = _ci(bi - boots[ref][:, 0])
+                if q:
+                    row[f"dr_minus_{ref}"] = dr - point[ref][1]
+                    row[f"dr_minus_{ref}_ci"] = _ci(bd - boots[ref][:, 1])
         out[name] = row
     return out

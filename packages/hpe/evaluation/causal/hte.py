@@ -61,7 +61,7 @@ def marginal_effect(frame: Frame, *, p: float | None = None, n_bootstrap: int = 
         seed=seed,
     )
     row = fit.summary()[0]
-    row["percent_effect"] = percent_effect(row["estimate"])
+    row["percent_effect"] = 100.0 * percent_effect(row["estimate"])
     row["centring_p"] = pp
     row["n_obs"] = n
     row["n_users"] = int(len(np.unique(frame.users)))

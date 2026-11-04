@@ -1,0 +1,136 @@
+{
+ "code_version": "10939b1e2487d674ad680b61f24b06ddc7fb0a8e+dirty",
+ "created_at": "2026-11-04T07:31:23Z",
+ "cpu_seconds": 14.48,
+ "wall_seconds": 7.29,
+ "partition": "dev",
+ "label": "EXPLORATORY (dev partition)",
+ "spec": null,
+ "provenance": {
+  "name": "heartsteps_v1_suggestions",
+  "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/main/data_files/suggestions.csv",
+  "sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+  "size_bytes": 4371854,
+  "licence": "CC-BY-4.0",
+  "licence_evidence": "LICENSE file in github.com/klasnja/HeartStepsV1 is 'Attribution 4.0 International'",
+  "citation": "Klasnja, P., Smith, S., Seewald, N. J., Lee, A., Hall, K., Luers, B., Hekler, E. B., & Murphy, S. A. (2019). Efficacy of Contextually Tailored Suggestions for Physical Activity: A Micro-randomized Optimization Trial of HeartSteps. Annals of Behavioral Medicine, 53(6), 573-582. doi:10.1093/abm/kay067",
+  "retrieved": "2026-11-04",
+  "local_path": "/home/user/Human-possibility-engine/.claude/worktrees/agent-a77d5957a4d3079fa/datasets/external/heartsteps_v1_suggestions.csv"
+ },
+ "sample": {
+  "n_obs": 3885,
+  "n_users": 22,
+  "p_send": 0.585070785070785,
+  "p_walk": 0.3276705276705277,
+  "p_sed": 0.2574002574002574,
+  "mean_steps30": 194.95958815958815,
+  "is_randomized_equals_send": false,
+  "moderator_means": {
+   "evening": 0.33745173745173745,
+   "weekend": 0.27927927927927926,
+   "log_pre_c": -1.6094661710910892e-16,
+   "home": 0.25302445302445303,
+   "day_c": 0.035919892017453006
+  }
+ },
+ "centring_p": 0.585070785070785,
+ "marginal_any_suggestion": {
+  "term": "any_suggestion:intercept",
+  "estimate": 0.07962915453148299,
+  "se_cluster_robust": 0.09502842906098204,
+  "t": 0.8379508671071795,
+  "df": 21,
+  "p_value": 0.4114944789068187,
+  "ci_low_sandwich": -0.11799328218645742,
+  "ci_high_sandwich": 0.2772515912494234,
+  "ci_low_bootstrap": -0.08542845478469968,
+  "ci_high_bootstrap": 0.28755469097026526,
+  "n_bootstrap": 2000,
+  "percent_effect": 8.28854100558654,
+  "centring_p": 0.585070785070785,
+  "n_obs": 3885,
+  "n_users": 22
+ },
+ "moderators": [
+  {
+   "moderator": "evening",
+   "beta0": 0.0994134187167681,
+   "beta1": -0.06895995993279784,
+   "se1": 0.23237370636742785,
+   "p_raw": 0.7695626392270791,
+   "p_holm": 1.0,
+   "ci_low_boot": -0.5144881483748939,
+   "ci_high_boot": 0.40088543353948847,
+   "ci_low_sandwich": -0.5522075368451853,
+   "ci_high_sandwich": 0.41428761697958966,
+   "n_obs": 3885,
+   "n_users": 22
+  },
+  {
+   "moderator": "weekend",
+   "beta0": 0.18161972468667234,
+   "beta1": -0.3658676812485518,
+   "se1": 0.2121912067262262,
+   "p_raw": 0.09935638002138059,
+   "p_holm": 0.49678190010690293,
+   "ci_low_boot": -0.7838465282896032,
+   "ci_high_boot": 0.03195480298568862,
+   "ci_low_sandwich": -0.8071434524858849,
+   "ci_high_sandwich": 0.07540808998878135,
+   "n_obs": 3885,
+   "n_users": 22
+  },
+  {
+   "moderator": "log_pre_c",
+   "beta0": 0.07870148666706565,
+   "beta1": 0.030672777348905503,
+   "se1": 0.031332331903695235,
+   "p_raw": 0.3387487617456509,
+   "p_holm": 1.0,
+   "ci_low_boot": -0.029076573289603856,
+   "ci_high_boot": 0.09491505667948977,
+   "ci_low_sandwich": -0.03448637386562188,
+   "ci_high_sandwich": 0.09583192856343288,
+   "n_obs": 3885,
+   "n_users": 22
+  },
+  {
+   "moderator": "home",
+   "beta0": 0.06834898221663412,
+   "beta1": 0.04587376541760676,
+   "se1": 0.21818862321734567,
+   "p_raw": 0.8355005017338011,
+   "p_holm": 1.0,
+   "ci_low_boot": -0.3808103826428057,
+   "ci_high_boot": 0.4169244194055435,
+   "ci_low_sandwich": -0.4078743161872565,
+   "ci_high_sandwich": 0.49962184702247,
+   "n_obs": 3885,
+   "n_users": 22
+  },
+  {
+   "moderator": "day_c",
+   "beta0": 0.09130944870668734,
+   "beta1": -0.3232368948729044,
+   "se1": 0.343664348807772,
+   "p_raw": 0.35762469836012034,
+   "p_holm": 1.0,
+   "ci_low_boot": -0.978987683816083,
+   "ci_high_boot": 0.30508301328773296,
+   "ci_low_sandwich": -1.0379260325928694,
+   "ci_high_sandwich": 0.3914522428470607,
+   "n_obs": 3885,
+   "n_users": 22
+  }
+ ],
+ "moderator_descriptions": {
+  "evening": "decision point at local hour >= 17 (time of day)",
+  "weekend": "local weekday is Saturday or Sunday",
+  "log_pre_c": "log(steps in the 30 min before + 0.5), centred at the sample mean (prior activity)",
+  "home": "dec.location.category == 'home'",
+  "day_c": "study day / 41 - 0.5 (day-in-study decay; 6-week trial)"
+ },
+ "selected_for_confirmation": [
+  "weekend"
+ ]
+}

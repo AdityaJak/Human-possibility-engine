@@ -1,0 +1,222 @@
+{
+ "code_version": "10939b1e2487d674ad680b61f24b06ddc7fb0a8e+dirty",
+ "created_at": "2026-11-04T07:33:10Z",
+ "cpu_seconds": 5.38,
+ "wall_seconds": 4.0,
+ "partition": "test",
+ "label": "CONFIRMATORY (pre-specified, single run)",
+ "spec": {
+  "id": "ope_confirm_contextual",
+  "dataset": "heartsteps_v1_suggestions",
+  "partition_file": "reports/phase2/causal/partition.json",
+  "evaluate_on": "test",
+  "policy": "contextual_greedy: send a suggestion iff the dev-fitted linear outcome model's conditional effect beta0 + beta' m(x) is positive, with moderators m(x) = [evening, weekend, log_pre_c, home, day_c]. The outcome model is refitted deterministically on the dev partition by the CLI (least squares); its dev coefficients are recorded in reports/phase2/causal/ope_dev.json and must match.",
+  "policy_moderators": [
+   "evening",
+   "weekend",
+   "log_pre_c",
+   "home",
+   "day_c"
+  ],
+  "comparators": [
+   "never",
+   "always",
+   "behaviour"
+  ],
+  "estimators": [
+   "IPW",
+   "doubly_robust"
+  ],
+  "logging_probability": "empirical P(send | available) on the dev partition (0.585)",
+  "hypothesis": "Among held-out participants, the mean log 30-minute step count under the dev-learned contextual policy exceeds that under never sending (doubly-robust estimate), i.e. tailoring who/when to suggest captures more of the benefit than not suggesting.",
+  "falsification": "Not supported if the participant-cluster bootstrap 95% CI of (contextual - never), doubly robust, includes 0 on the test partition.",
+  "decision_rule": {
+   "min_improvement_over_never": 0.0
+  },
+  "n_bootstrap": 2000,
+  "seed": 20261105,
+  "caveats": [
+   "Retrospective off-policy estimate under randomisation-based identification; not a prospective result; proximal (30-minute) outcome only; nothing about long-run behaviour or engagement.",
+   "The dev-learned policy was selected in-sample; only this test run is inferential.",
+   "15 test participants; CIs will be wide."
+  ]
+ },
+ "provenance": {
+  "name": "heartsteps_v1_suggestions",
+  "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/main/data_files/suggestions.csv",
+  "sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+  "size_bytes": 4371854,
+  "licence": "CC-BY-4.0",
+  "licence_evidence": "LICENSE file in github.com/klasnja/HeartStepsV1 is 'Attribution 4.0 International'",
+  "citation": "Klasnja, P., Smith, S., Seewald, N. J., Lee, A., Hall, K., Luers, B., Hekler, E. B., & Murphy, S. A. (2019). Efficacy of Contextually Tailored Suggestions for Physical Activity: A Micro-randomized Optimization Trial of HeartSteps. Annals of Behavioral Medicine, 53(6), 573-582. doi:10.1093/abm/kay067",
+  "retrieved": "2026-11-04",
+  "local_path": "/home/user/Human-possibility-engine/.claude/worktrees/agent-a77d5957a4d3079fa/datasets/external/heartsteps_v1_suggestions.csv"
+ },
+ "sample": {
+  "n_obs": 2705,
+  "n_users": 15,
+  "p_send": 0.6070240295748613,
+  "p_walk": 0.3378927911275416,
+  "p_sed": 0.26876155268022184,
+  "mean_steps30": 240.49870609981517,
+  "is_randomized_equals_send": false,
+  "moderator_means": {
+   "evening": 0.33160813308687614,
+   "weekend": 0.2846580406654344,
+   "log_pre_c": -3.4673434794947586e-16,
+   "home": 0.30720887245841033,
+   "day_c": 0.03860511248365719
+  }
+ },
+ "logging_p": 0.585070785070785,
+ "outcome_model": {
+  "moderators": [
+   "evening",
+   "weekend",
+   "log_pre_c",
+   "home",
+   "day_c"
+  ],
+  "coef": [
+   1.663937956738151,
+   0.38291789708324303,
+   0.004619409311905308,
+   0.06383675480300317,
+   0.19792987163646716,
+   -0.2070521686182479,
+   0.02750608120754716,
+   0.06746430693773782,
+   -0.319133445251299
+  ],
+  "fitted_on": "dev"
+ },
+ "policies": {
+  "never": {
+   "ipw": 2.4617835817875893,
+   "ipw_ci": [
+    2.0907848024024784,
+    2.762543904439274
+   ],
+   "dr": 2.6394141538120093,
+   "dr_ci": [
+    2.2180300946568963,
+    2.978591868214866
+   ],
+   "share_send": 0.0,
+   "effective_sample_size_ipw": 1062.9999999999998,
+   "ipw_minus_always": -0.47625301853852475,
+   "ipw_minus_always_ci": [
+    -0.7832264520058599,
+    -0.16266954877508707
+   ],
+   "dr_minus_always": -0.16669595352737865,
+   "dr_minus_always_ci": [
+    -0.3201572428080083,
+    -0.01786634875419402
+   ]
+  },
+  "always": {
+   "ipw": 2.938036600326114,
+   "ipw_ci": [
+    2.507252363300783,
+    3.356869928131705
+   ],
+   "dr": 2.806110107339388,
+   "dr_ci": [
+    2.433580618564913,
+    3.1446893730752126
+   ],
+   "share_send": 1.0,
+   "effective_sample_size_ipw": 1641.9999999999995,
+   "ipw_minus_never": 0.47625301853852475,
+   "ipw_minus_never_ci": [
+    0.162669548775087,
+    0.7832264520058597
+   ],
+   "dr_minus_never": 0.16669595352737865,
+   "dr_minus_never_ci": [
+    0.017866348754193986,
+    0.32015724280800817
+   ]
+  },
+  "behaviour": {
+   "ipw": 2.7404253092362554,
+   "ipw_ci": [
+    2.3509523798142467,
+    3.0688936576679637
+   ],
+   "dr": 2.7369430862103963,
+   "dr_ci": [
+    2.345857666938527,
+    3.064463601038602
+   ],
+   "share_send": 0.5850707850707851,
+   "effective_sample_size_ipw": 2705.0,
+   "ipw_minus_never": 0.2786417274486661,
+   "ipw_minus_never_ci": [
+    0.09517320060895026,
+    0.4582429151632747
+   ],
+   "dr_minus_never": 0.097528932398387,
+   "dr_minus_never_ci": [
+    0.010453078691964901,
+    0.18731464939577905
+   ],
+   "ipw_minus_always": -0.19761129108985864,
+   "ipw_minus_always_ci": [
+    -0.3249835368425852,
+    -0.06749634816613675
+   ],
+   "dr_minus_always": -0.06916702112899165,
+   "dr_minus_always_ci": [
+    -0.13284259341222915,
+    -0.007413270062229098
+   ]
+  },
+  "contextual_greedy": {
+   "ipw": 2.9272613654962143,
+   "ipw_ci": [
+    2.5091962855161634,
+    3.295508938038287
+   ],
+   "dr": 2.8272743421345754,
+   "dr_ci": [
+    2.4408740423763393,
+    3.1565270926766287
+   ],
+   "share_send": 0.655452865064695,
+   "effective_sample_size_ipw": 1422.6283073460495,
+   "ipw_minus_never": 0.465477783708625,
+   "ipw_minus_never_ci": [
+    0.19219695151443483,
+    0.7489985673575569
+   ],
+   "dr_minus_never": 0.18786018832256612,
+   "dr_minus_never_ci": [
+    0.06577151562325843,
+    0.32359412395161735
+   ],
+   "ipw_minus_always": -0.010775234829899727,
+   "ipw_minus_always_ci": [
+    -0.16073568944006633,
+    0.14323430991546804
+   ],
+   "dr_minus_always": 0.021164234795187475,
+   "dr_minus_always_ci": [
+    -0.10665107705984023,
+    0.15635993620502742
+   ]
+  }
+ },
+ "outcome_scale": "mean log(steps in 30 min after decision + 0.5) over available decision points",
+ "caveat": "Retrospective off-policy estimate under randomisation-based identification; not a prospective result.",
+ "verdict": {
+  "contextual_minus_never_dr": 0.18786018832256612,
+  "ci": [
+   0.06577151562325843,
+   0.32359412395161735
+  ],
+  "passed": true,
+  "contextual_minus_always_dr": 0.021164234795187475
+ }
+}
