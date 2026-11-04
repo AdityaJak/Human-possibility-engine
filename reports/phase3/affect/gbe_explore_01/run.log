@@ -2,3 +2,10 @@
 affect_gru_base cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2722 fit=527s epochs=89 stop=early_stop tune_nll=0.47511 (λ=0.0)
 affect_gru_base cfg1 {'batch_size': 64, 'hidden': 32, 'lr': 0.01} params=6978 fit=300s epochs=46 stop=early_stop tune_nll=0.47366 (λ=0.0)
 == affect_gru_base: tune NLL 0.47366 λ=0.0 causal_violations=0
+affect_gru_obs cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2866 fit=572s epochs=95 stop=early_stop tune_nll=0.47501 (λ=0.0)
+affect_gru_obs cfg1 {'batch_size': 64, 'hidden': 32, 'lr': 0.01} params=7266 fit=304s epochs=46 stop=early_stop tune_nll=0.47511 (λ=0.01)
+== affect_gru_obs: tune NLL 0.47501 λ=0.0 causal_violations=0
+affect_gru_shuf cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2866 fit=544s epochs=90 stop=early_stop tune_nll=0.47522 (λ=0.0)
+affect_gru_shuf cfg1 {'batch_size': 64, 'hidden': 32, 'lr': 0.01} params=7266 fit=359s epochs=53 stop=early_stop tune_nll=0.47403 (λ=0.01)
+== affect_gru_shuf: tune NLL 0.47403 λ=0.01 causal_violations=0
+affect_gru_aux cfg0 {'batch_size': 64, 'hidden': 16, 'lr': 0.01} params=2739 fit=548s epochs=91 stop=early_stop tune_nll=0.47611 (λ=0.0)
