@@ -24,7 +24,17 @@ from hpe.population.core.conformance import check_causal
 from hpe.population.core.encoding import input_dim
 from hpe.population.core.interface import get_model
 
-MODELS = ["pop_gru", "f1_latent", "f1_trait", "f1_bolt", "f3_arbiter", "f3_fixedshare", "f2_world_policy"]
+MODELS = [
+    "pop_gru",
+    "f1_latent",
+    "f1_trait",
+    "f1_cavia",
+    "f1_bolt",
+    "f3_arbiter",
+    "f3_fixedshare",
+    "f2_world_policy",
+    "f2_delta",
+]
 
 
 def run_one(name: str, kind: str, hetero: bool, n_train: int, T: int, seed: int, cfg: dict) -> dict:
@@ -106,6 +116,35 @@ def main() -> None:
                     + f"params={r['params']} cpu={r['fit_cpu_s']}s causal={r['causal']}",
                     flush=True,
                 )
+    render(path, args.out / "toy_verification.md", args)
+
+
+def render(path: Path, out: Path, args: argparse.Namespace) -> None:
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    lines = [
+        "# Toy verification of the design-team candidates (synthetic data only)",
+        "",
+        f"Train {args.n_train} simulated people, test 80 held-out people, T = {args.T}, seed {args.seed}; "
+        "hidden 16, lr 0.01, m = 10. Δ = adapt − frozen (negative = adaptation helps), paired bootstrap 95 % CI. "
+        "Pass rule: Δ < −0.01 with the CI below 0 when individuals differ (hetero); Δ > −0.005 when they "
+        "do not (homo). `pop_gru` (same hidden size) is shown for scale.",
+        "",
+        "| toy | individuals differ | model | adapt NLL | frozen NLL | Δ adapt − frozen [95% CI] | Δ adapt − donor | params | fit CPU s | causal |",
+        "|---|---|---|---|---|---|---|---|---|---|",
+    ]
+    for r in rows:
+        fz, dn = r.get("adapt_minus_frozen"), r.get("adapt_minus_donor")
+        lines.append(
+            f"| {r['kind']} | {r['hetero']} | {r['model']} | {r['adapt_nll']:.4f} | "
+            + (
+                f"{r['frozen_nll']:.4f} | {fz['estimate']:+.4f} [{fz['ci'][0]:+.4f}, {fz['ci'][1]:+.4f}] | "
+                if fz
+                else "— | — | "
+            )
+            + (f"{dn['estimate']:+.4f} | " if dn else "— | ")
+            + f"{r['params']} | {r['fit_cpu_s']} | {r['causal']} |"
+        )
+    out.write_text("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":
